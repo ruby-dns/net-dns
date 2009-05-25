@@ -3,7 +3,7 @@
 # 	$Id: check_soa.rb,v 1.7 2006/07/30 16:53:57 bluemonk Exp $	
 
 
-
+require 'rubygems' if "#{RUBY_VERSION}" < "1.9.0"
 require 'net/dns/resolver'
 
 #------------------------------------------------------------------------------
