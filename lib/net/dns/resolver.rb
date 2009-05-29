@@ -1022,6 +1022,18 @@ module Net # :nodoc:
         return arr.sort_by {|a| a.preference}
       end
 
+      #
+      # Quick resolver method. Bypass the configuration using
+      # the defaults.
+      #
+      # Example:
+      #
+      #   puts Net::DNS::Resolver.start "www.google.com"
+      #
+      def self.start(*params)
+        self.new.search(*params)
+      end
+
       private
       
       # Parse a configuration file specified as the argument. 
