@@ -38,8 +38,8 @@ end
 
 desc "Build documentation"
 Rake::RDocTask.new do |rd|
-  rd.rdoc_files.include("./*.rdoc")      
   rd.rdoc_files.include("lib/net/dns/**/*.rb")
+  rd.rdoc_files.include("README.rdoc")      
   rd.options << "-S"
 end
 

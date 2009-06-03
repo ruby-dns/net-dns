@@ -1,0 +1,1505 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Net::DNS::Header</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Net::DNS::Header</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/net/dns/header_rb.html">
+                lib/net/dns/header.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Name</h1>
+<p>
+<a href="Header.html">Net::DNS::Header</a> - <a href="../DNS.html">DNS</a>
+packet header class
+</p>
+<h1>Synopsis</h1>
+<pre>
+  require 'net/dns/header'
+</pre>
+<h1>Description</h1>
+<p>
+The <a href="Header.html">Net::DNS::Header</a> class represents the header
+portion of a <a href="../DNS.html">DNS</a> packet. An <a
+href="Header.html">Header</a> object is created whenever a <a
+href="Header.html#M000051">new</a> packet is parsed or as user request.
+</p>
+<pre>
+  header = Net::DNS::Header.new
+    # ;; id = 18123
+    # ;; qr = 0       opCode: 0       aa = 0  tc = 0  rd = 1
+    # ;; ra = 0       ad = 0  cd = 0  rcode = 0
+    # ;; qdCount = 1  anCount = 0     nsCount = 0     arCount = 0
+
+  header.format
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |             18123             |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |0|   0   |0|0|1|0|0| 0 |   0   |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |               1               |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |               0               |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |               0               |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |               0               |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+  # packet is an instance of Net::DNS::Packet
+  header = packet.header
+  puts &quot;Answer is #{header.auth? ? '' : 'non'} authoritative&quot;
+</pre>
+<p>
+A lot of methods were written to keep a compatibility layer with the Perl
+version of the library, as long as methods name which are more or less the
+same.
+</p>
+<h1>Error classes</h1>
+<p>
+Some error classes has been defined for the <a
+href="Header.html">Net::DNS::Header</a> class, which are listed here to
+keep a light and browsable main documentation. We have:
+</p>
+<ul>
+<li>HeaderArgumentError: canonical argument error
+
+</li>
+<li>HeaderWrongCount: a wrong <tt>count</tt> parameter has been passed
+
+</li>
+<li>HeaderWrongRecursive: a wrong <tt>recursive</tt> parameter has been passed
+
+</li>
+<li>HeaderWrongOpcode: a not valid <tt>opCode</tt> has been specified
+
+</li>
+<li>HeaderDuplicateID: the requested ID is already in use
+
+</li>
+</ul>
+<h1>Copyright</h1>
+<p>
+Copyright (c) 2006 Marco Ceresa
+</p>
+<p>
+All rights reserved. This program is free software; you may redistribute it
+and/or modify it under the same terms as Ruby itself.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000063">aa=</a>&nbsp;&nbsp;
+      <a href="#M000074">ad=</a>&nbsp;&nbsp;
+      <a href="#M000079">anCount=</a>&nbsp;&nbsp;
+      <a href="#M000081">arCount=</a>&nbsp;&nbsp;
+      <a href="#M000062">auth?</a>&nbsp;&nbsp;
+      <a href="#M000072">cd=</a>&nbsp;&nbsp;
+      <a href="#M000071">checking?</a>&nbsp;&nbsp;
+      <a href="#M000055">data</a>&nbsp;&nbsp;
+      <a href="#M000076">error?</a>&nbsp;&nbsp;
+      <a href="#M000054">format</a>&nbsp;&nbsp;
+      <a href="#M000056">id=</a>&nbsp;&nbsp;
+      <a href="#M000053">inspect</a>&nbsp;&nbsp;
+      <a href="#M000051">new</a>&nbsp;&nbsp;
+      <a href="#M000080">nsCount=</a>&nbsp;&nbsp;
+      <a href="#M000061">opCode=</a>&nbsp;&nbsp;
+      <a href="#M000060">opCode_str</a>&nbsp;&nbsp;
+      <a href="#M000052">parse</a>&nbsp;&nbsp;
+      <a href="#M000078">qdCount=</a>&nbsp;&nbsp;
+      <a href="#M000058">qr=</a>&nbsp;&nbsp;
+      <a href="#M000057">query?</a>&nbsp;&nbsp;
+      <a href="#M000077">rCode=</a>&nbsp;&nbsp;
+      <a href="#M000075">rCode_str</a>&nbsp;&nbsp;
+      <a href="#M000069">r_available?</a>&nbsp;&nbsp;
+      <a href="#M000070">ra=</a>&nbsp;&nbsp;
+      <a href="#M000068">rd=</a>&nbsp;&nbsp;
+      <a href="#M000067">recursive=</a>&nbsp;&nbsp;
+      <a href="#M000066">recursive?</a>&nbsp;&nbsp;
+      <a href="#M000059">response?</a>&nbsp;&nbsp;
+      <a href="#M000065">tc=</a>&nbsp;&nbsp;
+      <a href="#M000064">truncated?</a>&nbsp;&nbsp;
+      <a href="#M000073">verified?</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Header/RCode.html" class="link">Net::DNS::Header::RCode</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">QUERY</td>
+          <td>=</td>
+          <td class="context-item-value">0</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Constant for <tt>opCode</tt> query
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">IQUERY</td>
+          <td>=</td>
+          <td class="context-item-value">1</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Constant for <tt>opCode</tt> iquery
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STATUS</td>
+          <td>=</td>
+          <td class="context-item-value">2</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Constant for <tt>opCode</tt> status
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">OPARR</td>
+          <td>=</td>
+          <td class="context-item-value">%w[QUERY IQUERY STATUS]</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Array with given strings
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">anCount</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+Reader for answer section entries number
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">arCount</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+Reader for addictional section entries number
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">id</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+Reader for <tt>id</tt> attribute
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">nsCount</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+Reader for authority section entries number
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">opCode</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+Reader for the operational code
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">qdCount</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+Reader for question section entries number
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">rCode</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+Reader for the rCode instance
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000051" class="method-detail">
+        <a name="M000051"></a>
+
+        <div class="method-heading">
+          <a href="#M000051" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(arg = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a <a href="Header.html#M000051">new</a> <a
+href="Header.html">Net::DNS::Header</a> object with the desired values,
+which can be specified as an Hash argument. When called without arguments,
+defaults are used. If a <a href="Header.html#M000055">data</a> string is
+passed, values are taken from parsing the string.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  # Create a new Net::DNS::Header object
+  header = Net::DNS::Header.new
+
+  # Create a new Net::DNS::Header object passing values
+  header = Net::DNS::Header.new(:opCode =&gt; 1, :rd =&gt; 0)
+
+  # Create a new Net::DNS::Header object with binary data
+  header = Net::DNS::Header.new(data)
+</pre>
+<p>
+Default values are:
+</p>
+<pre>
+  :id =&gt; auto generated
+  :qr      =&gt; 0 # Query response flag
+  :aa      =&gt; 0 # Authoritative answer flag
+  :tc      =&gt; 0 # Truncated packet flag
+  :ra      =&gt; 0 # Recursiond available flag
+  :rCode   =&gt; 0 # Response code (status of the query)
+  :opCode  =&gt; 0 # Operational code (purpose of the query)
+  :cd      =&gt; 0 # Checking disable flag
+  :ad      =&gt; 0 # Only relevant in DNSSEC context
+  :rd      =&gt; 1 # Recursion desired flag
+  :qdCount =&gt; 1 # Number of questions in the dns packet
+  :anCount =&gt; 0 # Number of answer RRs in the dns packet
+  :nsCount =&gt; 0 # Number of authoritative RRs in the dns packet
+  :arCount =&gt; 0 # Number of additional RRs in the dns packet
+</pre>
+<p>
+See also each option for a detailed explanation of usage.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000051-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000051-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 239</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">arg</span> = {})
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Hash</span>
+          <span class="ruby-identifier">new_from_hash</span>(<span class="ruby-identifier">arg</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderArgumentError</span>, <span class="ruby-node">&quot;Wrong argument class: #{arg.class}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000052" class="method-detail">
+        <a name="M000052"></a>
+
+        <div class="method-heading">
+          <a href="#M000052" class="method-signature">
+          <span class="method-name">parse</span><span class="method-args">(arg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a <a href="Header.html#M000051">new</a> <a
+href="Header.html">Net::DNS::Header</a> object from binary <a
+href="Header.html#M000055">data</a>, which is passed as a string object as
+argument. The configurations parameters are taken from parsing the string.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  # Create a new Net::DNS::Header object with binary data
+  header = Net::DNS::Header.new(data)
+
+  header.auth?
+    #=&gt; &quot;true&quot; if it comes from authoritative name server
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000052-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000052-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 259</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">arg</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">String</span>
+          <span class="ruby-identifier">o</span> = <span class="ruby-identifier">allocate</span>
+          <span class="ruby-identifier">o</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">:new_from_binary</span>, <span class="ruby-identifier">arg</span>)
+          <span class="ruby-identifier">o</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderArgumentError</span>, <span class="ruby-node">&quot;Wrong argument class: #{arg.class}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000063" class="method-detail">
+        <a name="M000063"></a>
+
+        <div class="method-heading">
+          <a href="#M000063" class="method-signature">
+          <span class="method-name">aa=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the <tt>aa</tt> flag (authoritative answer) to either <tt>true</tt> or
+<tt>false</tt>. You can also use 0 or 1.
+</p>
+<p>
+This flag indicates whether a <a href="../DNS.html">DNS</a> answer packet
+contains authoritative <a href="Header.html#M000055">data</a>, meaning that
+is was generated by a nameserver authoritative for the domain of the
+question.
+</p>
+<p>
+Must only be set to <tt>true</tt> in <a href="../DNS.html">DNS</a> answer
+packets.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000063-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000063-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 459</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">aa=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">true</span>
+          <span class="ruby-ivar">@aa</span> = <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">false</span>
+          <span class="ruby-ivar">@aa</span> = <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>,<span class="ruby-value">1</span>
+          <span class="ruby-ivar">@aa</span> = <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderArgumentError</span>, <span class="ruby-value str">&quot;:aa must be true(or 1) or false(or 0)&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000074" class="method-detail">
+        <a name="M000074"></a>
+
+        <div class="method-heading">
+          <a href="#M000074" class="method-signature">
+          <span class="method-name">ad=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the <tt>ad</tt> flag to either <tt>true</tt> ot <tt>false</tt>. You can
+also use 0 or 1.
+</p>
+<p>
+The AD bit is only set on answers where signatures have been
+cryptographically verified or the server is authoritative for the <a
+href="Header.html#M000055">data</a> and is allowed to set the bit by
+policy.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000074-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000074-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 614</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ad=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">true</span>
+          <span class="ruby-ivar">@ad</span> = <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">false</span>
+          <span class="ruby-ivar">@ad</span> = <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>,<span class="ruby-value">1</span>
+          <span class="ruby-ivar">@ad</span> = <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderArgumentError</span>, <span class="ruby-value str">&quot;:ad must be true(or 1) or false(or 0)&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000079" class="method-detail">
+        <a name="M000079"></a>
+
+        <div class="method-heading">
+          <a href="#M000079" class="method-signature">
+          <span class="method-name">anCount=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the number of RRs in an answer section
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000079-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000079-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 668</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">anCount=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">65535</span>).<span class="ruby-identifier">include?</span> <span class="ruby-identifier">val</span>
+          <span class="ruby-ivar">@anCount</span> = <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderWrongCount</span>, <span class="ruby-node">&quot;Wrong number of count (#{val}), must be 0-65535&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000081" class="method-detail">
+        <a name="M000081"></a>
+
+        <div class="method-heading">
+          <a href="#M000081" class="method-signature">
+          <span class="method-name">arCount=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the number of RRs in an addictional section
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000081-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000081-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 688</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arCount=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">65535</span>).<span class="ruby-identifier">include?</span> <span class="ruby-identifier">val</span>
+          <span class="ruby-ivar">@arCount</span> = <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderWrongCount</span>, <span class="ruby-node">&quot;Wrong number of count (#{val}), must be 0-65535&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000062" class="method-detail">
+        <a name="M000062"></a>
+
+        <div class="method-heading">
+          <a href="#M000062" class="method-signature">
+          <span class="method-name">auth?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks whether the response is authoritative
+</p>
+<pre>
+  if header.auth?
+    puts &quot;Response is authoritative&quot;
+  else
+    puts &quot;Answer is NOT authoritative&quot;
+  end
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000062-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000062-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 446</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">auth?</span>
+        <span class="ruby-ivar">@aa</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000072" class="method-detail">
+        <a name="M000072"></a>
+
+        <div class="method-heading">
+          <a href="#M000072" class="method-signature">
+          <span class="method-name">cd=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the <tt>cd</tt> flag (checking disabled) to either <tt>true</tt> ot
+<tt>false</tt>. You can also use 0 or 1.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000072-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000072-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 586</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cd=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">true</span>
+          <span class="ruby-ivar">@cd</span> = <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">false</span>
+          <span class="ruby-ivar">@cd</span> = <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>,<span class="ruby-value">1</span>
+          <span class="ruby-ivar">@cd</span> = <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderArgumentError</span>, <span class="ruby-value str">&quot;:cd must be true(or 1) or false(or 0)&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000071" class="method-detail">
+        <a name="M000071"></a>
+
+        <div class="method-heading">
+          <a href="#M000071" class="method-signature">
+          <span class="method-name">checking?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks whether checking is enabled or disabled.
+</p>
+<p>
+Checking is enabled by default.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000071-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000071-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 579</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">checking?</span>
+        <span class="ruby-ivar">@cd</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000055" class="method-detail">
+        <a name="M000055"></a>
+
+        <div class="method-heading">
+          <a href="#M000055" class="method-signature">
+          <span class="method-name">data</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the header <a href="Header.html#M000055">data</a> in binary <a
+href="Header.html#M000054">format</a>, appropriate for use in a <a
+href="../DNS.html">DNS</a> query packet.
+</p>
+<pre>
+  hdata = header.data
+  puts &quot;Header is #{hdata.size} bytes&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000055-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000055-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 348</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">data</span>
+        <span class="ruby-identifier">arr</span> = []
+        <span class="ruby-identifier">arr</span>.<span class="ruby-identifier">push</span>(<span class="ruby-ivar">@id</span>)
+        <span class="ruby-identifier">arr</span>.<span class="ruby-identifier">push</span>((<span class="ruby-ivar">@qr</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-value">7</span>)<span class="ruby-operator">|</span>(<span class="ruby-ivar">@opCode</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-value">3</span>)<span class="ruby-operator">|</span>(<span class="ruby-ivar">@aa</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-value">2</span>)<span class="ruby-operator">|</span>(<span class="ruby-ivar">@tc</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-value">1</span>)<span class="ruby-operator">|</span><span class="ruby-ivar">@rd</span>)
+        <span class="ruby-identifier">arr</span>.<span class="ruby-identifier">push</span>((<span class="ruby-ivar">@ra</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-value">7</span>)<span class="ruby-operator">|</span>(<span class="ruby-ivar">@ad</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-value">5</span>)<span class="ruby-operator">|</span>(<span class="ruby-ivar">@cd</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-value">4</span>)<span class="ruby-operator">|</span><span class="ruby-ivar">@rCode</span>.<span class="ruby-identifier">code</span>)
+        <span class="ruby-identifier">arr</span>.<span class="ruby-identifier">push</span>(<span class="ruby-ivar">@qdCount</span>)
+        <span class="ruby-identifier">arr</span>.<span class="ruby-identifier">push</span>(<span class="ruby-ivar">@anCount</span>)
+        <span class="ruby-identifier">arr</span>.<span class="ruby-identifier">push</span>(<span class="ruby-ivar">@nsCount</span>)
+        <span class="ruby-identifier">arr</span>.<span class="ruby-identifier">push</span>(<span class="ruby-ivar">@arCount</span>)
+        <span class="ruby-identifier">arr</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;n C2 n4&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000076" class="method-detail">
+        <a name="M000076"></a>
+
+        <div class="method-heading">
+          <a href="#M000076" class="method-signature">
+          <span class="method-name">error?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks for errors in the <a href="../DNS.html">DNS</a> packet
+</p>
+<pre>
+  unless header.error?
+    puts &quot;No errors in DNS answer packet&quot;
+  end
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000076-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000076-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 645</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">error?</span>
+        <span class="ruby-ivar">@rCode</span>.<span class="ruby-identifier">code</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000054" class="method-detail">
+        <a name="M000054"></a>
+
+        <div class="method-heading">
+          <a href="#M000054" class="method-signature">
+          <span class="method-name">format</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The <a href="Header.html#M000054">Net::DNS::Header#format</a> method prints
+out the header in a special ascii representation of <a
+href="Header.html#M000055">data</a>, in a way similar to those often found
+on RFCs.
+</p>
+<pre>
+  p Net::DNS::Header.new.format
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |             18123             |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |0|   0   |0|0|1|0|0| 0 |   0   |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |               1               |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |               0               |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |               0               |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #  |               0               |
+    #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+<p>
+This can be very usefull for didactical purpouses :)
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000054-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000054-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 322</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">format</span> 
+        <span class="ruby-identifier">del</span> = (<span class="ruby-value str">&quot;+-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-value">16</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;+\n&quot;</span>
+        <span class="ruby-identifier">len</span> = <span class="ruby-identifier">del</span>.<span class="ruby-identifier">length</span>
+        <span class="ruby-identifier">str</span> = <span class="ruby-identifier">del</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@id</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">center</span>(<span class="ruby-identifier">len</span><span class="ruby-operator">-</span><span class="ruby-value">3</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|\n&quot;</span>
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">del</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@qr</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@opCode</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">center</span>(<span class="ruby-value">7</span>)
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@aa</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@tc</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@rd</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@ra</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@ad</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@cd</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">center</span>(<span class="ruby-value">3</span>)
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@rCode</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">center</span>(<span class="ruby-value">7</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|\n&quot;</span>
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">del</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@qdCount</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">center</span>(<span class="ruby-identifier">len</span><span class="ruby-operator">-</span><span class="ruby-value">3</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|\n&quot;</span>
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">del</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@anCount</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">center</span>(<span class="ruby-identifier">len</span><span class="ruby-operator">-</span><span class="ruby-value">3</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|\n&quot;</span>
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">del</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@nsCount</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">center</span>(<span class="ruby-identifier">len</span><span class="ruby-operator">-</span><span class="ruby-value">3</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|\n&quot;</span>
+        <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">del</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@arCount</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">center</span>(<span class="ruby-identifier">len</span><span class="ruby-operator">-</span><span class="ruby-value">3</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;|\n&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">del</span>
+        <span class="ruby-identifier">str</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000056" class="method-detail">
+        <a name="M000056"></a>
+
+        <div class="method-heading">
+          <a href="#M000056" class="method-signature">
+          <span class="method-name">id=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the ID for the current header. Useful when performing security tests.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000056-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000056-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 363</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">id=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@@id_arr</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">val</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderDuplicateID</span>, <span class="ruby-node">&quot;ID #{val} already used&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">65535</span>).<span class="ruby-identifier">include?</span> <span class="ruby-identifier">val</span>
+          <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">val</span>
+          <span class="ruby-ivar">@@id_arr</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderArgumentError</span>, <span class="ruby-node">&quot;ID #{val} out of range&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000053" class="method-detail">
+        <a name="M000053"></a>
+
+        <div class="method-heading">
+          <a href="#M000053" class="method-signature">
+          <span class="method-name">inspect</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Inspect method, prints out all the options and relative values.
+</p>
+<pre>
+  p Net::DNS::Header.new
+    # ;; id = 18123
+    # ;; qr = 0       opCode: 0       aa = 0  tc = 0  rd = 1
+    # ;; ra = 0       ad = 0  cd = 0  rcode = 0
+    # ;; qdCount = 1  anCount = 0     nsCount = 0     arCount = 0
+</pre>
+<p>
+This method will maybe be changed in the future to a more pretty way of
+display output.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000053-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000053-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 280</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inspect</span> 
+        <span class="ruby-value str">&quot;;; id = #@id\n&quot;</span> <span class="ruby-operator">+</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">false</span> <span class="ruby-comment cmt"># @opCode == &quot;UPDATE&quot;</span>
+            <span class="ruby-comment cmt">#do stuff</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-value str">&quot;;; qr = #@qr\t&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-node">&quot;opCode: #{opCode_str}\t&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-value str">&quot;aa = #@aa\t&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-value str">&quot;tc = #@tc\t&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-value str">&quot;rd = #@rd\n&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-value str">&quot;;; ra = #@ra\t&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-value str">&quot;ad = #@ad\t&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-value str">&quot;cd = #@cd\t&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-node">&quot;rcode = #{@rCode.type}\n&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-value str">&quot;;; qdCount = #@qdCount\t&quot;</span><span class="ruby-operator">+</span>
+              <span class="ruby-value str">&quot;anCount = #@anCount\t&quot;</span><span class="ruby-operator">+</span>
+              <span class="ruby-value str">&quot;nsCount = #@nsCount\t&quot;</span><span class="ruby-operator">+</span>
+              <span class="ruby-value str">&quot;arCount = #@arCount\n&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000080" class="method-detail">
+        <a name="M000080"></a>
+
+        <div class="method-heading">
+          <a href="#M000080" class="method-signature">
+          <span class="method-name">nsCount=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the number of RRs in an authority section
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000080-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000080-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 678</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nsCount=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">65535</span>).<span class="ruby-identifier">include?</span> <span class="ruby-identifier">val</span>
+          <span class="ruby-ivar">@nsCount</span> = <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderWrongCount</span>, <span class="ruby-node">&quot;Wrong number of count (#{val}), must be 0-65535&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000061" class="method-detail">
+        <a name="M000061"></a>
+
+        <div class="method-heading">
+          <a href="#M000061" class="method-signature">
+          <span class="method-name">opCode=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the <tt>opCode</tt> variable to a <a href="Header.html#M000051">new</a>
+value. This fields indicates the type of the question present in the <a
+href="../DNS.html">DNS</a> packet; <tt>val</tt> can be one of the values
+QUERY, IQUERY or STATUS.
+</p>
+<ul>
+<li>QUERY is the standard <a href="../DNS.html">DNS</a> query
+
+</li>
+<li>IQUERY is the inverse query
+
+</li>
+<li>STATUS is used to query the nameserver for its status
+
+</li>
+</ul>
+<p>
+Example:
+</p>
+<pre>
+  include Net::DNS
+  header = Header.new
+  header.opCode = Header::STATUS
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000061-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000061-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 430</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">opCode=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">2</span>).<span class="ruby-identifier">include?</span> <span class="ruby-identifier">val</span>
+          <span class="ruby-ivar">@opCode</span> = <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderWrongOpcode</span>, <span class="ruby-node">&quot;Wrong opCode value (#{val}), must be QUERY, IQUERY or STATUS&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000060" class="method-detail">
+        <a name="M000060"></a>
+
+        <div class="method-heading">
+          <a href="#M000060" class="method-signature">
+          <span class="method-name">opCode_str</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a string representation of the <tt>opCode</tt>
+</p>
+<pre>
+  puts &quot;Packet is a #{header.opCode_str}&quot;
+    #=&gt; Packet is a QUERY
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000060-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000060-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 412</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">opCode_str</span>
+        <span class="ruby-constant">OPARR</span>[<span class="ruby-ivar">@opCode</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000078" class="method-detail">
+        <a name="M000078"></a>
+
+        <div class="method-heading">
+          <a href="#M000078" class="method-signature">
+          <span class="method-name">qdCount=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the number of entries in a question section
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000078-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000078-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 658</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">qdCount=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">65535</span>).<span class="ruby-identifier">include?</span> <span class="ruby-identifier">val</span>
+          <span class="ruby-ivar">@qdCount</span> = <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderWrongCount</span>, <span class="ruby-node">&quot;Wrong number of count (#{val}), must be 0-65535&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000058" class="method-detail">
+        <a name="M000058"></a>
+
+        <div class="method-heading">
+          <a href="#M000058" class="method-signature">
+          <span class="method-name">qr=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the <tt>qr</tt> query response flag to be either <tt>true</tt> or
+<tt>false</tt>. You can also use the values 0 and 1. This flag indicates if
+the <a href="../DNS.html">DNS</a> packet contains a query or an answer, so
+it should be set to <tt>true</tt> in <a href="../DNS.html">DNS</a> answer
+packets. If <tt>qr</tt> is <tt>true</tt>, the packet is a response.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000058-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000058-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 387</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">qr=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">true</span>
+          <span class="ruby-ivar">@qr</span> = <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">false</span>
+          <span class="ruby-ivar">@qr</span> = <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>,<span class="ruby-value">1</span>
+          <span class="ruby-ivar">@qr</span> = <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderArgumentError</span>, <span class="ruby-value str">&quot;:qr must be true(or 1) or false(or 0)&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000057" class="method-detail">
+        <a name="M000057"></a>
+
+        <div class="method-heading">
+          <a href="#M000057" class="method-signature">
+          <span class="method-name">query?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks whether the header is a query (<tt>qr</tt> bit set to 0)
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000057-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000057-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 377</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">query?</span>
+        <span class="ruby-ivar">@qr</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000077" class="method-detail">
+        <a name="M000077"></a>
+
+        <div class="method-heading">
+          <a href="#M000077" class="method-signature">
+          <span class="method-name">rCode=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the rCode value. This should only be done in <a
+href="../DNS.html">DNS</a> answer packets.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000077-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000077-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 652</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rCode=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-ivar">@rCode</span> = <span class="ruby-constant">RCode</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">val</span>)
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000075" class="method-detail">
+        <a name="M000075"></a>
+
+        <div class="method-heading">
+          <a href="#M000075" class="method-signature">
+          <span class="method-name">rCode_str</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns an error array for the header response code, or <tt>nil</tt> if no
+error is generated.
+</p>
+<pre>
+  error, cause = header.rCode_str
+  puts &quot;Error #{error} cause by: #{cause}&quot; if error
+    #=&gt; Error ForErr caused by: The name server
+    #=&gt; was unable to interpret the query
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000075-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000075-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 635</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rCode_str</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">rCode</span>.<span class="ruby-identifier">type</span>, <span class="ruby-identifier">rCode</span>.<span class="ruby-identifier">explanation</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000069" class="method-detail">
+        <a name="M000069"></a>
+
+        <div class="method-heading">
+          <a href="#M000069" class="method-signature">
+          <span class="method-name">r_available?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks whether recursion is available. This flag is usually set by
+nameservers to indicate that they support recursive-type queries.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000069-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000069-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 553</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">r_available?</span>
+        <span class="ruby-ivar">@ra</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000070" class="method-detail">
+        <a name="M000070"></a>
+
+        <div class="method-heading">
+          <a href="#M000070" class="method-signature">
+          <span class="method-name">ra=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the <tt>ra</tt> flag (recursion available) to either <tt>true</tt> or
+<tt>false</tt>. You can also use 0 and 1.
+</p>
+<p>
+This flag must only be set in <a href="../DNS.html">DNS</a> answer packets.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000070-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000070-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 562</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ra=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">true</span>
+          <span class="ruby-ivar">@ra</span> = <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">false</span>
+          <span class="ruby-ivar">@ra</span> = <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>,<span class="ruby-value">1</span>
+          <span class="ruby-ivar">@ra</span> = <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderArgumentError</span>, <span class="ruby-value str">&quot;:ra must be true(or 1) or false(or 0)&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000068" class="method-detail">
+        <a name="M000068"></a>
+
+        <div class="method-heading">
+          <a href="#M000068" class="method-signature">
+          <span class="method-name">rd=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for Header#recursive= to keep compatibility with the Perl version.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000068-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000068-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 545</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rd=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">recursive</span> = <span class="ruby-identifier">val</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000067" class="method-detail">
+        <a name="M000067"></a>
+
+        <div class="method-heading">
+          <a href="#M000067" class="method-signature">
+          <span class="method-name">recursive=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the recursion desidered bit. Remember that recursion query support is
+optional.
+</p>
+<pre>
+  header.recursive = true
+  hdata = header.data # suitable for sending
+</pre>
+<p>
+Consult RFC1034 and RFC1035 for a detailed explanation of how recursion
+works.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000067-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000067-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 527</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">recursive=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">true</span>
+          <span class="ruby-ivar">@rd</span> = <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">false</span>
+          <span class="ruby-ivar">@rd</span> = <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">1</span>
+          <span class="ruby-ivar">@rd</span> = <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>
+          <span class="ruby-ivar">@rd</span> = <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderWrongRecursive</span>, <span class="ruby-node">&quot;Wrong value (#{val}), please specify true (1) or false (0)&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000066" class="method-detail">
+        <a name="M000066"></a>
+
+        <div class="method-heading">
+          <a href="#M000066" class="method-signature">
+          <span class="method-name">recursive?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks whether the packet has a recursion bit set, meaning that recursion
+is desired
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000066-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000066-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 513</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">recursive?</span>
+        <span class="ruby-ivar">@rd</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000059" class="method-detail">
+        <a name="M000059"></a>
+
+        <div class="method-heading">
+          <a href="#M000059" class="method-signature">
+          <span class="method-name">response?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks whether the header is a response (<tt>qr</tt> bit set to 1)
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000059-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000059-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 403</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">response?</span>
+        <span class="ruby-ivar">@qr</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000065" class="method-detail">
+        <a name="M000065"></a>
+
+        <div class="method-heading">
+          <a href="#M000065" class="method-signature">
+          <span class="method-name">tc=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the <tt>tc</tt> flag (truncated packet) to either <tt>true</tt> ot
+<tt>false</tt>. You can also use 0 or 1.
+</p>
+<p>
+The truncated flag is used in response packets to indicate that the amount
+of <a href="Header.html#M000055">data</a> to be trasmitted exceedes the
+maximum allowed by the protocol in use, tipically UDP, and that the <a
+href="Header.html#M000055">data</a> present in the packet has been
+truncated. A different protocol (such has TCP) need to be used to retrieve
+full <a href="Header.html#M000055">data</a>.
+</p>
+<p>
+Must only be set in <a href="../DNS.html">DNS</a> answer packets.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000065-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000065-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 497</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tc=</span>(<span class="ruby-identifier">val</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">true</span>
+          <span class="ruby-ivar">@tc</span> = <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">false</span>
+          <span class="ruby-ivar">@tc</span> = <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>,<span class="ruby-value">1</span>
+          <span class="ruby-ivar">@tc</span> = <span class="ruby-identifier">val</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HeaderArgumentError</span>, <span class="ruby-value str">&quot;:tc must be true(or 1) or false(or 0)&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000064" class="method-detail">
+        <a name="M000064"></a>
+
+        <div class="method-heading">
+          <a href="#M000064" class="method-signature">
+          <span class="method-name">truncated?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks whether the packet was truncated
+</p>
+<pre>
+  # Sending packet using UDP
+  if header.truncated?
+    puts &quot;Warning, packet has been truncated!&quot;
+    # Sending packet using TCP
+  end
+  # Do something with the answer
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000064-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000064-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 481</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">truncated?</span>
+        <span class="ruby-ivar">@tc</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000073" class="method-detail">
+        <a name="M000073"></a>
+
+        <div class="method-heading">
+          <a href="#M000073" class="method-signature">
+          <span class="method-name">verified?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks whether <tt>ad</tt> flag has been set.
+</p>
+<p>
+This flag is only relevant in DNSSEC context.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000073-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000073-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/header.rb, line 603</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verified?</span>
+        <span class="ruby-ivar">@ad</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

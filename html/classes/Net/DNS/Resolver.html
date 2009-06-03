@@ -1,0 +1,2500 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Net::DNS::Resolver</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Net::DNS::Resolver</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/net/dns/resolver_rb.html">
+                lib/net/dns/resolver.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Name</h1>
+<p>
+<a href="Resolver.html">Net::DNS::Resolver</a> - <a
+href="../DNS.html">DNS</a> resolver class
+</p>
+<h1>Synopsis</h1>
+<pre>
+   require 'net/dns/resolver'
+</pre>
+<h1>Description</h1>
+<p>
+The <a href="Resolver.html">Net::DNS::Resolver</a> class implements a
+complete <a href="../DNS.html">DNS</a> resolver written in pure Ruby,
+without a single C line of code. It has all of the tipical properties of an
+evoluted resolver, and a bit of OO which comes from having used Ruby.
+</p>
+<p>
+This project started as a porting of the <a href="../DNS.html">Net::DNS</a>
+Perl module, written by Martin Fuhr, but turned out (in the last months) to
+be an almost complete rewriting. Well, maybe some of the features of the
+Perl version are still missing, but guys, at least this is readable code!
+</p>
+<p>
+FIXME
+</p>
+<h1>Environment</h1>
+<p>
+The Following Environment variables can also be used to configure the
+resolver:
+</p>
+<ul>
+<li><tt>RES_NAMESERVERS</tt>: A space-separated list of <a
+href="Resolver.html#M000092">nameservers</a> to <a
+href="Resolver.html#M000144">query</a>.
+
+<pre>
+   # Bourne Shell
+   $ RES_NAMESERVERS=&quot;192.168.1.1 192.168.2.2 192.168.3.3&quot;
+   $ export RES_NAMESERVERS
+
+   # C Shell
+   % setenv RES_NAMESERVERS &quot;192.168.1.1 192.168.2.2 192.168.3.3&quot;
+</pre>
+</li>
+<li><tt>RES_SEARCHLIST</tt>: A space-separated list of domains to put in the <a
+href="Resolver.html#M000143">search</a> list.
+
+<pre>
+   # Bourne Shell
+   $ RES_SEARCHLIST=&quot;example.com sub1.example.com sub2.example.com&quot;
+   $ export RES_SEARCHLIST
+
+   # C Shell
+   % setenv RES_SEARCHLIST &quot;example.com sub1.example.com sub2.example.com&quot;
+</pre>
+</li>
+<li><tt>LOCALDOMAIN</tt>: The default <a
+href="Resolver.html#M000095">domain</a>.
+
+<pre>
+   # Bourne Shell
+   $ LOCALDOMAIN=example.com
+   $ export LOCALDOMAIN
+
+   # C Shell
+   % setenv LOCALDOMAIN example.com
+</pre>
+</li>
+<li><tt>RES_OPTIONS</tt>: A space-separated list of resolver options to set.
+Options that take values are specified as option:value.
+
+<pre>
+   # Bourne Shell
+   $ RES_OPTIONS=&quot;retrans:3 retry:2 debug&quot;
+   $ export RES_OPTIONS
+
+   # C Shell
+   % setenv RES_OPTIONS &quot;retrans:3 retry:2 debug&quot;
+</pre>
+</li>
+</ul>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000146">axfr</a>&nbsp;&nbsp;
+      <a href="#M000123">defname</a>&nbsp;&nbsp;
+      <a href="#M000124">defname=</a>&nbsp;&nbsp;
+      <a href="#M000122">defname?</a>&nbsp;&nbsp;
+      <a href="#M000125">dns_search</a>&nbsp;&nbsp;
+      <a href="#M000127">dns_search=</a>&nbsp;&nbsp;
+      <a href="#M000126">dnsrch</a>&nbsp;&nbsp;
+      <a href="#M000095">domain</a>&nbsp;&nbsp;
+      <a href="#M000096">domain=</a>&nbsp;&nbsp;
+      <a href="#M000134">ignore_truncated</a>&nbsp;&nbsp;
+      <a href="#M000135">ignore_truncated=</a>&nbsp;&nbsp;
+      <a href="#M000133">ignore_truncated?</a>&nbsp;&nbsp;
+      <a href="#M000121">inspect</a>&nbsp;&nbsp;
+      <a href="#M000140">log_file=</a>&nbsp;&nbsp;
+      <a href="#M000142">log_level=</a>&nbsp;&nbsp;
+      <a href="#M000141">logger=</a>&nbsp;&nbsp;
+      <a href="#M000147">mx</a>&nbsp;&nbsp;
+      <a href="#M000093">nameserver</a>&nbsp;&nbsp;
+      <a href="#M000092">nameservers</a>&nbsp;&nbsp;
+      <a href="#M000094">nameservers=</a>&nbsp;&nbsp;
+      <a href="#M000089">new</a>&nbsp;&nbsp;
+      <a href="#M000097">packet_size</a>&nbsp;&nbsp;
+      <a href="#M000098">port</a>&nbsp;&nbsp;
+      <a href="#M000099">port=</a>&nbsp;&nbsp;
+      <a href="#M000120">print</a>&nbsp;&nbsp;
+      <a href="#M000144">query</a>&nbsp;&nbsp;
+      <a href="#M000115">recurse</a>&nbsp;&nbsp;
+      <a href="#M000118">recurse=</a>&nbsp;&nbsp;
+      <a href="#M000116">recursive</a>&nbsp;&nbsp;
+      <a href="#M000117">recursive=</a>&nbsp;&nbsp;
+      <a href="#M000114">recursive?</a>&nbsp;&nbsp;
+      <a href="#M000109">retrans</a>&nbsp;&nbsp;
+      <a href="#M000111">retrans=</a>&nbsp;&nbsp;
+      <a href="#M000108">retry_interval</a>&nbsp;&nbsp;
+      <a href="#M000110">retry_interval=</a>&nbsp;&nbsp;
+      <a href="#M000112">retry_number</a>&nbsp;&nbsp;
+      <a href="#M000113">retry_number=</a>&nbsp;&nbsp;
+      <a href="#M000143">search</a>&nbsp;&nbsp;
+      <a href="#M000090">searchlist</a>&nbsp;&nbsp;
+      <a href="#M000091">searchlist=</a>&nbsp;&nbsp;
+      <a href="#M000145">send</a>&nbsp;&nbsp;
+      <a href="#M000104">source_address</a>&nbsp;&nbsp;
+      <a href="#M000106">source_address=</a>&nbsp;&nbsp;
+      <a href="#M000100">source_port</a>&nbsp;&nbsp;
+      <a href="#M000102">source_port=</a>&nbsp;&nbsp;
+      <a href="#M000105">srcaddr</a>&nbsp;&nbsp;
+      <a href="#M000107">srcaddr=</a>&nbsp;&nbsp;
+      <a href="#M000101">srcport</a>&nbsp;&nbsp;
+      <a href="#M000103">srcport=</a>&nbsp;&nbsp;
+      <a href="#M000148">start</a>&nbsp;&nbsp;
+      <a href="#M000119">state</a>&nbsp;&nbsp;
+      <a href="#M000136">tcp_timeout</a>&nbsp;&nbsp;
+      <a href="#M000137">tcp_timeout=</a>&nbsp;&nbsp;
+      <a href="#M000138">udp_timeout</a>&nbsp;&nbsp;
+      <a href="#M000139">udp_timeout=</a>&nbsp;&nbsp;
+      <a href="#M000130">use_tcp</a>&nbsp;&nbsp;
+      <a href="#M000131">use_tcp=</a>&nbsp;&nbsp;
+      <a href="#M000128">use_tcp?</a>&nbsp;&nbsp;
+      <a href="#M000129">usevc</a>&nbsp;&nbsp;
+      <a href="#M000132">usevc=</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Defaults</td>
+          <td>=</td>
+          <td class="context-item-value">{         :config_file =&gt; &quot;/etc/resolv.conf&quot;,         :log_file =&gt; $stdout,         :port =&gt; 53,         :searchlist =&gt; [],         :nameservers =&gt; [IPAddr.new(&quot;127.0.0.1&quot;)],         :domain =&gt; &quot;&quot;,         :source_port =&gt; 0,         :source_address =&gt; IPAddr.new(&quot;0.0.0.0&quot;),         :retry_interval =&gt; 5,         :retry_number =&gt; 4,         :recursive =&gt; true,         :defname =&gt; true,         :dns_search =&gt; true,         :use_tcp =&gt; false,         :ignore_truncated =&gt; false,         :packet_size =&gt; 512,         :tcp_timeout =&gt; TcpTimeout.new(120),         :udp_timeout =&gt; UdpTimeout.new(0)}</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+An hash with the defaults values of almost all the configuration parameters
+of a resolver object. See the description for each parameter to have an
+explanation of its usage.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+    <div id="aliases-list">
+      <h3 class="section-bar">External Aliases</h3>
+
+      <div class="name-list">
+                        <table summary="aliases">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">"nameservers="</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">"nameserver="</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">'retry_number='</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">'retry='</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">"dns_search="</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">"dnsrch="</td>
+        </tr>
+                        </table>
+      </div>
+    </div>
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000089" class="method-detail">
+        <a name="M000089"></a>
+
+        <div class="method-heading">
+          <a href="#M000089" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(config = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a <a href="Resolver.html#M000089">new</a> resolver object.
+</p>
+<p>
+Argument <tt>config</tt> can either be empty or be an hash with some
+configuration parameters. To know what each parameter do, look at the
+description of each. Some example:
+</p>
+<pre>
+  # Use the sistem defaults
+  res = Net::DNS::Resolver.new
+
+  # Specify a configuration file
+  res = Net::DNS::Resolver.new(:config_file =&gt; '/my/dns.conf')
+
+  # Set some option
+  res = Net::DNS::Resolver.new(:nameservers =&gt; &quot;172.16.1.1&quot;,
+                               :recursive =&gt; false,
+                               :retry =&gt; 10)
+</pre>
+<h3>Config file</h3>
+<p>
+<a href="Resolver.html">Net::DNS::Resolver</a> uses a config file to read
+the usual values a resolver needs, such as <a
+href="Resolver.html#M000093">nameserver</a> list and <a
+href="Resolver.html#M000095">domain</a> names. On UNIX systems the defaults
+are read from the following files, in the order indicated:
+</p>
+<ul>
+<li>/etc/resolv.conf
+
+</li>
+<li>$HOME/.resolv.conf
+
+</li>
+<li>./.resolv.conf
+
+</li>
+</ul>
+<p>
+The following keywords are recognized in resolver configuration files:
+</p>
+<ul>
+<li><a href="Resolver.html#M000095">domain</a>: the default <a
+href="Resolver.html#M000095">domain</a>.
+
+</li>
+<li><a href="Resolver.html#M000143">search</a>: a space-separated list of
+domains to put in the <a href="Resolver.html#M000143">search</a> list.
+
+</li>
+<li><a href="Resolver.html#M000093">nameserver</a>: a space-separated list of
+<a href="Resolver.html#M000092">nameservers</a> to <a
+href="Resolver.html#M000144">query</a>.
+
+</li>
+</ul>
+<p>
+Files except for /etc/resolv.conf must be owned by the effective userid
+running the program or they won&#8216;t be read. In addition, several
+environment variables can also contain configuration information; see
+Environment in the main description for <a
+href="Resolver.html">Resolver</a> class.
+</p>
+<p>
+On Windows Systems, an attempt is made to determine the system defaults
+using the registry. This is still a work in progress; systems with many
+dynamically configured network interfaces may confuse <a
+href="../DNS.html">Net::DNS</a>.
+</p>
+<p>
+You can include a configuration file of your own when creating a resolver
+object:
+</p>
+<pre>
+  # Use my own configuration file
+  my $res = Net::DNS::Resolver-&gt;new(config_file =&gt; '/my/dns.conf');
+</pre>
+<p>
+This is supported on both UNIX and Windows. Values pulled from a custom
+configuration file override the the system&#8216;s defaults, but can still
+be overridden by the other arguments to Resolver::new.
+</p>
+<p>
+Explicit arguments to Resolver::new override both the system&#8216;s
+defaults and the values of the custom configuration file, if any.
+</p>
+<h3>Parameters</h3>
+<p>
+The following arguments to Resolver::new are supported:
+</p>
+<ul>
+<li><a href="Resolver.html#M000092">nameservers</a>: an array reference of <a
+href="Resolver.html#M000092">nameservers</a> to <a
+href="Resolver.html#M000144">query</a>.
+
+</li>
+<li><a href="Resolver.html#M000090">searchlist</a>: an array reference of
+domains.
+
+</li>
+<li><a href="Resolver.html#M000115">recurse</a>
+
+</li>
+<li>debug
+
+</li>
+<li><a href="Resolver.html#M000095">domain</a>
+
+</li>
+<li><a href="Resolver.html#M000098">port</a>
+
+</li>
+<li><a href="Resolver.html#M000105">srcaddr</a>
+
+</li>
+<li><a href="Resolver.html#M000101">srcport</a>
+
+</li>
+<li><a href="Resolver.html#M000136">tcp_timeout</a>
+
+</li>
+<li><a href="Resolver.html#M000138">udp_timeout</a>
+
+</li>
+<li><a href="Resolver.html#M000109">retrans</a>
+
+</li>
+<li>retry
+
+</li>
+<li><a href="Resolver.html#M000129">usevc</a>
+
+</li>
+<li>stayopen
+
+</li>
+<li>igntc
+
+</li>
+<li>defnames
+
+</li>
+<li><a href="Resolver.html#M000126">dnsrch</a>
+
+</li>
+<li>persistent_tcp
+
+</li>
+<li>persistent_udp
+
+</li>
+<li>dnssec
+
+</li>
+</ul>
+<p>
+For more information on any of these options, please consult the method of
+the same name.
+</p>
+<h3>Disclaimer</h3>
+<p>
+Part of the above documentation is taken from the one in the <a
+href="Resolver.html">Net::DNS::Resolver</a> Perl module.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000089-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000089-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 203</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">config</span> = {})
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Argument has to be Hash&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Hash</span>
+        <span class="ruby-comment cmt"># config.key_downcase!</span>
+        <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Defaults</span>.<span class="ruby-identifier">merge</span> <span class="ruby-identifier">config</span>
+        <span class="ruby-ivar">@raw</span> = <span class="ruby-keyword kw">false</span>
+
+        <span class="ruby-comment cmt"># New logger facility</span>
+        <span class="ruby-ivar">@logger</span> = <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:log_file</span>])
+        <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-identifier">$DEBUG</span> <span class="ruby-operator">?</span> <span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">DEBUG</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">WARN</span>
+        
+        <span class="ruby-comment cmt">#------------------------------------------------------------</span>
+        <span class="ruby-comment cmt"># Resolver configuration will be set in order from:</span>
+        <span class="ruby-comment cmt"># 1) initialize arguments</span>
+        <span class="ruby-comment cmt"># 2) ENV variables</span>
+        <span class="ruby-comment cmt"># 3) config file</span>
+        <span class="ruby-comment cmt"># 4) defaults (and /etc/resolv.conf for config)</span>
+        <span class="ruby-comment cmt">#------------------------------------------------------------</span>
+
+        
+        
+        <span class="ruby-comment cmt">#------------------------------------------------------------</span>
+        <span class="ruby-comment cmt"># Parsing config file</span>
+        <span class="ruby-comment cmt">#------------------------------------------------------------</span>
+        <span class="ruby-identifier">parse_config_file</span>
+        
+        <span class="ruby-comment cmt">#------------------------------------------------------------</span>
+        <span class="ruby-comment cmt"># Parsing ENV variables</span>
+        <span class="ruby-comment cmt">#------------------------------------------------------------</span>
+        <span class="ruby-identifier">parse_environment_variables</span>
+        
+        <span class="ruby-comment cmt">#------------------------------------------------------------</span>
+        <span class="ruby-comment cmt"># Parsing arguments</span>
+        <span class="ruby-comment cmt">#------------------------------------------------------------</span>
+        <span class="ruby-identifier">config</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">val</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:log_file</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:config_file</span>
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-identifier">eval</span> <span class="ruby-node">&quot;self.#{key.to_s} = val&quot;</span>
+          <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">NoMethodError</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-node">&quot;Option #{key} not valid&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000148" class="method-detail">
+        <a name="M000148"></a>
+
+        <div class="method-heading">
+          <a href="#M000148" class="method-signature">
+          <span class="method-name">start</span><span class="method-args">(*params)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Quick resolver method. Bypass the configuration using the defaults.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  puts Net::DNS::Resolver.start &quot;www.google.com&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000148-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000148-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 1033</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">start</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">params</span>)
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">search</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">params</span>)
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000146" class="method-detail">
+        <a name="M000146"></a>
+
+        <div class="method-heading">
+          <a href="#M000146" class="method-signature">
+          <span class="method-name">axfr</span><span class="method-args">(name,cls=Net::DNS::IN)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Performs a zone transfer for the zone passed as a parameter.
+</p>
+<p>
+It is actually only a wrapper to a <a href="Resolver.html#M000145">send</a>
+with type set as Net::DNS::AXFR, since it is using the same infrastucture.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000146-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000146-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 1000</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">axfr</span>(<span class="ruby-identifier">name</span>,<span class="ruby-identifier">cls</span>=<span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">IN</span>)
+        <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Requested AXFR transfer, zone #{name} class #{cls}&quot;</span>
+        <span class="ruby-identifier">send</span>(<span class="ruby-identifier">name</span>,<span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">AXFR</span>,<span class="ruby-identifier">cls</span>)
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000123" class="method-detail">
+        <a name="M000123"></a>
+
+        <div class="method-heading">
+          <span class="method-name">defname</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000123">defname</a>?
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000124" class="method-detail">
+        <a name="M000124"></a>
+
+        <div class="method-heading">
+          <a href="#M000124" class="method-signature">
+          <span class="method-name">defname=</span><span class="method-args">(bool)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the flag <tt><a href="Resolver.html#M000123">defname</a></tt> in a
+boolean <a href="Resolver.html#M000119">state</a>. if <tt><a
+href="Resolver.html#M000123">defname</a></tt> is true, calls to <a
+href="Resolver.html#M000144">Resolver#query</a> will append the default <a
+href="Resolver.html#M000095">domain</a> to names that contain no dots.
+Example:
+</p>
+<pre>
+  # Domain example.com
+  res.defname = true
+  res.query(&quot;machine1&quot;)
+    #=&gt; This will perform a query for machine1.example.com
+</pre>
+<p>
+Default is true.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000124-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000124-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 602</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">defname=</span>(<span class="ruby-identifier">bool</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">bool</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">TrueClass</span>,<span class="ruby-constant">FalseClass</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:defname</span>] = <span class="ruby-identifier">bool</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Defname state changed to #{bool}&quot;</span>)          
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Argument must be boolean&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000122" class="method-detail">
+        <a name="M000122"></a>
+
+        <div class="method-heading">
+          <a href="#M000122" class="method-signature">
+          <span class="method-name">defname?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks whether the <tt><a href="Resolver.html#M000123">defname</a></tt>
+flag has been activate.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000122-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000122-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 585</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">defname?</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:defname</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000125" class="method-detail">
+        <a name="M000125"></a>
+
+        <div class="method-heading">
+          <a href="#M000125" class="method-signature">
+          <span class="method-name">dns_search</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get the <a href="Resolver.html#M000119">state</a> of the <a
+href="Resolver.html#M000125">dns_search</a> flag
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000125-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000125-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 613</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dns_search</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:dns_search</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000127" class="method-detail">
+        <a name="M000127"></a>
+
+        <div class="method-heading">
+          <a href="#M000127" class="method-signature">
+          <span class="method-name">dns_search=</span><span class="method-args">(bool)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the flag <tt><a href="Resolver.html#M000125">dns_search</a></tt> in a
+boolean <a href="Resolver.html#M000119">state</a>. If <tt><a
+href="Resolver.html#M000125">dns_search</a></tt> is true, when using the <a
+href="Resolver.html#M000143">Resolver#search</a> method will be applied the
+<a href="Resolver.html#M000143">search</a> list. Default is true.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000127-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000127-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 622</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dns_search=</span>(<span class="ruby-identifier">bool</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">bool</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">TrueClass</span>,<span class="ruby-constant">FalseClass</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:dns_search</span>] = <span class="ruby-identifier">bool</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;DNS search state changed to #{bool}&quot;</span>)          
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Argument must be boolean&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000126" class="method-detail">
+        <a name="M000126"></a>
+
+        <div class="method-heading">
+          <span class="method-name">dnsrch</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000125">dns_search</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000095" class="method-detail">
+        <a name="M000095"></a>
+
+        <div class="method-heading">
+          <a href="#M000095" class="method-signature">
+          <span class="method-name">domain</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return a string with the default <a href="Resolver.html#M000095">domain</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000095-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000095-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 348</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">domain</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:domain</span>].<span class="ruby-identifier">inspect</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000096" class="method-detail">
+        <a name="M000096"></a>
+
+        <div class="method-heading">
+          <a href="#M000096" class="method-signature">
+          <span class="method-name">domain=</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the <a href="Resolver.html#M000095">domain</a> for the <a
+href="Resolver.html#M000144">query</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000096-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000096-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 354</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">domain=</span>(<span class="ruby-identifier">name</span>)
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:domain</span>] = <span class="ruby-identifier">name</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">valid?</span> <span class="ruby-identifier">name</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000134" class="method-detail">
+        <a name="M000134"></a>
+
+        <div class="method-heading">
+          <span class="method-name">ignore_truncated</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000134">ignore_truncated</a>?
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000135" class="method-detail">
+        <a name="M000135"></a>
+
+        <div class="method-heading">
+          <a href="#M000135" class="method-signature">
+          <span class="method-name">ignore_truncated=</span><span class="method-args">(bool)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000135-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000135-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 667</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ignore_truncated=</span>(<span class="ruby-identifier">bool</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">bool</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">TrueClass</span>,<span class="ruby-constant">FalseClass</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:ignore_truncated</span>] = <span class="ruby-identifier">bool</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Ignore truncated flag changed to #{bool}&quot;</span>)          
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Argument must be boolean&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000133" class="method-detail">
+        <a name="M000133"></a>
+
+        <div class="method-heading">
+          <a href="#M000133" class="method-signature">
+          <span class="method-name">ignore_truncated?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000133-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000133-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 662</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ignore_truncated?</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:ignore_truncated</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000121" class="method-detail">
+        <a name="M000121"></a>
+
+        <div class="method-heading">
+          <span class="method-name">inspect</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000119">state</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000140" class="method-detail">
+        <a name="M000140"></a>
+
+        <div class="method-heading">
+          <a href="#M000140" class="method-signature">
+          <span class="method-name">log_file=</span><span class="method-args">(log)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set a <a href="Resolver.html#M000089">new</a> log file for the logger
+facility of the resolver class. Could be a file descriptor too:
+</p>
+<pre>
+  res.log_file = $stderr
+</pre>
+<p>
+Note that a <a href="Resolver.html#M000089">new</a> logging facility will
+be create, destroing the old one, which will then be impossibile to
+recover.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000140-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000140-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 753</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">log_file=</span>(<span class="ruby-identifier">log</span>)
+        <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">close</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:log_file</span>] = <span class="ruby-identifier">log</span>
+        <span class="ruby-ivar">@logger</span> = <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:log_file</span>])
+        <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-identifier">$DEBUG</span> <span class="ruby-operator">?</span> <span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">DEBUG</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">WARN</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000142" class="method-detail">
+        <a name="M000142"></a>
+
+        <div class="method-heading">
+          <a href="#M000142" class="method-signature">
+          <span class="method-name">log_level=</span><span class="method-args">(level)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the log level for the built-in logging facility.
+</p>
+<p>
+The log level can be one of the following:
+</p>
+<ul>
+<li>+Net::DNS::DEBUG+
+
+</li>
+<li>+Net::DNS::INFO+
+
+</li>
+<li>+Net::DNS::WARN+
+
+</li>
+<li>+Net::DNS::ERROR+
+
+</li>
+<li>+Net::DNS::FATAL+
+
+</li>
+</ul>
+<p>
+Note that if the global variable $DEBUG is set (like when the -d switch is
+used at the command line) the logger level is automatically set at DEGUB.
+</p>
+<p>
+For further informations, see Logger documentation in the Ruby standard
+library.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000142-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000142-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 803</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">log_level=</span>(<span class="ruby-identifier">level</span>)
+        <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-identifier">level</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000141" class="method-detail">
+        <a name="M000141"></a>
+
+        <div class="method-heading">
+          <a href="#M000141" class="method-signature">
+          <span class="method-name">logger=</span><span class="method-args">(logger)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This one permits to have a personal logger facility to handle resolver
+messages, instead of <a href="Resolver.html#M000089">new</a> built-in one,
+which is set up for a +$stdout+ (or +$stderr+) use.
+</p>
+<p>
+If you want your own logging facility you can create a <a
+href="Resolver.html#M000089">new</a> instance of the <tt>Logger</tt> class:
+</p>
+<pre>
+  log = Logger.new(&quot;/tmp/resolver.log&quot;,&quot;weekly&quot;,2*1024*1024)
+  log.level = Logger::DEBUG
+  log.progname = &quot;ruby_resolver&quot;
+</pre>
+<p>
+and then pass it to the resolver:
+</p>
+<pre>
+  res.logger = log
+</pre>
+<p>
+Note that this will destroy the precedent logger.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000141-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000141-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 777</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">logger=</span>(<span class="ruby-identifier">logger</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Logger</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">close</span>
+          <span class="ruby-ivar">@logger</span> = <span class="ruby-identifier">logger</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Argument must be an instance of Logger class&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000147" class="method-detail">
+        <a name="M000147"></a>
+
+        <div class="method-heading">
+          <a href="#M000147" class="method-signature">
+          <span class="method-name">mx</span><span class="method-args">(name,cls=Net::DNS::IN)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Performs an MX <a href="Resolver.html#M000144">query</a> for the <a
+href="Resolver.html#M000095">domain</a> name passed as parameter.
+</p>
+<p>
+It actually uses the same methods a normal <a
+href="Resolver.html">Resolver</a> <a href="Resolver.html#M000144">query</a>
+would use, but automatically sort the results based on preferences and
+returns an ordered array.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  res = Net::DNS::Resolver.new
+  res.mx(&quot;google.com&quot;)
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000147-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000147-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 1017</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">mx</span>(<span class="ruby-identifier">name</span>,<span class="ruby-identifier">cls</span>=<span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">IN</span>)
+        <span class="ruby-identifier">arr</span> = []
+        <span class="ruby-identifier">send</span>(<span class="ruby-identifier">name</span>, <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">MX</span>, <span class="ruby-identifier">cls</span>).<span class="ruby-identifier">answer</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">arr</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">entry</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'MX'</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">arr</span>.<span class="ruby-identifier">sort_by</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">preference</span>}
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000093" class="method-detail">
+        <a name="M000093"></a>
+
+        <div class="method-heading">
+          <span class="method-name">nameserver</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000092">nameservers</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000092" class="method-detail">
+        <a name="M000092"></a>
+
+        <div class="method-heading">
+          <a href="#M000092" class="method-signature">
+          <span class="method-name">nameservers</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get the list of resolver <a href="Resolver.html#M000092">nameservers</a>,
+in a dotted decimal format
+</p>
+<pre>
+  res.nameservers
+    #=&gt; [&quot;192.168.0.1&quot;,&quot;192.168.0.2&quot;]
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000092-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000092-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 287</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nameservers</span>
+        <span class="ruby-identifier">arr</span> = []
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:nameservers</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> 
+          <span class="ruby-identifier">arr</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">arr</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000094" class="method-detail">
+        <a name="M000094"></a>
+
+        <div class="method-heading">
+          <a href="#M000094" class="method-signature">
+          <span class="method-name">nameservers=</span><span class="method-args">(arg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the list of resolver <a href="Resolver.html#M000092">nameservers</a>
+<tt>arg</tt> can be a single ip address or an array of addresses
+</p>
+<pre>
+  res.nameservers = &quot;192.168.0.1&quot;
+  res.nameservers = [&quot;192.168.0.1&quot;,&quot;192.168.0.2&quot;]
+</pre>
+<p>
+If you want you can specify the addresses as IPAddr instances
+</p>
+<pre>
+  ip = IPAddr.new(&quot;192.168.0.3&quot;)
+  res.nameservers &lt;&lt; ip
+    #=&gt; [&quot;192.168.0.1&quot;,&quot;192.168.0.2&quot;,&quot;192.168.0.3&quot;]
+</pre>
+<p>
+The default is 127.0.0.1 (localhost)
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000094-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000094-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 310</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nameservers=</span>(<span class="ruby-identifier">arg</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">arg</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:nameservers</span>] = [<span class="ruby-constant">IPAddr</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">arg</span>)]
+            <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Nameservers list changed to value #{@config[:nameservers].inspect}&quot;</span>
+          <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-comment cmt"># arg is in the name form, not IP</span>
+            <span class="ruby-identifier">nameservers_from_name</span>(<span class="ruby-identifier">arg</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">IPAddr</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:nameservers</span>] = [<span class="ruby-identifier">arg</span>]
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Nameservers list changed to value #{@config[:nameservers].inspect}&quot;</span>          
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Array</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:nameservers</span>] = []
+          <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+            <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:nameservers</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">x</span>
+                                     <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+                                       <span class="ruby-keyword kw">begin</span>
+                                         <span class="ruby-constant">IPAddr</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">x</span>)
+                                       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ArgumentError</span>
+                                         <span class="ruby-identifier">nameservers_from_name</span>(<span class="ruby-identifier">arg</span>)
+                                         <span class="ruby-keyword kw">return</span>
+                                       <span class="ruby-keyword kw">end</span>
+                                     <span class="ruby-keyword kw">when</span> <span class="ruby-constant">IPAddr</span>
+                                       <span class="ruby-identifier">x</span>
+                                     <span class="ruby-keyword kw">else</span>
+                                       <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Wrong argument format&quot;</span>
+                                     <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Nameservers list changed to value #{@config[:nameservers].inspect}&quot;</span>          
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Wrong argument format, neither String, Array nor IPAddr&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000097" class="method-detail">
+        <a name="M000097"></a>
+
+        <div class="method-heading">
+          <a href="#M000097" class="method-signature">
+          <span class="method-name">packet_size</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return the defined size of the packet
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000097-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000097-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 360</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">packet_size</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:packet_size</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000098" class="method-detail">
+        <a name="M000098"></a>
+
+        <div class="method-heading">
+          <a href="#M000098" class="method-signature">
+          <span class="method-name">port</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get the <a href="Resolver.html#M000098">port</a> number to which the
+resolver sends queries.
+</p>
+<pre>
+  puts &quot;Sending queries to port #{res.port}&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000098-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000098-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 368</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">port</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:port</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000099" class="method-detail">
+        <a name="M000099"></a>
+
+        <div class="method-heading">
+          <a href="#M000099" class="method-signature">
+          <span class="method-name">port=</span><span class="method-args">(num)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the <a href="Resolver.html#M000098">port</a> number to which the
+resolver sends queries. This can be useful for testing a <a
+href="Resolver.html#M000093">nameserver</a> running on a non-standard <a
+href="Resolver.html#M000098">port</a>.
+</p>
+<pre>
+  res.port = 10053
+</pre>
+<p>
+The default is <a href="Resolver.html#M000098">port</a> 53.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000099-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000099-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 379</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">port=</span>(<span class="ruby-identifier">num</span>)
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">65535</span>).<span class="ruby-identifier">include?</span> <span class="ruby-identifier">num</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:port</span>] = <span class="ruby-identifier">num</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Port number changed to #{num}&quot;</span>          
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-node">&quot;Wrong port number #{num}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000120" class="method-detail">
+        <a name="M000120"></a>
+
+        <div class="method-heading">
+          <span class="method-name">print</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000119">state</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000144" class="method-detail">
+        <a name="M000144"></a>
+
+        <div class="method-heading">
+          <a href="#M000144" class="method-signature">
+          <span class="method-name">query</span><span class="method-args">(name,type=Net::DNS::A,cls=Net::DNS::IN)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Performs a <a href="../DNS.html">DNS</a> <a
+href="Resolver.html#M000144">query</a> for the given name; the <a
+href="Resolver.html#M000143">search</a> list is not applied. If the name
+doesn&#8216;t contain any dots and <tt><a
+href="Resolver.html#M000123">defname</a></tt> is true then the default <a
+href="Resolver.html#M000095">domain</a> will be appended.
+</p>
+<p>
+The record type and class can be omitted; they default to <tt>A</tt> and
+<tt>IN</tt>. If the name looks like an IP address (IPv4 or IPv6), then an
+appropriate PTR <a href="Resolver.html#M000144">query</a> will be
+performed.
+</p>
+<pre>
+  packet = res.query('mailhost')
+  packet = res.query('mailhost.example.com')
+  packet = res.query('example.com', Net::DNS::MX)
+  packet = res.query('user.passwd.example.com', Net::DNS::TXT, Net::DNS::HS)
+</pre>
+<p>
+If the name is an IP address (Ipv4 or IPv6), in the form of a string or a
+<tt>IPAddr</tt> object, then an appropriate PTR <a
+href="Resolver.html#M000144">query</a> will be performed:
+</p>
+<pre>
+  ip = IPAddr.new(&quot;172.16.100.2&quot;)
+  packet = res.query(ip)
+  packet = res.query(&quot;192.168.10.254&quot;)
+</pre>
+<p>
+Returns a <a href="Packet.html">Net::DNS::Packet</a> object. If you need to
+examine the response packet whether it contains any answers or not, use the
+<a href="Resolver.html#M000145">Resolver#send</a> method instead.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000144-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000144-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 881</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">query</span>(<span class="ruby-identifier">name</span>,<span class="ruby-identifier">type</span>=<span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">A</span>,<span class="ruby-identifier">cls</span>=<span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">IN</span>)
+        
+        <span class="ruby-comment cmt"># If the name doesn't contain any dots then append the default domain.        </span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp re">/\./</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp re">/:/</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:defnames</span>]
+          <span class="ruby-identifier">name</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;.&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:domain</span>]
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Query(#{name},#{Net::DNS::RR::Types.new(type)},#{Net::DNS::RR::Classes.new(cls)})&quot;</span>
+        
+        <span class="ruby-identifier">send</span>(<span class="ruby-identifier">name</span>,<span class="ruby-identifier">type</span>,<span class="ruby-identifier">cls</span>)
+        
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000115" class="method-detail">
+        <a name="M000115"></a>
+
+        <div class="method-heading">
+          <span class="method-name">recurse</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000116">recursive</a>?
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000118" class="method-detail">
+        <a name="M000118"></a>
+
+        <div class="method-heading">
+          <span class="method-name">recurse=</span><span class="method-args">(bool)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000116">recursive</a>=
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000116" class="method-detail">
+        <a name="M000116"></a>
+
+        <div class="method-heading">
+          <span class="method-name">recursive</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000116">recursive</a>?
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000117" class="method-detail">
+        <a name="M000117"></a>
+
+        <div class="method-heading">
+          <a href="#M000117" class="method-signature">
+          <span class="method-name">recursive=</span><span class="method-args">(bool)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets whether or not the resolver should perform <a
+href="Resolver.html#M000116">recursive</a> queries. Default is true.
+</p>
+<pre>
+  res.recursive = false # perform non-recursive query
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000117-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000117-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 550</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">recursive=</span>(<span class="ruby-identifier">bool</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">bool</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">TrueClass</span>,<span class="ruby-constant">FalseClass</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:recursive</span>] = <span class="ruby-identifier">bool</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Recursive state changed to #{bool}&quot;</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Argument must be boolean&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000114" class="method-detail">
+        <a name="M000114"></a>
+
+        <div class="method-heading">
+          <a href="#M000114" class="method-signature">
+          <span class="method-name">recursive?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method will return true if the resolver is configured to perform <a
+href="Resolver.html#M000116">recursive</a> queries.
+</p>
+<pre>
+  print &quot;The resolver will perform a &quot;
+  print res.recursive? ? &quot;&quot; : &quot;not &quot;
+  puts &quot;recursive query&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000114-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000114-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 539</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">recursive?</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:recursive</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000109" class="method-detail">
+        <a name="M000109"></a>
+
+        <div class="method-heading">
+          <span class="method-name">retrans</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000108">retry_interval</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000111" class="method-detail">
+        <a name="M000111"></a>
+
+        <div class="method-heading">
+          <span class="method-name">retrans=</span><span class="method-args">(num)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000108">retry_interval</a>=
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000108" class="method-detail">
+        <a name="M000108"></a>
+
+        <div class="method-heading">
+          <a href="#M000108" class="method-signature">
+          <span class="method-name">retry_interval</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return the retrasmission interval (in seconds) the resolvers has been set
+on
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000108-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000108-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 494</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retry_interval</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:retry_interval</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000110" class="method-detail">
+        <a name="M000110"></a>
+
+        <div class="method-heading">
+          <a href="#M000110" class="method-signature">
+          <span class="method-name">retry_interval=</span><span class="method-args">(num)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the retrasmission interval in seconds. Default 5 seconds
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000110-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000110-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 501</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retry_interval=</span>(<span class="ruby-identifier">num</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">num</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:retry_interval</span>] = <span class="ruby-identifier">num</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Retransmission interval changed to #{num} seconds&quot;</span>          
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Interval must be positive&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000112" class="method-detail">
+        <a name="M000112"></a>
+
+        <div class="method-heading">
+          <a href="#M000112" class="method-signature">
+          <span class="method-name">retry_number</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The number of times the resolver will try a <a
+href="Resolver.html#M000144">query</a>
+</p>
+<pre>
+  puts &quot;Will try a max of #{res.retry_number} queries&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000112-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000112-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 515</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retry_number</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:retry_number</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000113" class="method-detail">
+        <a name="M000113"></a>
+
+        <div class="method-heading">
+          <a href="#M000113" class="method-signature">
+          <span class="method-name">retry_number=</span><span class="method-args">(num)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the number of times the resolver will try a <a
+href="Resolver.html#M000144">query</a>. Default 4 times
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000113-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000113-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 522</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retry_number=</span>(<span class="ruby-identifier">num</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">num</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Integer</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">num</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:retry_number</span>] = <span class="ruby-identifier">num</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Retrasmissions number changed to #{num}&quot;</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Retry value must be a positive integer&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000143" class="method-detail">
+        <a name="M000143"></a>
+
+        <div class="method-heading">
+          <a href="#M000143" class="method-signature">
+          <span class="method-name">search</span><span class="method-args">(name,type=Net::DNS::A,cls=Net::DNS::IN)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Performs a <a href="../DNS.html">DNS</a> <a
+href="Resolver.html#M000144">query</a> for the given name, applying the <a
+href="Resolver.html#M000090">searchlist</a> if appropriate. The <a
+href="Resolver.html#M000143">search</a> algorithm is as follows:
+</p>
+<ol>
+<li>If the name contains at least one dot, try it as is.
+
+</li>
+<li>If the name doesn&#8216;t end in a dot then append each item in the <a
+href="Resolver.html#M000143">search</a> list to the name. This is only done
+if <tt><a href="Resolver.html#M000125">dns_search</a></tt> is true.
+
+</li>
+<li>If the name doesn&#8216;t contain any dots, try it as is.
+
+</li>
+</ol>
+<p>
+The record type and class can be omitted; they default to <tt>A</tt> and
+<tt>IN</tt>.
+</p>
+<pre>
+  packet = res.search('mailhost')
+  packet = res.search('mailhost.example.com')
+  packet = res.search('example.com', Net::DNS::MX)
+  packet = res.search('user.passwd.example.com', Net::DNS::TXT, Net::DNS::HS)
+</pre>
+<p>
+If the name is an IP address (Ipv4 or IPv6), in the form of a string or a
+<tt>IPAddr</tt> object, then an appropriate PTR <a
+href="Resolver.html#M000144">query</a> will be performed:
+</p>
+<pre>
+  ip = IPAddr.new(&quot;172.16.100.2&quot;)
+  packet = res.search(ip)
+  packet = res.search(&quot;192.168.10.254&quot;)
+</pre>
+<p>
+Returns a <a href="Packet.html">Net::DNS::Packet</a> object. If you need to
+examine the response packet whether it contains any answers or not, use the
+<a href="Resolver.html#M000145">send</a>() method instead.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000143-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000143-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 832</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">search</span>(<span class="ruby-identifier">name</span>,<span class="ruby-identifier">type</span>=<span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">A</span>,<span class="ruby-identifier">cls</span>=<span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">IN</span>)
+
+        <span class="ruby-comment cmt"># If the name contains at least one dot then try it as is first.        </span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">include?</span> <span class="ruby-value str">&quot;.&quot;</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Search(#{name},#{Net::DNS::RR::Types.new(type)},#{Net::DNS::RR::Classes.new(cls)})&quot;</span>
+          <span class="ruby-identifier">ans</span> = <span class="ruby-identifier">query</span>(<span class="ruby-identifier">name</span>,<span class="ruby-identifier">type</span>,<span class="ruby-identifier">cls</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">ans</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ans</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">anCount</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-comment cmt"># If the name doesn't end in a dot then apply the search list.</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp re">/\.$/</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:dns_search</span>]
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:searchlist</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">domain</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">newname</span> = <span class="ruby-identifier">name</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">domain</span>
+            <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Search(#{newname},#{Net::DNS::RR::Types.new(type)},#{Net::DNS::RR::Classes.new(cls)})&quot;</span>
+            <span class="ruby-identifier">ans</span> = <span class="ruby-identifier">query</span>(<span class="ruby-identifier">newname</span>,<span class="ruby-identifier">type</span>,<span class="ruby-identifier">cls</span>)
+            <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">ans</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ans</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">anCount</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># Finally, if the name has no dots then try it as is.</span>
+        <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Search(#{name},#{Net::DNS::RR::Types.new(type)},#{Net::DNS::RR::Classes.new(cls)})&quot;</span>
+        <span class="ruby-identifier">query</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span>,<span class="ruby-identifier">type</span>,<span class="ruby-identifier">cls</span>)
+        
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000090" class="method-detail">
+        <a name="M000090"></a>
+
+        <div class="method-heading">
+          <a href="#M000090" class="method-signature">
+          <span class="method-name">searchlist</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get the resolver <a href="Resolver.html#M000090">searchlist</a>, returned
+as an array of entries
+</p>
+<pre>
+  res.searchlist
+    #=&gt; [&quot;example.com&quot;,&quot;a.example.com&quot;,&quot;b.example.com&quot;]
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000090-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000090-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 251</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">searchlist</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:searchlist</span>].<span class="ruby-identifier">inspect</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000091" class="method-detail">
+        <a name="M000091"></a>
+
+        <div class="method-heading">
+          <a href="#M000091" class="method-signature">
+          <span class="method-name">searchlist=</span><span class="method-args">(arg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the resolver <a href="Resolver.html#M000090">searchlist</a>.
+<tt>arg</tt> can be a single string or an array of strings
+</p>
+<pre>
+  res.searchstring = &quot;example.com&quot;
+  res.searchstring = [&quot;example.com&quot;,&quot;a.example.com&quot;,&quot;b.example.com&quot;]
+</pre>
+<p>
+Note that you can also append a <a href="Resolver.html#M000089">new</a>
+name to the <a href="Resolver.html#M000090">searchlist</a>
+</p>
+<pre>
+  res.searchlist &lt;&lt; &quot;c.example.com&quot;
+  res.searchlist
+    #=&gt; [&quot;example.com&quot;,&quot;a.example.com&quot;,&quot;b.example.com&quot;,&quot;c.example.com&quot;]
+</pre>
+<p>
+The default is an empty array
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000091-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000091-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 269</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">searchlist=</span>(<span class="ruby-identifier">arg</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">arg</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:searchlist</span>] = [<span class="ruby-identifier">arg</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">valid?</span> <span class="ruby-identifier">arg</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Searchlist changed to value #{@config[:searchlist].inspect}&quot;</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Array</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:searchlist</span>] = <span class="ruby-identifier">arg</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">all?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">valid?</span> <span class="ruby-identifier">x</span>}
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Searchlist changed to value #{@config[:searchlist].inspect}&quot;</span>          
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Wrong argument format, neither String nor Array&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000145" class="method-detail">
+        <a name="M000145"></a>
+
+        <div class="method-heading">
+          <a href="#M000145" class="method-signature">
+          <span class="method-name">send</span><span class="method-args">(argument,type=Net::DNS::A,cls=Net::DNS::IN)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Performs a <a href="../DNS.html">DNS</a> <a
+href="Resolver.html#M000144">query</a> for the given name. Neither the <a
+href="Resolver.html#M000090">searchlist</a> nor the default <a
+href="Resolver.html#M000095">domain</a> will be appended.
+</p>
+<p>
+The argument list can be either a <a
+href="Packet.html">Net::DNS::Packet</a> object or a name string plus
+optional type and class, which if omitted default to <tt>A</tt> and
+<tt>IN</tt>.
+</p>
+<p>
+Returns a <a href="Packet.html">Net::DNS::Packet</a> object.
+</p>
+<pre>
+  # Sending a +Packet+ object
+  send_packet = Net::DNS::Packet.new(&quot;host.example.com&quot;,Net::DNS::NS,Net::DNS::HS)
+  packet = res.send(send_packet)
+
+  # Performing a query
+  packet = res.send(&quot;host.example.com&quot;)
+  packet = res.send(&quot;host.example.com&quot;,Net::DNS::NS)
+  packet = res.send(&quot;host.example.com&quot;,Net::DNS::NS,Net::DNS::HS)
+</pre>
+<p>
+If the name is an IP address (Ipv4 or IPv6), in the form of a string or a
+IPAddr object, then an appropriate PTR <a
+href="Resolver.html#M000144">query</a> will be performed:
+</p>
+<pre>
+  ip = IPAddr.new(&quot;172.16.100.2&quot;)
+  packet = res.send(ip)
+  packet = res.send(&quot;192.168.10.254&quot;)
+</pre>
+<p>
+Use +packet.header.ancount+ or +packet.answer+ to find out if there were
+any records in the answer section.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000145-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000145-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 922</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">send</span>(<span class="ruby-identifier">argument</span>,<span class="ruby-identifier">type</span>=<span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">A</span>,<span class="ruby-identifier">cls</span>=<span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">IN</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:nameservers</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverError</span>, <span class="ruby-value str">&quot;No nameservers specified!&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">method</span> = <span class="ruby-identifier">:send_udp</span>
+        
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">argument</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">Packet</span>
+          <span class="ruby-identifier">packet</span> = <span class="ruby-identifier">argument</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">packet</span> = <span class="ruby-identifier">make_query_packet</span>(<span class="ruby-identifier">argument</span>,<span class="ruby-identifier">type</span>,<span class="ruby-identifier">cls</span>)
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-comment cmt"># Store packet_data for performance improvements,</span>
+        <span class="ruby-comment cmt"># so methods don't keep on calling Packet#data</span>
+        <span class="ruby-identifier">packet_data</span> = <span class="ruby-identifier">packet</span>.<span class="ruby-identifier">data</span>
+        <span class="ruby-identifier">packet_size</span> = <span class="ruby-identifier">packet_data</span>.<span class="ruby-identifier">size</span>
+
+        <span class="ruby-comment cmt"># Choose whether use TCP, UDP or RAW</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">packet_size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:packet_size</span>] <span class="ruby-comment cmt"># Must use TCP, either plain or raw</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@raw</span> <span class="ruby-comment cmt"># Use raw sockets?</span>
+            <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Sending #{packet_size} bytes using TCP over RAW socket&quot;</span>
+            <span class="ruby-identifier">method</span> = <span class="ruby-identifier">:send_raw_tcp</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Sending #{packet_size} bytes using TCP&quot;</span>            
+            <span class="ruby-identifier">method</span> = <span class="ruby-identifier">:send_tcp</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># Packet size is inside the boundaries</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@raw</span> <span class="ruby-comment cmt"># Use raw sockets?</span>
+            <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Sending #{packet_size} bytes using UDP over RAW socket&quot;</span>            
+            <span class="ruby-identifier">method</span> = <span class="ruby-identifier">:send_raw_udp</span>
+          <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">use_tcp?</span> <span class="ruby-comment cmt"># User requested TCP</span>
+            <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Sending #{packet_size} bytes using TCP&quot;</span>            
+            <span class="ruby-identifier">method</span> = <span class="ruby-identifier">:send_tcp</span>
+          <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># Finally use UDP</span>
+            <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Sending #{packet_size} bytes using UDP&quot;</span>            
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">AXFR</span>     
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@raw</span>
+            <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;AXFR query, switching to TCP over RAW socket&quot;</span>
+            <span class="ruby-identifier">method</span> = <span class="ruby-identifier">:send_raw_tcp</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;AXFR query, switching to TCP&quot;</span>            
+            <span class="ruby-identifier">method</span> = <span class="ruby-identifier">:send_tcp</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-identifier">ans</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">old_send</span>(<span class="ruby-identifier">method</span>,<span class="ruby-identifier">packet</span>,<span class="ruby-identifier">packet_data</span>)
+        
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">ans</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">fatal</span> <span class="ruby-value str">&quot;No response from nameservers list: aborting&quot;</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">NoResponseError</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Received #{ans[0].size} bytes from #{ans[1][2]+&quot;:&quot;+ans[1][1].to_s}&quot;</span>
+        <span class="ruby-identifier">response</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">Packet</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">ans</span>[<span class="ruby-value">0</span>],<span class="ruby-identifier">ans</span>[<span class="ruby-value">1</span>])
+        
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">truncated?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">ignore_truncated?</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;Packet truncated, retrying using TCP&quot;</span>
+          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">use_tcp</span> = <span class="ruby-keyword kw">true</span>
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">send</span>(<span class="ruby-identifier">argument</span>,<span class="ruby-identifier">type</span>,<span class="ruby-identifier">cls</span>)
+          <span class="ruby-keyword kw">ensure</span>
+            <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">use_tcp</span> = <span class="ruby-keyword kw">false</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">response</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000104" class="method-detail">
+        <a name="M000104"></a>
+
+        <div class="method-heading">
+          <a href="#M000104" class="method-signature">
+          <span class="method-name">source_address</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get the local address from which the resolver sends queries
+</p>
+<pre>
+  puts &quot;Sending queries using source address #{res.source_address}&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000104-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000104-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 424</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">source_address</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:source_address</span>].<span class="ruby-identifier">to_s</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000106" class="method-detail">
+        <a name="M000106"></a>
+
+        <div class="method-heading">
+          <a href="#M000106" class="method-signature">
+          <span class="method-name">source_address=</span><span class="method-args">(addr)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the local source address from which the resolver sends its queries.
+</p>
+<pre>
+  res.source_address = &quot;172.16.100.1&quot;
+  res.source_address = IPAddr.new(&quot;172.16.100.1&quot;)
+</pre>
+<p>
+You can specify <tt>arg</tt> as either a string containing the ip address
+or an instance of IPAddr class.
+</p>
+<p>
+Normally this can be used to force queries out a specific interface on a
+multi-homed host. In this case, you should of course need to know the
+addresses of the interfaces.
+</p>
+<p>
+Another way to use this option is for some kind of spoofing attacks towards
+weak <a href="Resolver.html#M000092">nameservers</a>, to probe the security
+of your network. This includes specifing ranged attacks such as DoS and
+others. For a paper on <a href="../DNS.html">DNS</a> security, checks <a
+href="http://www.marcoceresa.com/security">www.marcoceresa.com/security</a>/
+</p>
+<p>
+Note that if you want to set a non-binded source address you need root
+priviledges, as raw sockets will be used to generate packets. The class
+will then generate an exception if you&#8216;re not root.
+</p>
+<p>
+The default is 0.0.0.0, meaning any local address (chosen on routing
+needs).
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000106-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000106-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 454</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">source_address=</span>(<span class="ruby-identifier">addr</span>)
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:to_s</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-node">&quot;Wrong address argument #{addr}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">port</span> = <span class="ruby-identifier">rand</span>(<span class="ruby-value">64000</span>)<span class="ruby-operator">+</span><span class="ruby-value">1024</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;Try to determine state of source address #{addr} with port #{port}&quot;</span>
+          <span class="ruby-identifier">a</span> = <span class="ruby-constant">TCPServer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">addr</span>.<span class="ruby-identifier">to_s</span>,<span class="ruby-identifier">port</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">SystemCallError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+          <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">errno</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-value">98</span> <span class="ruby-comment cmt"># Port already in use!</span>
+            <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;Port already in use&quot;</span>
+            <span class="ruby-keyword kw">retry</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-value">99</span> <span class="ruby-comment cmt"># Address is not valid: raw socket</span>
+            <span class="ruby-ivar">@raw</span> = <span class="ruby-keyword kw">true</span>
+            <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;Using raw sockets&quot;</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">SystemCallError</span>, <span class="ruby-identifier">e</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">ensure</span>
+          <span class="ruby-identifier">a</span>.<span class="ruby-identifier">close</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">addr</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:source_address</span>] = <span class="ruby-constant">IPAddr</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">string</span>)
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Using new source address: #{@config[:source_address]}&quot;</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">IPAddr</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:source_address</span>] = <span class="ruby-identifier">addr</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Using new source address: #{@config[:source_address]}&quot;</span>          
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Unknown dest_address format&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000100" class="method-detail">
+        <a name="M000100"></a>
+
+        <div class="method-heading">
+          <a href="#M000100" class="method-signature">
+          <span class="method-name">source_port</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get the value of the source <a href="Resolver.html#M000098">port</a> number
+</p>
+<pre>
+  puts &quot;Sending queries using port #{res.source_port}&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000100-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000100-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 392</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">source_port</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:source_port</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000102" class="method-detail">
+        <a name="M000102"></a>
+
+        <div class="method-heading">
+          <a href="#M000102" class="method-signature">
+          <span class="method-name">source_port=</span><span class="method-args">(num)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the local source <a href="Resolver.html#M000098">port</a> from which
+the resolver sends its queries.
+</p>
+<pre>
+  res.source_port = 40000
+</pre>
+<p>
+Note that if you want to set a <a href="Resolver.html#M000098">port</a> you
+need root priviledges, as raw sockets will be used to generate packets. The
+class will then generate the exception ResolverPermissionError if
+you&#8216;re not root.
+</p>
+<p>
+The default is 0, which means that the <a
+href="Resolver.html#M000098">port</a> will be chosen by the underlaying
+layers.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000102-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000102-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 408</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">source_port=</span>(<span class="ruby-identifier">num</span>)
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">root?</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverPermissionError</span>, <span class="ruby-value str">&quot;Are you root?&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">65535</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">num</span>) 
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:source_port</span>] = <span class="ruby-identifier">num</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-node">&quot;Wrong port number #{num}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000105" class="method-detail">
+        <a name="M000105"></a>
+
+        <div class="method-heading">
+          <span class="method-name">srcaddr</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000104">source_address</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000107" class="method-detail">
+        <a name="M000107"></a>
+
+        <div class="method-heading">
+          <span class="method-name">srcaddr=</span><span class="method-args">(addr)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000104">source_address</a>=
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000101" class="method-detail">
+        <a name="M000101"></a>
+
+        <div class="method-heading">
+          <span class="method-name">srcport</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000100">source_port</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000103" class="method-detail">
+        <a name="M000103"></a>
+
+        <div class="method-heading">
+          <span class="method-name">srcport=</span><span class="method-args">(num)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000100">source_port</a>=
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000119" class="method-detail">
+        <a name="M000119"></a>
+
+        <div class="method-heading">
+          <a href="#M000119" class="method-signature">
+          <span class="method-name">state</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return a string rapresenting the resolver <a
+href="Resolver.html#M000119">state</a>, suitable for printing on the
+screen.
+</p>
+<pre>
+  puts &quot;Resolver state:&quot;
+  puts res.state
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000119-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000119-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 567</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">state</span>
+        <span class="ruby-identifier">str</span> = <span class="ruby-value str">&quot;;; RESOLVER state:\n;; &quot;</span> 
+        <span class="ruby-identifier">i</span> = <span class="ruby-value">1</span>
+        <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">val</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:log_file</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:config_file</span>
+            <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{key}: #{val} \t&quot;</span>
+            <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{key}: #{eval(key.to_s)} \t&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n;; &quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">%</span> <span class="ruby-value">2</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+          <span class="ruby-identifier">i</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">str</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000136" class="method-detail">
+        <a name="M000136"></a>
+
+        <div class="method-heading">
+          <a href="#M000136" class="method-signature">
+          <span class="method-name">tcp_timeout</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return an object representing the value of the stored TCP timeout the
+resolver will use in is queries. This object is an instance of the class
+<tt>TcpTimeout</tt>, and two methods are available for printing
+informations: TcpTimeout#to_s and TcpTimeout#pretty_to_s.
+</p>
+<p>
+Here&#8216;s some example:
+</p>
+<pre>
+  puts &quot;Timeout of #{res.tcp_timeout} seconds&quot; # implicit to_s
+    #=&gt; Timeout of 150 seconds
+
+  puts &quot;You set a timeout of &quot; + res.tcp_timeout.pretty_to_s
+    #=&gt; You set a timeout of 2 minutes and 30 seconds
+</pre>
+<p>
+If the timeout is infinite, a string &quot;infinite&quot; will be returned.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000136-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000136-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 694</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tcp_timeout</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:tcp_timeout</span>].<span class="ruby-identifier">to_s</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000137" class="method-detail">
+        <a name="M000137"></a>
+
+        <div class="method-heading">
+          <a href="#M000137" class="method-signature">
+          <span class="method-name">tcp_timeout=</span><span class="method-args">(secs)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the value of TCP timeout for resolver queries that will be performed
+using TCP. A value of 0 means that the timeout will be infinite. The value
+is stored internally as a <tt>TcpTimeout</tt> object, see the description
+for <a href="Resolver.html#M000136">Resolver#tcp_timeout</a>
+</p>
+<p>
+Default is 120 seconds
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000137-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000137-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 705</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tcp_timeout=</span>(<span class="ruby-identifier">secs</span>)
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:tcp_timeout</span>] = <span class="ruby-constant">TcpTimeout</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">secs</span>)
+        <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;New TCP timeout value: #{@config[:tcp_timeout]} seconds&quot;</span>)        
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000138" class="method-detail">
+        <a name="M000138"></a>
+
+        <div class="method-heading">
+          <a href="#M000138" class="method-signature">
+          <span class="method-name">udp_timeout</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return an object representing the value of the stored UDP timeout the
+resolver will use in is queries. This object is an instance of the class
+<tt>UdpTimeout</tt>, and two methods are available for printing
+informations: UdpTimeout#to_s and UdpTimeout#pretty_to_s.
+</p>
+<p>
+Here&#8216;s some example:
+</p>
+<pre>
+  puts &quot;Timeout of #{res.udp_timeout} seconds&quot; # implicit to_s
+    #=&gt; Timeout of 150 seconds
+
+  puts &quot;You set a timeout of &quot; + res.udp_timeout.pretty_to_s
+    #=&gt; You set a timeout of 2 minutes and 30 seconds
+</pre>
+<p>
+If the timeout is zero, a string &quot;not defined&quot; will be returned.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000138-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000138-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 727</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">udp_timeout</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:udp_timeout</span>].<span class="ruby-identifier">to_s</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000139" class="method-detail">
+        <a name="M000139"></a>
+
+        <div class="method-heading">
+          <a href="#M000139" class="method-signature">
+          <span class="method-name">udp_timeout=</span><span class="method-args">(secs)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the value of UDP timeout for resolver queries that will be performed
+using UDP. A value of 0 means that the timeout will not be used, and the
+resolver will use only <tt><a
+href="Resolver.html#M000112">retry_number</a></tt> and <tt><a
+href="Resolver.html#M000108">retry_interval</a></tt> parameters. That is
+the default.
+</p>
+<p>
+The value is stored internally as a <tt>UdpTimeout</tt> object, see the
+description for <a href="Resolver.html#M000138">Resolver#udp_timeout</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000139-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000139-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 740</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">udp_timeout=</span>(<span class="ruby-identifier">secs</span>)
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:udp_timeout</span>] = <span class="ruby-constant">UdpTimeout</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">secs</span>)
+        <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;New UDP timeout value: #{@config[:udp_timeout]} seconds&quot;</span>)                
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000130" class="method-detail">
+        <a name="M000130"></a>
+
+        <div class="method-heading">
+          <span class="method-name">use_tcp</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000130">use_tcp</a>?
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000131" class="method-detail">
+        <a name="M000131"></a>
+
+        <div class="method-heading">
+          <a href="#M000131" class="method-signature">
+          <span class="method-name">use_tcp=</span><span class="method-args">(bool)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+If <tt><a href="Resolver.html#M000130">use_tcp</a></tt> is true, the
+resolver will perform all queries using TCP virtual circuits instead of UDP
+datagrams, which is the default for the <a href="../DNS.html">DNS</a>
+protocol.
+</p>
+<pre>
+  res.use_tcp = true
+  res.query &quot;host.example.com&quot;
+    #=&gt; Sending TCP segments...
+</pre>
+<p>
+Default is false.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000131-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000131-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 651</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">use_tcp=</span>(<span class="ruby-identifier">bool</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">bool</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">TrueClass</span>,<span class="ruby-constant">FalseClass</span>
+          <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:use_tcp</span>] = <span class="ruby-identifier">bool</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Use tcp flag changed to #{bool}&quot;</span>)          
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ResolverArgumentError</span>, <span class="ruby-value str">&quot;Argument must be boolean&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000128" class="method-detail">
+        <a name="M000128"></a>
+
+        <div class="method-heading">
+          <a href="#M000128" class="method-signature">
+          <span class="method-name">use_tcp?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get the <a href="Resolver.html#M000119">state</a> of the <a
+href="Resolver.html#M000130">use_tcp</a> flag.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000128-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000128-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/net/dns/resolver.rb, line 635</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">use_tcp?</span>
+        <span class="ruby-ivar">@config</span>[<span class="ruby-identifier">:use_tcp</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000129" class="method-detail">
+        <a name="M000129"></a>
+
+        <div class="method-heading">
+          <span class="method-name">usevc</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000130">use_tcp</a>?
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000132" class="method-detail">
+        <a name="M000132"></a>
+
+        <div class="method-heading">
+          <span class="method-name">usevc=</span><span class="method-args">(bool)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Resolver.html#M000130">use_tcp</a>=
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

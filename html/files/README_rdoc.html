@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README.rdoc</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README.rdoc</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README.rdoc
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Tue Jun 02 11:19:44 +0100 2009</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1><a href="../classes/Net/DNS.html">Net::DNS</a></h1>
+<p>
+<a href="../classes/Net/DNS.html">Net::DNS</a> is a DNS library written in
+pure Ruby. It started as a port of Perl <a
+href="../classes/Net/DNS.html">Net::DNS</a> module, but it evolved in time
+into a full Ruby library.
+</p>
+<p>
+Features:
+</p>
+<ul>
+<li>Complete OO interface
+
+</li>
+<li>Clean and intuitive API
+
+</li>
+<li>Modular and flexible
+
+</li>
+</ul>
+<h2>Install</h2>
+<p>
+Just use Rubygems:
+</p>
+<pre>
+     $ sudo gem install net-dns
+</pre>
+<p>
+If you want to install from source, you can use Rake:
+</p>
+<pre>
+   $ rake install
+</pre>
+<p>
+Or directly from install.rb
+</p>
+<pre>
+   $ sudo ruby install.rb
+</pre>
+<h2>API Documentation</h2>
+<p>
+Visit the page <a
+href="http://marcoceresa.com/net-dns">marcoceresa.com/net-dns</a>
+</p>
+<h2>Trivial resolver</h2>
+<p>
+The method Net::DNS::Resolver.start() implements a trivial resolver.
+</p>
+<pre>
+    require &quot;rubygems&quot;
+    require &quot;net/dns/resolver&quot;
+
+    p Net::DNS::Resolver.start(&quot;google.com&quot;)
+</pre>
+<p>
+The output is compatible with BIND zone files and it&#8216;s the same you
+would get with the dig utility.
+</p>
+<pre>
+    ;; Answer received from localhost:53 (212 bytes)
+    ;;
+    ;; HEADER SECTION
+    ;; id = 64075
+    ;; qr = 1       opCode: QUERY   aa = 0  tc = 0  rd = 1
+    ;; ra = 1       ad = 0  cd = 0  rcode = NoError
+    ;; qdCount = 1  anCount = 3     nsCount = 4     arCount = 4
+
+    ;; QUESTION SECTION (1 record):
+    ;; google.com.                  IN      A
+
+    ;; ANSWER SECTION (3 records):
+    google.com.             212     IN      A       74.125.45.100
+    google.com.             212     IN      A       74.125.67.100
+    google.com.             212     IN      A       209.85.171.100
+
+    ;; AUTHORITY SECTION (4 records):
+    google.com.             345512  IN      NS      ns1.google.com.
+    google.com.             345512  IN      NS      ns4.google.com.
+    google.com.             345512  IN      NS      ns2.google.com.
+    google.com.             345512  IN      NS      ns3.google.com.
+
+    ;; ADDITIONAL SECTION (4 records):
+    ns1.google.com.         170275  IN      A       216.239.32.10
+    ns2.google.com.         170275  IN      A       216.239.34.10
+    ns3.google.com.         170275  IN      A       216.239.36.10
+    ns4.google.com.         170275  IN      A       216.239.38.10
+</pre>
+<p>
+As optionals parameters, <tt>TYPE</tt> and <tt>CLASS</tt> can be specified.
+</p>
+<pre>
+   p Net::DNS::Resolver.start(&quot;google.com&quot;, Net::DNS::MX)
+
+   ;; Answer received from localhost:53 (316 bytes)
+   ;;
+   ;; HEADER SECTION
+   ;; id = 59980
+   ;; qr = 1       opCode: QUERY   aa = 0  tc = 0  rd = 1
+   ;; ra = 1       ad = 0  cd = 0  rcode = NoError
+   ;; qdCount = 1  anCount = 4     nsCount = 4     arCount = 8
+
+   ;; QUESTION SECTION (1 record):
+   ;; google.com.                  IN      MX
+
+   ;; ANSWER SECTION (4 records):
+   google.com.             10800   IN      MX      10 smtp2.google.com.
+   google.com.             10800   IN      MX      10 smtp3.google.com.
+   google.com.             10800   IN      MX      10 smtp4.google.com.
+   google.com.             10800   IN      MX      10 smtp1.google.com.
+</pre>
+<h2>Handling the response packet</h2>
+<p>
+The method Net::DNS::Resolver.start is a wrapper around Resolver.new. It
+returns a new <a href="../classes/Net/DNS/Packet.html">Net::DNS::Packet</a>
+object.
+</p>
+<p>
+A DNS packet is divided into 5 sections:
+</p>
+<ul>
+<li>header section # =&gt; a <a
+href="../classes/Net/DNS/Header.html">Net::DNS::Header</a> object
+
+</li>
+<li>question section # =&gt; a <a
+href="../classes/Net/DNS/Question.html">Net::DNS::Question</a> object
+
+</li>
+<li>answer section # =&gt; an Array of <a
+href="../classes/Net/DNS/RR.html">Net::DNS::RR</a> objects
+
+</li>
+<li>authority section # =&gt; an Array of <a
+href="../classes/Net/DNS/RR.html">Net::DNS::RR</a> objects
+
+</li>
+<li>additional section # =&gt; an Array of <a
+href="../classes/Net/DNS/RR.html">Net::DNS::RR</a> objects
+
+</li>
+</ul>
+<p>
+You can access each section by calling the attribute with the same name on
+a Packet object:
+</p>
+<pre>
+    packet = Net::DNS::Resolver.start(&quot;google.com&quot;)
+
+    header = packet.header
+    answer = packet.answer
+
+    puts &quot;The packet is #{packet.data.size} bytes&quot;
+    puts &quot;It contains #{header.anCount} answer entries&quot;
+
+    answer.any? {|ans| p ans}
+</pre>
+<p>
+The output is
+</p>
+<pre>
+    The packet is 378 bytes
+    It contains 3 answer entries
+    google.com.             244     IN      A       74.125.45.100
+    google.com.             244     IN      A       74.125.67.100
+    google.com.             244     IN      A       209.85.171.100
+</pre>
+<p>
+A better way to handle the answer section is to use the iterators directly
+on a Packet object:
+</p>
+<pre>
+    packet.each_address do |ip|
+      puts &quot;#{ip} is alive&quot; if Ping.pingecho(ip.to_s, 10, 80)
+    end
+</pre>
+<p>
+Gives:
+</p>
+<pre>
+    74.125.45.100 is alive
+    74.125.67.100 is alive
+    209.85.171.100 is alive
+</pre>
+<h2>Licence</h2>
+<p>
+<a href="../classes/Net/DNS.html">Net::DNS</a> is distributed under the
+same license Ruby is.
+</p>
+<h2>Author</h2>
+<p>
+(c) Marco Ceresa 2006
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

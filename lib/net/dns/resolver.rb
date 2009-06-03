@@ -13,6 +13,29 @@ require 'net/dns/resolver/timeouts'
 
 alias old_send send
 
+#
+# Resolver helper method
+# 
+# Calling the resolver directly
+# 
+#   require 'net/dns/resolver'
+#   puts Resolver("www.google.com").answer.size
+#     #=> 5
+#
+# An optional block can be passed yielding the Net::DNS::Packet object
+#
+#   Resolver("www.google.com") {|packet| puts packet.size + " bytes"}
+#     #=> 484 bytes
+#
+def Resolver(name,type=Net::DNS::A,cls=Net::DNS::IN,&blk)
+  obj = Net::DNS::Resolver.start(name,type,cls)
+  if block_given?
+    yield obj
+  else
+    return obj
+  end
+end
+
 module Net # :nodoc:
   module DNS 
     

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Net::DNS</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Net::DNS</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/net/dns/rr/types_rb.html">
+                lib/net/dns/rr/types.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/soa_rb.html">
+                lib/net/dns/rr/soa.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/hinfo_rb.html">
+                lib/net/dns/rr/hinfo.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/mx_rb.html">
+                lib/net/dns/rr/mx.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/ptr_rb.html">
+                lib/net/dns/rr/ptr.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/ns_rb.html">
+                lib/net/dns/rr/ns.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/mr_rb.html">
+                lib/net/dns/rr/mr.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/null_rb.html">
+                lib/net/dns/rr/null.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/txt_rb.html">
+                lib/net/dns/rr/txt.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/a_rb.html">
+                lib/net/dns/rr/a.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/aaaa_rb.html">
+                lib/net/dns/rr/aaaa.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/srv_rb.html">
+                lib/net/dns/rr/srv.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/classes_rb.html">
+                lib/net/dns/rr/classes.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr/cname_rb.html">
+                lib/net/dns/rr/cname.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/question_rb.html">
+                lib/net/dns/question.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/header_rb.html">
+                lib/net/dns/header.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/names/names_rb.html">
+                lib/net/dns/names/names.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/rr_rb.html">
+                lib/net/dns/rr.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/resolver_rb.html">
+                lib/net/dns/resolver.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/packet_rb.html">
+                lib/net/dns/packet.rb
+                </a>
+        <br />
+                <a href="../../files/lib/net/dns/dns_rb.html">
+                lib/net/dns/dns.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">Logger::Severity</span>
+        <span class="include-name"><a href="DNS/QueryTypes.html">QueryTypes</a></span>
+        <span class="include-name"><a href="DNS/QueryClasses.html">QueryClasses</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="DNS/QueryClasses.html" class="link">Net::DNS::QueryClasses</a><br />
+Module <a href="DNS/QueryTypes.html" class="link">Net::DNS::QueryTypes</a><br />
+Class <a href="DNS/Header.html" class="link">Net::DNS::Header</a><br />
+Class <a href="DNS/Packet.html" class="link">Net::DNS::Packet</a><br />
+Class <a href="DNS/Question.html" class="link">Net::DNS::Question</a><br />
+Class <a href="DNS/RR.html" class="link">Net::DNS::RR</a><br />
+Class <a href="DNS/Resolver.html" class="link">Net::DNS::Resolver</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">VERSION</td>
+          <td>=</td>
+          <td class="context-item-value">&quot;0.4&quot;</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Version of the library
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">PACKETSZ</td>
+          <td>=</td>
+          <td class="context-item-value">512</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+<a href="DNS/Packet.html">Packet</a> size in bytes
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">HFIXEDSZ</td>
+          <td>=</td>
+          <td class="context-item-value">12</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Size of the header
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">QFIXEDSZ</td>
+          <td>=</td>
+          <td class="context-item-value">4</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Size of the question portion (type and class)
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">RRFIXEDSZ</td>
+          <td>=</td>
+          <td class="context-item-value">10</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Size of an <a href="DNS/RR.html">RR</a> portion (type,class,lenght and ttl)
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">INT32SZ</td>
+          <td>=</td>
+          <td class="context-item-value">4</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Size of an int 32 bit
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">INT16SZ</td>
+          <td>=</td>
+          <td class="context-item-value">2</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Size of a short int
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
