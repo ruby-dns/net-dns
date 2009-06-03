@@ -457,6 +457,17 @@ module Net # :nodoc:
         end
       end
 
+      # Returns the packet size in bytes
+      #
+      #   Resolver("www.google.com") do |packet| 
+      #     puts packet.size + " bytes"}
+      #   end
+      #     #=> 484 bytes
+      #
+      def size
+        data.size
+      end
+
       # Chacks whether a query has returned a NXDOMAIN error,
       # meaning the domain name queried doesn't exists.
       #
