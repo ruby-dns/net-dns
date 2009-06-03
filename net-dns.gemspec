@@ -1,7 +1,7 @@
 require 'rubygems'
 SPEC = Gem::Specification.new do |s|
   s.name      = "net-dns"
-  s.version   = "0.5-rc"
+  s.version   = "0.4.8"
   s.author    = "Marco Ceresa"
   s.email     = "ceresa@gmail.com"
   s.homepage  = "http://github.com/bluemonk/net-dns/"
