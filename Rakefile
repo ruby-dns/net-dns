@@ -27,6 +27,7 @@ end
 
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
+ test.test_files = FileList.new('test/**/test_*.rb')
   test.libs << 'lib' << 'test'
   test.pattern = 'test/**/*_test.rb'
   test.verbose = true
@@ -34,7 +35,7 @@ end
 
 begin
   require 'rcov/rcovtask'
-  Rcov::RcovTask.new do |test|
+  Rcov::RcovTask.new(:rcov) do |test|
     test.libs << 'test'
     test.pattern = 'test/**/*_test.rb'
     test.verbose = true
@@ -87,21 +88,6 @@ begin
   end
 rescue LoadError
   puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
-end
-
-begin 
-  require 'rake/contrib/rubyforgepublisher' 
-  
-  namespace :rubyforge do
-
-    desc "Upload project on RubyForge"
-    task :upload => [:release] do
-      rubyforge = Rake::RubyForgePublisher.new("net-dns","bluemonk")
-      rubyforge.upload
-    end
-  end
-rescue LoadError
-  puts "Rake rubyforgePublisher is unavailable or your rubyforge environment is not configured."
 end
 
 def egrep(pattern)
