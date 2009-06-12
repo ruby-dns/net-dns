@@ -63,12 +63,46 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-desc "Upload project on RubyForge"
-task :upload do
-  rubyforge = Rake::RubyForgePublisher.new("net-dns","bluemonk")
-  rubyforge.upload
+begin
+  require 'rake/contrib/sshpublisher'
+  namespace :rubyforge do
+    
+    desc "Release gem and RDoc documentation to RubyForge"
+    task :release => ["rubyforge:release:gem", "rubyforge:release:docs"]
+    
+    namespace :release do
+      desc "Publish RDoc to RubyForge."
+      task :docs => [:rdoc] do
+        config = YAML.load(
+            File.read(File.expand_path('~/.rubyforge/user-config.yml'))
+        )
+ 
+        host = "#{config['username']}@rubyforge.org"
+        remote_dir = "/var/www/gforge-projects/net-dns"
+        local_dir = 'rdoc'
+ 
+        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
+      end
+    end
+  end
+rescue LoadError
+  puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
 end
 
+begin 
+  require 'rake/contrib/rubyforgepublisher' 
+  
+  namespace :rubyforge do
+
+    desc "Upload project on RubyForge"
+    task :upload => [:release] do
+      rubyforge = Rake::RubyForgePublisher.new("net-dns","bluemonk")
+      rubyforge.upload
+    end
+  end
+rescue LoadError
+  puts "Rake rubyforgePublisher is unavailable or your rubyforge environment is not configured."
+end
 
 def egrep(pattern)
   Dir['**/*.rb'].each do |fn|

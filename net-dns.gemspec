@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{net-dns}
-  s.version = "0.5.0"
+  s.version = "0.5.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marco Ceresa"]
-  s.date = %q{2009-06-11}
+  s.date = %q{2009-06-12}
   s.description = %q{Net::DNS is a pure Ruby DNS library, with a clean OO interface and an extensible API}
   s.email = %q{ceresa@gmail.com}
   s.extra_rdoc_files = [
