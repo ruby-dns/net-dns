@@ -4,6 +4,7 @@
 
 
 
+require 'rbconfig'
 require 'socket'
 require 'timeout'
 require 'ipaddr'
@@ -1062,7 +1063,7 @@ module Net # :nodoc:
       # Parse a configuration file specified as the argument. 
       #
       def parse_config_file
-        if RUBY_PLATFORM =~ /win/
+        if self.class.platform_windows?
           require 'win32/resolv'
           arr = Win32::Resolv.get_resolv_info
           self.domain = arr[0]
@@ -1223,7 +1224,21 @@ module Net # :nodoc:
           true
         end
       end
-          
+      
+      
+      class << self
+        
+        # Returns true if running on a Windows platform.
+        #
+        # Note. This method doesn't rely on the RUBY_PLATFORM constant
+        # because the comparison will fail when running on JRuby.
+        # On JRuby RUBY_PLATFORM == 'java'.
+        def platform_windows?
+          !!(Config::CONFIG["host_os"] =~ /msdos|mswin|djgpp|mingw/i)
+        end
+        
+      end
+    
     end # class Resolver
   end # module DNS
 end # module Net
