@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{net-dns}
-  s.version = "0.5.2"
+  s.version = "0.5.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marco Ceresa"]
-  s.date = %q{2009-06-12}
+  s.date = %q{2009-06-16}
   s.description = %q{Net::DNS is a pure Ruby DNS library, with a clean OO interface and an extensible API}
   s.email = %q{ceresa@gmail.com}
   s.extra_rdoc_files = [
@@ -58,6 +58,7 @@ Gem::Specification.new do |s|
      "test/net/dns/test_header.rb",
      "test/net/dns/test_packet.rb",
      "test/net/dns/test_question.rb",
+     "test/net/dns/test_resolver.rb",
      "test/net/dns/test_rr.rb"
   ]
   s.homepage = %q{http://github.com/bluemonk/net-dns}
@@ -75,7 +76,8 @@ Gem::Specification.new do |s|
      "test/net/dns/resolver/test_timeouts.rb",
      "test/net/dns/test_rr.rb",
      "test/net/dns/test_packet.rb",
-     "test/net/dns/test_question.rb"
+     "test/net/dns/test_question.rb",
+     "test/net/dns/test_resolver.rb"
   ]
 
   if s.respond_to? :specification_version then
