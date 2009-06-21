@@ -42,9 +42,8 @@ class DnsTimeout # :nodoc: all
   end
   
   def timeout
-    unless block_given?
-      raise DnsTimeoutArgumentError, "Block required but missing"
-    end
+    raise LocalJumpError, "no block given" unless block_given?
+
     if @timeout == 0
       yield
     else

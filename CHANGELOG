@@ -7,6 +7,8 @@
 
 * CHANGED: Moved main dns.rb file to lib/net folder as default for GEMs. In this way it can be autoloaded when the gem is required.
 
+* CHANGED: DnsTimeout#timeout now raises LocalJumpError instead of DnsTimeoutArgumentError when block is missing.
+
 
 == Release 0.4
 
