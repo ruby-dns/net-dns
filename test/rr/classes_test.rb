@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'net/dns/rr/classes'
+require 'net/dns/rr'
 
 class RRClassesTest < Test::Unit::TestCase
   

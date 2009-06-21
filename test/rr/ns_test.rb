@@ -1,17 +1,17 @@
 require 'test_helper'
-require 'net/dns/rr/ns'
+require 'net/dns/rr'
 
 class RRNSTest < Test::Unit::TestCase
+  
   def setup
-    
-    @name = "google.com."
+    @rr_name = "google.com."
     @type = "NS"
     @cls = "IN"
     @ttl = 10800
     @nsdname = "ns1.google.com."
 
     
-    @hash = Net::DNS::RR::NS.new(:name => @name,
+    @hash = Net::DNS::RR::NS.new(:name => @rr_name,
                                  :nsdname => @nsdname)
     
     @string = Net::DNS::RR::NS.new("google.com. 10800 IN NS ns1.google.com.")
@@ -23,21 +23,21 @@ class RRNSTest < Test::Unit::TestCase
     
   def test_simple
     assert_equal(@str,@hash.inspect)
-    assert_equal(@name, @hash.name)
+    assert_equal(@rr_name, @hash.name)
     assert_equal(@type, @hash.type)
     assert_equal(@cls, @hash.cls)
     assert_equal(@ttl, @hash.ttl)
     assert_equal(@nsdname, @hash.nsdname)
 
     assert_equal(@str, @string.inspect)
-    assert_equal(@name, @string.name)
+    assert_equal(@rr_name, @string.name)
     assert_equal(@type, @string.type)
     assert_equal(@cls, @string.cls)
     assert_equal(@ttl, @string.ttl)
     assert_equal(@nsdname, @string.nsdname)
     
     assert_equal(@str, @arr.inspect)
-    assert_equal(@name, @arr.name)
+    assert_equal(@rr_name, @arr.name)
     assert_equal(@type, @arr.type)
     assert_equal(@cls, @arr.cls)
     assert_equal(@ttl, @arr.ttl)

@@ -1,39 +1,39 @@
 require 'test_helper'
-require 'net/dns/rr/a'
+require 'net/dns/rr'
 
 class RRATest < Test::Unit::TestCase
   
   def setup
-    @name = "google.com."
+    @rr_name = "google.com."
     @type = "A"
     @cls = "IN"
     @ttl = 10800
     @address = "64.233.187.99"
     
-    @hash = Net::DNS::RR::A.new(:name => @name, :address => @address)
+    @hash = Net::DNS::RR::A.new(:name => @rr_name, :address => @address)
     @string = Net::DNS::RR::A.new("google.com. 10800 IN A 64.233.187.99")
     @arr = Net::DNS::RR.parse(@string.data)
 
     @str = "google.com.             10800   IN      A       64.233.187.99"
   end
-    
+  
   def test_simple
     assert_equal(@str, @hash.inspect)
-    assert_equal(@name, @hash.name)
+    assert_equal(@rr_name, @hash.name)
     assert_equal(@type, @hash.type)
     assert_equal(@cls, @hash.cls)
     assert_equal(@ttl, @hash.ttl)
     assert_equal(@address, @hash.address.to_s)
     
     assert_equal(@str, @string.inspect)
-    assert_equal(@name, @string.name)
+    assert_equal(@rr_name, @string.name)
     assert_equal(@type, @string.type)
     assert_equal(@cls, @string.cls)
     assert_equal(@ttl, @string.ttl)
     assert_equal(@address, @string.address.to_s)
     
     assert_equal(@str, @arr.inspect)
-    assert_equal(@name, @arr.name)
+    assert_equal(@rr_name, @arr.name)
     assert_equal(@type, @arr.type)
     assert_equal(@cls, @arr.cls)
     assert_equal(@ttl, @arr.ttl)
@@ -42,8 +42,7 @@ class RRATest < Test::Unit::TestCase
 
   def test_range
     assert_raise(RRArgumentError) do 
-      Net::DNS::RR::A.new(:name => "google.com",
-                          :address => "255.256")
+      Net::DNS::RR::A.new(:name => "google.com", :address => "255.256")
     end
     assert_raise(RRArgumentError) do
       Net::DNS::RR::A.new(:name => "google.com")
