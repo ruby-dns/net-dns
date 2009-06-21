@@ -1,7 +1,7 @@
-require 'test/unit'
-require 'net/dns/rr'
+require 'test_helper'
+require 'net/dns/rr/ns'
 
-class Test_NS < Test::Unit::TestCase
+class RRNSTest < Test::Unit::TestCase
   def setup
     
     @name = "google.com."
