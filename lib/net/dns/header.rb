@@ -2,7 +2,7 @@
 # $Id: Header.rb,v 1.5 2006/07/30 16:54:28 bluemonk Exp $
 #+++
 
-require 'net/dns/dns'
+require 'net/dns'
 
 module Net # :nodoc:
   module DNS 
