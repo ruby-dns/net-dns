@@ -2,33 +2,29 @@ require 'test_helper'
 require 'net/dns/rr/a'
 
 class RRATest < Test::Unit::TestCase
+  
   def setup
-    
     @name = "google.com."
     @type = "A"
     @cls = "IN"
     @ttl = 10800
     @address = "64.233.187.99"
-
     
-    @hash = Net::DNS::RR::A.new(:name => @name,
-                                :address => @address)
-    
+    @hash = Net::DNS::RR::A.new(:name => @name, :address => @address)
     @string = Net::DNS::RR::A.new("google.com. 10800 IN A 64.233.187.99")
-    
     @arr = Net::DNS::RR.parse(@string.data)
 
     @str = "google.com.             10800   IN      A       64.233.187.99"
   end
     
   def test_simple
-    assert_equal(@str,@hash.inspect)
+    assert_equal(@str, @hash.inspect)
     assert_equal(@name, @hash.name)
     assert_equal(@type, @hash.type)
     assert_equal(@cls, @hash.cls)
     assert_equal(@ttl, @hash.ttl)
     assert_equal(@address, @hash.address.to_s)
-
+    
     assert_equal(@str, @string.inspect)
     assert_equal(@name, @string.name)
     assert_equal(@type, @string.type)

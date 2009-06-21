@@ -2,6 +2,7 @@ require 'test_helper'
 require 'net/dns/rr/classes'
 
 class RRClassesTest < Test::Unit::TestCase
+  
   def setup
     @classes = {
       'IN'        => 1,       # RFC 1035
@@ -10,7 +11,7 @@ class RRClassesTest < Test::Unit::TestCase
       'NONE'      => 254,     # RFC 2136
       'ANY'       => 255,     # RFC 1035
     }
-    @regexp_string = "HS|ANY|NONE|CH|IN"
+    @regexp_string = "ANY|CH|HS|IN|NONE"
   end
     
   def test_default
@@ -29,7 +30,6 @@ class RRClassesTest < Test::Unit::TestCase
     instance = Net::DNS::RR::Classes.new(nil)
     assert_equal("1", instance.to_str)
     assert_equal("IN", instance.to_s)
-    
   end
 
   def test_classes
