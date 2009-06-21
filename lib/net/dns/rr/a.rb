@@ -12,7 +12,7 @@ module Net # :nodoc:
   module DNS 
     
     class RR 
-
+      
       # =Name
       #
       # Net::DNS::RR::A   DNS A resource record
