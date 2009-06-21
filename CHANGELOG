@@ -1,7 +1,15 @@
-net-dns 0.4
- - many bug fixes (thanks guys!)
- - a whole new class Net::DNS::Header::RCode
- - new methods in Net::DNS::Resolver class to 
-   do AXFR queries
- - a new SRV resource record written by Dan Janowski
- - more documentation written and corrected 
+= Changelog
+
+
+== branch refactoring
+
+* CHANGED: RR#set_stype scope is now private to prevent invalid usage.
+
+
+== Release 0.4
+
+* many bug fixes (thanks guys!)
+* a whole new class Net::DNS::Header::RCode
+* new methods in Net::DNS::Resolver class to do AXFR queries
+* a new SRV resource record written by Dan Janowski
+* more documentation written and corrected

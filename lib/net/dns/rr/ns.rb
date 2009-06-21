@@ -31,10 +31,6 @@ module Net
           @rdlength = @nsdname_pack.size
         end
 
-        def set_type
-          @type = Net::DNS::RR::Types.new("NS")
-        end
-
         def get_data
           @nsdname_pack
         end
@@ -59,6 +55,12 @@ module Net
           @nsdname,offset = dn_expand(data,offset)
           return offset
         end
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("NS")
+          end
         
       end # class NS
       

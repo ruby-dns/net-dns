@@ -32,10 +32,6 @@ module Net
           @rdlength = @hinfo_pack.size
         end
 
-        def set_type
-          @type = Net::DNS::RR::Types.new("HINFO")
-        end
-
         def get_data
           @hinfo_pack
         end
@@ -65,6 +61,12 @@ module Net
           @os = data[offset+1..offset+1+len]
           return offset += len+1
         end
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("HINFO")
+          end
         
       end # class HINFO
       

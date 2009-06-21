@@ -24,10 +24,6 @@ module Net
           @rdlength = @null_pack.size
         end
 
-        def set_type
-          @type = Net::DNS::RR::RRTypes.new("NULL")
-        end
-
         def get_data
           @null_pack
         end
@@ -52,6 +48,12 @@ module Net
           @null = data[offset..offset+@rdlength]
           return offset + @rdlength
         end
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("NULL")
+          end
         
       end # class NULL
       

@@ -32,10 +32,6 @@ module Net
           @rdlength = @mx_pack.size
         end
 
-        def set_type
-          @type = Net::DNS::RR::Types.new("MX")
-        end
-
         def get_data
           @mx_pack
         end
@@ -63,7 +59,13 @@ module Net
           @exchange,offset = dn_expand(data,offset)
           return offset
         end
-
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("MX")
+          end
+          
       end # class MX
       
     end # class RR

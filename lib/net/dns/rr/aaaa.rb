@@ -53,10 +53,6 @@ module Net
           @rdlength = @address_pack.size
         end
         
-        def set_type
-          @type = Net::DNS::RR::Types.new("AAAA")
-        end
-        
         def get_data
           @address_pack
         end
@@ -82,6 +78,12 @@ module Net
           @address = IPAddr.new sprintf("%x:%x:%x:%x:%x:%x:%x:%x",*arr)
           return offset + 16
         end
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("AAAA")
+          end
         
       end # class AAAA
       

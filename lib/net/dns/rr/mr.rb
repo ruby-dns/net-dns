@@ -31,10 +31,6 @@ module Net
           @rdlength = @newname_pack.size
         end
 
-        def set_type
-          @type = Net::DNS::RR::Types.new("MR")
-        end
-
         def get_data
           @newname_pack
         end
@@ -59,6 +55,12 @@ module Net
           @newname = dn_expand(data,offset)
           return offset
         end
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("MR")
+          end
         
       end # class MR
 

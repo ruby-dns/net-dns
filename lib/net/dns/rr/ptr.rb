@@ -34,10 +34,6 @@ module Net
           @rdlength = @ptrdname_pack.size
         end
 
-        def set_type
-          @type = Net::DNS::RR::Types.new("PTR")
-        end
-
         def get_data
           @ptrdname_pack
         end
@@ -62,7 +58,13 @@ module Net
           @ptrdname,offset = dn_expand(data,offset)
           return offset
         end
-
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("PRT")
+          end
+        
       end # class PTR
       
     end # class RR

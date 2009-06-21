@@ -131,13 +131,13 @@ module Net # :nodoc:
       # for the resource in each subclass.
       # 
       def initialize(arg)
-        case arg
-        when String
-          instance = new_from_string(arg)
-        when Hash
-          instance = new_from_hash(arg)
-        else
-          raise RRArgumentError, "Invalid argument, must be a RR string or an hash of values"
+        instance = case arg
+          when String
+            new_from_string(arg)
+          when Hash
+            new_from_hash(arg)
+          else
+            raise RRArgumentError, "Invalid argument, must be a RR string or an hash of values"
         end
 
         if @type.to_s == "ANY"
@@ -349,15 +349,21 @@ module Net # :nodoc:
       end
       def build_pack
       end
-      def set_type
-      end
       def get_inspect
         @rdata
       end
       def get_data
         @rdata
       end
-
+      
+      private
+      
+        def set_type
+          # TODO: Here we should probably
+          # raise NotImplementedError
+          # if we want the method to be implemented in any subclass.
+        end
+      
       # NEW new method :)
       def self.new(*args)
         o = allocate

@@ -31,10 +31,6 @@ module Net
           @rdlength = @cname_pack.size
         end
 
-        def set_type
-          @type = Net::DNS::RR::Types.new("CNAME")
-        end
-
         def get_data
           @cname_pack
         end
@@ -59,6 +55,12 @@ module Net
           @cname,offset = dn_expand(data,offset)
           return offset
         end
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("CNAME")
+          end
         
       end # class CNAME
        

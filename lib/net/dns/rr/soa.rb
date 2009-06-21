@@ -24,10 +24,6 @@ module Net
           @soa_pack += [@serial,@refresh,@retry,@expire,@minimum].pack("N5")
         end
 
-        def set_type
-          @type = Net::DNS::RR::Types.new("SOA")
-        end
-
         def get_data
           @soa_pack
         end
@@ -76,7 +72,13 @@ module Net
           @serial,@refresh,@retry,@expire,@minimum = data.unpack("@#{offset} N5")
           return offset + 5*Net::DNS::INT32SZ
         end
-
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("SOA")
+          end
+        
       end # class SOA
       
     end # class RR
