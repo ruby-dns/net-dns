@@ -2,15 +2,24 @@
 
 Net::DNS is a DNS library written in pure Ruby. It started as a port of Perl Net::DNS module, but it evolved in time into a full Ruby library.  
 
-Features:
 
-- Complete OO interface
-- Clean and intuitive API
-- Modular and flexible
+== Features
+
+* Complete OO interface
+* Clean and intuitive API
+* Modular and flexible
+
+
+== Requirements
+
+* Ruby >= 1.8.6 (not tested with previous versions)
+
+As of release TODO, Net::DNS is compatible with Ruby 1.9.1.
+
 
 == Install
 
-Just use Rubygems:
+Just use RubyGems:
      
      $ sudo gem install net-dns
 
@@ -74,7 +83,7 @@ Same for Net::DNS::Resolver.start():
     Net::DNS::Resolver.start("google.com").answer.size
       #=> 5
 
-As optionals parameters, +TYPE+ and +CLASS+ can be specified.
+As optional parameters, +TYPE+ and +CLASS+ can be specified.
 
    p Net::DNS::Resolver.start("google.com", Net::DNS::MX)
 
