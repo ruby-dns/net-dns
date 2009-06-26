@@ -4,7 +4,7 @@
 
 
 require 'rubygems' if "#{RUBY_VERSION}" < "1.9.0"
-require 'net/dns/resolver'
+require 'net/dns'
 
 #------------------------------------------------------------------------------
 # Get the domain from the command line.
