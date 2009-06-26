@@ -30,10 +30,10 @@ class Test_DnsTimeout < Test::Unit::TestCase
   end
   
   def test_range_tcp
-    assert_raise(DnsTimeoutArgumentError) do
+    assert_raise(ArgumentError) do
       TcpTimeout.new("a")
     end
-    assert_raise(DnsTimeoutArgumentError) do
+    assert_raise(ArgumentError) do
       TcpTimeout.new(-1)
     end
     assert_raise(TimeoutError) do
@@ -42,10 +42,10 @@ class Test_DnsTimeout < Test::Unit::TestCase
   end
 
   def test_range_udp
-    assert_raise(DnsTimeoutArgumentError) do
+    assert_raise(ArgumentError) do
       UdpTimeout.new("a")
     end
-    assert_raise(DnsTimeoutArgumentError) do
+    assert_raise(ArgumentError) do
       UdpTimeout.new(-1)
     end
     assert_raise(TimeoutError) do
