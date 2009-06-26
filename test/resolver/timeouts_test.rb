@@ -1,12 +1,12 @@
-require 'test/unit'
+require 'test_helper'
 require 'net/dns/resolver/timeouts.rb'
 
-class Test_DnsTimeout < Test::Unit::TestCase
+class DnsTimeoutTest < Test::Unit::TestCase
   
   def test_timeout_should_raise_localjumperror_without_block
     assert_raise(LocalJumpError) { DnsTimeout.new(1).timeout }
   end
-  
+
   def test_tcp
     assert_equal(TcpTimeout.new(0).to_s,"infinite")
     assert_equal(TcpTimeout.new(30).to_s, "30")

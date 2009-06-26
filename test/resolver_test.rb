@@ -1,4 +1,4 @@
-require 'test/unit'
+require 'test_helper'
 require 'net/dns/resolver'
 
 class Net::DNS::Resolver
@@ -6,7 +6,7 @@ class Net::DNS::Resolver
 end
 
 
-class TestResolver < Test::Unit::TestCase
+class ResolverTest < Test::Unit::TestCase
   
   def test_initialize
     assert_nothing_raised { Net::DNS::Resolver.new } 

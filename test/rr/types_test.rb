@@ -1,7 +1,7 @@
-require 'test/unit'
+require 'test_helper'
 require 'net/dns/rr/types'
 
-class Test_Types < Test::Unit::TestCase
+class RRTypesTest < Test::Unit::TestCase
   def setup
     @types = {
       'SIGZERO'   => 0, 

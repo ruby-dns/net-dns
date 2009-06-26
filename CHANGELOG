@@ -3,6 +3,8 @@
 
 == branch refactoring
 
+* CHANGED: Refactoring unit test to follow most used Ruby conventions.
+
 * CHANGED: RR#set_stype scope is now private to prevent invalid usage.
 
 * CHANGED: Moved main dns.rb file to lib/net folder as default for GEMs. In this way it can be autoloaded when the gem is required.

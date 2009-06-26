@@ -1,7 +1,7 @@
-require 'test/unit'
+require 'test_helper'
 require 'net/dns/rr'
 
-class Test_RR < Test::Unit::TestCase
+class RRTest < Test::Unit::TestCase
   
   def setup
     @name = "example.com."

@@ -1,7 +1,7 @@
-require 'test/unit'
+require 'test_helper'
 require 'net/dns/packet'
 
-class Test_Packet < Test::Unit::TestCase
+class PacketTest < Test::Unit::TestCase
   include Net::DNS
 
   def setup

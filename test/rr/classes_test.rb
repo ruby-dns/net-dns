@@ -1,7 +1,7 @@
-require 'test/unit'
+require 'test_helper'
 require 'net/dns/rr/classes'
 
-class Test_Classes < Test::Unit::TestCase
+class RRClassesTest < Test::Unit::TestCase
   def setup
     @classes = {
       'IN'        => 1,       # RFC 1035
