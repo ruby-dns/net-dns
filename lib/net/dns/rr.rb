@@ -56,8 +56,8 @@ module Net # :nodoc:
     # which are listed here to keep a light and browsable main documentation.
     # We have:
     #
-    # * RRArgumentError: Generic argument error for class Net::DNS::RR
-    # * RRDataError: Error in parsing binary data, maybe from a malformed packet
+    # ArgumentError:: Generic argument error for class Net::DNS::RR
+    # DataError::     Error in parsing binary data, maybe from a malformed packet.
     #
     # =Copyright
     # 
@@ -68,6 +68,19 @@ module Net # :nodoc:
     #
     class RR
       include Net::DNS::Names
+      
+      # Argument Error for class Net::DNS::RR.
+      class ArgumentError < ArgumentError
+      end
+      
+      # Base error class.
+      class Error < StandardError
+      end
+      
+      # Error in parsing binary data, maybe from a malformed packet.
+      class DataError < Error
+      end
+      
       
       # Regexp matching an RR string
       RR_REGEXP = Regexp.new("^\\s*(\\S+)\\s*(\\d+)?\\s+(" +
@@ -137,7 +150,7 @@ module Net # :nodoc:
           when Hash
             new_from_hash(arg)
           else
-            raise RRArgumentError, "Invalid argument, must be a RR string or an hash of values"
+            raise ArgumentError, "Invalid argument, must be a RR string or an hash of values"
         end
 
         if @type.to_s == "ANY"
@@ -259,7 +272,7 @@ module Net # :nodoc:
       def new_from_string(rrstring)
 
         unless rrstring =~ RR_REGEXP
-          raise RRArgumentError, 
+          raise ArgumentError, 
           "Format error for RR string (maybe CLASS and TYPE not valid?)"
         end
 
@@ -267,7 +280,7 @@ module Net # :nodoc:
         begin
           @name = $1.downcase
         rescue NoMethodError
-          raise RRArgumentError, "Missing name field in RR string #{rrstring}"
+          raise ArgumentError, "Missing name field in RR string #{rrstring}"
         end
         
         # Time to live for RR, default 3 hours
@@ -294,7 +307,7 @@ module Net # :nodoc:
         
         # Name field is mandatory   
         unless args.has_key? :name 
-          raise RRArgumentError, "RR argument error: need at least RR name"
+          raise ArgumentError, "RR argument error: need at least RR name"
         end
 
         @name  = args[:name].downcase
@@ -334,8 +347,8 @@ module Net # :nodoc:
           set_type
           return [self,offset]
         end
-#      rescue StandardError => err
-#        raise RRDataError, "Caught exception, maybe packet malformed: #{err}"
+#      rescue StandardError => e
+#        raise DataError, "Caught exception, maybe packet malformed: #{e.message}"
       end
       
       # Methods to be overridden by subclasses
@@ -375,15 +388,11 @@ module Net # :nodoc:
         end
       end
             
-    end # class RR
+    end
     
-  end # module DNS
-end # module Net
+  end
+end
 
-class RRArgumentError < ArgumentError # :nodoc:
-end
-class RRDataError < StandardError # :nodoc:
-end
 
 module ExtendHash # :nodoc:
   

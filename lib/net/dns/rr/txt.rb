@@ -36,7 +36,7 @@ module Net
           if args.has_key? :txt
             @txt = args[:txt].strip
           else
-            raise RRArgumentError, ":txt field is mandatory but missing"
+            raise ArgumentError, ":txt field is mandatory but missing"
           end
         end
         

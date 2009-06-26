@@ -40,12 +40,12 @@ module Net
           when IPAddr
             address = addr
           else
-            raise RRArgumentError, "Unknown address type: #{addr.inspect}"
+            raise ArgumentError, "Unknown address type: #{addr.inspect}"
           end
-          raise RRArgumentError, "Must specify an IPv6 address" unless address.ipv6?
+          raise ArgumentError, "Must specify an IPv6 address" unless address.ipv6?
           address
         rescue ArgumentError
-          raise RRArgumentError, "Invalid address #{addr.inspect}"
+          raise ArgumentError, "Invalid address #{addr.inspect}"
         end
           
         def build_pack
@@ -65,7 +65,7 @@ module Net
           if args.has_key? :address 
             @address = check_address args[:address]
           else
-            raise RRArgumentError, ":address field is mandatory but missing"
+            raise ArgumentError, ":address field is mandatory but missing"
           end
         end
         

@@ -21,7 +21,7 @@ module Net
         
         def check_name(name)
           unless name =~ /(\w\.?)+\s*$/ and name =~ /[a-zA-Z]/
-            raise RRArgumentError, "Canonical Name not valid: #{name}"
+            raise ArgumentError, "Canonical Name not valid: #{name}"
           end
           name
         end
@@ -43,7 +43,7 @@ module Net
           if args.has_key? :cname
             @cname = check_name args[:cname]
           else
-            raise RRArgumentError, ":cname field is mandatory but missing"
+            raise ArgumentError, ":cname field is mandatory but missing"
           end
         end
 

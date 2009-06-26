@@ -23,7 +23,7 @@ module Net
           if str.strip =~ /^(\d+)\s+(\S+)$/
             return $1.to_i,$2
           else
-            raise RRArgumentError, "MX section not valid"
+            raise ArgumentError, "MX section not valid"
           end
         end
         
@@ -45,7 +45,7 @@ module Net
             @preference = args[0][:preference].to_i
             @exchange =  args[0][:exchange]
           else
-            raise RRArgumentError, ":preference and :exchange fields are mandatory but missing"
+            raise ArgumentError, ":preference and :exchange fields are mandatory but missing"
           end
         end
 

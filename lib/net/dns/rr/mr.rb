@@ -21,7 +21,7 @@ module Net
         
         def check_name(name)
           unless name =~ /(\w\.?)+\s*$/
-            raise RRArgumentError, "Name not valid: #{name.inspect}"
+            raise ArgumentError, "Name not valid: #{name.inspect}"
           end
           name
         end
@@ -43,7 +43,7 @@ module Net
           if args.has_key? :newname
             @newname = check_name args[:newname]
           else
-            raise RRArgumentError, ":newname field is mandatory but missing"
+            raise ArgumentError, ":newname field is mandatory but missing"
           end
         end
 

@@ -22,7 +22,7 @@ module Net
           if str.strip =~ /^["'](.*?)["']\s+["'](.*?)["']$/
             return $1,$2
           else
-            raise RRArgumentError, "HINFO section not valid: #{str.inspect}"
+            raise ArgumentError, "HINFO section not valid: #{str.inspect}"
           end
         end
         
@@ -45,7 +45,7 @@ module Net
             @cpu = args[:cpu]
             @os =  args[:os]
           else
-            raise RRArgumentError, ":cpu and :os fields are mandatory but missing"
+            raise ArgumentError, ":cpu and :os fields are mandatory but missing"
           end
         end
 

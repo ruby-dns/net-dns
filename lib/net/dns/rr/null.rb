@@ -36,7 +36,7 @@ module Net
           if args.has_key? :null
             @null = args[:null]
           else
-            raise RRArgumentError, ":null field is mandatory but missing"
+            raise ArgumentError, ":null field is mandatory but missing"
           end
         end
 

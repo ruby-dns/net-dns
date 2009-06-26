@@ -45,26 +45,26 @@ class Test_A < Test::Unit::TestCase
   end
 
   def test_range
-    assert_raise(RRArgumentError) do 
+    assert_raise(Net::DNS::RR::ArgumentError) do 
       Net::DNS::RR::A.new(:name => "google.com",
                           :address => "255.256")
     end
-    assert_raise(RRArgumentError) do
+    assert_raise(Net::DNS::RR::ArgumentError) do
       Net::DNS::RR::A.new(:name => "google.com")
     end
-    assert_raise(RRArgumentError) do
+    assert_raise(Net::DNS::RR::ArgumentError) do
       Net::DNS::RR::A.new(Object.new)
     end
-    assert_raise(RRArgumentError) do
+    assert_raise(Net::DNS::RR::ArgumentError) do
       Net::DNS::RR::A.new(Array.new(7))
     end
-    assert_raise(RRArgumentError) do
+    assert_raise(Net::DNS::RR::ArgumentError) do
       Net::DNS::RR::A.new("10800 IN A")
     end
-    assert_raise(RRArgumentError) do
+    assert_raise(Net::DNS::RR::ArgumentError) do
       Net::DNS::RR::A.new("google.com. 10800 IN B")
     end
-    assert_raise(RRArgumentError) do
+    assert_raise(Net::DNS::RR::ArgumentError) do
       Net::DNS::RR::A.new("google.com. 10800 IM A")
     end
   end

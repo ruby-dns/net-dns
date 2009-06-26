@@ -51,7 +51,7 @@ module Net # :nodoc:
         def address=(addr)
           @address = check_address addr
           build_pack
-        end # address=
+        end
         
         private
         
@@ -67,12 +67,12 @@ module Net # :nodoc:
           when IPAddr
             address = addr
           else
-            raise RRArgumentError, "Unknown address type: #{addr}"
+            raise ArgumentError, "Unknown address type `#{addr}'"
           end
-          raise RRArgumentError, "Must specify an IPv4 address" unless address.ipv4?
+          raise ArgumentError, "Must specify an IPv4 address" unless address.ipv4?
           address
-        rescue ArgumentError
-          raise RRArgumentError, "Invalid address #{addr}"
+        rescue ::ArgumentError
+          raise ArgumentError, "Invalid address `#{addr}'"
         end
           
         def build_pack
@@ -95,7 +95,7 @@ module Net # :nodoc:
             @address = check_address args[:rdata]
           else
             # Address field is mandatory
-            raise RRArgumentError, ":address field is mandatory but missing"
+            raise ArgumentError, ":address field is mandatory but missing"
           end
         end
         
@@ -115,10 +115,8 @@ module Net # :nodoc:
             @type = Net::DNS::RR::Types.new("A")
           end
         
-      end # class A
+      end
       
-    end # class RR
-  end # module DNS
-end # module Net
-
-
+    end
+  end
+end

@@ -26,7 +26,7 @@ module Net
         def check_ptr(str)
           IPAddr.new str
         rescue
-          raise RRArgumentError, "PTR section not valid"
+          raise ArgumentError, "PTR section not valid"
         end
         
         def build_pack
@@ -46,7 +46,7 @@ module Net
           if args.has_key? :ptrdname or args.has_key? :ptr
             @ptrdname = args[0][:ptrdname]
           else
-            raise RRArgumentError, ":ptrdname or :ptr field is mandatory but missing"
+            raise ArgumentError, ":ptrdname or :ptr field is mandatory but missing"
           end
         end
 

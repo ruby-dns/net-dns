@@ -21,7 +21,7 @@ module Net
         
         def check_name(name)
           unless name =~ /(\w\.?)+\s*$/ and name =~ /[a-zA-Z]/
-            raise RRArgumentError, "NS Domain Name not valid: #{name}"
+            raise ArgumentError, "NS Domain Name not valid: #{name}"
           end
           name
         end
@@ -43,7 +43,7 @@ module Net
           if args.has_key? :nsdname
             @nsdname = check_name args[:nsdname]
           else
-            raise RRArgumentError, ":nsdname field is mandatory but missing"
+            raise ArgumentError, ":nsdname field is mandatory but missing"
           end
         end
 
