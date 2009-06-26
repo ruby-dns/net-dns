@@ -109,7 +109,18 @@ module Net # :nodoc:
     #      % setenv RES_OPTIONS "retrans:3 retry:2 debug"
     #        
     class Resolver
-
+      
+      # Argument Error for class Net::DNS::Resolver.
+      class ArgumentError < ArgumentError
+      end
+      
+      class Error < StandardError
+      end
+      
+      class NoResponseError < Error
+      end
+      
+      
       # An hash with the defaults values of almost all the
       # configuration parameters of a resolver object. See
       # the description for each parameter to have an 
@@ -225,7 +236,7 @@ module Net # :nodoc:
       # Net::DNS::Resolver Perl module.
       #
       def initialize(config = {})
-        raise ResolverArgumentError, "Argument has to be Hash" unless config.kind_of? Hash
+        raise ArgumentError, "Argument has to be Hash" unless config.kind_of? Hash
         # config.key_downcase!
         @config = Defaults.merge config
         @raw = false
@@ -262,7 +273,7 @@ module Net # :nodoc:
           begin
             eval "self.#{key.to_s} = val"
           rescue NoMethodError
-            raise ResolverArgumentError, "Option #{key} not valid"
+            raise ArgumentError, "Option #{key} not valid"
           end
         end
       end
@@ -299,7 +310,7 @@ module Net # :nodoc:
           @config[:searchlist] = arg if arg.all? {|x| valid? x}
           @logger.info "Searchlist changed to value #{@config[:searchlist].inspect}"          
         else
-          raise ResolverArgumentError, "Wrong argument format, neither String nor Array"
+          raise ArgumentError, "Wrong argument format, neither String nor Array"
         end
       end
       
@@ -357,12 +368,12 @@ module Net # :nodoc:
                                      when IPAddr
                                        x
                                      else
-                                       raise ResolverArgumentError, "Wrong argument format"
+                                       raise ArgumentError, "Wrong argument format"
                                      end
           end
           @logger.info "Nameservers list changed to value #{@config[:nameservers].inspect}"          
         else
-          raise ResolverArgumentError, "Wrong argument format, neither String, Array nor IPAddr"
+          raise ArgumentError, "Wrong argument format, neither String, Array nor IPAddr"
         end
       end
       alias_method("nameserver=","nameservers=")
@@ -405,7 +416,7 @@ module Net # :nodoc:
           @config[:port] = num
           @logger.info "Port number changed to #{num}"          
         else
-          raise ResolverArgumentError, "Wrong port number #{num}"
+          raise ArgumentError, "Wrong port number #{num}"
         end
       end
 
@@ -436,7 +447,7 @@ module Net # :nodoc:
         if (0..65535).include?(num) 
           @config[:source_port] = num
         else
-          raise ResolverArgumentError, "Wrong port number #{num}"
+          raise ArgumentError, "Wrong port number #{num}"
         end
       end
       alias srcport= source_port= 
@@ -477,7 +488,7 @@ module Net # :nodoc:
       #
       def source_address=(addr)
         unless addr.respond_to? :to_s
-          raise ResolverArgumentError, "Wrong address argument #{addr}"
+          raise ArgumentError, "Wrong address argument #{addr}"
         end
 
         begin
@@ -527,7 +538,7 @@ module Net # :nodoc:
           @config[:retry_interval] = num
           @logger.info "Retransmission interval changed to #{num} seconds"          
         else
-          raise ResolverArgumentError, "Interval must be positive"
+          raise ArgumentError, "Interval must be positive"
         end
       end
       alias retrans= retry_interval= 
@@ -548,7 +559,7 @@ module Net # :nodoc:
           @config[:retry_number] = num
           @logger.info "Retrasmissions number changed to #{num}"
         else
-          raise ResolverArgumentError, "Retry value must be a positive integer"
+          raise ArgumentError, "Retry value must be a positive integer"
         end
       end        
       alias_method('retry=', 'retry_number=') 
@@ -577,7 +588,7 @@ module Net # :nodoc:
           @config[:recursive] = bool
           @logger.info("Recursive state changed to #{bool}")
         else
-          raise ResolverArgumentError, "Argument must be boolean"
+          raise ArgumentError, "Argument must be boolean"
         end
       end
       alias_method :recurse=, :recursive= 
@@ -629,7 +640,7 @@ module Net # :nodoc:
           @config[:defname] = bool
           @logger.info("Defname state changed to #{bool}")          
         else
-          raise ResolverArgumentError, "Argument must be boolean"
+          raise ArgumentError, "Argument must be boolean"
         end
       end
 
@@ -649,7 +660,7 @@ module Net # :nodoc:
           @config[:dns_search] = bool
           @logger.info("DNS search state changed to #{bool}")          
         else
-          raise ResolverArgumentError, "Argument must be boolean"
+          raise ArgumentError, "Argument must be boolean"
         end
       end
       alias_method("dnsrch=","dns_search=")
@@ -678,7 +689,7 @@ module Net # :nodoc:
           @config[:use_tcp] = bool
           @logger.info("Use tcp flag changed to #{bool}")          
         else
-          raise ResolverArgumentError, "Argument must be boolean"
+          raise ArgumentError, "Argument must be boolean"
         end
       end
       alias usevc= use_tcp= 
@@ -694,7 +705,7 @@ module Net # :nodoc:
           @config[:ignore_truncated] = bool
           @logger.info("Ignore truncated flag changed to #{bool}")          
         else
-          raise ResolverArgumentError, "Argument must be boolean"
+          raise ArgumentError, "Argument must be boolean"
         end
       end
       
@@ -803,7 +814,7 @@ module Net # :nodoc:
           @logger.close
           @logger = logger
         else
-          raise ResolverArgumentError, "Argument must be an instance of Logger class"
+          raise ArgumentError, "Argument must be an instance of Logger class"
         end
       end
 
@@ -995,8 +1006,9 @@ module Net # :nodoc:
         ans = self.old_send(method,packet,packet_data)
         
         unless ans
-          @logger.fatal "No response from nameservers list: aborting"
-          raise NoResponseError
+          message = "No response from nameservers list"
+          @logger.fatal(message)
+          raise NoResponseError, message
         end
 
         @logger.info "Received #{ans[0].size} bytes from #{ans[1][2]+":"+ans[1][1].to_s}"
@@ -1101,7 +1113,7 @@ module Net # :nodoc:
             begin
               eval("self.#{name} = #{val}")
             rescue NoMethodError
-              raise ResolverArgumentError, "Invalid ENV option #{name}"
+              raise ArgumentError, "Invalid ENV option #{name}"
             end
           end
         end
@@ -1219,7 +1231,7 @@ module Net # :nodoc:
 
       def valid?(name)
         if name =~ /[^-\w\.]/
-          raise ResolverArgumentError, "Invalid domain name #{name}"
+          raise ArgumentError, "Invalid domain name #{name}"
         else
           true
         end
@@ -1239,13 +1251,8 @@ module Net # :nodoc:
         
       end
     
-    end # class Resolver
-  end # module DNS
-end # module Net
-
-class ResolverArgumentError < ArgumentError # :nodoc:
-end
-class NoResponseError < StandardError # :nodoc:
+    end
+  end
 end
 
 module ExtendHash # :nodoc: 
