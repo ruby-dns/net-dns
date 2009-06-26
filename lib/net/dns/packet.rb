@@ -94,8 +94,8 @@ module Net # :nodoc:
     # which are listed here to keep a light and browsable main documentation.
     # We have:
     #
-    # * PacketArgumentError: Generic argument error for class Net::DNS::Packet
-    # * PacketError: Generic Packet error
+    # ArgumentError::   Argument Error for class Net::DNS::Packet
+    # PacketError::     Generic Packet Error
     #
     # =Copyright
     # 
@@ -105,12 +105,24 @@ module Net # :nodoc:
     # it and/or modify it under the same terms as Ruby itself.
     #
     class Packet
-
       include Names
+      
+      # Argument Error for class Net::DNS::Packet.
+      class ArgumentError < ArgumentError
+      end
+      
+      # Base error class.
+      class Error < StandardError
+      end
+      
+      # Generic Packet Error.
+      class PacketError < Error
+      end
+      
       
       attr_reader :header, :question, :answer, :authority, :additional
       attr_reader :answerfrom, :answersize
-
+      
       # Create a new instance of Net::DNS::Packet class. Arguments are the
       # canonical name of the resourse, an optional type field and an optional
       # class field. The record type and class can be omitted; they default 
@@ -305,7 +317,7 @@ module Net # :nodoc:
         if object.kind_of? Net::DNS::Header
           @header = object
         else
-          raise PacketArgumentError, "Argument must be a Net::DNS::Header object"
+          raise ArgumentError, "Argument must be a Net::DNS::Header object"
         end
       end
       
@@ -318,12 +330,12 @@ module Net # :nodoc:
           if object.all? {|x| x.kind_of? Net::DNS::Question}
             @question = object
           else
-            raise PacketArgumentError, "Some of the elements is not an Net::DNS::Question object"
+            raise ArgumentError, "Some of the elements is not an Net::DNS::Question object"
           end
         when Net::DNS::Question
           @question = [object]
         else
-          raise PacketArgumentError, "Invalid argument, not a Question object nor an array of objects"
+          raise ArgumentError, "Invalid argument, not a Question object nor an array of objects"
         end
       end
 
@@ -337,12 +349,12 @@ module Net # :nodoc:
           if object.all? {|x| x.kind_of? Net::DNS::RR}
             @answer = object
           else
-            raise PacketArgumentError, "Some of the elements is not an Net::DNS::RR object"
+            raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
           end
         when Net::DNS::RR
           @answer = [object]
         else
-          raise PacketArgumentError, "Invalid argument, not a RR object nor an array of objects"
+          raise ArgumentError, "Invalid argument, not a RR object nor an array of objects"
         end
       end
 
@@ -356,12 +368,12 @@ module Net # :nodoc:
           if object.all? {|x| x.kind_of? Net::DNS::RR}
             @additional = object
           else
-            raise PacketArgumentError, "Some of the elements is not an Net::DNS::RR object"
+            raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
           end
         when Net::DNS::RR
           @additional = [object]
         else
-          raise PacketArgumentError, "Invalid argument, not a RR object nor an array of objects"
+          raise ArgumentError, "Invalid argument, not a RR object nor an array of objects"
         end
       end
 
@@ -375,12 +387,12 @@ module Net # :nodoc:
           if object.all? {|x| x.kind_of? Net::DNS::RR}
             @authority = object
           else
-            raise PacketArgumentError, "Some of the elements is not an Net::DNS::RR object"
+            raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
           end
         when Net::DNS::RR
           @authority = [object]
         else
-          raise PacketArgumentError, "Invalid argument, not a RR object nor an array of objects"
+          raise ArgumentError, "Invalid argument, not a RR object nor an array of objects"
         end
       end
       
@@ -570,12 +582,7 @@ module Net # :nodoc:
         raise PacketError, "Caught exception, maybe packet malformed => #{err}"
       end
 
-    end # class Packet
+    end
     
-  end # module DNS
-end # module Net
-
-class PacketError < StandardError # :nodoc:
-end
-class PacketArgumentError < ArgumentError # :nodoc:
+  end
 end

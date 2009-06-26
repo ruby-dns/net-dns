@@ -57,11 +57,11 @@ module Net # :nodoc:
     # which are listed here to keep a light and browsable main documentation.
     # We have:
     #
-    # * ArgumentError:  canonical argument error
-    # * WrongCountError:     a wrong +count+ parameter has been passed
-    # * WrongRecursiveError: a wrong +recursive+ parameter has been passed
-    # * WrongOpcodeError:    a not valid +opCode+ has been specified
-    # * DuplicateIDError:    the requested ID is already in use
+    # ArgumentError::       Argument Error for class Net::DNS::Packet
+    # WrongCountError::     A wrong +count+ parameter has been passed
+    # WrongRecursiveError:: A wrong +recursive+ parameter has been passed
+    # WrongOpcodeError::    A not valid +opCode+ has been specified
+    # DuplicateIDError::    The requested ID is already in use
     #
     # =Copyright
     # 
@@ -72,7 +72,7 @@ module Net # :nodoc:
     #
     class Header
       
-      # Canonical argument error.
+      # Argument Error for class Net::DNS::Header.
       class ArgumentError < ArgumentError
       end
       
