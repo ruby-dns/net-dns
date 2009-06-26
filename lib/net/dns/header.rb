@@ -57,11 +57,11 @@ module Net # :nodoc:
     # which are listed here to keep a light and browsable main documentation.
     # We have:
     #
-    # * HeaderArgumentError:  canonical argument error
-    # * HeaderWrongCount:     a wrong +count+ parameter has been passed
-    # * HeaderWrongRecursive: a wrong +recursive+ parameter has been passed
-    # * HeaderWrongOpcode:    a not valid +opCode+ has been specified
-    # * HeaderDuplicateID:    the requested ID is already in use
+    # * ArgumentError:  canonical argument error
+    # * WrongCountError:     a wrong +count+ parameter has been passed
+    # * WrongRecursiveError: a wrong +recursive+ parameter has been passed
+    # * WrongOpcodeError:    a not valid +opCode+ has been specified
+    # * DuplicateIDError:    the requested ID is already in use
     #
     # =Copyright
     # 
@@ -71,9 +71,34 @@ module Net # :nodoc:
     # it and/or modify it under the same terms as Ruby itself.
     #
     class Header
-    
+      
+      # Canonical argument error.
+      class ArgumentError < ArgumentError
+      end
+      
+      # A wrong +count+ parameter has been passed-
+      class WrongCountError < ArgumentError
+      end
+      
+      # A wrong +recursive+ parameter has been passed-
+      class WrongRecursiveError < ArgumentError
+      end
+      
+      # An invalid +opCode+ has been specified.
+      class WrongOpcodeError < ArgumentError
+      end
+      
+      # Base error class.
+      class Error < StandardError
+      end
+      
+      # The requested ID is already in use.
+      class DuplicateIDError < Error
+      end
+      
+
       #
-      # =Name
+      # = Name
       #
       # Net::DNS::Header::RCode - DNS Header RCode handling class
       #
@@ -166,7 +191,7 @@ module Net # :nodoc:
             @type         = RCodeType[code]
             @explanation  = RCodeErrorString[code] 
           else
-            raise HeaderArgumentError, "RCode #{code} out of range"
+            raise ArgumentError, "RCode `#{code}' out of range"
           end
         end
         
@@ -240,7 +265,7 @@ module Net # :nodoc:
         if arg.kind_of? Hash
           new_from_hash(arg)
         else
-          raise HeaderArgumentError, "Wrong argument class: #{arg.class}"
+          raise ArgumentError, "Wrong argument class `#{arg.class}'"
         end
       end
 
@@ -262,7 +287,7 @@ module Net # :nodoc:
           o.send(:new_from_binary, arg)
           o
         else
-          raise HeaderArgumentError, "Wrong argument class: #{arg.class}"
+          raise ArgumentError, "Wrong argument class `#{arg.class}'"
         end
       end
       
@@ -362,13 +387,13 @@ module Net # :nodoc:
       #
       def id=(val)
         if @@id_arr.include? val
-          raise HeaderDuplicateID, "ID #{val} already used"
+          raise DuplicateIDError, "ID `#{val}' already used"
         end
         if (1..65535).include? val
           @id = val
           @@id_arr.push val
         else
-          raise HeaderArgumentError, "ID #{val} out of range"
+          raise ArgumentError, "ID `#{val}' out of range"
         end
       end
       
@@ -393,7 +418,7 @@ module Net # :nodoc:
         when 0,1
           @qr = val
         else
-          raise HeaderArgumentError, ":qr must be true(or 1) or false(or 0)"
+          raise ArgumentError, ":qr must be true(or 1) or false(or 0)"
         end
       end
 
@@ -431,7 +456,7 @@ module Net # :nodoc:
         if (0..2).include? val
           @opCode = val
         else
-          raise HeaderWrongOpcode, "Wrong opCode value (#{val}), must be QUERY, IQUERY or STATUS"
+          raise WrongOpcodeError, "Wrong opCode value (#{val}), must be QUERY, IQUERY or STATUS"
         end
       end
 
@@ -465,7 +490,7 @@ module Net # :nodoc:
         when 0,1
           @aa = val
         else
-          raise HeaderArgumentError, ":aa must be true(or 1) or false(or 0)"
+          raise ArgumentError, ":aa must be true(or 1) or false(or 0)"
         end
       end
       
@@ -503,7 +528,7 @@ module Net # :nodoc:
         when 0,1
           @tc = val
         else
-          raise HeaderArgumentError, ":tc must be true(or 1) or false(or 0)"
+          raise ArgumentError, ":tc must be true(or 1) or false(or 0)"
         end
       end
       
@@ -535,7 +560,7 @@ module Net # :nodoc:
         when 0
           @rd = 0
         else
-          raise HeaderWrongRecursive, "Wrong value (#{val}), please specify true (1) or false (0)"
+          raise WrongRecursiveError, "Wrong value (#{val}), please specify true (1) or false (0)"
         end
       end
 
@@ -568,7 +593,7 @@ module Net # :nodoc:
         when 0,1
           @ra = val
         else
-          raise HeaderArgumentError, ":ra must be true(or 1) or false(or 0)"
+          raise ArgumentError, ":ra must be true(or 1) or false(or 0)"
         end
       end
 
@@ -592,7 +617,7 @@ module Net # :nodoc:
         when 0,1
           @cd = val
         else
-          raise HeaderArgumentError, ":cd must be true(or 1) or false(or 0)"
+          raise ArgumentError, ":cd must be true(or 1) or false(or 0)"
         end
       end
 
@@ -620,7 +645,7 @@ module Net # :nodoc:
         when 0,1
           @ad = val
         else
-          raise HeaderArgumentError, ":ad must be true(or 1) or false(or 0)"
+          raise ArgumentError, ":ad must be true(or 1) or false(or 0)"
         end
       end
       
@@ -659,7 +684,7 @@ module Net # :nodoc:
         if (0..65535).include? val
           @qdCount = val
         else
-          raise HeaderWrongCount, "Wrong number of count (#{val}), must be 0-65535"
+          raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
         end
       end
 
@@ -669,7 +694,7 @@ module Net # :nodoc:
         if (0..65535).include? val
           @anCount = val
         else
-          raise HeaderWrongCount, "Wrong number of count (#{val}), must be 0-65535"
+          raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
         end
       end
 
@@ -679,7 +704,7 @@ module Net # :nodoc:
         if (0..65535).include? val
           @nsCount = val
         else
-          raise HeaderWrongCount, "Wrong number of count (#{val}), must be 0-65535"
+          raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
         end
       end
 
@@ -689,7 +714,7 @@ module Net # :nodoc:
         if (0..65535).include? val
           @arCount = val
         else
-          raise HeaderWrongCount, "Wrong number of count (#{val}), must be 0-65535"
+          raise WrongCountError, "Wrong number of count: `#{val}' must be 0-65535"
         end
       end
 
@@ -706,7 +731,7 @@ module Net # :nodoc:
       
       def new_from_binary(str)
         unless str.size == Net::DNS::HFIXEDSZ
-          raise HeaderArgumentError, "Header binary data has wrong size: #{str.size} bytes"
+          raise ArgumentError, "Header binary data has wrong size: `#{str.size}' bytes"
         end
         arr = str.unpack("n C2 n4")
         @id          =  arr[0]
@@ -739,23 +764,7 @@ module Net # :nodoc:
         q
       end
 
-    end # class Header
+    end
 
-  end # class DNS
-end # module Net
-
-
-class HeaderArgumentError < ArgumentError # :nodoc: all
-end
-
-class HeaderWrongCount < ArgumentError # :nodoc: all
-end
-
-class HeaderWrongRecursive < ArgumentError # :nodoc: all
-end
-
-class HeaderWrongOpcode < ArgumentError # :nodoc: all
-end
-
-class HeaderDuplicateID < ArgumentError # :nodoc: all
+  end
 end
