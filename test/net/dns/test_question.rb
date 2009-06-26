@@ -47,8 +47,38 @@ class Test_Question < Test::Unit::TestCase
     assert_raise(QuestionArgumentError) do
       Question.parse("test")
     end
-    
   end
   
+  def test_inspect
+    assert_equal  "google.com.                  IN      A       ",
+                  Net::DNS::Question.new("google.com.").inspect
+    assert_equal  "google.com.                  IN      A       ",
+                  Net::DNS::Question.new("google.com.", Net::DNS::A).inspect
+    assert_equal  "google.com.                  IN      NS      ",
+                  Net::DNS::Question.new("google.com.", Net::DNS::NS).inspect
+    assert_equal  "google.com.                  IN      NS      ",
+                  Net::DNS::Question.new("google.com.", Net::DNS::NS).inspect
+  end
+  
+  def test_inspect_with_name_longer_than_29_chrs
+    assert_equal  "supercalifragilistichespiralidoso.com IN      A       ",
+                  Net::DNS::Question.new("supercalifragilistichespiralidoso.com").inspect
+  end
+  
+  def test_to_s
+    assert_equal  "google.com.                  IN      A       ",
+                  Net::DNS::Question.new("google.com.").to_s
+    assert_equal  "google.com.                  IN      A       ",
+                  Net::DNS::Question.new("google.com.", Net::DNS::A).to_s
+    assert_equal  "google.com.                  IN      NS      ",
+                  Net::DNS::Question.new("google.com.", Net::DNS::NS).to_s
+    assert_equal  "google.com.                  IN      NS      ",
+                  Net::DNS::Question.new("google.com.", Net::DNS::NS).to_s
+  end
+  
+  def test_to_s_with_name_longer_than_29_chrs
+    assert_equal  "supercalifragilistichespiralidoso.com IN      A       ",
+                  Net::DNS::Question.new("supercalifragilistichespiralidoso.com").to_s
+  end
   
 end    

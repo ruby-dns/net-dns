@@ -105,16 +105,6 @@ module Net # :nodoc:
           raise QuestionArgumentError, "Wrong argument format, must be a String"
         end
       end
-
-      # Known inspect method with nice formatting
-      def inspect
-        if @qName.size > 29 then 
-          len = @qName.size + 1 
-        else
-          len = 29
-        end
-        [@qName,@qClass.to_s,@qType.to_s].pack("A#{len} A8 A8")
-      end
       
       # Outputs binary data from a Question object
       #
@@ -147,6 +137,40 @@ module Net # :nodoc:
         str += "\000"
         [[str,@qType.to_i,@qClass.to_i].pack("a*nn"),offset,names]
       end
+      
+      
+      # 
+      # call-seq:
+      #   question.inspect -> string
+      #
+      # Returns a printable version of question with nice formatting.
+      #
+      #   q = Net::DNS::Question.new("google.com.", Net::DNS::A)
+      #   q.inspect # => "google.com.                  IN      A       "
+      #
+      def inspect
+        if @qName.size > 29 then
+          len = @qName.size + 1
+        else
+          len = 29
+        end
+        [@qName, @qClass.to_s, @qType.to_s].pack("A#{len} A8 A8")
+      end
+      
+      # 
+      # call-seq:
+      #   question.to_s -> string
+      #
+      # Returns a string representation of question.
+      # It is the same as <tt>inspect</tt>.
+      #
+      #   q = Net::DNS::Question.new("google.com.", Net::DNS::A)
+      #   q.inspect # => "google.com.                  IN      A       "
+      #
+      def to_s
+        "#{self.inspect}"
+      end
+      
       
       private
       
