@@ -49,8 +49,8 @@ module Net # :nodoc:
     # which are listed here to keep a light and browsable main documentation.
     # We have:
     #
-    # * QuestionArgumentError: generic argument error
-    # * QuestionNameError:     an error in the +name+ part of a Question entry
+    # ArgumentError::   Argument Error for class Net::DNS::Question
+    # NameError::       An error in the +name+ part of a Question entry
     #
     # =Copyright
     # 
@@ -60,8 +60,19 @@ module Net # :nodoc:
     # it and/or modify it under the same terms as Ruby itself.
     #
     class Question
-      
       include Net::DNS::Names
+      
+      # Argument Error for class Net::DNS::Question
+      class ArgumentError < ArgumentError
+      end
+      
+      # Base error class.
+      class Error < StandardError
+      end
+      
+      # An error in the +name+ part of a Question entry
+      class NameError < Error
+      end
       
       # +name+ part of a Question entry
       attr_reader :qName 
@@ -97,15 +108,11 @@ module Net # :nodoc:
       #     #=> Queried for example.com type A
       #
       def self.parse(arg)
-        if arg.kind_of? String
-          o = allocate
-          o.send(:new_from_binary,arg)
-          o
-        else
-          raise QuestionArgumentError, "Wrong argument format, must be a String"
-        end
+        o = allocate
+        o.send(:new_from_binary, arg.to_s)
+        o
       end
-
+      
       # Known inspect method with nice formatting
       def inspect
         if @qName.size > 29 then 
@@ -167,12 +174,12 @@ module Net # :nodoc:
       def check_name(name)
         name.strip!
         if name =~ /[^\w\.\-_]/
-          raise QuestionNameError, "Question name #{name.inspect} not valid"          
+          raise NameError, "Question name #{name.inspect} not valid"          
         else
           name
         end
       rescue
-        raise QuestionNameError, "Question name #{name.inspect} not valid"                  
+        raise NameError, "Question name #{name.inspect} not valid"                  
       end
       
       def new_from_binary(data)
@@ -181,15 +188,10 @@ module Net # :nodoc:
         @qType = Net::DNS::RR::Types.new type
         @qClass = Net::DNS::RR::Classes.new cls
       rescue StandardError => e
-        raise QuestionArgumentError, "Invalid data: #{data.inspect}\n{e.backtrace}"
+        raise ArgumentError, "Invalid data: #{data.inspect}\n{e.backtrace}"
       end
 
-    end # class Question
+    end
     
-  end # class DNS
-end # module Net
-
-class QuestionArgumentError < ArgumentError # :nodoc:
-end
-class QuestionNameError < StandardError # :nodoc:
+  end
 end
