@@ -578,8 +578,8 @@ module Net # :nodoc:
       def parse_question(data,offset)
         size = (dn_expand(data,offset)[1]-offset) + 2*Net::DNS::INT16SZ
         return [Net::DNS::Question.parse(data[offset,size]), offset+size]
-      rescue StandardError => err
-        raise PacketError, "Caught exception, maybe packet malformed => #{err}"
+      rescue StandardError => e
+        raise PacketError, "Caught exception, maybe packet malformed => #{e.message}"
       end
 
     end
