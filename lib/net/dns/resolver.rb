@@ -3,12 +3,9 @@
 #
 
 
-
 require 'rbconfig'
 require 'socket'
 require 'timeout'
-require 'ipaddr'
-require 'logger'
 require 'net/dns/packet'
 require 'net/dns/resolver/timeouts'
 

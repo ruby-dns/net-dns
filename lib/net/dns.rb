@@ -6,7 +6,11 @@
 #
 ##
 
-module Net # :nodoc:
+
+require 'net/dns/resolver'
+
+
+module Net
   module DNS
     
     # Version of the library
@@ -113,5 +117,5 @@ module Net # :nodoc:
     include QueryTypes
     include QueryClasses
 
-  end # module DNS
-end # module Net
+  end
+end

@@ -11,6 +11,8 @@
 
 * CHANGED: DnsTimeout#timeout now raises LocalJumpError instead of DnsTimeoutArgumentError when block is missing.
 
+* FIXED: Cleaned up require dependency and recursive require statements.
+
 
 == Release 0.4
 

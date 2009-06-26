@@ -2,12 +2,13 @@
 #       $Id: RR.rb,v 1.19 2006/07/28 07:33:36 bluemonk Exp $    
 #
 
+
+require 'ipaddr'
 require 'net/dns/names/names'
 require 'net/dns/rr/types'
 require 'net/dns/rr/classes'
 
-
-%w[a ns mx cname txt soa ptr aaaa mr].each do |file|
+%w(a ns mx cname txt soa ptr aaaa mr).each do |file|
   require "net/dns/rr/#{file}"
 end
 
