@@ -468,7 +468,7 @@ module Net # :nodoc:
         data.size
       end
 
-      # Chacks whether a query has returned a NXDOMAIN error,
+      # Checks whether a query has returned a NXDOMAIN error,
       # meaning the domain name queried doesn't exists.
       #
       #   %w[a.com google.com ibm.com d.com].each do |domain|
@@ -479,7 +479,7 @@ module Net # :nodoc:
       #     #=> d.com doesn't exist
       #
       def nxdomain?
-        header.rCode == Net::DNS::Header::NAME
+        header.rCode.code == Net::DNS::Header::RCode::NAME
       end
       
       private

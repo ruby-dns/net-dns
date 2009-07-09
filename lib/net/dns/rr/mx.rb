@@ -46,8 +46,8 @@ module Net
 
         def subclass_new_from_hash(args)
           if args.has_key? :preference and args.has_key? :exchange
-            @preference = args[0][:preference].to_i
-            @exchange =  args[0][:exchange]
+            @preference = args[:preference].to_i
+            @exchange =  args[:exchange]
           else
             raise RRArgumentError, ":preference and :exchange fields are mandatory but missing"
           end

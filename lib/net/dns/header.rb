@@ -100,7 +100,7 @@ module Net # :nodoc:
       #                   problem with the name server.
       # * 3               Name Error - Meaningful only for
       #                   responses from an authoritative name
-      #                   server, this code signifies that the
+      #                   server, this code means that the
       #                   domain name referenced in the query does
       #                   not exist.
       # * 4               Not Implemented - The name server does
