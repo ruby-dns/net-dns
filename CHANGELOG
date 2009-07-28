@@ -1,9 +1,12 @@
 = Changelog
 
-
 == master
 
 * FIXED: Added missing #to_s method to Net::DNS::Question.
+
+* FIXED: Compatibility with Ruby 1.9
+
+* CHANGED: Refactoring unit test to follow most used Ruby conventions
 
 
 == Release 0.4

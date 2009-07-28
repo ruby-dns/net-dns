@@ -1,20 +1,20 @@
-require 'test/unit'
+require 'test_helper'
 require 'net/dns/rr'
 
-class Test_RR < Test::Unit::TestCase
+class RRTest < Test::Unit::TestCase
   
   def setup
-    @name = "example.com."
+    @rr_name = "example.com."
     @type = "A"
     @cls = "IN"
     @ttl = 10800
     @rdata = "64.233.187.99"
 
-    @defaults = Net::DNS::RR.new(:name => @name,
+    @defaults = Net::DNS::RR.new(:name => @rr_name,
                                  :rdata => @rdata)
     
     
-    @a_hash = Net::DNS::RR.new(:name => @name,
+    @a_hash = Net::DNS::RR.new(:name => @rr_name,
                                :ttl => @ttl,
                                :cls => @cls,
                                :type => @type,
@@ -34,8 +34,7 @@ class Test_RR < Test::Unit::TestCase
     @mx_data = @mx.data 
     @mx_binary = Net::DNS::RR.parse(@mx_data)
 
-    @array = [@name,@ttl,@cls,@type,@rdata]
-    
+    @array = [@rr_name,@ttl,@cls,@type,@rdata]
   end
 
   def test_classes
@@ -95,22 +94,21 @@ class Test_RR < Test::Unit::TestCase
   end
   
   def test_simple
-
-    assert_equal @name,  @defaults.name
+    assert_equal @rr_name,  @defaults.name
     assert_equal @type,  @defaults.type
     assert_equal @cls,   @defaults.cls
     assert_equal @ttl,   @defaults.ttl
     assert_equal @rdata, @defaults.rdata.to_s
     
     assert_equal(@str,@a_hash.inspect)
-    assert_equal(@name, @a_hash.name)
+    assert_equal(@rr_name, @a_hash.name)
     assert_equal(@type, @a_hash.type)
     assert_equal(@cls, @a_hash.cls)
     assert_equal(@ttl, @a_hash.ttl)
     assert_equal(@rdata, @a_hash.address.to_s)
 
     assert_equal(@str, @a_string.inspect)
-    assert_equal(@name, @a_string.name)
+    assert_equal(@rr_name, @a_string.name)
     assert_equal(@type, @a_string.type)
     assert_equal(@cls, @a_string.cls)
     assert_equal(@ttl, @a_string.ttl)

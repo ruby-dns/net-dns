@@ -12,7 +12,7 @@ module Net # :nodoc:
   module DNS 
     
     class RR 
-
+      
       # =Name
       #
       # Net::DNS::RR::A   DNS A resource record
@@ -39,8 +39,9 @@ module Net # :nodoc:
       # without any imbedded spaces (e.g.,"10.2.0.52" or "192.0.5.6").
       #
       class A < RR
+        
         attr_reader :address
-
+        
         # Assign to the RR::A object a new IPv4 address, which can be in the
         # form of a string or an IPAddr object
         #

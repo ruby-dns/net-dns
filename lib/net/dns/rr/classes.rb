@@ -61,7 +61,7 @@ module Net # :nodoc:
         # Gives in output the keys from the +Classes+ hash
         # in a format suited for regexps
         def self.regexp
-          Classes.keys.join("|")
+          Classes.keys.sort.join("|")
         end
 
         # Creates a new object representing an RR class. Performs some

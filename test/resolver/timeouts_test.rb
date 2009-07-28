@@ -1,7 +1,7 @@
-require 'test/unit'
+require 'test_helper'
 require 'net/dns/resolver/timeouts.rb'
 
-class Test_DnsTimeout < Test::Unit::TestCase
+class DnsTimeoutTest < Test::Unit::TestCase
 
   def test_tcp
     assert_equal(TcpTimeout.new(0).to_s,"infinite")
