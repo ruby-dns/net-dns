@@ -30,6 +30,7 @@ Visit the page http://marcoceresa.com/net-dns
 
 The simplest way to use the library is to invoke the Resolver() method:
 
+    require 'rubygems' 
     require 'net/dns/resolver'
     p Resolver("www.google.com")
 
