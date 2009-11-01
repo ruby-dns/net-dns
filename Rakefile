@@ -1,23 +1,20 @@
 require 'rubygems'
 require 'rake'
 
-#
-# Gem specifications
-#
-SPEC = Gem::Specification.new do |s|
-  s.name              = "net-dns"
-  s.summary           = "Pure Ruby DNS library"
-  s.description       = "Net::DNS is a pure Ruby DNS library, with a clean OO interface and an extensible API"
-  s.authors           = ["Marco Ceresa"]
-  s.email             = "ceresa@gmail.com"
-  s.homepage          = "http://github.com/bluemonk/net-dns"
-  s.extra_rdoc_files  = ["README.rdoc", "CHANGELOG.rdoc", "AUTHORS.rdoc", "THANKS.rdoc"]
-  s.rubyforge_project = "net-dns"
-end
-
 begin
   require 'jeweler'
-  Jeweler::Tasks.new(SPEC)
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name              = "net-dns"
+    gemspec.summary           = "Pure Ruby DNS library"
+    gemspec.description       = "Net::DNS is a pure Ruby DNS library, with a clean OO interface and an extensible API"
+    gemspec.authors           = ["Marco Ceresa"]
+    gemspec.email             = "ceresa@gmail.com"
+    gemspec.homepage          = "http://github.com/bluemonk/net-dns"
+    gemspec.extra_rdoc_files  = ["README.rdoc", "CHANGELOG.rdoc", "AUTHORS.rdoc", "THANKS.rdoc"]
+    gemspec.rubyforge_project = "net-dns"
+    
+    gemspec.add_development_dependency "rcov"
+  end
   Jeweler::RubyforgeTasks.new
 rescue LoadError
   puts "Jeweler not available."
@@ -25,7 +22,7 @@ end
 
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
-  test.libs << 'test'
+  test.libs   << 'test'
   test.pattern = 'test/**/*_test.rb'
   test.verbose = true
 end
@@ -33,14 +30,12 @@ end
 begin
   require 'rcov/rcovtask'
   Rcov::RcovTask.new(:rcov) do |test|
-    test.libs << 'test'
+    test.libs   << 'test'
     test.pattern = 'test/**/*_test.rb'
     test.verbose = true
   end
 rescue LoadError
-  task :rcov do
-    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
-  end
+  task :rcov => :check_dependencies
 end
 
 task :default => :test
@@ -48,16 +43,16 @@ task :default => :test
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
   if File.exist?('VERSION.yml')
-    config = YAML.load(File.read('VERSION.yml'))
+    config  = YAML.load(File.read('VERSION.yml'))
     version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
   else
-    puts "Not found!"
+    puts "VERSION.yml not found!"
     version = ""
   end
 
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "net-dns #{version}"
-  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('*.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
@@ -105,8 +100,3 @@ desc "Look for TODO and FIXME tags in the code"
 task :todo do
   egrep /(FIXME|TODO|TBD)/
 end
-
-
-
-
-
