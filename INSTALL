@@ -1,8 +1,0 @@
-If you didn't install this from gem, you can do a 
-
-# ruby setup.rb
-
-or, from normal user (with sudo)
-
-$ rake install
-

@@ -11,7 +11,7 @@ SPEC = Gem::Specification.new do |s|
   s.authors           = ["Marco Ceresa"]
   s.email             = "ceresa@gmail.com"
   s.homepage          = "http://github.com/bluemonk/net-dns"
-  s.extra_rdoc_files  = ["README.rdoc","AUTHORS","INSTALL", "THANKS"]
+  s.extra_rdoc_files  = ["README.rdoc", "CHANGELOG.rdoc", "AUTHORS.rdoc", "THANKS.rdoc"]
   s.rubyforge_project = "net-dns"
 end
 
