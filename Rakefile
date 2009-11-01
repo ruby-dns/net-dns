@@ -6,14 +6,12 @@ require 'rake'
 #
 SPEC = Gem::Specification.new do |s|
   s.name              = "net-dns"
+  s.summary           = "Pure Ruby DNS library"
+  s.description       = "Net::DNS is a pure Ruby DNS library, with a clean OO interface and an extensible API"
   s.authors           = ["Marco Ceresa"]
   s.email             = "ceresa@gmail.com"
   s.homepage          = "http://github.com/bluemonk/net-dns"
-  s.platform          = Gem::Platform::RUBY
-  s.summary           = "Pure Ruby DNS library"
-  s.has_rdoc          = true
   s.extra_rdoc_files  = ["README.rdoc","AUTHORS","INSTALL", "THANKS"]
-  s.description       = "Net::DNS is a pure Ruby DNS library, with a clean OO interface and an extensible API"
   s.rubyforge_project = "net-dns"
 end
 

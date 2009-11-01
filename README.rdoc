@@ -20,20 +20,22 @@ As of release TODO, Net::DNS is compatible with Ruby 1.9.1.
 == Install
 
 Just use RubyGems:
-     
-     $ sudo gem install net-dns
+  
+  $ gem install net-dns
 
 If you want to install from source, you can use Rake:
-   
-   $ rake install
 
-Or directly from install.rb
+  $ rake install
 
-   $ sudo ruby install.rb
+Or directly from setup.rb
+
+  $ ruby setup.rb
+
 
 == API Documentation
 
 Visit the page http://marcoceresa.com/net-dns
+
 
 == Trivial resolver
 
@@ -154,7 +156,7 @@ Gives:
 
 Net::DNS is distributed under the same license Ruby is.
 
+
 == Author
 
-(c) Marco Ceresa 2006   
-      
+(c) Marco Ceresa 2006-2009
