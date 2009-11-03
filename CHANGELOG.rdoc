@@ -1,18 +1,16 @@
 = Changelog
 
-== Release 0.6
-
-* CHANGED: default timeout is now 5 seconds for both UDP and TCP
-
-* FIXED: Types regexp order issue
-
 == master
 
 * FIXED: Added missing #to_s method to Net::DNS::Question.
 
 * FIXED: Compatibility with Ruby 1.9
 
+* FIXED: Types regexp order issue
+
 * CHANGED: Refactoring unit test to follow most used Ruby conventions
+
+* CHANGED: default timeout is now 5 seconds for both UDP and TCP
 
 
 == Release 0.4
