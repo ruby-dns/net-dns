@@ -24,10 +24,6 @@ module Net
           @soa_pack += [@serial,@refresh,@retry,@expire,@minimum].pack("N5")
         end
 
-        def set_type
-          @type = Net::DNS::RR::Types.new("SOA")
-        end
-
         def get_data
           @soa_pack
         end
@@ -41,7 +37,7 @@ module Net
             subclass_new_from_string(args[:rdata])
           else
             [:mname,:rname,:serial,:refresh,:retry,:expire,:minimum].each do |key|
-              raise RRArgumentError, "Missing field :#{key}" unless args.has_key? key
+              raise ArgumentError, "Missing field :#{key}" unless args.has_key? key
             end
             @mname = args[:mname] if valid? args[:mname] 
             @rname = args[:rname] if valid? args[:rname]
@@ -57,7 +53,7 @@ module Net
           if num.kind_of? Integer and num > 0
             true
           else
-            raise RRArgumentError, "Wrong format field: #{num} not a number or less than zero"
+            raise ArgumentError, "Wrong format field: #{num} not a number or less than zero"
           end
         end
 
@@ -76,7 +72,13 @@ module Net
           @serial,@refresh,@retry,@expire,@minimum = data.unpack("@#{offset} N5")
           return offset + 5*Net::DNS::INT32SZ
         end
-
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("SOA")
+          end
+        
       end # class SOA
       
     end # class RR

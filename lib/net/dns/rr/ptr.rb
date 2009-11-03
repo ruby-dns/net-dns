@@ -26,16 +26,12 @@ module Net
         def check_ptr(str)
           IPAddr.new str
         rescue
-          raise RRArgumentError, "PTR section not valid"
+          raise ArgumentError, "PTR section not valid"
         end
         
         def build_pack
           @ptrdname_pack = pack_name(@ptrdname)
           @rdlength = @ptrdname_pack.size
-        end
-
-        def set_type
-          @type = Net::DNS::RR::Types.new("PTR")
         end
 
         def get_data
@@ -50,7 +46,7 @@ module Net
           if args.has_key? :ptrdname or args.has_key? :ptr
             @ptrdname = args[0][:ptrdname]
           else
-            raise RRArgumentError, ":ptrdname or :ptr field is mandatory but missing"
+            raise ArgumentError, ":ptrdname or :ptr field is mandatory but missing"
           end
         end
 
@@ -62,7 +58,13 @@ module Net
           @ptrdname,offset = dn_expand(data,offset)
           return offset
         end
-
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("PRT")
+          end
+        
       end # class PTR
       
     end # class RR

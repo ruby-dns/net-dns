@@ -3,9 +3,7 @@ module Net # :nodoc:
     
     class RR
       
-      #
       # This is an auxiliary class to hadle RR type field in a DNS packet. 
-      #
       class Types
         
         # :nodoc:
@@ -115,7 +113,7 @@ module Net # :nodoc:
         # in a format suited for regexps
         def self.regexp
           # Longest ones go first, so the regex engine will match AAAA before A.
-          Types.keys.sort{|a,b| b.length <=> a.length}.join("|")
+          Types.keys.sort { |a,b| b.length <=> a.length }.join("|")
         end
 
         # Creates a new object representing an RR type. Performs some

@@ -40,21 +40,17 @@ module Net
           when IPAddr
             address = addr
           else
-            raise RRArgumentError, "Unknown address type: #{addr.inspect}"
+            raise ArgumentError, "Unknown address type: #{addr.inspect}"
           end
-          raise RRArgumentError, "Must specify an IPv6 address" unless address.ipv6?
+          raise ArgumentError, "Must specify an IPv6 address" unless address.ipv6?
           address
         rescue ArgumentError
-          raise RRArgumentError, "Invalid address #{addr.inspect}"
+          raise ArgumentError, "Invalid address #{addr.inspect}"
         end
           
         def build_pack
           @address_pack = @address.hton
           @rdlength = @address_pack.size
-        end
-        
-        def set_type
-          @type = Net::DNS::RR::Types.new("AAAA")
         end
         
         def get_data
@@ -69,7 +65,7 @@ module Net
           if args.has_key? :address 
             @address = check_address args[:address]
           else
-            raise RRArgumentError, ":address field is mandatory but missing"
+            raise ArgumentError, ":address field is mandatory but missing"
           end
         end
         
@@ -82,6 +78,12 @@ module Net
           @address = IPAddr.new sprintf("%x:%x:%x:%x:%x:%x:%x:%x",*arr)
           return offset + 16
         end
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("AAAA")
+          end
         
       end # class AAAA
       

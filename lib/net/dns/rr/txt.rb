@@ -27,10 +27,6 @@ module Net
           @txt_pack = str
           @rdlength = @txt_pack.size
         end
-        
-        def set_type
-          @type = Net::DNS::RR::Types.new("TXT")
-        end
 
         def get_data
           @txt_pack
@@ -40,7 +36,7 @@ module Net
           if args.has_key? :txt
             @txt = args[:txt].strip
           else
-            raise RRArgumentError, ":txt field is mandatory but missing"
+            raise ArgumentError, ":txt field is mandatory but missing"
           end
         end
         
@@ -60,7 +56,13 @@ module Net
           end
           return offset
         end 
-
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("TXT")
+          end
+        
       end # class TXT
       
     end # class RR

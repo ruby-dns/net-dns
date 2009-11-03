@@ -23,17 +23,13 @@ module Net
           if str.strip =~ /^(\d+)\s+(\S+)$/
             return $1.to_i,$2
           else
-            raise RRArgumentError, "MX section not valid"
+            raise ArgumentError, "MX section not valid"
           end
         end
         
         def build_pack
           @mx_pack = [@preference].pack("n") + pack_name(@exchange)
           @rdlength = @mx_pack.size
-        end
-
-        def set_type
-          @type = Net::DNS::RR::Types.new("MX")
         end
 
         def get_data
@@ -49,7 +45,7 @@ module Net
             @preference = args[:preference].to_i
             @exchange =  args[:exchange]
           else
-            raise RRArgumentError, ":preference and :exchange fields are mandatory but missing"
+            raise ArgumentError, ":preference and :exchange fields are mandatory but missing"
           end
         end
 
@@ -63,7 +59,13 @@ module Net
           @exchange,offset = dn_expand(data,offset)
           return offset
         end
-
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("MX")
+          end
+          
       end # class MX
       
     end # class RR

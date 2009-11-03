@@ -2,6 +2,8 @@
 
 == master
 
+*WARNING:* If you are upgrading from a previous minor release, check out the Compatibility issue list below.
+
 * FIXED: Added missing #to_s method to Net::DNS::Question.
 
 * FIXED: Compatibility with Ruby 1.9
@@ -11,6 +13,15 @@
 * CHANGED: Refactoring unit test to follow most used Ruby conventions
 
 * CHANGED: default timeout is now 5 seconds for both UDP and TCP
+
+* CHANGED: Moved main dns.rb file to lib/net folder as default for GEMs. In this way it can be autoloaded when the gem is required.
+
+
+=== Compatibility issues
+
+* CHANGED: RR#set_stype scope is now private to prevent invalid usage.
+
+* CHANGED: DnsTimeout#timeout now raises LocalJumpError instead of DnsTimeoutArgumentError when block is missing.
 
 
 == Release 0.4

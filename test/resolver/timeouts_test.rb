@@ -2,7 +2,11 @@ require 'test_helper'
 require 'net/dns/resolver/timeouts.rb'
 
 class DnsTimeoutTest < Test::Unit::TestCase
-
+  
+  def test_timeout_should_raise_localjumperror_without_block
+    assert_raise(LocalJumpError) { DnsTimeout.new(1).timeout }
+  end
+  
   def test_tcp
     assert_equal(TcpTimeout.new(0).to_s,"infinite")
     assert_equal(TcpTimeout.new(30).to_s, "30")
@@ -26,14 +30,11 @@ class DnsTimeoutTest < Test::Unit::TestCase
   end
   
   def test_range_tcp
-    assert_raise(DnsTimeoutArgumentError) do
+    assert_raise(ArgumentError) do
       TcpTimeout.new("a")
     end
-    assert_raise(DnsTimeoutArgumentError) do
+    assert_raise(ArgumentError) do
       TcpTimeout.new(-1)
-    end
-    assert_raise(DnsTimeoutArgumentError) do
-      TcpTimeout.new(1).timeout
     end
     assert_raise(TimeoutError) do
       TcpTimeout.new(0.1).timeout {sleep 2}
@@ -41,14 +42,11 @@ class DnsTimeoutTest < Test::Unit::TestCase
   end
 
   def test_range_udp
-    assert_raise(DnsTimeoutArgumentError) do
+    assert_raise(ArgumentError) do
       UdpTimeout.new("a")
     end
-    assert_raise(DnsTimeoutArgumentError) do
+    assert_raise(ArgumentError) do
       UdpTimeout.new(-1)
-    end
-    assert_raise(DnsTimeoutArgumentError) do
-      UdpTimeout.new(1).timeout
     end
     assert_raise(TimeoutError) do
       UdpTimeout.new(0.1).timeout {sleep 2}
@@ -56,4 +54,19 @@ class DnsTimeoutTest < Test::Unit::TestCase
   end
 
 end
-    
+
+class TcpTimeoutTest < Test::Unit::TestCase
+  
+  def test_timeout_should_raise_localjumperror_without_block
+    assert_raise(LocalJumpError) { TcpTimeout.new(1).timeout }
+  end
+  
+end
+
+class UdpTimeoutTest < Test::Unit::TestCase
+  
+  def test_timeout_should_raise_localjumperror_without_block
+    assert_raise(LocalJumpError) { UdpTimeout.new(1).timeout }
+  end
+  
+end

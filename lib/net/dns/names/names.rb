@@ -1,8 +1,21 @@
-module Net # :nodoc:
+module Net
   module DNS 
     
-    module Names # :nodoc: all
-
+    module Names
+      
+      # Argument Error for class Net::DNS::Names.
+      class ArgumentError < ArgumentError
+      end
+      
+      # Base error class.
+      class Error < StandardError
+      end
+      
+      # Generic Names Error.
+      class ExpandError < Error
+      end
+      
+      
       INT16SZ = 2
       
       # Expand a compressed name in a DNS Packet object. Please
@@ -18,7 +31,7 @@ module Net # :nodoc:
         name = ""
         packetlen = packet.size
         while true
-          raise ExpandError, "offset is greater than packet lenght!" if packetlen < (offset+1)
+          raise ExpandError, "Offset is greater than packet lenght!" if packetlen < (offset+1)
           len = packet.unpack("@#{offset} C")[0]
           
           if len == 0
@@ -101,9 +114,6 @@ module Net # :nodoc:
         end
       end
       
-    end # module Names
-  end # module DNS
-end # module Net
-
-class ExpandError < StandardError # :nodoc:
+    end
+  end
 end

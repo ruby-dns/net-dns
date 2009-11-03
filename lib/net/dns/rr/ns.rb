@@ -21,7 +21,7 @@ module Net
         
         def check_name(name)
           unless name =~ /(\w\.?)+\s*$/ and name =~ /[a-zA-Z]/
-            raise RRArgumentError, "NS Domain Name not valid: #{name}"
+            raise ArgumentError, "NS Domain Name not valid: #{name}"
           end
           name
         end
@@ -29,10 +29,6 @@ module Net
         def build_pack
           @nsdname_pack = pack_name(@nsdname)
           @rdlength = @nsdname_pack.size
-        end
-
-        def set_type
-          @type = Net::DNS::RR::Types.new("NS")
         end
 
         def get_data
@@ -47,7 +43,7 @@ module Net
           if args.has_key? :nsdname
             @nsdname = check_name args[:nsdname]
           else
-            raise RRArgumentError, ":nsdname field is mandatory but missing"
+            raise ArgumentError, ":nsdname field is mandatory but missing"
           end
         end
 
@@ -59,6 +55,12 @@ module Net
           @nsdname,offset = dn_expand(data,offset)
           return offset
         end
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("NS")
+          end
         
       end # class NS
       

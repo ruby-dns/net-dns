@@ -22,7 +22,7 @@ module Net
           if str.strip =~ /^["'](.*?)["']\s+["'](.*?)["']$/
             return $1,$2
           else
-            raise RRArgumentError, "HINFO section not valid: #{str.inspect}"
+            raise ArgumentError, "HINFO section not valid: #{str.inspect}"
           end
         end
         
@@ -30,10 +30,6 @@ module Net
           @hinfo_pack = [@cpu.size].pack("C") + @cpu
           @hinfo_pack += [@os.size].pack("C") + @os
           @rdlength = @hinfo_pack.size
-        end
-
-        def set_type
-          @type = Net::DNS::RR::Types.new("HINFO")
         end
 
         def get_data
@@ -49,7 +45,7 @@ module Net
             @cpu = args[:cpu]
             @os =  args[:os]
           else
-            raise RRArgumentError, ":cpu and :os fields are mandatory but missing"
+            raise ArgumentError, ":cpu and :os fields are mandatory but missing"
           end
         end
 
@@ -65,6 +61,12 @@ module Net
           @os = data[offset+1..offset+1+len]
           return offset += len+1
         end
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("HINFO")
+          end
         
       end # class HINFO
       

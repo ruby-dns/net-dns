@@ -32,19 +32,19 @@ class QuestionTest < Test::Unit::TestCase
     assert_equal(@binary2.qName, @domain)
     assert_equal(@binary2.qType.to_s, "MX")
     assert_equal(@binary2.qClass.to_s, "HS")
-   end
+  end
 
   def test_raise
-    assert_raise(QuestionNameError) do
+    assert_raise(Net::DNS::Question::NameError) do
       Question.new(1)
     end
-    assert_raise(QuestionNameError) do
+    assert_raise(Net::DNS::Question::NameError) do
       Question.new("test{")
     end
-    assert_raise(QuestionArgumentError) do
+    assert_raise(Net::DNS::Question::ArgumentError) do
       Question.parse(Array.new)
     end
-    assert_raise(QuestionArgumentError) do
+    assert_raise(Net::DNS::Question::ArgumentError) do
       Question.parse("test")
     end
   end

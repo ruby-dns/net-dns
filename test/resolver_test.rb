@@ -16,10 +16,10 @@ class ResolverTest < Test::Unit::TestCase
     assert_nothing_raised { Net::DNS::Resolver.new({}) } 
   end
   
-  def test_initialize_with_invalid_config_should_raise_error
-    assert_raise(ResolverArgumentError) { Net::DNS::Resolver.new("") } 
-    assert_raise(ResolverArgumentError) { Net::DNS::Resolver.new(0) } 
-    assert_raise(ResolverArgumentError) { Net::DNS::Resolver.new(:foo) } 
+  def test_initialize_with_invalid_config_should_raise_argumenterror
+    assert_raise(Net::DNS::Resolver::ArgumentError) { Net::DNS::Resolver.new("") } 
+    assert_raise(Net::DNS::Resolver::ArgumentError) { Net::DNS::Resolver.new(0) } 
+    assert_raise(Net::DNS::Resolver::ArgumentError) { Net::DNS::Resolver.new(:foo) } 
   end
   
   

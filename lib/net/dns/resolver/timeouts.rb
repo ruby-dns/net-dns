@@ -17,15 +17,14 @@ module SecondsHandle #:nodoc: all
   end
 end
 
-class DnsTimeout # :nodoc: all
-
+class DnsTimeout
   include SecondsHandle
   
   def initialize(seconds)
     if seconds.is_a? Numeric and seconds >= 0
       @timeout = seconds
     else
-      raise DnsTimeoutArgumentError, "Invalid value for tcp timeout"
+      raise ArgumentError, "Invalid value for tcp timeout"
     end    
   end
   
@@ -42,9 +41,8 @@ class DnsTimeout # :nodoc: all
   end
   
   def timeout
-    unless block_given?
-      raise DnsTimeoutArgumentError, "Block required but missing"
-    end
+    raise LocalJumpError, "no block given" unless block_given?
+
     if @timeout == 0
       yield
     else
@@ -55,19 +53,16 @@ class DnsTimeout # :nodoc: all
   end
 end
 
-class TcpTimeout < DnsTimeout # :nodoc: all
+class TcpTimeout < DnsTimeout
   def initialize(seconds)
     @output = "infinite"
     super(seconds)
   end
 end
 
-class UdpTimeout < DnsTimeout # :nodoc: all
+class UdpTimeout < DnsTimeout
   def initialize(seconds)
     @output = "not defined"
     super(seconds)
   end
-end
-
-class DnsTimeoutArgumentError < ArgumentError # :nodoc: all
 end

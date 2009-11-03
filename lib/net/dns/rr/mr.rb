@@ -21,7 +21,7 @@ module Net
         
         def check_name(name)
           unless name =~ /(\w\.?)+\s*$/
-            raise RRArgumentError, "Name not valid: #{name.inspect}"
+            raise ArgumentError, "Name not valid: #{name.inspect}"
           end
           name
         end
@@ -29,10 +29,6 @@ module Net
         def build_pack
           @newname_pack = pack_name(@newname)
           @rdlength = @newname_pack.size
-        end
-
-        def set_type
-          @type = Net::DNS::RR::Types.new("MR")
         end
 
         def get_data
@@ -47,7 +43,7 @@ module Net
           if args.has_key? :newname
             @newname = check_name args[:newname]
           else
-            raise RRArgumentError, ":newname field is mandatory but missing"
+            raise ArgumentError, ":newname field is mandatory but missing"
           end
         end
 
@@ -59,6 +55,12 @@ module Net
           @newname = dn_expand(data,offset)
           return offset
         end
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("MR")
+          end
         
       end # class MR
 

@@ -4,66 +4,6 @@ require 'net/dns/rr'
 class RRTypesTest < Test::Unit::TestCase
 
   def setup
-    @types = {
-      'SIGZERO'   => 0, 
-      'A'         => 1, 
-      'NS'        => 2, 
-      'MD'        => 3, 
-      'MF'        => 4, 
-      'CNAME'     => 5, 
-      'SOA'       => 6, 
-      'MB'        => 7, 
-      'MG'        => 8, 
-      'MR'        => 9, 
-      'NULL'      => 10,
-      'WKS'       => 11,
-      'PTR'       => 12,
-      'HINFO'     => 13,
-      'MINFO'     => 14,
-      'MX'        => 15,
-      'TXT'       => 16,
-      'RP'        => 17,
-      'AFSDB'     => 18,
-      'X25'       => 19,
-      'ISDN'      => 20,
-      'RT'        => 21,
-      'NSAP'      => 22,
-      'NSAP_PTR'  => 23,
-      'SIG'       => 24,
-      'KEY'       => 25,
-      'PX'        => 26,
-      'GPOS'      => 27,
-      'AAAA'      => 28,
-      'LOC'       => 29,
-      'NXT'       => 30,
-      'EID'       => 31,
-      'NIMLOC'    => 32,
-      'SRV'       => 33,
-      'ATMA'      => 34,
-      'NAPTR'     => 35,
-      'KX'        => 36,
-      'CERT'      => 37,
-      'DNAME'     => 39,
-      'OPT'       => 41,
-      'DS'        => 43,
-      'SSHFP'     => 44,
-      'RRSIG'     => 46,
-      'NSEC'      => 47,
-      'DNSKEY'    => 48, 
-      'UINFO'     => 100,
-      'UID'       => 101,
-      'GID'       => 102,
-      'UNSPEC'    => 103,
-      'TKEY'      => 249,
-      'TSIG'      => 250,
-      'IXFR'      => 251,
-      'AXFR'      => 252,
-      'MAILB'     => 253,
-      'MAILA'     => 254,
-      'ANY'       => 255,
-    }
-
-    @regexp_string = "A|AAAA|AFSDB|ANY|ATMA|AXFR|CERT|CNAME|DNAME|DNSKEY|DS|EID|GID|GPOS|HINFO|ISDN|IXFR|KEY|KX|LOC|MAILA|MAILB|MB|MD|MF|MG|MINFO|MR|MX|NAPTR|NIMLOC|NS|NSAP|NSAP_PTR|NSEC|NULL|NXT|OPT|PTR|PX|RP|RRSIG|RT|SIG|SIGZERO|SOA|SRV|SSHFP|TKEY|TSIG|TXT|UID|UINFO|UNSPEC|WKS|X25"
   end
     
   def test_default
@@ -85,7 +25,7 @@ class RRTypesTest < Test::Unit::TestCase
   end
 
   def test_types
-    @types.each do |key,num|
+    Net::DNS::RR::Types::Types.each do |key, num|
       instance_from_string = Net::DNS::RR::Types.new(key) 
       instance_from_num = Net::DNS::RR::Types.new(num)
       assert_equal(key, instance_from_string.to_s)
@@ -99,7 +39,11 @@ class RRTypesTest < Test::Unit::TestCase
   end
 
   def test_regexp
-    assert_equal(@regexp_string, Net::DNS::RR::Types.regexp)
+    pattern = Net::DNS::RR::Types.regexp
+    assert_instance_of String, pattern
+    Net::DNS::RR::Types::Types.each do |key, num|
+      assert_match /\|?#{key}\|?/, pattern
+    end
   end
   
   def test_valid

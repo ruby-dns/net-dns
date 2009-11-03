@@ -21,7 +21,7 @@ module Net
         
         def check_name(name)
           unless name =~ /(\w\.?)+\s*$/ and name =~ /[a-zA-Z]/
-            raise RRArgumentError, "Canonical Name not valid: #{name}"
+            raise ArgumentError, "Canonical Name not valid: #{name}"
           end
           name
         end
@@ -29,10 +29,6 @@ module Net
         def build_pack
           @cname_pack = pack_name(@cname)
           @rdlength = @cname_pack.size
-        end
-
-        def set_type
-          @type = Net::DNS::RR::Types.new("CNAME")
         end
 
         def get_data
@@ -47,7 +43,7 @@ module Net
           if args.has_key? :cname
             @cname = check_name args[:cname]
           else
-            raise RRArgumentError, ":cname field is mandatory but missing"
+            raise ArgumentError, ":cname field is mandatory but missing"
           end
         end
 
@@ -59,6 +55,12 @@ module Net
           @cname,offset = dn_expand(data,offset)
           return offset
         end
+        
+        private
+        
+          def set_type
+            @type = Net::DNS::RR::Types.new("CNAME")
+          end
         
       end # class CNAME
        
