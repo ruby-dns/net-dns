@@ -131,8 +131,8 @@ module Net # :nodoc:
         :use_tcp => false,
         :ignore_truncated => false,
         :packet_size => 512,
-        :tcp_timeout => TcpTimeout.new(120),
-        :udp_timeout => UdpTimeout.new(0)}
+        :tcp_timeout => TcpTimeout.new(5),
+        :udp_timeout => UdpTimeout.new(5)}
       
       # Create a new resolver object.
       # 
@@ -725,7 +725,8 @@ module Net # :nodoc:
       # The value is stored internally as a +TcpTimeout+ object, see
       # the description for Resolver#tcp_timeout
       #
-      # Default is 120 seconds
+      # Default is 5 seconds.
+      #
       def tcp_timeout=(secs)
         @config[:tcp_timeout] = TcpTimeout.new(secs)
         @logger.info("New TCP timeout value: #{@config[:tcp_timeout]} seconds")        
@@ -756,7 +757,8 @@ module Net # :nodoc:
       # will be performed using UDP. A value of 0 means that
       # the timeout will not be used, and the resolver will use 
       # only +retry_number+ and +retry_interval+ parameters.
-      # That is the default.
+      # 
+      # Default is 5 seconds.
       #
       # The value is stored internally as a +UdpTimeout+ object, see
       # the description for Resolver#udp_timeout

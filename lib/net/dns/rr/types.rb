@@ -114,7 +114,8 @@ module Net # :nodoc:
         # Gives in output the keys from the +Types+ hash
         # in a format suited for regexps
         def self.regexp
-          Types.keys.sort.join("|")
+          # Longest ones go first, so the regex engine will match AAAA before A.
+          Types.keys.sort{|a,b| b.length <=> a.length}.join("|")
         end
 
         # Creates a new object representing an RR type. Performs some

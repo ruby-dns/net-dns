@@ -1,5 +1,11 @@
 = Changelog
 
+== Release 0.6
+
+* CHANGED: default timeout is now 5 seconds for both UDP and TCP
+
+* FIXED: Types regexp order issue
+
 == master
 
 * FIXED: Added missing #to_s method to Net::DNS::Question.
