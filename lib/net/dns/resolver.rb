@@ -127,7 +127,7 @@ module Net # :nodoc:
         :ignore_truncated => false,
         :packet_size => 512,
         :tcp_timeout => TcpTimeout.new(5),
-        :udp_timeout => UdpTimeout.new(5)
+        :udp_timeout => UdpTimeout.new(5),
       }
       
       # Create a new resolver object.
