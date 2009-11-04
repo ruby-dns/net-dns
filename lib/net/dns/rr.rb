@@ -86,7 +86,7 @@ module Net # :nodoc:
       RR_REGEXP = Regexp.new("^\\s*(\\S+)\\s*(\\d+)?\\s+(" +
                                Net::DNS::RR::Classes.regexp + 
                                "|CLASS\\d+)?\\s*(" +
-                               Net::DNS::RR::Types.regexp + 
+                               Net::DNS::RR::Types.regexp +
                                "|TYPE\\d+)?\\s*(.*)$", Regexp::IGNORECASE)
 
       # Dimension of the sum of class, type, TTL and rdlength fields in a

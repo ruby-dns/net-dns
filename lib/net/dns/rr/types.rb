@@ -3,11 +3,10 @@ module Net # :nodoc:
     
     class RR
       
-      # This is an auxiliary class to hadle RR type field in a DNS packet. 
+      # This is an auxiliary class to handle RR type field in a DNS packet.
       class Types
         
-        # :nodoc:
-        Types = { # :nodoc:
+        TYPES = {
           'SIGZERO'   => 0,       # RFC2931 consider this a pseudo type
           'A'         => 1,       # RFC 1035, Section 3.4.1
           'NS'        => 2,       # RFC 1035, Section 3.3.11
@@ -39,7 +38,7 @@ module Net # :nodoc:
           'GPOS'      => 27,      # RFC 1712 (obsolete)
           'AAAA'      => 28,      # RFC 1886, Section 2.1
           'LOC'       => 29,      # RFC 1876
-          # The following RR is impemented in Net::DNS::SEC, TODO
+          # The following RR is implemented in Net::DNS::SEC, TODO
           'NXT'       => 30,      # RFC 2535, Section 5.2
           'EID'       => 31,      # draft-ietf-nimrod-dns-xx.txt
           'NIMLOC'    => 32,      # draft-ietf-nimrod-dns-xx.txt
@@ -50,7 +49,7 @@ module Net # :nodoc:
           'CERT'      => 37,      # RFC 2538
           'DNAME'     => 39,      # RFC 2672
           'OPT'       => 41,      # RFC 2671
-          # The following 4 RRs are impemented in Net::DNS::SEC TODO
+          # The following 4 RRs are implemented in Net::DNS::SEC TODO
           'DS'        => 43,      # draft-ietf-dnsext-delegation-signer
           'SSHFP'     => 44,      # draft-ietf-secsh-dns (No RFC # yet at time of coding)
           'RRSIG'     => 46,      # draft-ietf-dnsext-dnssec-2535typecode-change
@@ -70,13 +69,13 @@ module Net # :nodoc:
         }
 
         # The default value when type is nil in Resource Records
-        @@default = Types["A"]
+        @@default = TYPES["A"]
 
         # Be able to control the default type to assign when
         # type is +nil+. Default to +A+
         def self.default=(str)
-          if Types.has_key? str
-            @@default = Types[str]
+          if TYPES.has_key? str
+            @@default = TYPES[str]
           else
             raise TypeArgumentError, "Unknown type #{str}"
           end
@@ -86,9 +85,9 @@ module Net # :nodoc:
         def self.valid?(type)
           case type
           when String
-            return Types.has_key?(type)
+            return TYPES.has_key?(type)
           when Fixnum
-            return Types.invert.has_key?(type)
+            return TYPES.invert.has_key?(type)
           else
             raise TypeArgumentError, "Wrong type class: #{type.class}"
           end
@@ -99,8 +98,8 @@ module Net # :nodoc:
         def self.to_str(type)
           case type
           when Fixnum
-            if Types.invert.has_key? type
-              return Types.invert[type]
+            if TYPES.invert.has_key? type
+              return TYPES.invert[type]
             else
               raise TypeArgumentError, "Unknown type number #{type}"
             end
@@ -113,7 +112,7 @@ module Net # :nodoc:
         # in a format suited for regexps
         def self.regexp
           # Longest ones go first, so the regex engine will match AAAA before A.
-          Types.keys.sort { |a,b| b.length <=> a.length }.join("|")
+          TYPES.keys.sort { |a,b| b.length <=> a.length }.join("|")
         end
 
         # Creates a new object representing an RR type. Performs some
@@ -129,7 +128,7 @@ module Net # :nodoc:
             new_from_num(type) 
           when nil
             # default type, control with Types.default=
-            @str = Types.invert[@@default] 
+            @str = TYPES.invert[@@default]
             @num = @@default
           else
             raise TypeArgumentError, "Wrong type class: #{type.class}"
@@ -169,9 +168,9 @@ module Net # :nodoc:
             # TODO!!!
           else 
             # String with name of type
-            if Types.has_key? type
+            if TYPES.has_key? type
               @str = type
-              @num = Types[type]
+              @num = TYPES[type]
             else
               raise TypeArgumentError, "Unknown type #{type}"
             end
@@ -181,9 +180,9 @@ module Net # :nodoc:
         # Contructor for numeric data type
         # *PRIVATE* method
         def new_from_num(type)
-          if Types.invert.has_key? type
+          if TYPES.invert.has_key? type
             @num = type
-            @str = Types.invert[type]
+            @str = TYPES.invert[type]
           else
             raise TypeArgumentError, "Unkown type number #{type}"
           end

@@ -25,8 +25,8 @@ class RRTypesTest < Test::Unit::TestCase
   end
 
   def test_types
-    Net::DNS::RR::Types::Types.each do |key, num|
-      instance_from_string = Net::DNS::RR::Types.new(key) 
+    Net::DNS::RR::Types::TYPES.each do |key, num|
+      instance_from_string = Net::DNS::RR::Types.new(key)
       instance_from_num = Net::DNS::RR::Types.new(num)
       assert_equal(key, instance_from_string.to_s)
       assert_equal(num.to_s, instance_from_string.to_str)
@@ -41,7 +41,7 @@ class RRTypesTest < Test::Unit::TestCase
   def test_regexp
     pattern = Net::DNS::RR::Types.regexp
     assert_instance_of String, pattern
-    Net::DNS::RR::Types::Types.each do |key, num|
+    Net::DNS::RR::Types::TYPES.each do |key, num|
       assert_match /\|?#{key}\|?/, pattern
     end
   end
