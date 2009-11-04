@@ -1,11 +1,3 @@
-##
-#
-# Net::DNS::RR::CNAME
-#
-#       $Id: CNAME.rb,v 1.7 2006/07/28 07:33:36 bluemonk Exp $  
-#
-##
-
 module Net
   module DNS
 

@@ -1,12 +1,3 @@
-##
-#
-# Net::DNS::RR::TXT
-#
-#       $Id: TXT.rb,v 1.4 2006/07/28 07:33:36 bluemonk Exp $
-#
-##
-
-
 module Net
   module DNS
     class RR
@@ -68,7 +59,3 @@ module Net
     end # class RR
   end # module DNS
 end # module Net
-
-
-
-

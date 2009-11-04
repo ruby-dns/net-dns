@@ -1,10 +1,8 @@
 #!/usr/bin/env ruby 
 
-# 	$Id: check_soa.rb,v 1.7 2006/07/30 16:53:57 bluemonk Exp $	
-
-
 require 'rubygems' if "#{RUBY_VERSION}" < "1.9.0"
 require 'net/dns/resolver'
+
 
 #------------------------------------------------------------------------------
 # Get the domain from the command line.
@@ -20,17 +18,14 @@ domain = ARGV[0]
 
 res = Net::DNS::Resolver.new(:defname => false, :retry => 2)
 
-#res.defname=false
-#res.retry=2
-
-
-ns_req = res.query(domain, Net::DNS::NS);
-raise ArgumentError, "No nameservers found for domain: " + res.errorstring + 
-  "\n"	unless ns_req and ns_req.header.anCount > 0
+ns_req = res.query(domain, Net::DNS::NS)
+unless ns_req and ns_req.header.anCount > 0
+  raise ArgumentError, "No nameservers found for domain: #{res.errorstring}"
+end
 
 
 # Send out non-recursive queries
-res.recurse=false
+res.recurse = false
 # Do not buffer standard out
 #| = 1;
 

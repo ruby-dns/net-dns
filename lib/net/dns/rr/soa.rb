@@ -1,11 +1,3 @@
-##
-#
-# Net::DNS::RR::SOA
-#
-#       $Id: SOA.rb,v 1.4 2006/07/28 07:33:36 bluemonk Exp $    
-#
-##
-
 module Net
   module DNS
     class RR

@@ -1,12 +1,3 @@
-##
-#
-# Net::DNS::RR::NULL
-#
-#       $Id: NULL.rb,v 1.5 2006/07/28 07:33:36 bluemonk Exp $
-#
-##
-
-
 module Net
   module DNS
     class RR

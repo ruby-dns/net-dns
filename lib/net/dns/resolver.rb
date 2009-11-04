@@ -1,9 +1,3 @@
-#
-#       $Id: Resolver.rb,v 1.11 2006/07/30 16:55:35 bluemonk Exp $      
-#
-
-
-
 require 'rbconfig'
 require 'socket'
 require 'timeout'
