@@ -1,12 +1,5 @@
-##
-#
-# Net::DNS::RR::AAAA
-#
-# $id$
-#
-##
-
 require 'ipaddr'
+
 
 module Net 
   module DNS 
@@ -85,10 +78,10 @@ module Net
             @type = Net::DNS::RR::Types.new("AAAA")
           end
         
-      end # class AAAA
+      end
       
-    end # class RR
-  end # module DNS
-end # module Net
+    end
+  end
+end
 
 

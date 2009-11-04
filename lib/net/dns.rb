@@ -1,10 +1,5 @@
-##
-#
-# dns.rb
-#
-# $id$
-#
-##
+require 'net/dns/core_ext'
+
 
 module Net # :nodoc:
   module DNS
@@ -29,6 +24,7 @@ module Net # :nodoc:
     
     # Size of a short int
     INT16SZ = 2
+
 
     module QueryTypes
     
@@ -113,5 +109,5 @@ module Net # :nodoc:
     include QueryTypes
     include QueryClasses
 
-  end # module DNS
-end # module Net
+  end
+end

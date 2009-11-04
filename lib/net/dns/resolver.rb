@@ -9,18 +9,18 @@ require 'net/dns/resolver/timeouts'
 alias old_send send
 
 #
-# Resolver helper method
+# = Resolver helper method
 # 
-# Calling the resolver directly
+# Calling the resolver directly:
 # 
 #   require 'net/dns/resolver'
 #   puts Resolver("www.google.com").answer.size
-#     #=> 5
+#   #=> 5
 #
-# An optional block can be passed yielding the Net::DNS::Packet object
+# An optional block can be passed yielding the Net::DNS::Packet object.
 #
 #   Resolver("www.google.com") {|packet| puts packet.size + " bytes"}
-#     #=> 484 bytes
+#   #=> 484 bytes
 #
 def Resolver(name,type=Net::DNS::A,cls=Net::DNS::IN,&blk)
   obj = Net::DNS::Resolver.start(name,type,cls)
@@ -36,16 +36,8 @@ module Net # :nodoc:
     
     include Logger::Severity
 
-    # =Name
-    # 
-    # Net::DNS::Resolver - DNS resolver class
+    # = Net::DNS::Resolver - DNS resolver class
     #
-    # =Synopsis
-    #
-    #    require 'net/dns/resolver'
-    #
-    # =Description
-    # 
     # The Net::DNS::Resolver class implements a complete DNS resolver written
     # in pure Ruby, without a single C line of code. It has all of the 
     # tipical properties of an evoluted resolver, and a bit of OO which 
@@ -57,9 +49,7 @@ module Net # :nodoc:
     # the Perl version are still missing, but guys, at least this is
     # readable code! 
     #
-    # FIXME
-    #
-    # =Environment
+    # == Environment
     #
     # The Following Environment variables can also be used to configure 
     # the resolver:
@@ -137,7 +127,8 @@ module Net # :nodoc:
         :ignore_truncated => false,
         :packet_size => 512,
         :tcp_timeout => TcpTimeout.new(5),
-        :udp_timeout => UdpTimeout.new(5)}
+        :udp_timeout => UdpTimeout.new(5)
+      }
       
       # Create a new resolver object.
       # 
@@ -157,7 +148,7 @@ module Net # :nodoc:
       #                                :recursive => false,
       #                                :retry => 10)
       #
-      # ===Config file
+      # == Config file
       # 
       # Net::DNS::Resolver uses a config file to read the usual
       # values a resolver needs, such as nameserver list and
@@ -196,42 +187,42 @@ module Net # :nodoc:
       # Explicit arguments to Resolver::new override both the system's defaults 
       # and the values of the custom configuration file, if any.
       #
-      # ===Parameters
+      # == Parameters
       # 
       # The following arguments to Resolver::new are supported:
       # 
-      # - nameservers: an array reference of nameservers to query.
-      # - searchlist:  an array reference of domains.
-      # - recurse
-      # - debug
-      # - domain
-      # - port
-      # - srcaddr
-      # - srcport
-      # - tcp_timeout
-      # - udp_timeout
-      # - retrans
-      # - retry
-      # - usevc
-      # - stayopen
-      # - igntc
-      # - defnames
-      # - dnsrch
-      # - persistent_tcp
-      # - persistent_udp
-      # - dnssec
+      # * nameservers: an array reference of nameservers to query.
+      # * searchlist:  an array reference of domains.
+      # * recurse
+      # * debug
+      # * domain
+      # * port
+      # * srcaddr
+      # * srcport
+      # * tcp_timeout
+      # * udp_timeout
+      # * retrans
+      # * retry
+      # * usevc
+      # * stayopen
+      # * igntc
+      # * defnames
+      # * dnsrch
+      # * persistent_tcp
+      # * persistent_udp
+      # * dnssec
       #
       # For more information on any of these options, please consult the 
       # method of the same name.
       #
-      # ===Disclaimer
+      # == Disclaimer
       # 
       # Part of the above documentation is taken from the one in the 
       # Net::DNS::Resolver Perl module.
       #
       def initialize(config = {})
         raise ArgumentError, "Argument has to be Hash" unless config.kind_of? Hash
-        # config.key_downcase!
+        # config.downcase_keys!
         @config = Defaults.merge config
         @raw = false
 
@@ -272,28 +263,28 @@ module Net # :nodoc:
         end
       end
         
-      # Get the resolver searchlist, returned as an array of entries
+      # Get the resolver search list, returned as an array of entries.
       #
       #   res.searchlist
-      #     #=> ["example.com","a.example.com","b.example.com"]
+      #   #=> ["example.com","a.example.com","b.example.com"]
       #
       def searchlist
         @config[:searchlist].inspect
       end
 
       # Set the resolver searchlist. 
-      # +arg+ can be a single string or an array of strings
+      # +arg+ can be a single string or an array of strings.
       #
       #   res.searchstring = "example.com"
       #   res.searchstring = ["example.com","a.example.com","b.example.com"]
       #
-      # Note that you can also append a new name to the searchlist
+      # Note that you can also append a new name to the searchlist.
       #
       #   res.searchlist << "c.example.com"
       #   res.searchlist
-      #     #=> ["example.com","a.example.com","b.example.com","c.example.com"]
+      #   #=> ["example.com","a.example.com","b.example.com","c.example.com"]
       #
-      # The default is an empty array
+      # The default is an empty array.
       #
       def searchlist=(arg)
         case arg
@@ -308,7 +299,7 @@ module Net # :nodoc:
         end
       end
       
-      # Get the list of resolver nameservers, in a dotted decimal format
+      # Get the list of resolver nameservers, in a dotted decimal format-
       #
       #   res.nameservers
       #     #=> ["192.168.0.1","192.168.0.2"]
@@ -322,17 +313,17 @@ module Net # :nodoc:
       end
       alias_method :nameserver, :nameservers
 
-      # Set the list of resolver nameservers
-      # +arg+ can be a single ip address or an array of addresses
+      # Set the list of resolver nameservers.
+      # +arg+ can be a single ip address or an array of addresses.
       #
       #   res.nameservers = "192.168.0.1"
       #   res.nameservers = ["192.168.0.1","192.168.0.2"]
       #
-      # If you want you can specify the addresses as IPAddr instances
+      # If you want you can specify the addresses as IPAddr instances.
       #
       #   ip = IPAddr.new("192.168.0.3")
       #   res.nameservers << ip
-      #     #=> ["192.168.0.1","192.168.0.2","192.168.0.3"]
+      #   #=> ["192.168.0.1","192.168.0.2","192.168.0.3"]
       #
       # The default is 127.0.0.1 (localhost)
       #
@@ -372,20 +363,17 @@ module Net # :nodoc:
       end
       alias_method("nameserver=","nameservers=")
       
-      # Return a string with the default domain 
-      #
+      # Return a string with the default domain.
       def domain
         @config[:domain].inspect
       end
 
-      # Set the domain for the query
-      #
+      # Set the domain for the query.
       def domain=(name)
         @config[:domain] = name if valid? name
       end
       
-      # Return the defined size of the packet
-      #
+      # Return the defined size of the packet.
       def packet_size
         @config[:packet_size]
       end
@@ -414,7 +402,7 @@ module Net # :nodoc:
         end
       end
 
-      # Get the value of the source port number
+      # Get the value of the source port number.
       #
       #   puts "Sending queries using port #{res.source_port}"
       #
@@ -455,8 +443,7 @@ module Net # :nodoc:
       end
       alias srcaddr source_address 
 
-      # Set the local source address from which the resolver sends its 
-      # queries.
+      # Set the local source address from which the resolver sends its queries.
       #
       #   res.source_address = "172.16.100.1"
       #   res.source_address = IPAddr.new("172.16.100.1")
@@ -477,8 +464,7 @@ module Net # :nodoc:
       # root priviledges, as raw sockets will be used to generate packets. 
       # The class will then generate an exception if you're not root.
       #
-      # The default is 0.0.0.0, meaning any local address (chosen on routing
-      # needs).
+      # The default is 0.0.0.0, meaning any local address (chosen on routing needs).
       #
       def source_address=(addr)
         unless addr.respond_to? :to_s
@@ -518,15 +504,13 @@ module Net # :nodoc:
       alias srcaddr= source_address= 
       
       # Return the retrasmission interval (in seconds) the resolvers has 
-      # been set on
-      #
+      # been set on.
       def retry_interval
         @config[:retry_interval]
       end
       alias retrans retry_interval 
 
-      # Set the retrasmission interval in seconds. Default 5 seconds
-      #
+      # Set the retrasmission interval in seconds. Default 5 seconds.
       def retry_interval=(num)
         if num > 0
           @config[:retry_interval] = num
@@ -537,7 +521,7 @@ module Net # :nodoc:
       end
       alias retrans= retry_interval= 
 
-      # The number of times the resolver will try a query
+      # The number of times the resolver will try a query.
       #
       #   puts "Will try a max of #{res.retry_number} queries"
       #
@@ -546,8 +530,7 @@ module Net # :nodoc:
       end
 
       # Set the number of times the resolver will try a query.
-      # Default 4 times
-      #
+      # Default 4 times.
       def retry_number=(num)
         if num.kind_of? Integer and num > 0
           @config[:retry_number] = num
@@ -587,7 +570,7 @@ module Net # :nodoc:
       end
       alias_method :recurse=, :recursive= 
       
-      # Return a string rapresenting the resolver state, suitable
+      # Return a string representing the resolver state, suitable
       # for printing on the screen.
       #
       #   puts "Resolver state:"
@@ -638,7 +621,7 @@ module Net # :nodoc:
         end
       end
 
-      # Get the state of the dns_search flag
+      # Get the state of the dns_search flag.
       def dns_search
         @config[:dns_search]
       end
@@ -647,7 +630,6 @@ module Net # :nodoc:
       # Set the flag +dns_search+ in a boolean state. If +dns_search+
       # is true, when using the Resolver#search method will be applied
       # the search list. Default is true.
-      #
       def dns_search=(bool)
         case bool
         when TrueClass,FalseClass
@@ -717,8 +699,7 @@ module Net # :nodoc:
       #   puts "You set a timeout of " + res.tcp_timeout.pretty_to_s
       #     #=> You set a timeout of 2 minutes and 30 seconds
       #
-      # If the timeout is infinite, a string "infinite" will
-      # be returned.
+      # If the timeout is infinite, a string "infinite" will be returned.
       #
       def tcp_timeout
         @config[:tcp_timeout].to_s
@@ -740,7 +721,7 @@ module Net # :nodoc:
       # Return an object representing the value of the stored UDP 
       # timeout the resolver will use in is queries. This object
       # is an instance of the class +UdpTimeout+, and two methods
-      # are available for printing informations: UdpTimeout#to_s
+      # are available for printing information: UdpTimeout#to_s
       # and UdpTimeout#pretty_to_s.
       #
       # Here's some example:
@@ -766,7 +747,7 @@ module Net # :nodoc:
       # Default is 5 seconds.
       #
       # The value is stored internally as a +UdpTimeout+ object, see
-      # the description for Resolver#udp_timeout
+      # the description for Resolver#udp_timeout.
       #
       def udp_timeout=(secs)
         @config[:udp_timeout] = UdpTimeout.new(secs)
@@ -1041,8 +1022,6 @@ module Net # :nodoc:
       # use, but automatically sort the results based on preferences 
       # and returns an ordered array.
       #
-      # Example:
-      #
       #   res = Net::DNS::Resolver.new
       #   res.mx("google.com")
       #
@@ -1054,13 +1033,10 @@ module Net # :nodoc:
         return arr.sort_by {|a| a.preference}
       end
 
-      #
       # Quick resolver method. Bypass the configuration using
       # the defaults.
       #
-      # Example:
-      #
-      #   puts Net::DNS::Resolver.start "www.google.com"
+      #   Net::DNS::Resolver.start "www.google.com"
       #
       def self.start(*params)
         self.new.search(*params)
@@ -1068,8 +1044,7 @@ module Net # :nodoc:
 
       private
       
-      # Parse a configuration file specified as the argument. 
-      #
+      # Parses a configuration file specified as the argument.
       def parse_config_file
         if self.class.platform_windows?
           require 'win32/resolv'
@@ -1092,7 +1067,7 @@ module Net # :nodoc:
         end
       end
       
-      # Parse environment variables
+      # Parses environment variables.
       def parse_environment_variables
         if ENV['RES_NAMESERVERS']
           self.nameservers = ENV['RES_NAMESERVERS'].split(" ")
@@ -1250,36 +1225,3 @@ module Net # :nodoc:
     end
   end
 end
-
-module ExtendHash # :nodoc: 
-  # Returns an hash with all the 
-  # keys turned into downcase
-  #
-  #   hsh = {"Test" => 1, "FooBar" => 2}
-  #   hsh.key_downcase!
-  #      #=> {"test"=>1,"foobar"=>2}
-  #
-  def key_downcase!
-    hsh = Hash.new
-    self.each do |key,val|
-      hsh[key.downcase] = val
-    end
-    self.replace(hsh)
-  end
-end
-
-class Hash # :nodoc:
-  include ExtendHash
-end
-
-      
-       
-      
-      
-      
-      
-      
-        
-      
-        
-    

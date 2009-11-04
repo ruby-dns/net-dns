@@ -1,12 +1,3 @@
-##
-#
-# Net::DNS::RR::SRV
-#
-#       $Id$
-#
-##
-
-
 module Net
   module DNS
     class RR
@@ -47,11 +38,11 @@ module Net
             @type = Net::DNS::RR::Types.new("SRV")
           end
         
-      end # class SRV
-    end # class RR
+      end
+    end
         
-  end # module DNS
-end # module Net
+  end
+end
 
 
 

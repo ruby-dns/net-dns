@@ -10,16 +10,9 @@ end
 module Net # :nodoc:
   module DNS 
     
-    # =Name
     #
-    # Net::DNS::RR - DNS Resource Record class
+    # = Net::DNS::RR - DNS Resource Record class
     #
-    # =Synopsis
-    # 
-    #   require 'net/dns/rr'
-    #
-    # =Description
-    # 
     # The Net::DNS::RR is the base class for DNS Resource 
     # Record (RR) objects. A RR is a pack of data that represents
     # resources for a DNS zone. The form in which this data is 
@@ -46,7 +39,7 @@ module Net # :nodoc:
     # such the ones above, or specifying each field as the pair
     # of an hash. See the Net::DNS::RR.new method for details.
     #
-    # =Error classes
+    # == Error classes
     #
     # Some error classes has been defined for the Net::DNS::RR class,
     # which are listed here to keep a light and browsable main documentation.
@@ -54,13 +47,6 @@ module Net # :nodoc:
     #
     # ArgumentError:: Generic argument error for class Net::DNS::RR
     # DataError::     Error in parsing binary data, maybe from a malformed packet.
-    #
-    # =Copyright
-    # 
-    # Copyright (c) 2006 Marco Ceresa
-    #
-    # All rights reserved. This program is free software; you may redistribute 
-    # it and/or modify it under the same terms as Ruby itself.
     #
     class RR
       include Net::DNS::Names
@@ -214,17 +200,16 @@ module Net # :nodoc:
         return str + [type,cls,@ttl,@rdlength].pack("n2 N n") + get_data
       end
       
-      # Canonical inspect method    
+      # Canonical inspect method.
       #
       #   mx = Net::DNS::RR.new("example.com. 7200 MX 10 mailhost.example.com.")
-      #     #=> example.com.            7200    IN      MX      10 mailhost.example.com.
+      #   #=> example.com.            7200    IN      MX      10 mailhost.example.com.
       #
       def inspect
         data = get_inspect 
         # Returns the preformatted string
         if @name.size < 24
-          [@name, @ttl.to_s, @cls.to_s, @type.to_s, 
-            data].pack("A24 A8 A8 A8 A*")
+          [@name, @ttl.to_s, @cls.to_s, @type.to_s, data].pack("A24 A8 A8 A8 A*")
         else
           to_a.join("   ")
         end
@@ -234,20 +219,20 @@ module Net # :nodoc:
       #
       #   mx = Net::DNS::RR.new("example.com. 7200 MX 10 mailhost.example.com.")
       #   mx.to_s
-      #     #=> "example.com.            7200    IN      MX      10 mailhost.example.com."
+      #   #=> "example.com.            7200    IN      MX      10 mailhost.example.com."
       #
       def to_s
-        "#{self.inspect}"
+        inspect.to_s
       end
 
       # Returns an array with all the fields for the RR record.
       #
       #   mx = Net::DNS::RR.new("example.com. 7200 MX 10 mailhost.example.com.")
       #   mx.to_a
-      #     #=> ["example.com.",7200,"IN","MX","10 mailhost.example.com."]
+      #   #=> ["example.com.",7200,"IN","MX","10 mailhost.example.com."]
       #
       def to_a
-        [@name,@ttl,@cls.to_s,@type.to_s,get_inspect]
+        [@name, @ttl, @cls.to_s, @type.to_s, get_inspect]
       end
       
       # Type accessor
@@ -261,118 +246,114 @@ module Net # :nodoc:
       end
       
       private
-      
-      #---
-      # New RR with argument in string form
-      #---
-      def new_from_string(rrstring)
 
-        unless rrstring =~ RR_REGEXP
-          raise ArgumentError, 
-          "Format error for RR string (maybe CLASS and TYPE not valid?)"
-        end
+        #---
+        # New RR with argument in string form
+        #---
+        def new_from_string(rrstring)
 
-        # Name of RR - mandatory
-        begin
-          @name = $1.downcase
-        rescue NoMethodError
-          raise ArgumentError, "Missing name field in RR string #{rrstring}"
-        end
-        
-        # Time to live for RR, default 3 hours
-        @ttl = $2 ? $2.to_i : 10800
-        
-        # RR class, default to IN
-        @cls = Net::DNS::RR::Classes.new $3
-        
-        # RR type, default to A
-        @type = Net::DNS::RR::Types.new $4
-        
-        # All the rest is data 
-        @rdata = $5 ? $5.strip : ""  
-        
-        if self.class == Net::DNS::RR
-          (eval "Net::DNS::RR::#@type").new(rrstring)
-        else
-          subclass_new_from_string(@rdata)
-          self.class
-        end
-      end
-      
-      def new_from_hash(args)
-        
-        # Name field is mandatory   
-        unless args.has_key? :name 
-          raise ArgumentError, "RR argument error: need at least RR name"
-        end
-
-        @name  = args[:name].downcase
-        @ttl   = args[:ttl] ? args[:ttl].to_i : 10800 # Default 3 hours
-        @type  = Net::DNS::RR::Types.new args[:type]
-        @cls  = Net::DNS::RR::Classes.new args[:cls]
-        
-        @rdata = args[:rdata] ? args[:rdata].strip : ""
-        @rdlength = args[:rdlength] || @rdata.size
-
-        if self.class == Net::DNS::RR
-          (eval "Net::DNS::RR::#@type").new(args)
-        else
-          hash = args - [:name,:ttl,:type,:cls]
-          if hash.has_key? :rdata
-            subclass_new_from_string(hash[:rdata])
-          else
-            subclass_new_from_hash(hash)
+          unless rrstring =~ RR_REGEXP
+            raise ArgumentError,
+            "Format error for RR string (maybe CLASS and TYPE not valid?)"
           end
-          self.class
-        end
-      end # new_from_hash
 
-      def new_from_binary(data,offset)
-        if self.class == Net::DNS::RR
-          temp = dn_expand(data,offset)[1]
-          type = Net::DNS::RR::Types.new data.unpack("@#{temp} n")[0]
-          (eval "Net::DNS::RR::#{type}").parse_packet(data,offset)
-        else
-          @name,offset = dn_expand(data,offset)
-          rrtype,cls,@ttl,@rdlength = data.unpack("@#{offset} n2 N n")
-          @type = Net::DNS::RR::Types.new rrtype
-          @cls = Net::DNS::RR::Classes.new cls
-          offset += RRFIXEDSZ
-          offset = subclass_new_from_binary(data,offset)
-          build_pack
-          set_type
-          return [self,offset]
+          # Name of RR - mandatory
+          begin
+            @name = $1.downcase
+          rescue NoMethodError
+            raise ArgumentError, "Missing name field in RR string #{rrstring}"
+          end
+
+          # Time to live for RR, default 3 hours
+          @ttl = $2 ? $2.to_i : 10800
+
+          # RR class, default to IN
+          @cls = Net::DNS::RR::Classes.new $3
+
+          # RR type, default to A
+          @type = Net::DNS::RR::Types.new $4
+
+          # All the rest is data
+          @rdata = $5 ? $5.strip : ""
+
+          if self.class == Net::DNS::RR
+            (eval "Net::DNS::RR::#@type").new(rrstring)
+          else
+            subclass_new_from_string(@rdata)
+            self.class
+          end
         end
-#      rescue StandardError => e
-#        raise DataError, "Caught exception, maybe packet malformed: #{e.message}"
-      end
-      
-      # Methods to be overridden by subclasses
-      def subclass_new_from_array(arr)
-      end
-      def subclass_new_from_string(str)
-      end
-      def subclass_new_from_hash(hash)
-      end
-      def subclass_new_from_binary(data,offset)
-      end
-      def build_pack
-      end
-      def get_inspect
-        @rdata
-      end
-      def get_data
-        @rdata
-      end
-      
-      private
-      
+
+        def new_from_hash(args)
+          # Name field is mandatory
+          unless args.has_key? :name
+            raise ArgumentError, "RR argument error: need at least RR name"
+          end
+
+          @name  = args[:name].downcase
+          @ttl   = args[:ttl] ? args[:ttl].to_i : 10800 # Default 3 hours
+          @type  = Net::DNS::RR::Types.new args[:type]
+          @cls  = Net::DNS::RR::Classes.new args[:cls]
+
+          @rdata = args[:rdata] ? args[:rdata].strip : ""
+          @rdlength = args[:rdlength] || @rdata.size
+
+          if self.class == Net::DNS::RR
+            (eval "Net::DNS::RR::#@type").new(args)
+          else
+            hash = args - [:name,:ttl,:type,:cls]
+            if hash.has_key? :rdata
+              subclass_new_from_string(hash[:rdata])
+            else
+              subclass_new_from_hash(hash)
+            end
+            self.class
+          end
+        end # new_from_hash
+
+        def new_from_binary(data,offset)
+          if self.class == Net::DNS::RR
+            temp = dn_expand(data,offset)[1]
+            type = Net::DNS::RR::Types.new data.unpack("@#{temp} n")[0]
+            (eval "Net::DNS::RR::#{type}").parse_packet(data,offset)
+          else
+            @name,offset = dn_expand(data,offset)
+            rrtype,cls,@ttl,@rdlength = data.unpack("@#{offset} n2 N n")
+            @type = Net::DNS::RR::Types.new rrtype
+            @cls = Net::DNS::RR::Classes.new cls
+            offset += RRFIXEDSZ
+            offset = subclass_new_from_binary(data,offset)
+            build_pack
+            set_type
+            return [self,offset]
+          end
+        end
+
+        # Methods to be overridden by subclasses
+        def subclass_new_from_array(arr)
+        end
+        def subclass_new_from_string(str)
+        end
+        def subclass_new_from_hash(hash)
+        end
+        def subclass_new_from_binary(data,offset)
+        end
+        def build_pack
+        end
+        def get_inspect
+          @rdata
+        end
+        def get_data
+          @rdata
+        end
+
         def set_type
           # TODO: Here we should probably
           # raise NotImplementedError
           # if we want the method to be implemented in any subclass.
         end
-      
+
+
       # NEW new method :)
       def self.new(*args)
         o = allocate
@@ -388,30 +369,3 @@ module Net # :nodoc:
     
   end
 end
-
-
-module ExtendHash # :nodoc:
-  
-  # Performs a sort of group difference 
-  # operation on hashes or arrays
-  # 
-  #   a = {:a=>1,:b=>2,:c=>3}
-  #   b = {:a=>1,:b=>2}
-  #   c = [:a,:c]
-  #   a-b #=> {:c=>3}
-  #   a-c #=> {:b=>2}
-  #
-  def -(oth)
-    case oth
-    when Hash
-      delete_if {|k,v| oth.has_key? k}
-    when Array
-      delete_if {|k,v| oth.include? k}
-    end
-  end
-end
-
-class Hash # :nodoc:
-  include ExtendHash
-end
-

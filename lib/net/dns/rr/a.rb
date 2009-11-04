@@ -1,12 +1,5 @@
-##
-#
-# Net::DNS::RR::A
-#
-# $id$
-#
-##
-
 require 'ipaddr'
+
 
 module Net # :nodoc:
   module DNS 
