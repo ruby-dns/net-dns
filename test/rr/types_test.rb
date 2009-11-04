@@ -33,7 +33,7 @@ class RRTypesTest < Test::Unit::TestCase
       assert_equal(key, instance_from_num.to_s)
       assert_equal(num.to_s, instance_from_num.to_str)
     end
-    assert_raise(TypeArgumentError) do
+    assert_raise(Net::DNS::RR::ArgumentError) do
       Net::DNS::RR::Types.new(Hash.new)
     end
   end
@@ -46,22 +46,22 @@ class RRTypesTest < Test::Unit::TestCase
     end
   end
   
-  def test_valid
+  def test_valid?
     assert_equal(true,  Net::DNS::RR::Types.valid?("A"))
     assert_equal(true,  Net::DNS::RR::Types.valid?(1))
     assert_equal(false, Net::DNS::RR::Types.valid?("Q"))
     assert_equal(false, Net::DNS::RR::Types.valid?(256))
-    assert_raise(TypeArgumentError) do
+    assert_raise(Net::DNS::RR::ArgumentError) do
       Net::DNS::RR::Types.valid? Hash.new
     end
   end
 
   def test_to_str
     assert_equal("A", Net::DNS::RR::Types.to_str(1))
-    assert_raise(TypeArgumentError) do
+    assert_raise(Net::DNS::RR::ArgumentError) do
       Net::DNS::RR::Types.to_str(256)
     end
-    assert_raise(TypeArgumentError) do
+    assert_raise(Net::DNS::RR::ArgumentError) do
       Net::DNS::RR::Types.to_str("string")
     end
   end

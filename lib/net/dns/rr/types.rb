@@ -77,19 +77,19 @@ module Net # :nodoc:
           if TYPES.has_key? str
             @@default = TYPES[str]
           else
-            raise TypeArgumentError, "Unknown type #{str}"
+            raise ArgumentError, "Unknown type #{str}"
           end
         end
 
         # Checks whether +type+ is a valid RR type.  
         def self.valid?(type)
           case type
-          when String
-            return TYPES.has_key?(type)
-          when Fixnum
-            return TYPES.invert.has_key?(type)
-          else
-            raise TypeArgumentError, "Wrong type class: #{type.class}"
+            when String
+              TYPES.has_key?(type)
+            when Fixnum
+              TYPES.invert.has_key?(type)
+            else
+              raise ArgumentError, "Wrong type class: #{type.class}"
           end
         end
         
@@ -97,14 +97,14 @@ module Net # :nodoc:
         # given the numeric value
         def self.to_str(type)
           case type
-          when Fixnum
-            if TYPES.invert.has_key? type
-              return TYPES.invert[type]
+            when Fixnum
+              if TYPES.invert.has_key? type
+                TYPES.invert[type]
+              else
+                raise ArgumentError, "Unknown type number #{type}"
+              end
             else
-              raise TypeArgumentError, "Unknown type number #{type}"
-            end
-          else
-            raise TypeArgumentError, "Wrong type class: #{type.class}"
+              raise ArgumentError, "Wrong type class: #{type.class}"
           end
         end
 
@@ -131,7 +131,7 @@ module Net # :nodoc:
             @str = TYPES.invert[@@default]
             @num = @@default
           else
-            raise TypeArgumentError, "Wrong type class: #{type.class}"
+            raise ArgumentError, "Wrong type class: #{type.class}"
           end
         end
         
@@ -153,46 +153,41 @@ module Net # :nodoc:
           @num.to_i
         end
         
-        # Should be used only for testing purpouses
         def to_str
           @num.to_s
         end
 
+
         private
-        
-        # Constructor for string data type,
-        # *PRIVATE* method
-        def new_from_string(type)
-          case type
-          when /^TYPE\\d+/
-            # TODO!!!
-          else 
-            # String with name of type
-            if TYPES.has_key? type
-              @str = type
-              @num = TYPES[type]
+
+          # Constructor for string data type.
+          def new_from_string(type)
+            case type
+            when /^TYPE\\d+/
+              # TODO!!!
             else
-              raise TypeArgumentError, "Unknown type #{type}"
+              # String with name of type
+              if TYPES.has_key? type
+                @str = type
+                @num = TYPES[type]
+              else
+                raise ArgumentError, "Unknown type #{type}"
+              end
             end
           end
-        end
 
-        # Contructor for numeric data type
-        # *PRIVATE* method
-        def new_from_num(type)
-          if TYPES.invert.has_key? type
-            @num = type
-            @str = TYPES.invert[type]
-          else
-            raise TypeArgumentError, "Unkown type number #{type}"
+          # Contructor for numeric data type.
+          def new_from_num(type)
+            if TYPES.invert.has_key? type
+              @num = type
+              @str = TYPES.invert[type]
+            else
+              raise ArgumentError, "Unkown type number #{type}"
+            end
           end
-        end
         
-      end # class Types
+      end
     
-    end # class RR
-  end # module DNS
-end # module Net
-
-class TypeArgumentError < ArgumentError # :nodoc:
+    end
+  end
 end
