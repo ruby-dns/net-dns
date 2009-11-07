@@ -8,8 +8,8 @@ begin
     gemspec.name              = "net-dns"
     gemspec.summary           = "Pure Ruby DNS library"
     gemspec.description       = "Net::DNS is a pure Ruby DNS library, with a clean OO interface and an extensible API"
-    gemspec.authors           = ["Marco Ceresa"]
-    gemspec.email             = "ceresa@gmail.com"
+    gemspec.authors           = ["Marco Ceresa", "Simone Carletti"]
+    gemspec.email             = ["ceresa@gmail.com", "weppos@weppos.net"]
     gemspec.homepage          = "http://github.com/bluemonk/net-dns"
     gemspec.extra_rdoc_files  = ["README.rdoc", "CHANGELOG.rdoc", "AUTHORS.rdoc", "THANKS.rdoc"]
     gemspec.rubyforge_project = "net-dns"
@@ -100,4 +100,9 @@ end
 desc "Look for TODO and FIXME tags in the code"
 task :todo do
   egrep /(FIXME|TODO|TBD)/
+end
+
+desc "Open an irb session preloaded with this library"
+task :console do
+  sh "irb -rubygems -I lib -r net/dns.rb"
 end
