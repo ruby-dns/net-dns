@@ -1,11 +1,8 @@
 require 'net/dns/core_ext'
-
+require 'net/dns/version'
 
 module Net # :nodoc:
   module DNS
-    
-    # Version of the library
-    VERSION = "0.4"
   
     # Packet size in bytes
     PACKETSZ = 512
