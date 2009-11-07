@@ -57,48 +57,21 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-begin
-  require 'rake/contrib/sshpublisher'
-  namespace :rubyforge do
-    
-    desc "Release gem and RDoc documentation to RubyForge"
-    task :release => ["rubyforge:release:gem", "rubyforge:release:docs"]
-    
-    namespace :release do
-      desc "Publish RDoc to RubyForge."
-      task :docs => [:rdoc] do
-        config = YAML.load(
-            File.read(File.expand_path('~/.rubyforge/user-config.yml'))
-        )
- 
-        host = "#{config['username']}@rubyforge.org"
-        remote_dir = "/var/www/gforge-projects/net-dns"
-        local_dir = 'rdoc'
- 
-        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
-      end
-    end
-  end
-rescue LoadError
-  puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
-end
-
-def egrep(pattern)
-  Dir['**/*.rb'].each do |fn|
-    count = 0
-    open(fn) do |f|
-      while line = f.gets
-        count += 1
-        if line =~ pattern
-          puts "#{fn}:#{count}:#{line}"
+desc "Look for TODO and FIXME tags in the code"
+task :todo do
+  def egrep(pattern)
+    Dir['**/*.rb'].each do |fn|
+      count = 0
+      open(fn) do |f|
+        while line = f.gets
+          count += 1
+          if line =~ pattern
+            puts "#{fn}:#{count}:#{line}"
+          end
         end
       end
     end
   end
-end
-
-desc "Look for TODO and FIXME tags in the code"
-task :todo do
   egrep /(FIXME|TODO|TBD)/
 end
 
