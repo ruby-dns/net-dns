@@ -1,5 +1,11 @@
 = Changelog
 
+
+== master
+
+* FIXED: warning: method redefined; discarding old inspect [Thanks to Kevin Baker] (closes #3)
+
+
 == Release 0.6.0
 
 *WARNING:* If you are upgrading from a previous minor release, check out the Compatibility issue list below.

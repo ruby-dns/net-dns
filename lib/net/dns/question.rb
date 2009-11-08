@@ -110,16 +110,6 @@ module Net # :nodoc:
         o
       end
       
-      # Known inspect method with nice formatting
-      def inspect
-        if @qName.size > 29 then 
-          len = @qName.size + 1 
-        else
-          len = 29
-        end
-        [@qName,@qClass.to_s,@qType.to_s].pack("A#{len} A8 A8")
-      end
-      
       # Outputs binary data from a Question object
       #
       #   question.data
@@ -132,7 +122,6 @@ module Net # :nodoc:
       # Return the binary data of the objects, plus an offset
       # and an Hash with references to compressed names. For use in 
       # Net::DNS::Packet compressed packet creation.
-      #
       def comp_data
         arr = @qName.split(".")
         str = pack_name(@qName)
