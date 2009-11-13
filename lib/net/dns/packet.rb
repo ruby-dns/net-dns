@@ -302,7 +302,7 @@ module Net # :nodoc:
         
         retval
       end
-
+      alias_method :to_s, :inspect 
       
       # Wrapper to Header#truncated?
       #
