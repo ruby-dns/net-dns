@@ -53,9 +53,9 @@ module Net
         
         private
         
-          def set_type
-            @type = Net::DNS::RR::Types.new("PRT")
-          end
+        def set_type
+          @type = Net::DNS::RR::Types.new("PTR")
+        end
         
       end # class PTR
       
