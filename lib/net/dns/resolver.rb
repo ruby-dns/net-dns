@@ -843,6 +843,8 @@ module Net # :nodoc:
       #
       def search(name,type=Net::DNS::A,cls=Net::DNS::IN)
 
+        return query(name,type,cls) if name.class == IPAddr
+
         # If the name contains at least one dot then try it as is first.        
         if name.include? "."
           @logger.debug "Search(#{name},#{Net::DNS::RR::Types.new(type)},#{Net::DNS::RR::Classes.new(cls)})"
@@ -891,7 +893,9 @@ module Net # :nodoc:
       # method instead.
       #
       def query(name,type=Net::DNS::A,cls=Net::DNS::IN)
-        
+
+        return send(name,type,cls) if name.class == IPAddr
+
         # If the name doesn't contain any dots then append the default domain.        
         if name !~ /\./ and name !~ /:/ and @config[:defnames]
           name += "." + @config[:domain]
@@ -1108,9 +1112,9 @@ module Net # :nodoc:
           @logger.warn "PTR query required for address #{string}, changing type to PTR"
         when /\d/ # Contains a number, try to see if it's an IP or IPv6 address
           begin
-            name = IPAddr.new(string).reverse
+            name = IPAddr.new(string.chomp(".")).reverse
             type = Net::DNS::PTR            
-          rescue ArgumentError
+          rescue ::ArgumentError
             name = string if valid? string
           end
         else
