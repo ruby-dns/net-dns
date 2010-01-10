@@ -14,19 +14,19 @@ alias old_send send
 #
 #   require 'net/dns/resolver'
 #   puts Resolver("www.google.com").answer.size
-#   #=> 5
+#   # => 5
 #
 # An optional block can be passed yielding the Net::DNS::Packet object.
 #
-#   Resolver("www.google.com") {|packet| puts packet.size + " bytes"}
-#   #=> 484 bytes
+#   Resolver("www.google.com") { |packet| puts packet.size + " bytes" }
+#   # => 484 bytes
 #
-def Resolver(name,type=Net::DNS::A,cls=Net::DNS::IN,&blk)
-  obj = Net::DNS::Resolver.start(name,type,cls)
+def Resolver(name, type = Net::DNS::A, cls = Net::DNS::IN, &block)
+  resolver = Net::DNS::Resolver.start(name, type, cls)
   if block_given?
-    yield obj
+    yield  resolver
   else
-    return obj
+    return resolver
   end
 end
 
@@ -92,10 +92,6 @@ module Net # :nodoc:
     #      % setenv RES_OPTIONS "retrans:3 retry:2 debug"
     #
     class Resolver
-
-      # Argument Error for class Net::DNS::Resolver.
-      class ArgumentError < ArgumentError
-      end
 
       class Error < StandardError
       end
@@ -1113,7 +1109,7 @@ module Net # :nodoc:
           begin
             name = IPAddr.new(string.chomp(".")).reverse
             type = Net::DNS::PTR
-          rescue ::ArgumentError
+          rescue ArgumentError
             name = string if valid? string
           end
         else
@@ -1203,6 +1199,7 @@ module Net # :nodoc:
         ans
       end
 
+      # FIXME: a ? method should never raise.
       def valid?(name)
         if name =~ /[^-\w\.]/
           raise ArgumentError, "Invalid domain name #{name}"

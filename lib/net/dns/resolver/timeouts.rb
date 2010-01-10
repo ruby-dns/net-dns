@@ -13,7 +13,7 @@ module Net # :nodoc:
           if seconds.is_a? Numeric and seconds >= 0
             @seconds = seconds
           else
-            raise ::ArgumentError, "Invalid value for tcp timeout"
+            raise ArgumentError, "Invalid value for tcp timeout"
           end
         end
 

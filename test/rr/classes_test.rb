@@ -41,7 +41,7 @@ class RRClassesTest < Test::Unit::TestCase
       assert_equal(key, instance_from_num.to_s)
       assert_equal(num.to_s, instance_from_num.to_str)
     end
-    assert_raise(ClassArgumentError) do
+    assert_raise(ArgumentError) do
       Net::DNS::RR::Classes.new(Hash.new)
     end
   end
@@ -55,17 +55,17 @@ class RRClassesTest < Test::Unit::TestCase
     assert_equal(true,  Net::DNS::RR::Classes.valid?(1))
     assert_equal(false, Net::DNS::RR::Classes.valid?("Q"))
     assert_equal(false, Net::DNS::RR::Classes.valid?(256))
-    assert_raise(ClassArgumentError) do
+    assert_raise(ArgumentError) do
       Net::DNS::RR::Classes.valid? Hash.new
     end
   end
 
   def test_to_str
     assert_equal("IN", Net::DNS::RR::Classes.to_str(1))
-    assert_raise(ClassArgumentError) do
+    assert_raise(ArgumentError) do
       Net::DNS::RR::Classes.to_str(256)
     end
-    assert_raise(ClassArgumentError) do
+    assert_raise(ArgumentError) do
       Net::DNS::RR::Classes.to_str("string")
     end
   end

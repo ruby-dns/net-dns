@@ -88,15 +88,10 @@ module Net # :nodoc:
     #
     # We have:
     #
-    # ArgumentError::   Argument Error for class Net::DNS::Packet
     # PacketError::     Generic Packet Error
     #
     class Packet
       include Names
-
-      # Argument Error for class Net::DNS::Packet.
-      class ArgumentError < ArgumentError
-      end
 
       # Base error class.
       class Error < StandardError

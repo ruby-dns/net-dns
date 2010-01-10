@@ -40,29 +40,9 @@ module Net # :nodoc:
     # the Perl version of the library, as long as methods name which are
     # more or less the same. 
     #
-    # =Error classes
-    #
-    # Some error classes has been defined for the Net::DNS::Header class,
-    # which are listed here to keep a light and browsable main documentation.
-    # We have:
-    #
-    # ArgumentError::   Argument Error for class Net::DNS::Question
-    # NameError::       An error in the +name+ part of a Question entry
-    #
-    # =Copyright
-    # 
-    # Copyright (c) 2006 Marco Ceresa
-    #
-    # All rights reserved. This program is free software; you may redistribute 
-    # it and/or modify it under the same terms as Ruby itself.
-    #
     class Question
       include Net::DNS::Names
-      
-      # Argument Error for class Net::DNS::Question
-      class ArgumentError < ArgumentError
-      end
-      
+
       # Base error class.
       class Error < StandardError
       end
@@ -208,7 +188,7 @@ module Net # :nodoc:
         @qType = Net::DNS::RR::Types.new type
         @qClass = Net::DNS::RR::Classes.new cls
       rescue StandardError => e
-        raise ArgumentError, "Invalid data: #{data.inspect}\n{e.backtrace}"
+        raise ArgumentError, "Invalid data: #{data.inspect}"
       end
 
     end
