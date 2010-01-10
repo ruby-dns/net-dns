@@ -6,7 +6,10 @@
 * ADDED: Net::DNS::Packet#to_s method (alias of #inspect)
 
 * FIXED: typo in lib/net/dns/rr/ptr.rb [Thanks to Chris Lundquist]
+
 * FIXED: warning: method redefined; discarding old inspect [Thanks to Kevin Baker] (closes #3)
+
+* FIXED: issue with rescue ArgumentError (closes #5) and with IPAddr handling (closes #6)
 
 
 == Release 0.6.0
