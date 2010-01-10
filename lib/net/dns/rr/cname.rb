@@ -1,8 +1,8 @@
-module Net
+module Net # :nodoc:
   module DNS
 
     class RR
-      
+
       #------------------------------------------------------------
       # RR type CNAME
       #------------------------------------------------------------
@@ -10,7 +10,7 @@ module Net
         attr_reader :cname
 
         private
-        
+
         def check_name(name)
           unless name =~ /(\w\.?)+\s*$/ and name =~ /[a-zA-Z]/
             raise ArgumentError, "Canonical Name not valid: #{name}"
@@ -47,17 +47,15 @@ module Net
           @cname,offset = dn_expand(data,offset)
           return offset
         end
-        
+
         private
-        
+
           def set_type
             @type = Net::DNS::RR::Types.new("CNAME")
           end
-        
-      end # class CNAME
-       
-    end # class RR
-  end # module DNS
-end # module Net
 
+      end
 
+    end
+  end
+end

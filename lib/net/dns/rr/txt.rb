@@ -1,7 +1,7 @@
-module Net
+module Net # :nodoc:
   module DNS
     class RR
-      
+
       #------------------------------------------------------------
       # RR type TXT
       #------------------------------------------------------------
@@ -9,7 +9,7 @@ module Net
         attr_reader :txt
 
         private
-        
+
         def build_pack
           str = ""
           @txt.split(" ").each do |txt|
@@ -30,11 +30,11 @@ module Net
             raise ArgumentError, ":txt field is mandatory but missing"
           end
         end
-        
+
         def subclass_new_from_string(str)
           @txt = str.strip
         end
-        
+
         def subclass_new_from_binary(data,offset)
           off_end = offset + @rdlength
           @txt = ""
@@ -46,16 +46,16 @@ module Net
             @txt << str << " "
           end
           return offset
-        end 
-        
+        end
+
         private
-        
+
           def set_type
             @type = Net::DNS::RR::Types.new("TXT")
           end
-        
-      end # class TXT
-      
-    end # class RR
-  end # module DNS
-end # module Net
+
+      end
+
+    end
+  end
+end

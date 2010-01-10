@@ -1,6 +1,6 @@
 require 'yaml'
 
-module Net
+module Net # :nodoc:
   module DNS
     module Version
 

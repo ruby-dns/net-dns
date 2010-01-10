@@ -1,7 +1,7 @@
 require 'net/dns/core_ext'
 require 'net/dns/version'
 
-module Net
+module Net # :nodoc:
   module DNS
 
     # Packet size in bytes

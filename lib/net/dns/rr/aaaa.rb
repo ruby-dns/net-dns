@@ -1,10 +1,10 @@
 require 'ipaddr'
 
 
-module Net 
-  module DNS 
-    
-    class RR 
+module Net # :nodoc:
+  module DNS
+
+    class RR
 
       #
       # RR type AAAA
@@ -22,13 +22,13 @@ module Net
           @address = check_address addr
           build_pack
         end # address=
-        
+
         private
-        
+
         def check_address(addr)
           address = ""
           case addr
-          when String 
+          when String
             address = IPAddr.new addr
           when IPAddr
             address = addr
@@ -40,12 +40,12 @@ module Net
         rescue ArgumentError
           raise ArgumentError, "Invalid address #{addr.inspect}"
         end
-          
+
         def build_pack
           @address_pack = @address.hton
           @rdlength = @address_pack.size
         end
-        
+
         def get_data
           @address_pack
         end
@@ -53,33 +53,33 @@ module Net
         def get_inspect
           "#@address"
         end
-        
+
         def subclass_new_from_hash(args)
-          if args.has_key? :address 
+          if args.has_key? :address
             @address = check_address args[:address]
           else
             raise ArgumentError, ":address field is mandatory but missing"
           end
         end
-        
+
         def subclass_new_from_string(str)
           @address = check_address(str)
         end
-        
+
         def subclass_new_from_binary(data,offset)
           arr = data.unpack("@#{offset} n8")
           @address = IPAddr.new sprintf("%x:%x:%x:%x:%x:%x:%x:%x",*arr)
           return offset + 16
         end
-        
+
         private
-        
+
           def set_type
             @type = Net::DNS::RR::Types.new("AAAA")
           end
-        
+
       end
-      
+
     end
   end
 end

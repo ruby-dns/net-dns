@@ -1,4 +1,4 @@
-module Net
+module Net # :nodoc:
   module DNS
     class RR
 
@@ -71,9 +71,8 @@ module Net
             @type = Net::DNS::RR::Types.new("SOA")
           end
         
-      end # class SOA
+      end
       
-    end # class RR
-  end # module DNS
-end # module Net
-
+    end
+  end
+end

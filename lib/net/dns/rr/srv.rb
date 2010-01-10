@@ -1,4 +1,4 @@
-module Net
+module Net # :nodoc:
   module DNS
     class RR
       
@@ -43,6 +43,3 @@ module Net
         
   end
 end
-
-
-
