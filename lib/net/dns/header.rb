@@ -48,36 +48,13 @@ module Net # :nodoc:
     # the Perl version of the library, as long as methods name which are
     # more or less the same. 
     #
-    # =Error classes
-    #
-    # Some error classes has been defined for the Net::DNS::Header class,
-    # which are listed here to keep a light and browsable main documentation.
-    # We have:
-    #
-    # ArgumentError::       Argument Error for class Net::DNS::Packet
-    # WrongCountError::     A wrong +count+ parameter has been passed
-    # WrongRecursiveError:: A wrong +recursive+ parameter has been passed
-    # WrongOpcodeError::    A not valid +opCode+ has been specified
-    # DuplicateIDError::    The requested ID is already in use
-    #
-    # =Copyright
-    # 
-    # Copyright (c) 2006 Marco Ceresa
-    #
-    # All rights reserved. This program is free software; you may redistribute 
-    # it and/or modify it under the same terms as Ruby itself.
-    #
     class Header
-      
-      # Argument Error for class Net::DNS::Header.
-      class ArgumentError < ArgumentError
-      end
-      
-      # A wrong +count+ parameter has been passed-
+
+      # A wrong +count+ parameter has been passed.
       class WrongCountError < ArgumentError
       end
       
-      # A wrong +recursive+ parameter has been passed-
+      # A wrong +recursive+ parameter has been passed.
       class WrongRecursiveError < ArgumentError
       end
       

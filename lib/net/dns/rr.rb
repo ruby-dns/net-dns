@@ -39,22 +39,9 @@ module Net # :nodoc:
     # such the ones above, or specifying each field as the pair
     # of an hash. See the Net::DNS::RR.new method for details.
     #
-    # == Error classes
-    #
-    # Some error classes has been defined for the Net::DNS::RR class,
-    # which are listed here to keep a light and browsable main documentation.
-    # We have:
-    #
-    # ArgumentError:: Generic argument error for class Net::DNS::RR
-    # DataError::     Error in parsing binary data, maybe from a malformed packet.
-    #
     class RR
       include Net::DNS::Names
-      
-      # Argument Error for class Net::DNS::RR.
-      class ArgumentError < ArgumentError
-      end
-      
+
       # Base error class.
       class Error < StandardError
       end

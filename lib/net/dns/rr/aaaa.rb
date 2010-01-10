@@ -26,16 +26,15 @@ module Net
         private
         
         def check_address(addr)
-          address = ""
-          case addr
-          when String 
-            address = IPAddr.new addr
-          when IPAddr
-            address = addr
-          else
-            raise ArgumentError, "Unknown address type: #{addr.inspect}"
+          address = case addr
+            when String
+              IPAddr.new addr
+            when IPAddr
+              addr
+            else
+              raise ArgumentError, "Unknown address type: #{addr.inspect}"
           end
-          raise ArgumentError, "Must specify an IPv6 address" unless address.ipv6?
+          address.ipv6? || raise(ArgumentError, "Must specify an IPv6 address")
           address
         rescue ArgumentError
           raise ArgumentError, "Invalid address #{addr.inspect}"

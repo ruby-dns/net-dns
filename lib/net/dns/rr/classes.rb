@@ -27,7 +27,7 @@ module Net # :nodoc:
           if Classes.has_key? str
             @@default = Classes[str]
           else
-            raise ClassArgumentError, "Unknown class #{str}"
+            raise ArgumentError, "Unknown class #{str}"
           end
         end
 
@@ -39,7 +39,7 @@ module Net # :nodoc:
           when Fixnum
             return Classes.invert.has_key?(cls)
           else
-            raise ClassArgumentError, "Wrong cls class: #{cls.class}"
+            raise ArgumentError, "Wrong cls class: #{cls.class}"
           end
         end
         
@@ -51,10 +51,10 @@ module Net # :nodoc:
             if Classes.invert.has_key? cls
               return Classes.invert[cls]
             else
-              raise ClassArgumentError, "Unknown class number #{cls}"
+              raise ArgumentError, "Unknown class number #{cls}"
             end
           else
-            raise ClassArgumentError, "Wrong cls class: #{cls.class}"
+            raise ArgumentError, "Wrong cls class: #{cls.class}"
           end
         end
 
@@ -80,7 +80,7 @@ module Net # :nodoc:
             @str = Classes.invert[@@default] 
             @num = @@default
           else
-            raise ClassArgumentError, "Wrong cls class: #{cls.class}"
+            raise ArgumentError, "Wrong cls class: #{cls.class}"
           end
         end
 
@@ -96,7 +96,7 @@ module Net # :nodoc:
               @str = cls
               @num = Classes[cls]
             else
-              raise ClassesArgumentError, "Unknown cls #{cls}"
+              raise ArgumentError, "Unknown cls #{cls}"
             end
           end
         end
@@ -108,7 +108,7 @@ module Net # :nodoc:
             @num = cls
             @str = Classes.invert[cls]
           else
-            raise ClassesArgumentError, "Unkown cls number #{cls}"
+            raise ArgumentError, "Unkown cls number #{cls}"
           end
         end
         
@@ -143,6 +143,3 @@ module Net # :nodoc:
     end # class RR
   end # module DNS
 end # module Net
-
-class ClassArgumentError < ArgumentError # :nodoc:
-end

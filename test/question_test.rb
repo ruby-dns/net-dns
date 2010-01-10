@@ -41,10 +41,10 @@ class QuestionTest < Test::Unit::TestCase
     assert_raise(Net::DNS::Question::NameError) do
       Question.new("test{")
     end
-    assert_raise(Net::DNS::Question::ArgumentError) do
+    assert_raise(ArgumentError) do
       Question.parse(Array.new)
     end
-    assert_raise(Net::DNS::Question::ArgumentError) do
+    assert_raise(ArgumentError) do
       Question.parse("test")
     end
   end

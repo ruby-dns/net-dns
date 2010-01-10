@@ -49,22 +49,21 @@ module Net # :nodoc:
         private
         
         def check_address(addr)
-          address = ""
-          case addr
-          when String 
-            address = IPAddr.new addr
-          when Integer # Address in numeric form
-            tempAddr = [(addr>>24),(addr>>16)&0xFF,(addr>>8)&0xFF,addr&0xFF]
-            tempAddr = tempAddr.collect {|x| x.to_s}.join(".")
-            address = IPAddr.new tempAddr
-          when IPAddr
-            address = addr
-          else
-            raise ArgumentError, "Unknown address type `#{addr}'"
+          address = case addr
+            when String
+              IPAddr.new(addr)
+            when Integer # Address in numeric form
+              tmp = [(addr>>24),(addr>>16)&0xFF,(addr>>8)&0xFF,addr&0xFF]
+              tmp = tmp.collect {|x| x.to_s}.join(".")
+              IPAddr.new(tmp)
+            when IPAddr
+              addr
+            else
+              raise ArgumentError, "Unknown address type `#{addr}'"
           end
-          raise ArgumentError, "Must specify an IPv4 address" unless address.ipv4?
+          address.ipv4? || raise(ArgumentError, "Must specify an IPv4 address")
           address
-        rescue ::ArgumentError
+        rescue ArgumentError
           raise ArgumentError, "Invalid address `#{addr}'"
         end
           

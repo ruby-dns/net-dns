@@ -17,9 +17,9 @@ class ResolverTest < Test::Unit::TestCase
   end
   
   def test_initialize_with_invalid_config_should_raise_argumenterror
-    assert_raise(Net::DNS::Resolver::ArgumentError) { Net::DNS::Resolver.new("") } 
-    assert_raise(Net::DNS::Resolver::ArgumentError) { Net::DNS::Resolver.new(0) } 
-    assert_raise(Net::DNS::Resolver::ArgumentError) { Net::DNS::Resolver.new(:foo) } 
+    assert_raise(ArgumentError) { Net::DNS::Resolver.new("") }
+    assert_raise(ArgumentError) { Net::DNS::Resolver.new(0) }
+    assert_raise(ArgumentError) { Net::DNS::Resolver.new(:foo) }
   end
   
   

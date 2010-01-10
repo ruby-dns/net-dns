@@ -2,11 +2,7 @@ module Net
   module DNS 
     
     module Names
-      
-      # Argument Error for class Net::DNS::Names.
-      class ArgumentError < ArgumentError
-      end
-      
+
       # Base error class.
       class Error < StandardError
       end
