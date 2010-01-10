@@ -40,7 +40,7 @@ module Net # :nodoc:
     # of an hash. See the Net::DNS::RR.new method for details.
     #
     class RR
-      include Net::DNS::Names
+      include Names
 
 
       # Base error class.

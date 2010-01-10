@@ -1,6 +1,6 @@
 require 'logger'
-require 'net/dns/names'
 require 'net/dns'
+require 'net/dns/names'
 require 'net/dns/header'
 require 'net/dns/question'
 require 'net/dns/rr'
@@ -81,15 +81,6 @@ module Net # :nodoc:
     #
     # Logger level will be set to <tt>Logger::Debug</tt> if <tt>$DEBUG</tt> variable is set.
     #
-    # == Error classes
-    #
-    # Some error classes has been defined for the <tt>Net::DNS::Packet</tt> class,
-    # which are listed here to keep a light and browsable main documentation.
-    #
-    # We have:
-    #
-    # PacketError::     Generic Packet Error
-    #
     class Packet
       include Names
 
@@ -119,7 +110,7 @@ module Net # :nodoc:
       #
       def initialize(name, type = Net::DNS::A, cls = Net::DNS::IN)
         @header = Net::DNS::Header.new(:qdCount => 1)
-        @question = [Net::DNS::Question.new(name,type,cls)]
+        @question = [Net::DNS::Question.new(name, type, cls)]
         @answer = []
         @authority = []
         @additional = []

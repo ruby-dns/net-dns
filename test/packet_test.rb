@@ -8,7 +8,7 @@ class PacketTest < Test::Unit::TestCase
     @domain = 'example.com'
   end
 
-  def test_initialize_from_string
+  def test_initialize
     @record = @klass.new(@domain, Net::DNS::MX, Net::DNS::HS)
     assert_instance_of @klass,              @record
     assert_instance_of Net::DNS::Header,    @record.header
@@ -17,6 +17,18 @@ class PacketTest < Test::Unit::TestCase
     assert_instance_of Array,               @record.answer
     assert_instance_of Array,               @record.authority
     assert_instance_of Array,               @record.additional
+  end
+
+  def test_initialize_should_set_question
+    @question = @klass.new(@domain).question.first
+    assert_equal @domain, @question.qName
+    assert_equal Net::DNS::RR::Types.new(Net::DNS::A).to_s, @question.qType.to_s
+    assert_equal Net::DNS::RR::Classes.new(Net::DNS::IN).to_s, @question.qClass.to_s 
+
+    @question = @klass.new(@domain, Net::DNS::MX, Net::DNS::HS).question.first
+    assert_equal @domain, @question.qName
+    assert_equal Net::DNS::RR::Types.new(Net::DNS::MX).to_s, @question.qType.to_s
+    assert_equal Net::DNS::RR::Classes.new(Net::DNS::HS).to_s, @question.qClass.to_s
   end
 
   def test_self_parse

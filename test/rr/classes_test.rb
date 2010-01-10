@@ -2,72 +2,84 @@ require 'test_helper'
 require 'net/dns/rr'
 
 class RRClassesTest < Test::Unit::TestCase
-  
+
   def setup
     @classes = {
-      'IN'        => 1,       # RFC 1035
-      'CH'        => 3,       # RFC 1035
-      'HS'        => 4,       # RFC 1035
-      'NONE'      => 254,     # RFC 2136
-      'ANY'       => 255,     # RFC 1035
     }
     @regexp_string = "ANY|CH|HS|IN|NONE"
   end
-    
-  def test_default
+
+
+  StrAndNum = [
+      ['IN'   ,   1],
+      ['CH'   ,   3],
+      ['HS'   ,   4],
+      ['NONE' , 254],
+      ['ANY'  , 255],
+  ]
+
+  StrAndNum.each do |str, num|
+    define_method "test_initialize_from_str_#{str}" do
+      instance = Net::DNS::RR::Classes.new(str)
+      assert_equal str, instance.to_s
+      assert_equal num, instance.to_i
+    end
+    define_method "test_initialize_from_num_#{num}" do
+      instance = Net::DNS::RR::Classes.new(num)
+      assert_equal str, instance.to_s
+      assert_equal num, instance.to_i
+    end
+  end
+
+  def test_initialize_should_raise_with_invalid_class
+    assert_raise(ArgumentError) { Net::DNS::RR::Classes.new(Hash.new) }
+  end
+
+
+  def test_inspect
+    assert_equal 1, Net::DNS::RR::Classes.new(1).inspect
+    assert_equal 1, Net::DNS::RR::Classes.new("IN").inspect
+  end
+
+  def test_to_s
+    assert_equal "IN", Net::DNS::RR::Classes.new(1).to_s
+    assert_equal "IN", Net::DNS::RR::Classes.new("IN").to_s
+  end
+
+  def test_to_i
+    assert_equal 1, Net::DNS::RR::Classes.new(1).to_i
+    assert_equal 1, Net::DNS::RR::Classes.new("IN").to_i
+  end
+
+
+  def test_self_default
     # Default type should be ANY => 255
     instance = Net::DNS::RR::Classes.new(nil)
-    assert_equal("1", instance.to_str)
-    assert_equal("IN", instance.to_s)
-    
+    assert_equal 1,    instance.to_i
+    assert_equal "IN", instance.to_s
+
     # Let's change default behaviour
     Net::DNS::RR::Classes.default = "CH"
     instance = Net::DNS::RR::Classes.new(nil)
-    assert_equal("3", instance.to_str)
-    assert_equal("CH", instance.to_s)
+    assert_equal 3,    instance.to_i
+    assert_equal "CH", instance.to_s
 
     Net::DNS::RR::Classes.default = "IN"
     instance = Net::DNS::RR::Classes.new(nil)
-    assert_equal("1", instance.to_str)
-    assert_equal("IN", instance.to_s)
+    assert_equal 1,    instance.to_i
+    assert_equal "IN", instance.to_s
   end
 
-  def test_classes
-    @classes.each do |key,num|
-      instance_from_string = Net::DNS::RR::Classes.new(key) 
-      instance_from_num = Net::DNS::RR::Classes.new(num)
-      assert_equal(key, instance_from_string.to_s)
-      assert_equal(num.to_s, instance_from_string.to_str)
-      assert_equal(key, instance_from_num.to_s)
-      assert_equal(num.to_s, instance_from_num.to_str)
-    end
-    assert_raise(ArgumentError) do
-      Net::DNS::RR::Classes.new(Hash.new)
-    end
+  def test_self_valid?
+    assert  Net::DNS::RR::Classes.valid?("IN")
+    assert  Net::DNS::RR::Classes.valid?(1)
+    assert !Net::DNS::RR::Classes.valid?("Q")
+    assert !Net::DNS::RR::Classes.valid?(256)
+    assert_raise(ArgumentError) { Net::DNS::RR::Classes.valid?(Hash.new) }
   end
 
-  def test_regexp
-    assert_equal(@regexp_string, Net::DNS::RR::Classes.regexp)
-  end
-  
-  def test_valid
-    assert_equal(true,  Net::DNS::RR::Classes.valid?("IN"))
-    assert_equal(true,  Net::DNS::RR::Classes.valid?(1))
-    assert_equal(false, Net::DNS::RR::Classes.valid?("Q"))
-    assert_equal(false, Net::DNS::RR::Classes.valid?(256))
-    assert_raise(ArgumentError) do
-      Net::DNS::RR::Classes.valid? Hash.new
-    end
-  end
-
-  def test_to_str
-    assert_equal("IN", Net::DNS::RR::Classes.to_str(1))
-    assert_raise(ArgumentError) do
-      Net::DNS::RR::Classes.to_str(256)
-    end
-    assert_raise(ArgumentError) do
-      Net::DNS::RR::Classes.to_str("string")
-    end
+  def test_self_regexp
+    assert_equal @regexp_string, Net::DNS::RR::Classes.regexp
   end
 
 end

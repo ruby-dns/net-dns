@@ -41,7 +41,7 @@ module Net # :nodoc:
     # more or less the same. 
     #
     class Question
-      include Net::DNS::Names
+      include Names
 
       # Base error class.
       class Error < StandardError
@@ -70,10 +70,10 @@ module Net # :nodoc:
       # If not specified, +type+ and +cls+ arguments defaults 
       # to Net::DNS::A and Net::DNS::IN respectively.
       #
-      def initialize(name,type=Net::DNS::A,cls=Net::DNS::IN)
+      def initialize(name, type = Net::DNS::A, cls = Net::DNS::IN)
         @qName = check_name name
-        @qType = Net::DNS::RR::Types.new type
-        @qClass = Net::DNS::RR::Classes.new cls
+        @qType = Net::DNS::RR::Types.new(type)
+        @qClass = Net::DNS::RR::Classes.new(cls)
       end
 
       # Return a new Net::DNS::Question object created by
