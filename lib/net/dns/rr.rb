@@ -1,4 +1,4 @@
-require 'net/dns/names/names'
+require 'net/dns/names'
 require 'net/dns/rr/types'
 require 'net/dns/rr/classes'
 

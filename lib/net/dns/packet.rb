@@ -1,5 +1,5 @@
 require 'logger'
-require 'net/dns/names/names'
+require 'net/dns/names'
 require 'net/dns'
 require 'net/dns/header'
 require 'net/dns/question'
