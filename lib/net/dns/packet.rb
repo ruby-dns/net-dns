@@ -110,8 +110,8 @@ module Net # :nodoc:
       attr_reader :header, :question, :answer, :authority, :additional
       attr_reader :answerfrom, :answersize
 
-      # Create a new instance of Net::DNS::Packet class. Arguments are the
-      # canonical name of the resourse, an optional type field and an optional
+      # Creates a new instance of <tt>Net::DNS::Packet</tt> class. Arguments are the
+      # canonical name of the resource, an optional type field and an optional
       # class field. The record type and class can be omitted; they default
       # to +A+ and +IN+.
       #
@@ -120,7 +120,7 @@ module Net # :nodoc:
       #   packet = Net::DNS::Packet.new("example.com", Net::DNS::TXT, Net::DNS::CH)
       #
       # This class no longer instantiate object from binary data coming from
-      # network streams. Please use Net::DNS::Packet.new_from_data instead.
+      # network streams. Please use <tt>Net::DNS::Packet.parse</tt> instead.
       #
       def initialize(name, type = Net::DNS::A, cls = Net::DNS::IN)
         @header = Net::DNS::Header.new(:qdCount => 1)
@@ -138,7 +138,7 @@ module Net # :nodoc:
         @header.opCode == Net::DNS::Header::QUERY
       end
 
-      # Return the packet object in binary data, suitable
+      # Returns the packet object in binary data, suitable
       # for sending across a network stream.
       #
       #   packet_data = packet.data
@@ -174,7 +174,7 @@ module Net # :nodoc:
         @header.data + data[Net::DNS::HFIXEDSZ..data.size]
       end
 
-      # Same as Net::DNS::Packet#data, but implements name compression
+      # Same as <tt>Net::DNS::Packet#data</tt>, but implements name compression
       # (see RFC1025) for a considerable save of bytes.
       #
       #   packet = Net::DNS::Packet.new("www.example.com")
@@ -224,7 +224,8 @@ module Net # :nodoc:
         @header.data + data[Net::DNS::HFIXEDSZ..data.size]
       end
 
-      # Inspect method
+      # Returns a string containing a human-readable representation
+      # of this <tt>Net::DNS::Packet</tt> instance.
       def inspect
         retval = ""
         if @answerfrom != "0.0.0.0:0" and @answerfrom
@@ -271,15 +272,13 @@ module Net # :nodoc:
       end
       alias_method :to_s, :inspect
 
-      # Wrapper to Header#truncated?
-      #
+      # Delegates to <tt>Net::DNS::Header#truncated?</tt>.
       def truncated?
         @header.truncated?
       end
 
-      # Assing a Net::DNS::Header object to a Net::DNS::Packet
-      # instance.
-      #
+      # Assigns a <tt>Net::DNS::Header</tt> <tt>object</tt>
+      # to this <tt>Net::DNS::Packet</tt> instance.
       def header=(object)
         if object.kind_of? Net::DNS::Header
           @header = object
@@ -288,9 +287,8 @@ module Net # :nodoc:
         end
       end
 
-      # Assign a Net::DNS::Question object, or an array of
-      # Questions objects, to a Net::DNS::Packet instance.
-      #
+      # Assigns a <tt>Net::DNS::Question</tt> <tt>object</tt>
+      # to this <tt>Net::DNS::Packet</tt> instance.
       def question=(object)
         case object
         when Array
@@ -306,8 +304,8 @@ module Net # :nodoc:
         end
       end
 
-      # Assign a <tt>Net::DNS::RR</tt> object, or an array of
-      # RR objects, to a <tt>Net::DNS::Packet</tt> instance answer section.
+      # Assigns one or an array of <tt>Net::DNS::RR</tt> <tt>object</tt>s
+      # to the answer section of this <tt>Net::DNS::Packet</tt> instance.
       def answer=(object)
         case object
           when Array
@@ -323,8 +321,8 @@ module Net # :nodoc:
         end
       end
 
-      # Assign a <tt>Net::DNS::RR</tt> object, or an array of
-      # RR objects, to a <tt>Net::DNS::Packet</tt> instance additional section.
+      # Assigns one or an array of <tt>Net::DNS::RR</tt> <tt>object</tt>s
+      # to the additional section of this <tt>Net::DNS::Packet</tt> instance.
       def additional=(object)
         case object
           when Array
@@ -340,8 +338,8 @@ module Net # :nodoc:
         end
       end
 
-      # Assign a <tt>Net::DNS::RR</tt> object, or an array of
-      # RR objects, to a <tt>Net::DNS::Packet</tt> instance authority section.
+      # Assigns one or an array of <tt>Net::DNS::RR</tt> <tt>object</tt>s
+      # to the authority section of this <tt>Net::DNS::Packet</tt> instance.
       def authority=(object)
         case object
           when Array
@@ -357,73 +355,72 @@ module Net # :nodoc:
         end
       end
 
-      # Iterate for every address in the +answer+ section of a
-      # Net::DNS::Packet object.
+      # Iterates every address in the +answer+ section
+      # of this <tt>Net::DNS::Packet</tt> instance.
       #
       #   packet.each_address do |ip|
       #     ping ip.to_s
       #   end
       #
-      # As you can see in the documentation for Net::DNS::RR::A class,
-      # the address returned is an instance of IPAddr class.
-      #
-      def each_address
+      # As you can see in the documentation for the <tt>Net::DNS::RR::A</tt> class,
+      # the address returned is an instance of <tt>IPAddr</tt> class.
+      def each_address(&block)
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::A
           yield elem.address
         end
       end
 
-      # Iterate for every nameserver in the +answer+ section of a
-      # Net::DNS::Packet object.
+      # Iterates every nameserver in the +answer+ section
+      # of this <tt>Net::DNS::Packet</tt> instance.
       #
       #   packet.each_nameserver do |ns|
       #     puts "Nameserver found: #{ns}"
       #   end
       #
-      def each_nameserver
+      def each_nameserver(&block)
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::NS
           yield elem.nsdname
         end
       end
 
-      # Iterate for every exchange record in the +answer+ section
-      # of a Net::DNS::Packet object.
+      # Iterates every exchange record in the +answer+ section
+      # of this <tt>Net::DNS::Packet</tt> instance.
       #
       #   packet.each_mx do |pref,name|
       #     puts "Mail exchange #{name} has preference #{pref}"
       #   end
       #
-      def each_mx
+      def each_mx(&block)
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::MX
-          yield elem.preference,elem.exchange
+          yield elem.preference, elem.exchange
         end
       end
 
-      # Iterate for every canonical name in the +answer+ section
-      # of a Net::DNS::Packet object.
+      # Iterates every canonical name in the +answer+ section
+      # of this <tt>Net::DNS::Packet</tt> instance.
       #
       #   packet.each_cname do |cname|
       #     puts "Canonical name: #{cname}"
       #   end
       #
-      def each_cname
+      def each_cname(&block)
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::CNAME
           yield elem.cname
         end
       end
 
-      # Iterate for every pointer in the +answer+ section of a
-      # Net::DNS::Packet object.
+      # Iterates every pointer in the +answer+ section
+      # of this <tt>Net::DNS::Packet</tt> instance.
       #
       #   packet.each_ptr do |ptr|
       #     puts "Pointer for resource: #{ptr}"
       #   end
       #
-      def each_ptr
+      def each_ptr(&block)
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::PTR
           yield elem.ptrdname
@@ -435,14 +432,14 @@ module Net # :nodoc:
       #   Resolver("www.google.com") do |packet|
       #     puts packet.size + " bytes"}
       #   end
-      #     #=> 484 bytes
+      #   # => 484 bytes
       #
       def size
         data.size
       end
 
-      # Checks whether a query has returned a NXDOMAIN error,
-      # meaning the domain name queried doesn't exists.
+      # Checks whether the query returned a NXDOMAIN error,
+      # meaning the queried domain name doesn't exist.
       #
       #   %w[a.com google.com ibm.com d.com].each do |domain|
       #     response = Net::DNS::Resolver.new.send(domain)
@@ -456,8 +453,8 @@ module Net # :nodoc:
       end
 
 
-      # Creates a new instance of <tt>Net::DNS::Packet</tt> class from binary data, taken
-      # out by a network stream. For example:
+      # Creates a new instance of <tt>Net::DNS::Packet</tt> class from binary data,
+      # taken out from a network stream. For example:
       #
       #   # udp_socket is an UDPSocket waiting for a response
       #   ans = udp_socket.recvfrom(1500)
