@@ -14,7 +14,8 @@ begin
     gemspec.extra_rdoc_files  = ["README.rdoc", "CHANGELOG.rdoc", "AUTHORS.rdoc", "THANKS.rdoc"]
     gemspec.rubyforge_project = "net-dns"
     
-    gemspec.add_development_dependency "rcov"
+    gemspec.add_development_dependency "rake"
+    gemspec.add_development_dependency "jeweler", "~> 1.4.0"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
