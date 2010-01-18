@@ -1,7 +1,7 @@
 = Changelog
 
 
-== master
+== Release 0.6.1
 
 * ADDED: Net::DNS::Packet#to_s method (alias of #inspect)
 
