@@ -916,38 +916,38 @@ module Net # :nodoc:
       #
       # Returns a Net::DNS::Packet object.
       #
-      #   # Sending a +Packet+ object
-      #   send_packet = Net::DNS::Packet.new("host.example.com",Net::DNS::NS,Net::DNS::HS)
+      #   # Executes the query with a +Packet+ object
+      #   send_packet = Net::DNS::Packet.new("host.example.com", Net::DNS::NS, Net::DNS::HS)
       #   packet = res.send(send_packet)
       #
-      #   # Performing a query
+      #   # Executes the query with a host, type and cls
       #   packet = res.send("host.example.com")
-      #   packet = res.send("host.example.com",Net::DNS::NS)
-      #   packet = res.send("host.example.com",Net::DNS::NS,Net::DNS::HS)
+      #   packet = res.send("host.example.com", Net::DNS::NS)
+      #   packet = res.send("host.example.com", Net::DNS::NS, Net::DNS::HS)
       #
       # If the name is an IP address (Ipv4 or IPv6), in the form of a string 
       # or a IPAddr object, then an appropriate PTR query will be performed:
       #
       #   ip = IPAddr.new("172.16.100.2")
       #   packet = res.send(ip)
-      #   packet = res.send("192.168.10.254")
+      #   
+      #   packet = res.send("172.16.100.2")
       #
       # Use +packet.header.ancount+ or +packet.answer+ to find out if there 
       # were any records in the answer section.
       #
-      def send(argument,type=Net::DNS::A,cls=Net::DNS::IN)
+      def send(argument, type = Net::DNS::A, cls = Net::DNS::IN)
         if @config[:nameservers].size == 0
           raise ResolverError, "No nameservers specified!"
         end
 
         method = :send_udp
-        
-        if argument.kind_of? Net::DNS::Packet
-          packet = argument
+        packet = if argument.kind_of? Net::DNS::Packet
+          argument
         else
-          packet = make_query_packet(argument,type,cls)
+          make_query_packet(argument, type, cls)
         end
-        
+
         # Store packet_data for performance improvements,
         # so methods don't keep on calling Packet#data
         packet_data = packet.data
@@ -1104,7 +1104,7 @@ module Net # :nodoc:
         @config[:nameservers] << arr
       end
 
-      def make_query_packet(string,type,cls)
+      def make_query_packet(string, type, cls)
         case string
         when IPAddr
           name = string.reverse
@@ -1113,7 +1113,7 @@ module Net # :nodoc:
         when /\d/ # Contains a number, try to see if it's an IP or IPv6 address
           begin
             name = IPAddr.new(string.chomp(".")).reverse
-            type = Net::DNS::PTR            
+            type = Net::DNS::PTR
           rescue ::ArgumentError
             name = string if valid? string
           end
@@ -1122,7 +1122,7 @@ module Net # :nodoc:
         end
 
         # Create the packet
-        packet = Net::DNS::Packet.new(name,type,cls)
+        packet = Net::DNS::Packet.new(name, type, cls)
 
         if packet.query?
           packet.header.recursive = @config[:recursive] ? 1 : 0
@@ -1131,10 +1131,9 @@ module Net # :nodoc:
         # DNSSEC and TSIG stuff to be inserted here
         
         packet
-
       end
 
-      def send_tcp(packet,packet_data)
+      def send_tcp(packet, packet_data)
 
         ans = nil
         length = [packet_data.size].pack("n")
@@ -1182,7 +1181,7 @@ module Net # :nodoc:
         end
       end
       
-      def send_udp(packet,packet_data)
+      def send_udp(packet, packet_data)
         socket = UDPSocket.new
         socket.bind(@config[:source_address].to_s,@config[:source_port])
         
@@ -1197,7 +1196,7 @@ module Net # :nodoc:
             end
             break if ans
           rescue TimeoutError
-            @logger.warn "Nameserver #{ns} not responding within UDP timeout, trying next one"            
+            @logger.warn "Nameserver #{ns} not responding within UDP timeout, trying next one"
             next
           end
         end
@@ -1211,10 +1210,10 @@ module Net # :nodoc:
           true
         end
       end
-      
-      
+
+
       class << self
-        
+
         # Returns true if running on a Windows platform.
         #
         # Note. This method doesn't rely on the RUBY_PLATFORM constant
@@ -1223,9 +1222,9 @@ module Net # :nodoc:
         def platform_windows?
           !!(Config::CONFIG["host_os"] =~ /msdos|mswin|djgpp|mingw/i)
         end
-        
+
       end
-    
+
     end
   end
 end

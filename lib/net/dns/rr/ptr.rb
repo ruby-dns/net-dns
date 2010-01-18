@@ -2,9 +2,15 @@ module Net
   module DNS
     class RR
       
-      #------------------------------------------------------------
-      # RR type PTR
-      #------------------------------------------------------------
+      #
+      # = Pointer Record (PTR)
+      #
+      # Class for DNS Pointer (PTR) resource records.
+      #
+      # Pointer records are the opposite of A and AAAA RRs 
+      # and are used in Reverse Map zone files to map
+      # an IP address (IPv4 or IPv6) to a host name.
+      #
       class PTR < RR
 
         # Getter for PTR resource
@@ -62,4 +68,3 @@ module Net
     end # class RR
   end # module DNS
 end # module Net
-

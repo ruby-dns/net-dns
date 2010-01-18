@@ -7,22 +7,66 @@ end
 
 
 class ResolverTest < Test::Unit::TestCase
-  
+
   def test_initialize
     assert_nothing_raised { Net::DNS::Resolver.new } 
   end
-  
+
   def test_initialize_with_config
     assert_nothing_raised { Net::DNS::Resolver.new({}) } 
   end
-  
+
   def test_initialize_with_invalid_config_should_raise_argumenterror
     assert_raise(Net::DNS::Resolver::ArgumentError) { Net::DNS::Resolver.new("") } 
     assert_raise(Net::DNS::Resolver::ArgumentError) { Net::DNS::Resolver.new(0) } 
     assert_raise(Net::DNS::Resolver::ArgumentError) { Net::DNS::Resolver.new(:foo) } 
   end
-  
-  
+
+
+  # I know private methods are supposed to not be tested directly
+  # but since this library lacks unit tests, for now let me test them in this way.
+
+  def _make_query_packet(*args)
+    # FIXME: horrible hack for horrible hack
+    Net::DNS::Resolver.new.old_send(:make_query_packet, *args)
+  end
+
+  def test_make_query_packet_from_ipaddr
+    packet = _make_query_packet(IPAddr.new("192.168.1.1"), Net::DNS::A, cls = Net::DNS::IN)
+    assert_equal "1.1.168.192.in-addr.arpa",  packet.question.first.qName
+    assert_equal Net::DNS::PTR.to_i,          packet.question.first.qType.to_i
+    assert_equal Net::DNS::IN.to_i,           packet.question.first.qClass.to_i
+  end
+
+  def test_make_query_packet_from_string_like_ipv4
+    packet = _make_query_packet("192.168.1.1", Net::DNS::A, cls = Net::DNS::IN)
+    assert_equal "1.1.168.192.in-addr.arpa",  packet.question.first.qName
+    assert_equal Net::DNS::PTR.to_i,          packet.question.first.qType.to_i
+    assert_equal Net::DNS::IN.to_i,           packet.question.first.qClass.to_i
+  end
+
+  def test_make_query_packet_from_string_like_ipv6
+    packet = _make_query_packet("2001:1ac0::200:0:a5d1:6004:2", Net::DNS::A, cls = Net::DNS::IN)
+    assert_equal "2.0.0.0.4.0.0.6.1.d.5.a.0.0.0.0.0.0.2.0.0.0.0.0.0.c.a.1.1.0.0.2.ip6.arpa",  packet.question.first.qName
+    assert_equal Net::DNS::PTR.to_i,          packet.question.first.qType.to_i
+    assert_equal Net::DNS::IN.to_i,           packet.question.first.qClass.to_i
+  end
+
+  def test_make_query_packet_from_string_like_hostname
+    packet = _make_query_packet("ns2.google.com", Net::DNS::A, cls = Net::DNS::IN)
+    assert_equal "ns2.google.com",            packet.question.first.qName
+    assert_equal Net::DNS::A.to_i,            packet.question.first.qType.to_i
+    assert_equal Net::DNS::IN.to_i,           packet.question.first.qClass.to_i
+  end
+
+  def test_make_query_packet_from_string_like_hostname_with_number
+    packet = _make_query_packet("ns.google.com", Net::DNS::A, cls = Net::DNS::IN)
+    assert_equal "ns.google.com",             packet.question.first.qName
+    assert_equal Net::DNS::A.to_i,            packet.question.first.qType.to_i
+    assert_equal Net::DNS::IN.to_i,           packet.question.first.qClass.to_i
+  end
+
+
   RubyPlatforms = [
     ["darwin9.0", false],   # Mac OS X
     ["darwin", false],      # JRuby on Mac OS X
@@ -31,7 +75,7 @@ class ResolverTest < Test::Unit::TestCase
     ["mswin32", true],      # ruby 1.8.6 (2008-03-03 patchlevel 114) [i386-mswin32]
     ["mswin32", true],      # ruby 1.8.6 (2008-04-22 rev 6555) [x86-jruby1.1.1]
   ]
-  
+
   def test_self_platform_windows_question
     RubyPlatforms.each do |platform, is_windows|
       assert_equal is_windows, 
@@ -39,10 +83,10 @@ class ResolverTest < Test::Unit::TestCase
                     "Expected `#{is_windows}' with platform `#{platform}'"
     end
   end
-  
-  
+
+
   protected
-  
+
     def override_platform(new_platform, &block)
       raise LocalJumpError, "no block given" unless block_given?
       old_platform = Config::CONFIG["host_os"]
@@ -52,5 +96,5 @@ class ResolverTest < Test::Unit::TestCase
       Config::CONFIG["host_os"] = old_platform
       result
     end
-  
+
 end

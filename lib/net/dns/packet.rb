@@ -130,14 +130,14 @@ module Net # :nodoc:
       #
       #   packet = Net::DNS::Packet.new("www.example.com")
       #   packet = Net::DNS::Packet.new("example.com", Net::DNS::MX)
-      #   packet = Net::DNS::Packet.new("example.com",Net::DNS::TXT,Net::DNS::CH)
+      #   packet = Net::DNS::Packet.new("example.com", Net::DNS::TXT, Net::DNS::CH)
       #
       # This class no longer instantiate object from binary data coming from
       # network streams. Please use Net::DNS::Packet.new_from_data instead.
       # 
-      def initialize(name,type=Net::DNS::A,cls=Net::DNS::IN)
+      def initialize(name, type = Net::DNS::A, cls = Net::DNS::IN)
         @header = Net::DNS::Header.new(:qdCount => 1)
-        @question = [Net::DNS::Question.new(name,type,cls)]
+        @question = [Net::DNS::Question.new(name, type, cls)]
         @answer = []
         @authority = []
         @additional = []
