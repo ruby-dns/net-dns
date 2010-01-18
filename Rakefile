@@ -16,10 +16,7 @@ begin
     
     gemspec.add_development_dependency "rcov"
   end
-  Jeweler::RubyforgeTasks.new do |rubyforge|
-    # prevent Jeweler to inject library name twice
-    rubyforge.remote_doc_path = "/"
-  end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler not available."
 end
