@@ -1,23 +1,19 @@
-module Net
-  module DNS 
-    
+module Net # :nodoc:
+  module DNS
+
     module Names
-      
-      # Argument Error for class Net::DNS::Names.
-      class ArgumentError < ArgumentError
-      end
-      
+
       # Base error class.
       class Error < StandardError
       end
-      
+
       # Generic Names Error.
       class ExpandError < Error
       end
-      
-      
+
+
       INT16SZ = 2
-      
+
       # Expand a compressed name in a DNS Packet object. Please
       # see RFC1025 for an explanation of how the compression
       # in DNS packets works, how may it be useful and how should
@@ -33,7 +29,7 @@ module Net
         while true
           raise ExpandError, "Offset is greater than packet lenght!" if packetlen < (offset+1)
           len = packet.unpack("@#{offset} C")[0]
-          
+
           if len == 0
             offset += 1
             break
@@ -56,7 +52,7 @@ module Net
         end
         return [name,offset] # name.chomp(".") if trailing dot has to be omitted
       end
-      
+
       def pack_name(name)
         if name.size > 63
           raise ArgumentError, "Label data cannot exceed 63 chars"
@@ -105,7 +101,7 @@ module Net
         end
         return str,offset,names
       end
-      
+
       def valid?(name)
         if name =~ /^([a-z0-9]([-a-z0-9]*[a-z0-9])?\.)+((a[cdefgilmnoqrstuwxz]|aero|arpa)|(b[abdefghijmnorstvwyz]|biz)|(c[acdfghiklmnorsuvxyz]|cat|com|coop)|d[ejkmoz]|(e[ceghrstu]|edu)|f[ijkmor]|(g[abdefghilmnpqrstuwy]|gov)|h[kmnrtu]|(i[delmnoqrst]|info|int)|(j[emop]|jobs)|k[eghimnprwyz]|l[abcikrstuvy]|(m[acdghklmnopqrstuvwxyz]|mil|mobi|museum)|(n[acefgilopruz]|name|net)|(om|org)|(p[aefghklmnrstwy]|pro)|qa|r[eouw]|s[abcdeghijklmnortvyz]|(t[cdfghjklmnoprtvwz]|travel)|u[agkmsyz]|v[aceginu]|w[fs]|y[etu]|z[amw])$/i
           return name
@@ -113,7 +109,7 @@ module Net
           raise ArgumentError, "Invalid FQDN: #{name}"
         end
       end
-      
+
     end
   end
 end

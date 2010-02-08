@@ -62,12 +62,12 @@ class RawSocket # :nodoc:
   
   def check_addr addr
     case addr
-    when String
-      IPAddr.new addr
-    when IPAddr
-      addr
-    else
-      raise ArgumentError, "Wrong address format: #{addr}"
+      when String
+        IPAddr.new(addr)
+      when IPAddr
+        addr
+      else
+        raise ArgumentError, "Wrong address format: #{addr}"
     end
   end
   

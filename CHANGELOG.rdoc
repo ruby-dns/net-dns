@@ -1,6 +1,11 @@
 = Changelog
 
 
+== master
+
+* CHANGED: Rewritten and simplified Net::DNS::Classes. Improved test harness.
+
+
 == Release 0.6.1
 
 * ADDED: Net::DNS::Packet#to_s method (alias of #inspect)

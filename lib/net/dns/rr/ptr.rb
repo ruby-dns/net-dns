@@ -1,7 +1,7 @@
-module Net
+module Net # :nodoc:
   module DNS
     class RR
-      
+
       #
       # = Pointer Record (PTR)
       #
@@ -18,15 +18,15 @@ module Net
           @ptrdname.to_s
         end
         alias_method :ptrdname, :ptr
-        
+
         private
-        
+
         def check_ptr(str)
           IPAddr.new str
         rescue
           raise ArgumentError, "PTR section not valid"
         end
-        
+
         def build_pack
           @ptrdname_pack = pack_name(@ptrdname)
           @rdlength = @ptrdname_pack.size
@@ -56,15 +56,15 @@ module Net
           @ptrdname,offset = dn_expand(data,offset)
           return offset
         end
-        
+
         private
+
+          def set_type
+            @type = Net::DNS::RR::Types.new("PTR")
+          end
         
-        def set_type
-          @type = Net::DNS::RR::Types.new("PTR")
-        end
-        
-      end # class PTR
-      
-    end # class RR
-  end # module DNS
-end # module Net
+      end
+
+    end
+  end
+end

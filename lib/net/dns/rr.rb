@@ -1,4 +1,4 @@
-require 'net/dns/names/names'
+require 'net/dns/names'
 require 'net/dns/rr/types'
 require 'net/dns/rr/classes'
 
@@ -8,30 +8,30 @@ require 'net/dns/rr/classes'
 end
 
 module Net # :nodoc:
-  module DNS 
-    
+  module DNS
+
     #
     # = Net::DNS::RR - DNS Resource Record class
     #
-    # The Net::DNS::RR is the base class for DNS Resource 
+    # The Net::DNS::RR is the base class for DNS Resource
     # Record (RR) objects. A RR is a pack of data that represents
-    # resources for a DNS zone. The form in which this data is 
+    # resources for a DNS zone. The form in which this data is
     # shows can be drawed as follow:
     #
     #   "name  ttl  class  type  data"
-    # 
+    #
     # The +name+ is the name of the resource, like an canonical
     # name for an +A+ record (internet ip address). The +ttl+ is the
-    # time to live, expressed in seconds. +type+ and +class+ are 
+    # time to live, expressed in seconds. +type+ and +class+ are
     # respectively the type of resource (+A+ for ip addresses, +NS+
-    # for nameservers, and so on) and the class, which is almost 
+    # for nameservers, and so on) and the class, which is almost
     # always +IN+, the Internet class. At the end, +data+ is the
-    # value associated to the name for that particular type of 
+    # value associated to the name for that particular type of
     # resource record. An example:
     #
     #   # A record for IP address
     #   "www.example.com  86400  IN  A  172.16.100.1"
-    #   
+    #
     #   # NS record for name server
     #   "www.example.com  86400  IN  NS  ns.example.com"
     #
@@ -39,34 +39,22 @@ module Net # :nodoc:
     # such the ones above, or specifying each field as the pair
     # of an hash. See the Net::DNS::RR.new method for details.
     #
-    # == Error classes
-    #
-    # Some error classes has been defined for the Net::DNS::RR class,
-    # which are listed here to keep a light and browsable main documentation.
-    # We have:
-    #
-    # ArgumentError:: Generic argument error for class Net::DNS::RR
-    # DataError::     Error in parsing binary data, maybe from a malformed packet.
-    #
     class RR
-      include Net::DNS::Names
-      
-      # Argument Error for class Net::DNS::RR.
-      class ArgumentError < ArgumentError
-      end
-      
+      include Names
+
+
       # Base error class.
       class Error < StandardError
       end
-      
+
       # Error in parsing binary data, maybe from a malformed packet.
       class DataError < Error
       end
-      
-      
+
+
       # Regexp matching an RR string
       RR_REGEXP = Regexp.new("^\\s*(\\S+)\\s*(\\d+)?\\s+(" +
-                               Net::DNS::RR::Classes.regexp + 
+                               Net::DNS::RR::Classes.regexp +
                                "|CLASS\\d+)?\\s*(" +
                                Net::DNS::RR::Types.regexp +
                                "|TYPE\\d+)?\\s*(.*)$", Regexp::IGNORECASE)
@@ -79,13 +67,13 @@ module Net # :nodoc:
       attr_reader :name
       # TTL time (in seconds) of the RR
       attr_reader :ttl
-      # Data belonging to that appropriate class, 
+      # Data belonging to that appropriate class,
       # not to be used (use real accessors instead)
       attr_reader :rdata
-      
+
       # Create a new instance of Net::DNS::RR class, or an instance of
       # any of the subclass of the appropriate type.
-      # 
+      #
       # Argument can be a string or an hash. With a sting, we can pass
       # a RR resource record in the canonical format:
       #
@@ -95,12 +83,12 @@ module Net # :nodoc:
       #   txt   = Net::DNS::RR.new('baz.example.com 3600 HS TXT "text record"')
       #
       # Incidentally, +a+, +mx+, +cname+ and +txt+ objects will be instances of
-      # respectively Net::DNS::RR::A, Net::DNS::RR::MX, Net::DNS::RR::CNAME and 
+      # respectively Net::DNS::RR::A, Net::DNS::RR::MX, Net::DNS::RR::CNAME and
       # Net::DNS::RR::TXT classes.
       #
-      # The name and RR data are required; all other informations are optional.  
+      # The name and RR data are required; all other informations are optional.
       # If omitted, the +TTL+ defaults to 10800, +type+ default to +A+ and the RR class
-      # defaults to +IN+.  Omitting the optional fields is useful for creating the 
+      # defaults to +IN+.  Omitting the optional fields is useful for creating the
       # empty RDATA sections required for certain dynamic update operations.
       # All names must be fully qualified.  The trailing dot (.) is optional.
       #
@@ -119,12 +107,12 @@ module Net # :nodoc:
       #                 :rdata => "10.1.2.3"
       #         )
       #
-      # Name and data are required; all the others fields are optionals like 
-      # we've seen before. The data field can be specified either with the 
+      # Name and data are required; all the others fields are optionals like
+      # we've seen before. The data field can be specified either with the
       # right name of the resource (+:address+ in the example above) or with
       # the generic key +:rdata+. Consult documentation to find the exact name
       # for the resource in each subclass.
-      # 
+      #
       def initialize(arg)
         instance = case arg
           when String
@@ -151,18 +139,18 @@ module Net # :nodoc:
       #
       # This method is used when parsing a binary packet by the Packet
       # class.
-      # 
+      #
       def RR.parse(data)
         o = allocate
         obj,offset = o.send(:new_from_binary, data, 0)
         return obj
       end
-      
-      # Same as RR.parse, but takes an entire packet binary data to 
+
+      # Same as RR.parse, but takes an entire packet binary data to
       # perform name expansion. Default when analizing a packet
       # just received from a network stream.
       #
-      # Return an instance of appropriate class and the offset 
+      # Return an instance of appropriate class and the offset
       # pointing at the end of the data parsed.
       #
       def RR.parse_packet(data,offset)
@@ -170,12 +158,12 @@ module Net # :nodoc:
         o.send(:new_from_binary,data,offset)
       end
 
-      # Return the RR object in binary data format, suitable 
-      # for using in network streams, with names compressed. 
+      # Return the RR object in binary data format, suitable
+      # for using in network streams, with names compressed.
       # Must pass as arguments the offset inside the packet
       # and an hash of compressed names.
       #
-      # This method is to be used in other classes and is 
+      # This method is to be used in other classes and is
       # not intended for user space programs.
       #
       # TO FIX in one of the future releases
@@ -187,8 +175,8 @@ module Net # :nodoc:
         offset += Net::DNS::RRFIXEDSZ
         return str,offset,names
       end
-      
-      # Return the RR object in binary data format, suitable 
+
+      # Return the RR object in binary data format, suitable
       # for using in network streams.
       #
       #   raw_data = rr.data
@@ -199,14 +187,14 @@ module Net # :nodoc:
         str = pack_name(@name)
         return str + [type,cls,@ttl,@rdlength].pack("n2 N n") + get_data
       end
-      
+
       # Canonical inspect method.
       #
       #   mx = Net::DNS::RR.new("example.com. 7200 MX 10 mailhost.example.com.")
       #   #=> example.com.            7200    IN      MX      10 mailhost.example.com.
       #
       def inspect
-        data = get_inspect 
+        data = get_inspect
         # Returns the preformatted string
         if @name.size < 24
           [@name, @ttl.to_s, @cls.to_s, @type.to_s, data].pack("A24 A8 A8 A8 A*")
@@ -234,17 +222,17 @@ module Net # :nodoc:
       def to_a
         [@name, @ttl, @cls.to_s, @type.to_s, get_inspect]
       end
-      
+
       # Type accessor
       def type
         @type.to_s
       end
-      
+
       # Class accessor
       def cls
         @cls.to_s
       end
-      
+
       private
 
         #---
@@ -364,8 +352,8 @@ module Net # :nodoc:
           return o
         end
       end
-            
+
     end
-    
+
   end
 end

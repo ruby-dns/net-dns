@@ -110,46 +110,46 @@ class HeaderTest < Test::Unit::TestCase
     assert_equal(@binary.nsCount, 3)
     assert_equal(@binary.arCount, 3)
     
-    assert_raise(Header::ArgumentError) do
+    assert_raise(ArgumentError) do
       Header.new(Array.new)
     end
-    assert_raise(Header::ArgumentError) do
+    assert_raise(ArgumentError) do
       Header.parse(Array.new)
     end
-    assert_raise(Header::ArgumentError) do
+    assert_raise(ArgumentError) do
       Header.parse("aa")
     end
     assert_raise(Header::DuplicateIDError) do
       @default.id = 441
     end
-    assert_raise(Header::ArgumentError) do
+    assert_raise(ArgumentError) do
       @default.id = 1000000
     end
-    assert_raise(Header::ArgumentError) do
+    assert_raise(ArgumentError) do
       @default.qr=2
     end
     assert_raise(Header::WrongOpcodeError) do
       @default.opCode=4
     end
-    assert_raise(Header::ArgumentError) do
+    assert_raise(ArgumentError) do
       @default.aa=2
     end
-    assert_raise(Header::ArgumentError) do
+    assert_raise(ArgumentError) do
       @default.tc=2
     end
     assert_raise(Header::WrongRecursiveError) do
       @default.recursive=2
     end
-    assert_raise(Header::ArgumentError) do
+    assert_raise(ArgumentError) do
       @default.ra=2
     end
-    assert_raise(Header::ArgumentError) do
+    assert_raise(ArgumentError) do
       @default.cd=2
     end
-    assert_raise(Header::ArgumentError) do
+    assert_raise(ArgumentError) do
       @default.ad=2
     end
-    assert_raise(Header::ArgumentError) do
+    assert_raise(ArgumentError) do
       @default.rCode=46
     end
     assert_raise(Header::WrongCountError) do

@@ -1,7 +1,7 @@
-module Net
+module Net # :nodoc:
   module DNS
     class RR
-      
+
       #------------------------------------------------------------
       # RR type MX
       #------------------------------------------------------------
@@ -9,7 +9,7 @@ module Net
         attr_reader :preference, :exchange
 
         private
-        
+
         def check_mx(str)
           if str.strip =~ /^(\d+)\s+(\S+)$/
             return $1.to_i,$2
@@ -17,7 +17,7 @@ module Net
             raise ArgumentError, "MX section not valid"
           end
         end
-        
+
         def build_pack
           @mx_pack = [@preference].pack("n") + pack_name(@exchange)
           @rdlength = @mx_pack.size
@@ -50,18 +50,15 @@ module Net
           @exchange,offset = dn_expand(data,offset)
           return offset
         end
-        
+
         private
-        
+
           def set_type
             @type = Net::DNS::RR::Types.new("MX")
           end
-          
-      end # class MX
-      
-    end # class RR
-  end # module DNS
-end # module Net
 
+      end
 
-
+    end
+  end
+end

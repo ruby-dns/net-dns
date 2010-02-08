@@ -1,8 +1,8 @@
-module Net
+module Net # :nodoc:
   module DNS
-    
+
     class RR
-      
+
       #------------------------------------------------------------
       # RR type NS
       #------------------------------------------------------------
@@ -10,7 +10,7 @@ module Net
         attr_reader :nsdname
 
         private
-        
+
         def check_name(name)
           unless name =~ /(\w\.?)+\s*$/ and name =~ /[a-zA-Z]/
             raise ArgumentError, "NS Domain Name not valid: #{name}"
@@ -30,7 +30,7 @@ module Net
         def get_inspect
           "#@nsdname"
         end
-          
+
         def subclass_new_from_hash(args)
           if args.has_key? :nsdname
             @nsdname = check_name args[:nsdname]
@@ -47,18 +47,15 @@ module Net
           @nsdname,offset = dn_expand(data,offset)
           return offset
         end
-        
+
         private
-        
+
           def set_type
             @type = Net::DNS::RR::Types.new("NS")
           end
-        
-      end # class NS
-      
-    end # class RR
-  end # module DNS
-end # module Net
 
+      end
 
-
+    end
+  end
+end
