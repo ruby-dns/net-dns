@@ -63,13 +63,6 @@ module Net # :nodoc:
       # RR portion of the packet, in bytes
       RRFIXEDSZ = 10
 
-      # Name of the RR
-      attr_reader :name
-      # TTL time (in seconds) of the RR
-      attr_reader :ttl
-      # Data belonging to that appropriate class,
-      # not to be used (use real accessors instead)
-      attr_reader :rdata
 
       # Create a new instance of Net::DNS::RR class, or an instance of
       # any of the subclass of the appropriate type.
@@ -142,8 +135,8 @@ module Net # :nodoc:
       #
       def RR.parse(data)
         o = allocate
-        obj,offset = o.send(:new_from_binary, data, 0)
-        return obj
+        obj, offset = o.send(:new_from_binary, data, 0)
+        obj
       end
 
       # Same as RR.parse, but takes an entire packet binary data to
@@ -158,69 +151,12 @@ module Net # :nodoc:
         o.send(:new_from_binary,data,offset)
       end
 
-      # Return the RR object in binary data format, suitable
-      # for using in network streams, with names compressed.
-      # Must pass as arguments the offset inside the packet
-      # and an hash of compressed names.
-      #
-      # This method is to be used in other classes and is
-      # not intended for user space programs.
-      #
-      # TO FIX in one of the future releases
-      #
-      def comp_data(offset,compnames)
-        type,cls = @type.to_i, @cls.to_i
-        str,offset,names = dn_comp(@name,offset,compnames)
-        str += [type,cls,@ttl,@rdlength].pack("n2 N n")
-        offset += Net::DNS::RRFIXEDSZ
-        return str,offset,names
+      def name
+        @name
       end
 
-      # Return the RR object in binary data format, suitable
-      # for using in network streams.
-      #
-      #   raw_data = rr.data
-      #   puts "RR is #{raw_data.size} bytes long"
-      #
-      def data
-        type,cls = @type.to_i, @cls.to_i
-        str = pack_name(@name)
-        return str + [type,cls,@ttl,@rdlength].pack("n2 N n") + get_data
-      end
-
-      # Canonical inspect method.
-      #
-      #   mx = Net::DNS::RR.new("example.com. 7200 MX 10 mailhost.example.com.")
-      #   #=> example.com.            7200    IN      MX      10 mailhost.example.com.
-      #
-      def inspect
-        data = get_inspect
-        # Returns the preformatted string
-        if @name.size < 24
-          [@name, @ttl.to_s, @cls.to_s, @type.to_s, data].pack("A24 A8 A8 A8 A*")
-        else
-          to_a.join("   ")
-        end
-      end
-
-      # Returns the RR in a string format.
-      #
-      #   mx = Net::DNS::RR.new("example.com. 7200 MX 10 mailhost.example.com.")
-      #   mx.to_s
-      #   #=> "example.com.            7200    IN      MX      10 mailhost.example.com."
-      #
-      def to_s
-        inspect.to_s
-      end
-
-      # Returns an array with all the fields for the RR record.
-      #
-      #   mx = Net::DNS::RR.new("example.com. 7200 MX 10 mailhost.example.com.")
-      #   mx.to_a
-      #   #=> ["example.com.",7200,"IN","MX","10 mailhost.example.com."]
-      #
-      def to_a
-        [@name, @ttl, @cls.to_s, @type.to_s, get_inspect]
+      def ttl
+        @ttl
       end
 
       # Type accessor
@@ -233,11 +169,84 @@ module Net # :nodoc:
         @cls.to_s
       end
 
+
+      def value
+        get_inspect
+      end
+
+      # Data belonging to that appropriate class,
+      # not to be used (use real accessors instead)
+      def rdata
+        @rdata
+      end
+
+      # Return the RR object in binary data format, suitable
+      # for using in network streams.
+      #
+      #   raw_data = rr.data
+      #   puts "RR is #{raw_data.size} bytes long"
+      #
+      def data
+        str = pack_name(@name)
+        str + [@type.to_i, @cls.to_i, ttl, @rdlength].pack("n2 N n") + get_data
+      end
+
+      # Return the RR object in binary data format, suitable
+      # for using in network streams, with names compressed.
+      # Must pass as arguments the offset inside the packet
+      # and an hash of compressed names.
+      #
+      # This method is to be used in other classes and is
+      # not intended for user space programs.
+      #
+      # TO FIX in one of the future releases
+      #
+      def comp_data(offset,compnames)
+        str, offset, names = dn_comp(@name, offset, compnames)
+        str    += [@type.to_i, @cls.to_i, ttl, @rdlength].pack("n2 N n")
+        offset += Net::DNS::RRFIXEDSZ
+        [str, offset, names]
+      end
+
+
+      # Returns a human readable representation of this record.
+      # The value is always a String.
+      #
+      #   mx = Net::DNS::RR.new("example.com. 7200 MX 10 mailhost.example.com.")
+      #   #=> example.com.            7200    IN      MX      10 mailhost.example.com.
+      #
+      def inspect
+        to_s
+      end
+
+      # Returns a String representation of this record.
+      #
+      #   mx = Net::DNS::RR.new("example.com. 7200 MX 10 mailhost.example.com.")
+      #   mx.to_s
+      #   #=> "example.com.            7200    IN      MX      10 mailhost.example.com."
+      #
+      def to_s
+        items = to_a.map { |e| e.to_s }
+        if @name.size < 24
+          items.pack("A24 A8 A8 A8 A*")
+        else
+          items.join("   ")
+        end.to_s
+      end
+
+      # Returns an Array with all the attributes for this record.
+      #
+      #   mx = Net::DNS::RR.new("example.com. 7200 MX 10 mailhost.example.com.")
+      #   mx.to_a
+      #   #=> ["example.com.", 7200, "IN", "MX", "10 mailhost.example.com."]
+      #
+      def to_a
+        [@name, ttl, cls.to_s, type.to_s, value]
+      end
+
+
       private
 
-        #---
-        # New RR with argument in string form
-        #---
         def new_from_string(rrstring)
 
           unless rrstring =~ RR_REGEXP
@@ -265,7 +274,7 @@ module Net # :nodoc:
           @rdata = $5 ? $5.strip : ""
 
           if self.class == Net::DNS::RR
-            (eval "Net::DNS::RR::#@type").new(rrstring)
+            Net::DNS::RR.const_get(@type.to_s).new(rrstring)
           else
             subclass_new_from_string(@rdata)
             self.class
@@ -297,7 +306,7 @@ module Net # :nodoc:
             end
             self.class
           end
-        end # new_from_hash
+        end
 
         def new_from_binary(data,offset)
           if self.class == Net::DNS::RR
@@ -313,7 +322,7 @@ module Net # :nodoc:
             offset = subclass_new_from_binary(data,offset)
             build_pack
             set_type
-            return [self,offset]
+            [self,offset]
           end
         end
 
@@ -324,7 +333,7 @@ module Net # :nodoc:
         end
         def subclass_new_from_hash(hash)
         end
-        def subclass_new_from_binary(data,offset)
+        def subclass_new_from_binary(data, offset)
         end
         def build_pack
         end
@@ -342,14 +351,13 @@ module Net # :nodoc:
         end
 
 
-      # NEW new method :)
       def self.new(*args)
-        o = allocate
+        o   = allocate
         obj = o.send(:initialize,*args)
         if self == Net::DNS::RR
-          return obj
+          obj
         else
-          return o
+          o
         end
       end
 

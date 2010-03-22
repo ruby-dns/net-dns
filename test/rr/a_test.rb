@@ -7,15 +7,17 @@ class RRATest < Test::Unit::TestCase
     @rr_name    = "google.com."
     @rr_type    = "A"
     @rr_cls     = "IN"
-    @rr_ttl     = 10800
+    @rr_ttl     = 10000
     @rr_address = "64.233.187.99"
 
-    @rr_output  = "google.com.             10800   IN      A       64.233.187.99"
+    @rr_output  = "google.com.             10000   IN      A       64.233.187.99"
+
+    @rr         = Net::DNS::RR::A.new(:name => @rr_name, :address => @rr_address, :ttl => @rr_ttl)
   end
 
 
   def test_initialize_from_hash
-    @record = Net::DNS::RR::A.new(:name => @rr_name, :address => @rr_address)
+    @record = Net::DNS::RR::A.new(:name => @rr_name, :address => @rr_address, :ttl => @rr_ttl)
     assert_equal @rr_output,  @record.inspect
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
@@ -25,7 +27,7 @@ class RRATest < Test::Unit::TestCase
   end
 
   def test_initialize_from_string
-    @record = Net::DNS::RR::A.new("#{@rr_name} 10800 IN A #{@rr_address}")
+    @record = Net::DNS::RR::A.new("#{@rr_name} #{@rr_ttl} #{@rr_cls} #{@rr_type} #{@rr_address}")
     assert_equal @rr_output,  @record.inspect
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
@@ -35,7 +37,7 @@ class RRATest < Test::Unit::TestCase
   end
 
   def test_parse
-    data = "\006google\003com\000\000\001\000\001\000\000*0\000\004@\351\273c"
+    data = "\006google\003com\000\000\001\000\001\000\000'\020\000\004@\351\273c"
     @record = Net::DNS::RR.parse(data)
     assert_equal @rr_output,  @record.inspect
     assert_equal @rr_name,    @record.name
@@ -60,6 +62,22 @@ class RRATest < Test::Unit::TestCase
     define_method "test_initialize_should_raise_with_invalid_arguments_#{index}" do
       assert_raise(ArgumentError) { Net::DNS::RR::A.new(arguments) }
     end
+  end
+
+
+  def test_inspect
+    assert_equal  "google.com.             10000   IN      A       64.233.187.99",
+                  @rr.inspect
+  end
+
+  def test_to_s
+    assert_equal  "google.com.             10000   IN      A       64.233.187.99",
+                  @rr.to_s
+  end
+
+  def test_to_a
+    assert_equal  ["google.com.", 10000, "IN", "A", "64.233.187.99"],
+                  @rr.to_a
   end
 
 end
