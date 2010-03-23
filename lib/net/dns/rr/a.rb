@@ -82,18 +82,18 @@ module Net # :nodoc:
           end
 
 
-          def check_address(addr)
-            address = case addr
+          def check_address(input)
+            address = case input
               when IPAddr
-                addr
+                input
               when Integer # Address in numeric form
-                tmp = [(addr >> 24), (addr >> 16) & 0xFF, (addr >> 8) & 0xFF, addr & 0xFF]
+                tmp = [(input >> 24), (input >> 16) & 0xFF, (input >> 8) & 0xFF, input & 0xFF]
                 tmp = tmp.collect { |x| x.to_s }.join(".")
                 IPAddr.new(tmp)
               when String
-                IPAddr.new(addr)
+                IPAddr.new(input)
               else
-                raise ArgumentError, "Invalid IP address `#{addr}'"
+                raise ArgumentError, "Invalid IP address `#{input}'"
             end
 
             if !address.ipv4?

@@ -65,14 +65,14 @@ module Net # :nodoc:
           end
 
 
-          def check_address(addr)
-            address = case addr
+          def check_address(input)
+            address = case input
               when IPAddr
-                addr
+                input
               when String
-                IPAddr.new(addr)
+                IPAddr.new(input)
               else
-                raise ArgumentError, "Invalid IP address `#{addr.inspect}'"
+                raise ArgumentError, "Invalid IP address `#{input}'"
             end
 
             if !address.ipv6?

@@ -3,7 +3,7 @@ require 'net/dns/rr/types'
 require 'net/dns/rr/classes'
 
 
-%w[a ns mx cname txt soa ptr aaaa mr].each do |file|
+%w(a aaaa ns cname hinfo mr mx txt soa ptr).each do |file|
   require "net/dns/rr/#{file}"
 end
 
@@ -241,7 +241,7 @@ module Net # :nodoc:
       #   #=> ["example.com.", 7200, "IN", "MX", "10 mailhost.example.com."]
       #
       def to_a
-        [@name, ttl, cls.to_s, type.to_s, value]
+        [name, ttl, cls.to_s, type.to_s, value]
       end
 
 
