@@ -284,7 +284,7 @@ module Net # :nodoc:
         def new_from_hash(args)
           # Name field is mandatory
           unless args.has_key? :name
-            raise ArgumentError, "RR argument error: need at least RR name"
+            raise ArgumentError, ":name field is mandatory"
           end
 
           @name  = args[:name].downcase
@@ -296,9 +296,9 @@ module Net # :nodoc:
           @rdlength = args[:rdlength] || @rdata.size
 
           if self.class == Net::DNS::RR
-            (eval "Net::DNS::RR::#@type").new(args)
+            Net::DNS::RR.const_get(@type.to_s).new(args)
           else
-            hash = args - [:name,:ttl,:type,:cls]
+            hash = args - [:name, :ttl, :type, :cls]
             if hash.has_key? :rdata
               subclass_new_from_string(hash[:rdata])
             else
@@ -322,7 +322,7 @@ module Net # :nodoc:
             offset = subclass_new_from_binary(data,offset)
             build_pack
             set_type
-            [self,offset]
+            [self, offset]
           end
         end
 

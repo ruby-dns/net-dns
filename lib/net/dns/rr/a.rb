@@ -93,7 +93,7 @@ module Net # :nodoc:
               when String
                 IPAddr.new(addr)
               else
-                raise ArgumentError, "Unknown address `#{addr}'"
+                raise ArgumentError, "Invalid IP address `#{addr}'"
             end
 
             if !address.ipv4?

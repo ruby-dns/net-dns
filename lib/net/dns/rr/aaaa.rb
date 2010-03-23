@@ -72,7 +72,7 @@ module Net # :nodoc:
               when String
                 IPAddr.new(addr)
               else
-                raise ArgumentError, "Unknown address `#{addr.inspect}'"
+                raise ArgumentError, "Invalid IP address `#{addr.inspect}'"
             end
 
             if !address.ipv6?

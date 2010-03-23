@@ -19,7 +19,7 @@ class RRATest < Test::Unit::TestCase
 
   def test_initialize_from_hash
     @record = Net::DNS::RR::A.new(:name => @rr_name, :address => @rr_value, :ttl => @rr_ttl)
-    assert_equal @rr_output,  @record.inspect
+    assert_equal @rr_output,  @record.to_s
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
     assert_equal @rr_cls,     @record.cls
@@ -30,7 +30,7 @@ class RRATest < Test::Unit::TestCase
 
   def test_initialize_from_string
     @record = Net::DNS::RR::A.new("#{@rr_name} #{@rr_ttl} #{@rr_cls} #{@rr_type} #{@rr_value}")
-    assert_equal @rr_output,  @record.inspect
+    assert_equal @rr_output,  @record.to_s
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
     assert_equal @rr_cls,     @record.cls
@@ -42,7 +42,7 @@ class RRATest < Test::Unit::TestCase
   def test_parse
     data = "\006google\003com\000\000\001\000\001\000\000'\020\000\004@\351\273c"
     @record = Net::DNS::RR.parse(data)
-    assert_equal @rr_output,  @record.inspect
+    assert_equal @rr_output,  @record.to_s
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
     assert_equal @rr_cls,     @record.cls

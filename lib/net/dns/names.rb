@@ -50,7 +50,7 @@ module Net # :nodoc:
             offset += len
           end
         end
-        return [name,offset] # name.chomp(".") if trailing dot has to be omitted
+        [name, offset] # name.chomp(".") if trailing dot has to be omitted
       end
 
       def pack_name(name)

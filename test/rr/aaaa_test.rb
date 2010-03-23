@@ -19,7 +19,7 @@ class RRAAAATest < Test::Unit::TestCase
 
   def test_initialize_from_hash
     @record = Net::DNS::RR::AAAA.new(:name => @rr_name, :address => @rr_value, :ttl => @rr_ttl)
-    assert_equal @rr_output,  @record.inspect
+    assert_equal @rr_output,  @record.to_s
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
     assert_equal @rr_cls,     @record.cls
@@ -30,7 +30,7 @@ class RRAAAATest < Test::Unit::TestCase
 
   def test_initialize_from_string
     @record = Net::DNS::RR::AAAA.new("#{@rr_name} #{@rr_ttl} #{@rr_cls} #{@rr_type} #{@rr_value}")
-    assert_equal @rr_output,  @record.inspect
+    assert_equal @rr_output,  @record.to_s
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
     assert_equal @rr_cls,     @record.cls
@@ -42,7 +42,7 @@ class RRAAAATest < Test::Unit::TestCase
   def test_parse
     data = "\003www\003nic\002it\000\000\034\000\001\000\000\000<\000\020*\000\r@\000\001\000\001\000\000\000\000\000\000\0029"
     @record = Net::DNS::RR.parse(data)
-    assert_equal @rr_output,  @record.inspect
+    assert_equal @rr_output,  @record.to_s
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
     assert_equal @rr_cls,     @record.cls
