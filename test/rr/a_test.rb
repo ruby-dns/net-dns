@@ -8,7 +8,8 @@ class RRATest < Test::Unit::TestCase
     @rr_type    = "A"
     @rr_cls     = "IN"
     @rr_ttl     = 10000
-    @rr_address = "64.233.187.99"
+    @rr_value   = "64.233.187.99"
+    @rr_address = IPAddr.new(@rr_value)
 
     @rr_output  = "google.com.             10000   IN      A       64.233.187.99"
 
@@ -17,23 +18,25 @@ class RRATest < Test::Unit::TestCase
 
 
   def test_initialize_from_hash
-    @record = Net::DNS::RR::A.new(:name => @rr_name, :address => @rr_address, :ttl => @rr_ttl)
+    @record = Net::DNS::RR::A.new(:name => @rr_name, :address => @rr_value, :ttl => @rr_ttl)
     assert_equal @rr_output,  @record.inspect
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
     assert_equal @rr_cls,     @record.cls
     assert_equal @rr_ttl,     @record.ttl
-    assert_equal @rr_address, @record.address.to_s
+    assert_equal @rr_address, @record.address
+    assert_equal @rr_value,   @record.value
   end
 
   def test_initialize_from_string
-    @record = Net::DNS::RR::A.new("#{@rr_name} #{@rr_ttl} #{@rr_cls} #{@rr_type} #{@rr_address}")
+    @record = Net::DNS::RR::A.new("#{@rr_name} #{@rr_ttl} #{@rr_cls} #{@rr_type} #{@rr_value}")
     assert_equal @rr_output,  @record.inspect
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
     assert_equal @rr_cls,     @record.cls
     assert_equal @rr_ttl,     @record.ttl
-    assert_equal @rr_address, @record.address.to_s
+    assert_equal @rr_address, @record.address
+    assert_equal @rr_value,   @record.value
   end
 
   def test_parse
@@ -44,7 +47,8 @@ class RRATest < Test::Unit::TestCase
     assert_equal @rr_type,    @record.type
     assert_equal @rr_cls,     @record.cls
     assert_equal @rr_ttl,     @record.ttl
-    assert_equal @rr_address, @record.address.to_s
+    assert_equal @rr_address, @record.address
+    assert_equal @rr_value,   @record.value
   end
 
 
@@ -65,6 +69,32 @@ class RRATest < Test::Unit::TestCase
   end
 
 
+  def test_address_getter
+    assert_equal  @rr_address, @rr.address
+  end
+
+  def test_address_setter
+    assert_raise(ArgumentError) { @rr.address = nil }
+
+    expected = IPAddr.new("64.233.187.99")
+    assert_equal expected, @rr.address = "64.233.187.99"
+    assert_equal expected, @rr.address
+
+    expected = IPAddr.new("64.233.187.90")
+    assert_equal expected, @rr.address = 1089059674
+    assert_equal expected, @rr.address
+
+    expected = IPAddr.new("64.233.187.80")
+    assert_equal expected, @rr.address = IPAddr.new("64.233.187.80")
+    assert_equal expected, @rr.address
+  end
+
+
+  def test_value
+    assert_equal  @rr_value, @rr.value
+  end
+
+
   def test_inspect
     assert_equal  "google.com.             10000   IN      A       64.233.187.99",
                   @rr.inspect
@@ -81,4 +111,3 @@ class RRATest < Test::Unit::TestCase
   end
 
 end
-
