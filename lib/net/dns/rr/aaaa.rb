@@ -1,80 +1,94 @@
 require 'ipaddr'
 
-
 module Net # :nodoc:
   module DNS
-
     class RR
 
       #
-      # RR type AAAA
+      # = IPv6 Address Record (AAAA)
+      #
+      # Class for DNS IPv6 Address (AAAA) resource records.
       #
       class AAAA < RR
-        attr_reader :address
 
-        # Assign to the RR::AAAA object a new IPv6 address, which can be in the
-        # form of a string or an IPAddr object
+        # Returns the <tt>IPAddr</tt> IPv6 address for this record.
+        def address
+          @address
+        end
+
+        # Assigns a new IPv6 address to this record, which can be in the
+        # form of a <tt>String</tt> or an <tt>IPAddr</tt> object.
         #
-        #   a.address = "::1"
-        #   a.address = IPAddr.new("::1")
+        #   a.address = "192.168.0.1"
+        #   a.address = IPAddr.new("10.0.0.1")
         #
-        def address=(addr)
-          @address = check_address addr
+        def address=(string_or_ipaddr)
+          @address = check_address(string_or_ipaddr)
           build_pack
-        end # address=
+          @address
+        end
+
+        # Returns the standardized value for this record as <tt>String</tt>,
+        # represented by the value of <tt>address</tt>.
+        def value
+          address.to_s
+        end
+
 
         private
 
-        def check_address(addr)
-          address = case addr
-            when String
-              IPAddr.new addr
-            when IPAddr
-              addr
+          def subclass_new_from_hash(options)
+            if options.has_key? :address
+              @address = check_address(options[:address])
             else
-              raise ArgumentError, "Unknown address type: #{addr.inspect}"
+              raise ArgumentError, ":address field is mandatory"
+            end
           end
-          address.ipv6? || raise(ArgumentError, "Must specify an IPv6 address")
-          address
-        rescue ArgumentError
-          raise ArgumentError, "Invalid address #{addr.inspect}"
-        end
 
-        def build_pack
-          @address_pack = @address.hton
-          @rdlength = @address_pack.size
-        end
-
-        def get_data
-          @address_pack
-        end
-
-        def get_inspect
-          "#@address"
-        end
-
-        def subclass_new_from_hash(args)
-          if args.has_key? :address
-            @address = check_address args[:address]
-          else
-            raise ArgumentError, ":address field is mandatory but missing"
+          def subclass_new_from_string(str)
+            @address = check_address(str)
           end
-        end
 
-        def subclass_new_from_string(str)
-          @address = check_address(str)
-        end
+          def subclass_new_from_binary(data, offset)
+            tokens = data.unpack("@#{offset} n8")
+            @address = IPAddr.new(sprintf("%x:%x:%x:%x:%x:%x:%x:%x", *tokens))
+            offset + 16
+          end
 
-        def subclass_new_from_binary(data,offset)
-          arr = data.unpack("@#{offset} n8")
-          @address = IPAddr.new sprintf("%x:%x:%x:%x:%x:%x:%x:%x",*arr)
-          return offset + 16
-        end
-
-        private
 
           def set_type
             @type = Net::DNS::RR::Types.new("AAAA")
+          end
+
+          def get_inspect
+            value
+          end
+
+
+          def check_address(addr)
+            address = case addr
+              when IPAddr
+                addr
+              when String
+                IPAddr.new(addr)
+              else
+                raise ArgumentError, "Unknown address `#{addr.inspect}'"
+            end
+
+            if !address.ipv6?
+              raise(ArgumentError, "Must specify an IPv6 address")
+            end
+
+            address
+          end
+
+          def build_pack
+            @address_pack = @address.hton
+            @rdlength = @address_pack.size
+          end
+
+          def get_data
+            @address_pack
           end
 
       end
@@ -82,5 +96,3 @@ module Net # :nodoc:
     end
   end
 end
-
-

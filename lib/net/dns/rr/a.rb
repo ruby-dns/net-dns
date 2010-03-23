@@ -26,13 +26,13 @@ module Net # :nodoc:
       #
       class A < RR
 
-        # Returns the <tt>IPAddr</tt> address for this record.
+        # Returns the <tt>IPAddr</tt> IPv4 address for this record.
         def address
           @address
         end
 
         # Assigns a new IPv4 address to this record, which can be in the
-        # form of a string or an <tt>IPAddr</tt> object.
+        # form of a <tt>String</tt> or an <tt>IPAddr</tt> object.
         #
         #   a.address = "192.168.0.1"
         #   a.address = IPAddr.new("10.0.0.1")
@@ -52,11 +52,11 @@ module Net # :nodoc:
 
         private
 
-          def subclass_new_from_hash(args)
-            if args.has_key? :address
-              @address = check_address(args[:address])
-            elsif args.has_key? :rdata
-              @address = check_address(args[:rdata])
+          def subclass_new_from_hash(options)
+            if options.has_key? :address
+              @address = check_address(options[:address])
+            elsif options.has_key? :rdata
+              @address = check_address(options[:rdata])
             else
               raise ArgumentError, ":address field is mandatory"
             end
@@ -84,18 +84,22 @@ module Net # :nodoc:
 
           def check_address(addr)
             address = case addr
-              when String
-                IPAddr.new(addr)
+              when IPAddr
+                addr
               when Integer # Address in numeric form
                 tmp = [(addr >> 24), (addr >> 16) & 0xFF, (addr >> 8) & 0xFF, addr & 0xFF]
                 tmp = tmp.collect { |x| x.to_s }.join(".")
                 IPAddr.new(tmp)
-              when IPAddr
-                addr
+              when String
+                IPAddr.new(addr)
               else
-                raise ArgumentError, "Unknown address type `#{addr}'"
+                raise ArgumentError, "Unknown address `#{addr}'"
             end
-            address.ipv4? || raise(ArgumentError, "Must specify an IPv4 address")
+
+            if !address.ipv4?
+              raise(ArgumentError, "Must specify an IPv4 address")
+            end
+
             address
           end
 
