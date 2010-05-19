@@ -1,57 +1,74 @@
 module Net # :nodoc:
   module DNS
-
     class RR
 
-      #------------------------------------------------------------
-      # RR type NS
-      #------------------------------------------------------------
+      #
+      # = Name Server Record (NS)
+      #
+      # Class for DNS NS resource records.
+      #
       class NS < RR
-        attr_reader :nsdname
+
+        # Get the name server value.
+        #
+        # Returns a String.
+        def nsdname
+          @nsdname
+        end
+
+        # Get the standardized value for this record,
+        # represented by the value of <tt>nsdname</tt>.
+        #
+        # Returns a String.
+        def value
+          nsdname.to_s
+        end
+
 
         private
 
-        def check_name(name)
-          unless name =~ /(\w\.?)+\s*$/ and name =~ /[a-zA-Z]/
-            raise ArgumentError, "NS Domain Name not valid: #{name}"
+          def subclass_new_from_hash(options)
+            if options.has_key? :nsdname
+              @nsdname = check_name(options[:nsdname])
+            else
+              raise ArgumentError, ":nsdname field is mandatory"
+            end
           end
-          name
-        end
 
-        def build_pack
-          @nsdname_pack = pack_name(@nsdname)
-          @rdlength = @nsdname_pack.size
-        end
-
-        def get_data
-          @nsdname_pack
-        end
-
-        def get_inspect
-          "#@nsdname"
-        end
-
-        def subclass_new_from_hash(args)
-          if args.has_key? :nsdname
-            @nsdname = check_name args[:nsdname]
-          else
-            raise ArgumentError, ":nsdname field is mandatory but missing"
+          def subclass_new_from_string(str)
+            @nsdname = check_name(str)
           end
-        end
 
-        def subclass_new_from_string(str)
-          @nsdname = check_name(str)
-        end
+          def subclass_new_from_binary(data, offset)
+            @nsdname, offset = dn_expand(data, offset)
+            offset
+          end
 
-        def subclass_new_from_binary(data,offset)
-          @nsdname,offset = dn_expand(data,offset)
-          return offset
-        end
-
-        private
 
           def set_type
             @type = Net::DNS::RR::Types.new("NS")
+          end
+
+          def get_inspect
+            value
+          end
+
+
+          def check_name(input)
+            name = input.to_s
+            unless name =~ /(\w\.?)+\s*$/ and name =~ /[a-zA-Z]/
+              raise ArgumentError, "Invalid Name Server `#{name}'"
+            end
+            name
+          end
+
+          def build_pack
+            @nsdname_pack = pack_name(@nsdname)
+            @rdlength = @nsdname_pack.size
+          end
+
+          def get_data
+            @nsdname_pack
           end
 
       end
