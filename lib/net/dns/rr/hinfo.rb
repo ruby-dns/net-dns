@@ -14,24 +14,32 @@ module Net # :nodoc:
       #
       class HINFO < RR
 
-        # Returns the <tt>@cpu</tt> value.
+        # Gets the CPU value.
+        #
+        # Returns a String.
         def cpu
           @cpu
         end
 
-        # Returns the <tt>@os</tt> value.
+        # Gets the OS value.
+        #
+        # Returns a String.
         def os
           @os
         end
 
-        # Returns the standardized value for this record as <tt>String</tt>,
+        # Gets the standardized value for this record,
         # represented by the value of <tt>cpu</tt> and <tt>os</tt>.
+        #
+        # Returns a String.
         def value
           %Q{"#{cpu}" "#{os}"}
         end
 
 
-        # Returns an Array with all the attributes for this record.
+        # Gets a list of all the attributes for this record.
+        #
+        # Returns an Array of values.
         def to_a
           [nil, nil, cls.to_s, type.to_s, value]
         end

@@ -26,7 +26,9 @@ module Net # :nodoc:
       #
       class A < RR
 
-        # Returns the <tt>IPAddr</tt> IPv4 address for this record.
+        # Gets the current IPv4 address for this record.
+        #
+        # Returns an instance of IPAddr.
         def address
           @address
         end
@@ -34,17 +36,22 @@ module Net # :nodoc:
         # Assigns a new IPv4 address to this record, which can be in the
         # form of a <tt>String</tt> or an <tt>IPAddr</tt> object.
         #
+        # Examples
+        #
         #   a.address = "192.168.0.1"
         #   a.address = IPAddr.new("10.0.0.1")
         #
+        # Returns the new allocated instance of IPAddr.
         def address=(string_or_ipaddr)
           @address = check_address(string_or_ipaddr)
           build_pack
           @address
         end
 
-        # Returns the standardized value for this record as <tt>String</tt>,
+        # Gets the standardized value for this record,
         # represented by the value of <tt>address</tt>.
+        #
+        # Returns a String.
         def value
           address.to_s
         end

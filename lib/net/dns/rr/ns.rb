@@ -9,14 +9,14 @@ module Net # :nodoc:
       #
       class NS < RR
 
-        # Get the name server value.
+        # Gets the name server value.
         #
         # Returns a String.
         def nsdname
           @nsdname
         end
 
-        # Get the standardized value for this record,
+        # Gets the standardized value for this record,
         # represented by the value of <tt>nsdname</tt>.
         #
         # Returns a String.

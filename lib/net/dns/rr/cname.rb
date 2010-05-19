@@ -13,13 +13,17 @@ module Net # :nodoc:
       #
       class CNAME < RR
 
-        # Returns the <tt>@cname</tt> value.
+        # Gets the canonical name value.
+        #
+        # Returns a String.
         def cname
           @cname
         end
 
-        # Returns the standardized value for this record as <tt>String</tt>,
+        # Gets the standardized value for this record,
         # represented by the value of <tt>cname</tt>.
+        #
+        # Returns a String.
         def value
           cname.to_s
         end
@@ -59,7 +63,6 @@ module Net # :nodoc:
             unless name =~ /(\w\.?)+\s*$/ and name =~ /[a-zA-Z]/
               raise ArgumentError, "Invalid Canonical Name `#{name}'"
             end
-
             name
           end
 
