@@ -3,55 +3,73 @@ module Net # :nodoc:
 
     class RR
 
-      #------------------------------------------------------------
-      # RR type MR
-      #------------------------------------------------------------
+      #
+      # = Mail Rename Record (MR)
+      #
+      # Class for DNS MR resource records.
+      #
       class MR < RR
-        attr_reader :newname
+
+        # Gets the newname value.
+        #
+        # Returns a String.
+        def newname
+          @newname
+        end
+
+        # Gets the standardized value for this record,
+        # represented by the value of <tt>newname</tt>.
+        #
+        # Returns a String.
+        def value
+          newname.to_s
+        end
+
 
         private
 
-        def check_name(name)
-          unless name =~ /(\w\.?)+\s*$/
-            raise ArgumentError, "Name not valid: #{name.inspect}"
+          def subclass_new_from_hash(options)
+            if options.has_key? :newname
+              @newname = check_name(options[:newname])
+            else
+              raise ArgumentError, ":newname field is mandatory"
+            end
           end
-          name
-        end
 
-        def build_pack
-          @newname_pack = pack_name(@newname)
-          @rdlength = @newname_pack.size
-        end
-
-        def get_data
-          @newname_pack
-        end
-
-        def get_inspect
-          "#@newname"
-        end
-
-        def subclass_new_from_hash(args)
-          if args.has_key? :newname
-            @newname = check_name args[:newname]
-          else
-            raise ArgumentError, ":newname field is mandatory but missing"
+          def subclass_new_from_string(str)
+            @newname = check_name(str)
           end
-        end
 
-        def subclass_new_from_string(str)
-          @newname = check_name(str)
-        end
+          def subclass_new_from_binary(data, offset)
+            @newname = dn_expand(data,offset)
+            offset
+          end
 
-        def subclass_new_from_array(data,offset)
-          @newname = dn_expand(data,offset)
-          return offset
-        end
-
-        private
 
           def set_type
             @type = Net::DNS::RR::Types.new("MR")
+          end
+
+          def get_inspect
+            value
+          end
+
+
+          def check_name(input)
+            name = input.to_s
+            unless name =~ /(\w\.?)+\s*$/
+              raise ArgumentError, "Invalid Domain Name `#{name}'"
+            end
+            name
+          end
+
+          def build_pack
+            @newname_pack = pack_name(@newname)
+            @rdlength = @newname_pack.size
+          end
+
+          def get_data
+            @newname_pack
           end
 
       end
