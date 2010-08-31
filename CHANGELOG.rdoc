@@ -5,6 +5,8 @@
 
 * ADDED: Added (experimental) Support for HINFO record.
 
+* FIXED: Use Net::DNS::Resolver::Error class (not ResolverError, which does not exist).
+
 * CHANGED: Rewritten and simplified Net::DNS::Classes. Improved test harness.
 
 * CHANGED: Removed Jeweler development dependency.

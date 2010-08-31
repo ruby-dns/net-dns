@@ -99,7 +99,6 @@ module Net # :nodoc:
       class NoResponseError < Error
       end
 
-
       # An hash with the defaults values of almost all the
       # configuration parameters of a resolver object. See
       # the description for each parameter to have an
@@ -933,7 +932,7 @@ module Net # :nodoc:
       #
       def send(argument, type = Net::DNS::A, cls = Net::DNS::IN)
         if @config[:nameservers].size == 0
-          raise ResolverError, "No nameservers specified!"
+          raise Resolver::Error, "No nameservers specified!"
         end
 
         method = :send_udp
