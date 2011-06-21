@@ -7,6 +7,10 @@
 
 * CHANGED: Rewritten and simplified Net::DNS::Classes. Improved test harness.
 
+* CHANGED: Removed Jeweler development dependency.
+
+* CHANGED: The library is now compatible with Bundler.
+
 
 == Release 0.6.1
 
