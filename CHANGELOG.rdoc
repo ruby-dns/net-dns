@@ -11,6 +11,8 @@
 
 * CHANGED: The library is now compatible with Bundler.
 
+* CHANGED: Minimum supported Ruby version changed to Ruby 1.8.7.
+
 
 == Release 0.6.1
 

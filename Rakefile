@@ -32,6 +32,8 @@ spec = Gem::Specification.new do |s|
   s.summary           = "Pure Ruby DNS library."
   s.description       = "Net::DNS is a pure Ruby DNS library, with a clean OO interface and an extensible API."
 
+  s.required_ruby_version = ">= 1.8.7"
+
   s.authors           = ["Marco Ceresa", "Simone Carletti"]
   s.email             = ["ceresa@gmail.com", "weppos@weppos.net"]
   s.homepage          = "http://github.com/bluemonk/net-dns"
