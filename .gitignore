@@ -1,6 +1,10 @@
-.DS_Store
-nbproject
-.idea
+# https://github.com/weppos/gitignore/blob/weppos/Ruby.gitignore
+
+# Bundler
+.bundle
 pkg
-doc
-coverage
+
+# YARD artifacts
+.yardoc
+_yardoc
+doc/

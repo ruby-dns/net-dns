@@ -69,9 +69,7 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
-YARD::Rake::YardocTask.new(:yardoc) do |y|
-  y.options = ["--output-dir", "yardoc"]
-end
+YARD::Rake::YardocTask.new(:yardoc)
 
 
 desc "Open an irb session preloaded with this library"
