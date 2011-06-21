@@ -1,6 +1,10 @@
 = Changelog
 
 
+== rr-normalization
+
+* ADDED: Added (experimental) Support for HINFO record.
+
 == master
 
 * CHANGED: Rewritten and simplified Net::DNS::Classes. Improved test harness.
