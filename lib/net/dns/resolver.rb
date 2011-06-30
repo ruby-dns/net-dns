@@ -1048,7 +1048,7 @@ module Net # :nodoc:
         if self.class.platform_windows?
           require 'win32/resolv'
           arr = Win32::Resolv.get_resolv_info
-          self.domain = arr[0]
+          self.domain = arr[0].to_s
           self.nameservers = arr[1]
         else
           IO.foreach(@config[:config_file]) do |line|
