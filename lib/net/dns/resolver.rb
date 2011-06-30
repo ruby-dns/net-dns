@@ -892,7 +892,7 @@ module Net # :nodoc:
         return send(name,type,cls) if name.class == IPAddr
 
         # If the name doesn't contain any dots then append the default domain.
-        if name !~ /\./ and name !~ /:/ and @config[:defnames]
+        if name !~ /\./ and name !~ /:/ and @config[:defname]
           name += "." + @config[:domain]
         end
 
