@@ -892,7 +892,7 @@ module Net # :nodoc:
         return send(name,type,cls) if name.class == IPAddr
 
         # If the name doesn't contain any dots then append the default domain.
-        if name !~ /\./ and name !~ /:/ and @config[:defname]
+        if name !~ /\./ and name !~ /:/ and @config[:defnames]
           name += "." + @config[:domain]
         end
 
@@ -1048,7 +1048,7 @@ module Net # :nodoc:
         if self.class.platform_windows?
           require 'win32/resolv'
           arr = Win32::Resolv.get_resolv_info
-          self.domain = arr[0].to_s
+          self.domain = arr[0]
           self.nameservers = arr[1]
         else
           IO.foreach(@config[:config_file]) do |line|
