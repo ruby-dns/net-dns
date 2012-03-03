@@ -39,7 +39,7 @@ spec = Gem::Specification.new do |s|
   s.homepage          = "http://github.com/bluemonk/net-dns"
   s.rubyforge_project = "net-dns"
 
-  s.files             = %w( Rakefile ) +
+  s.files             = %w( Rakefile VERSION.yml ) +
                         Dir.glob("*.{rdoc,gemspec}") +
                         Dir.glob("{demo,lib,test}/**/*")
   s.require_paths     = ["lib"]
