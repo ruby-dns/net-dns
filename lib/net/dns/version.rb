@@ -1,17 +1,13 @@
-require 'yaml'
-
-module Net # :nodoc:
+module Net
   module DNS
     module Version
 
-      @@version = YAML.load_file(File.dirname(__FILE__) + '/../../../VERSION.yml')
+      MAJOR = 0
+      MINOR = 6
+      PATCH = 1
+      BUILD = nil
 
-      MAJOR = @@version[:major]
-      MINOR = @@version[:minor]
-      TINY  = @@version[:patch]
-      ALPHA = nil
-
-      STRING = [MAJOR, MINOR, TINY, ALPHA].compact.join('.')
+      STRING = [MAJOR, MINOR, PATCH, BUILD].compact.join(".")
     end
 
     VERSION = Version::STRING
