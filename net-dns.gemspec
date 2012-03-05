@@ -1,21 +1,22 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{net-dns}
+  s.name = "net-dns"
   s.version = "0.6.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Marco Ceresa}, %q{Simone Carletti}]
-  s.date = %q{2011-06-21}
-  s.description = %q{Net::DNS is a pure Ruby DNS library, with a clean OO interface and an extensible API.}
-  s.email = [%q{ceresa@gmail.com}, %q{weppos@weppos.net}]
-  s.files = [%q{Rakefile}, %q{VERSION.yml}, %q{AUTHORS.rdoc}, %q{CHANGELOG.rdoc}, %q{README.rdoc}, %q{THANKS.rdoc}, %q{net-dns.gemspec}, %q{demo/check_soa.rb}, %q{demo/threads.rb}, %q{lib/net}, %q{lib/net/dns}, %q{lib/net/dns/core_ext.rb}, %q{lib/net/dns/header.rb}, %q{lib/net/dns/names.rb}, %q{lib/net/dns/packet.rb}, %q{lib/net/dns/question.rb}, %q{lib/net/dns/resolver}, %q{lib/net/dns/resolver/socks.rb}, %q{lib/net/dns/resolver/timeouts.rb}, %q{lib/net/dns/resolver.rb}, %q{lib/net/dns/rr}, %q{lib/net/dns/rr/a.rb}, %q{lib/net/dns/rr/aaaa.rb}, %q{lib/net/dns/rr/classes.rb}, %q{lib/net/dns/rr/cname.rb}, %q{lib/net/dns/rr/hinfo.rb}, %q{lib/net/dns/rr/mr.rb}, %q{lib/net/dns/rr/mx.rb}, %q{lib/net/dns/rr/ns.rb}, %q{lib/net/dns/rr/null.rb}, %q{lib/net/dns/rr/ptr.rb}, %q{lib/net/dns/rr/soa.rb}, %q{lib/net/dns/rr/srv.rb}, %q{lib/net/dns/rr/txt.rb}, %q{lib/net/dns/rr/types.rb}, %q{lib/net/dns/rr.rb}, %q{lib/net/dns/version.rb}, %q{lib/net/dns.rb}, %q{test/header_test.rb}, %q{test/packet_test.rb}, %q{test/question_test.rb}, %q{test/resolver}, %q{test/resolver/timeouts_test.rb}, %q{test/resolver_test.rb}, %q{test/rr}, %q{test/rr/a_test.rb}, %q{test/rr/aaaa_test.rb}, %q{test/rr/classes_test.rb}, %q{test/rr/cname_test.rb}, %q{test/rr/hinfo_test.rb}, %q{test/rr/mr_test.rb}, %q{test/rr/mx_test.rb}, %q{test/rr/ns_test.rb}, %q{test/rr/types_test.rb}, %q{test/rr_test.rb}, %q{test/test_helper.rb}]
-  s.homepage = %q{http://github.com/bluemonk/net-dns}
-  s.require_paths = [%q{lib}]
+  s.authors = ["Marco Ceresa", "Simone Carletti"]
+  s.date = "2012-03-05"
+  s.description = "Net::DNS is a pure Ruby DNS library, with a clean OO interface and an extensible API."
+  s.email = ["ceresa@gmail.com", "weppos@weppos.net"]
+  s.files = [".gitignore", "AUTHORS.rdoc", "CHANGELOG.rdoc", "Gemfile", "Gemfile.lock", "README.rdoc", "Rakefile", "THANKS.rdoc", "VERSION.yml", "demo/check_soa.rb", "demo/threads.rb", "lib/net/dns.rb", "lib/net/dns/core_ext.rb", "lib/net/dns/header.rb", "lib/net/dns/names.rb", "lib/net/dns/packet.rb", "lib/net/dns/question.rb", "lib/net/dns/resolver.rb", "lib/net/dns/resolver/socks.rb", "lib/net/dns/resolver/timeouts.rb", "lib/net/dns/rr.rb", "lib/net/dns/rr/a.rb", "lib/net/dns/rr/aaaa.rb", "lib/net/dns/rr/classes.rb", "lib/net/dns/rr/cname.rb", "lib/net/dns/rr/hinfo.rb", "lib/net/dns/rr/mr.rb", "lib/net/dns/rr/mx.rb", "lib/net/dns/rr/ns.rb", "lib/net/dns/rr/null.rb", "lib/net/dns/rr/ptr.rb", "lib/net/dns/rr/soa.rb", "lib/net/dns/rr/srv.rb", "lib/net/dns/rr/txt.rb", "lib/net/dns/rr/types.rb", "lib/net/dns/version.rb", "net-dns.gemspec", "setup.rb", "test/header_test.rb", "test/names_test.rb", "test/packet_test.rb", "test/question_test.rb", "test/resolver/timeouts_test.rb", "test/resolver_test.rb", "test/rr/a_test.rb", "test/rr/aaaa_test.rb", "test/rr/classes_test.rb", "test/rr/cname_test.rb", "test/rr/hinfo_test.rb", "test/rr/mr_test.rb", "test/rr/mx_test.rb", "test/rr/ns_test.rb", "test/rr/types_test.rb", "test/rr_test.rb", "test/test_helper.rb"]
+  s.homepage = "http://github.com/bluemonk/net-dns"
+  s.require_paths = ["lib"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.8.7")
-  s.rubyforge_project = %q{net-dns}
-  s.rubygems_version = %q{1.8.3}
-  s.summary = %q{Pure Ruby DNS library.}
+  s.rubyforge_project = "net-dns"
+  s.rubygems_version = "1.8.11"
+  s.summary = "Pure Ruby DNS library."
+  s.test_files = ["test/header_test.rb", "test/names_test.rb", "test/packet_test.rb", "test/question_test.rb", "test/resolver/timeouts_test.rb", "test/resolver_test.rb", "test/rr/a_test.rb", "test/rr/aaaa_test.rb", "test/rr/classes_test.rb", "test/rr/cname_test.rb", "test/rr/hinfo_test.rb", "test/rr/mr_test.rb", "test/rr/mx_test.rb", "test/rr/ns_test.rb", "test/rr/types_test.rb", "test/rr_test.rb", "test/test_helper.rb"]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
