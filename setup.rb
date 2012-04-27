@@ -256,7 +256,7 @@ class ConfigTable_class
 
 end
 
-c = ::Config::CONFIG
+c = Object.const_get(defined?(RbConfig) ? :RbConfig : :Config)::CONFIG
 
 rubypath = c['bindir'] + '/' + c['ruby_install_name']
 
