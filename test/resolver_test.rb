@@ -9,11 +9,11 @@ end
 class ResolverTest < Test::Unit::TestCase
 
   def test_initialize
-    assert_nothing_raised { Net::DNS::Resolver.new } 
+    assert_nothing_raised { Net::DNS::Resolver.new }
   end
 
   def test_initialize_with_config
-    assert_nothing_raised { Net::DNS::Resolver.new({}) } 
+    assert_nothing_raised { Net::DNS::Resolver.new({}) }
   end
 
   def test_initialize_with_invalid_config_should_raise_argumenterror
@@ -22,8 +22,8 @@ class ResolverTest < Test::Unit::TestCase
     assert_raises(ArgumentError) { Net::DNS::Resolver.new(:foo) }
   end
 
-  def test_send_with_no_nameservers_should_raise_resolvererror
-    assert_raises(Net::DNS::Resolver::Error) { Net::DNS::Resolver.new(:nameservers => []).send("example.com") }
+  def test_query_with_no_nameservers_should_raise_resolvererror
+    assert_raises(Net::DNS::Resolver::Error) { Net::DNS::Resolver.new(:nameservers => []).query("example.com") }
   end
 
   # def test_send_to_ipv6_nameserver_should_not_raise_einval
@@ -34,8 +34,7 @@ class ResolverTest < Test::Unit::TestCase
   # but since this library lacks unit tests, for now let me test them in this way.
 
   def _make_query_packet(*args)
-    # FIXME: horrible hack for horrible hack
-    Net::DNS::Resolver.new.old_send(:make_query_packet, *args)
+    Net::DNS::Resolver.new.send(:make_query_packet, *args)
   end
 
   def test_make_query_packet_from_ipaddr
@@ -82,28 +81,28 @@ class ResolverTest < Test::Unit::TestCase
     ["mswin32", true],      # ruby 1.8.6 (2008-03-03 patchlevel 114) [i386-mswin32]
     ["mswin32", true],      # ruby 1.8.6 (2008-04-22 rev 6555) [x86-jruby1.1.1]
   ]
-  
+
   C = Object.const_get(defined?(RbConfig) ? :RbConfig : :Config)::CONFIG
 
   def test_self_platform_windows_question
     RubyPlatforms.each do |platform, is_windows|
-      assert_equal is_windows, 
-                    override_platform(platform) { Net::DNS::Resolver.platform_windows? }, 
+      assert_equal is_windows,
+                    override_platform(platform) { Net::DNS::Resolver.platform_windows? },
                     "Expected `#{is_windows}' with platform `#{platform}'"
     end
   end
 
 
-  protected
+  private
 
-    def override_platform(new_platform, &block)
-      raise LocalJumpError, "no block given" unless block_given?
-      old_platform = C["host_os"]
-      C["host_os"] = new_platform
-      result = yield
-    ensure
-      C["host_os"] = old_platform
-      result
-    end
+  def override_platform(new_platform, &block)
+    raise LocalJumpError, "no block given" unless block_given?
+    old_platform = C["host_os"]
+    C["host_os"] = new_platform
+    result = yield
+  ensure
+    C["host_os"] = old_platform
+    result
+  end
 
 end

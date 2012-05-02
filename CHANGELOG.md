@@ -31,6 +31,8 @@
 
 * CHANGED: Rescue NameError so unsupported record types only result in a warning.
 
+* CHANGED: Renamed Net::DNS::Resolver#send to Net::DNS::Resolver#query to avoid overriding default meaning of send method.
+
 
 == Release 0.6.1
 

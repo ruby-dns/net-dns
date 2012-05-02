@@ -4,10 +4,7 @@ require 'timeout'
 require 'net/dns/packet'
 require 'net/dns/resolver/timeouts'
 
-alias old_send send
-
-#
-# = Resolver helper method
+# Resolver helper method.
 #
 # Calling the resolver directly:
 #
@@ -23,9 +20,9 @@ alias old_send send
 def Resolver(name, type = Net::DNS::A, cls = Net::DNS::IN, &block)
   resolver = Net::DNS::Resolver.start(name, type, cls)
   if block_given?
-    yield  resolver
+    yield resolver
   else
-    return resolver
+    resolver
   end
 end
 
@@ -124,7 +121,33 @@ module Net
         :udp_timeout => UdpTimeout.new(5),
       }
 
-      # Create a new resolver object.
+
+      class << self
+
+        C = Object.const_get(defined?(RbConfig) ? :RbConfig : :Config)::CONFIG
+
+        # Quick resolver method. Bypass the configuration using
+        # the defaults.
+        #
+        #   Net::DNS::Resolver.start "www.google.com"
+        #
+        def start(*params)
+          new.search(*params)
+        end
+
+        # Returns true if running on a Windows platform.
+        #
+        # Note. This method doesn't rely on the RUBY_PLATFORM constant
+        # because the comparison will fail when running on JRuby.
+        # On JRuby RUBY_PLATFORM == 'java'.
+        def platform_windows?
+          !!(C["host_os"] =~ /msdos|mswin|djgpp|mingw/i)
+        end
+
+      end
+
+
+      # Creates a new resolver object.
       #
       # Argument +config+ can either be empty or be an hash with
       # some configuration parameters. To know what each parameter
@@ -831,7 +854,7 @@ module Net
       #   packet = res.search("192.168.10.254")
       #
       # Returns a Net::DNS::Packet object. If you need to examine the response packet
-      # whether it contains any answers or not, use the send() method instead.
+      # whether it contains any answers or not, use the Resolver#query method instead.
       #
       def search(name,type=Net::DNS::A,cls=Net::DNS::IN)
 
@@ -881,7 +904,7 @@ module Net
       #   packet = res.query("192.168.10.254")
       #
       # Returns a Net::DNS::Packet object. If you need to examine the response
-      # packet whether it contains any answers or not, use the Resolver#send
+      # packet whether it contains any answers or not, use the Resolver#query
       # method instead.
       #
       def query(name,type=Net::DNS::A,cls=Net::DNS::IN)
@@ -910,30 +933,30 @@ module Net
       #
       #   # Executes the query with a +Packet+ object
       #   send_packet = Net::DNS::Packet.new("host.example.com", Net::DNS::NS, Net::DNS::HS)
-      #   packet = res.send(send_packet)
+      #   packet = res.query(send_packet)
       #
       #   # Executes the query with a host, type and cls
-      #   packet = res.send("host.example.com")
-      #   packet = res.send("host.example.com", Net::DNS::NS)
-      #   packet = res.send("host.example.com", Net::DNS::NS, Net::DNS::HS)
+      #   packet = res.query("host.example.com")
+      #   packet = res.query("host.example.com", Net::DNS::NS)
+      #   packet = res.query("host.example.com", Net::DNS::NS, Net::DNS::HS)
       #
       # If the name is an IP address (Ipv4 or IPv6), in the form of a string
       # or a IPAddr object, then an appropriate PTR query will be performed:
       #
       #   ip = IPAddr.new("172.16.100.2")
-      #   packet = res.send(ip)
+      #   packet = res.query(ip)
       #   
-      #   packet = res.send("172.16.100.2")
+      #   packet = res.query("172.16.100.2")
       #
       # Use +packet.header.ancount+ or +packet.answer+ to find out if there
       # were any records in the answer section.
       #
-      def send(argument, type = Net::DNS::A, cls = Net::DNS::IN)
+      def query(argument, type = Net::DNS::A, cls = Net::DNS::IN)
         if @config[:nameservers].size == 0
           raise Resolver::Error, "No nameservers specified!"
         end
 
-        method = :send_udp
+        method = :query_udp
         packet = if argument.kind_of? Net::DNS::Packet
           argument
         else
@@ -952,7 +975,7 @@ module Net
             method = :send_raw_tcp
           else
             @logger.info "Sending #{packet_size} bytes using TCP"
-            method = :send_tcp
+            method = :query_tcp
           end
         else # Packet size is inside the boundaries
           if @raw # Use raw sockets?
@@ -960,7 +983,7 @@ module Net
             method = :send_raw_udp
           elsif use_tcp? # User requested TCP
             @logger.info "Sending #{packet_size} bytes using TCP"
-            method = :send_tcp
+            method = :query_tcp
           else # Finally use UDP
             @logger.info "Sending #{packet_size} bytes using UDP"
           end
@@ -972,11 +995,11 @@ module Net
             method = :send_raw_tcp
           else
             @logger.warn "AXFR query, switching to TCP"
-            method = :send_tcp
+            method = :query_tcp
           end
         end
 
-        ans = self.old_send(method,packet,packet_data)
+        ans = self.send(method, packet, packet_data)
 
         unless ans
           message = "No response from nameservers list"
@@ -991,7 +1014,7 @@ module Net
           @logger.warn "Packet truncated, retrying using TCP"
           self.use_tcp = true
           begin
-            return send(argument,type,cls)
+            return query(argument,type,cls)
           ensure
             self.use_tcp = false
           end
@@ -1000,18 +1023,16 @@ module Net
         return response
       end
 
-      #
       # Performs a zone transfer for the zone passed as a parameter.
       #
       # It is actually only a wrapper to a send with type set as Net::DNS::AXFR,
       # since it is using the same infrastucture.
       #
-      def axfr(name,cls=Net::DNS::IN)
+      def axfr(name, cls = Net::DNS::IN)
         @logger.info "Requested AXFR transfer, zone #{name} class #{cls}"
-        send(name,Net::DNS::AXFR,cls)
+        query(name, Net::DNS::AXFR, cls)
       end
 
-      #
       # Performs an MX query for the domain name passed as parameter.
       #
       # It actually uses the same methods a normal Resolver query would
@@ -1021,21 +1042,12 @@ module Net
       #   res = Net::DNS::Resolver.new
       #   res.mx("google.com")
       #
-      def mx(name,cls=Net::DNS::IN)
+      def mx(name, cls = Net::DNS::IN)
         arr = []
-        send(name, Net::DNS::MX, cls).answer.each do |entry|
+        query(name, Net::DNS::MX, cls).answer.each do |entry|
           arr << entry if entry.type == 'MX'
         end
-        return arr.sort_by {|a| a.preference}
-      end
-
-      # Quick resolver method. Bypass the configuration using
-      # the defaults.
-      #
-      #   Net::DNS::Resolver.start "www.google.com"
-      #
-      def self.start(*params)
-        self.new.search(*params)
+        arr.sort_by { |a| a.preference }
       end
 
       private
@@ -1125,7 +1137,7 @@ module Net
         packet
       end
 
-      def send_tcp(packet, packet_data)
+      def query_tcp(packet, packet_data)
 
         ans = nil
         length = [packet_data.size].pack("n")
@@ -1173,7 +1185,7 @@ module Net
         end
       end
 
-      def send_udp(packet, packet_data)
+      def query_udp(packet, packet_data)
         socket4 = UDPSocket.new
         socket4.bind(@config[:source_address].to_s,@config[:source_port])
         socket6 = UDPSocket.new(Socket::AF_INET6)
@@ -1186,10 +1198,10 @@ module Net
             @config[:udp_timeout].timeout do
               @logger.info "Contacting nameserver #{ns} port #{@config[:port]}"
               ans = if ns.ipv6?
-                socket6.send(packet_data,0,ns.to_s,@config[:port])
+                socket6.send(packet_data, 0, ns.to_s, @config[:port])
                 socket6.recvfrom(@config[:packet_size])
               else
-                socket4.send(packet_data,0,ns.to_s,@config[:port])
+                socket4.send(packet_data, 0, ns.to_s, @config[:port])
                 socket4.recvfrom(@config[:packet_size])
               end
             end
@@ -1209,22 +1221,6 @@ module Net
         else
           true
         end
-      end
-
-
-      class << self
-        
-        C = Object.const_get(defined?(RbConfig) ? :RbConfig : :Config)::CONFIG
-        
-        # Returns true if running on a Windows platform.
-        #
-        # Note. This method doesn't rely on the RUBY_PLATFORM constant
-        # because the comparison will fail when running on JRuby.
-        # On JRuby RUBY_PLATFORM == 'java'.
-        def platform_windows?
-          !!(C["host_os"] =~ /msdos|mswin|djgpp|mingw/i)
-        end
-
       end
 
     end
