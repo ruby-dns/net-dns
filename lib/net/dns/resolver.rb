@@ -111,6 +111,7 @@ module Net # :nodoc:
         :domain => "",
         :source_port => 0,
         :source_address => IPAddr.new("0.0.0.0"),
+        :source_address_inet6 => IPAddr.new('::'),
         :retry_interval => 5,
         :retry_number => 4,
         :recursive => true,
@@ -1175,8 +1176,10 @@ module Net # :nodoc:
       end
 
       def send_udp(packet, packet_data)
-        socket = UDPSocket.new
-        socket.bind(@config[:source_address].to_s,@config[:source_port])
+        socket4 = UDPSocket.new
+        socket4.bind(@config[:source_address].to_s,@config[:source_port])
+        socket6 = UDPSocket.new(Socket::AF_INET6)
+        socket6.bind(@config[:source_address_inet6].to_s,@config[:source_port])
 
         ans = nil
         response = ""
@@ -1184,8 +1187,13 @@ module Net # :nodoc:
           begin
             @config[:udp_timeout].timeout do
               @logger.info "Contacting nameserver #{ns} port #{@config[:port]}"
-              socket.send(packet_data,0,ns.to_s,@config[:port])
-              ans = socket.recvfrom(@config[:packet_size])
+              ans = if ns.ipv6?
+                socket6.send(packet_data,0,ns.to_s,@config[:port])
+                socket6.recvfrom(@config[:packet_size])
+              else
+                socket4.send(packet_data,0,ns.to_s,@config[:port])
+                socket4.recvfrom(@config[:packet_size])
+              end
             end
             break if ans
           rescue TimeoutError

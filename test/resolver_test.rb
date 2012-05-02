@@ -26,6 +26,10 @@ class ResolverTest < Test::Unit::TestCase
     assert_raises(Net::DNS::Resolver::Error) { Net::DNS::Resolver.new(:nameservers => []).send("example.com") }
   end
 
+  def test_send_to_ipv6_nameserver_should_not_raise_einval
+    assert_nothing_raised { Net::DNS::Resolver.new(:nameservers => ['2620:0:ccc::2', '2620:0:ccd::2']).send('example.com')}
+  end
+
   # I know private methods are supposed to not be tested directly
   # but since this library lacks unit tests, for now let me test them in this way.
 
