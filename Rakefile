@@ -27,6 +27,8 @@ spec = Gem::Specification.new do |s|
   s.homepage          = "http://github.com/bluemonk/net-dns"
   s.rubyforge_project = "net-dns"
 
+  s.add_development_dependency "rake",  "~> 0.9"
+
   s.files             = `git ls-files`.split("\n")
   s.test_files        = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths     = %w( lib )
