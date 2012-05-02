@@ -1,7 +1,0 @@
-= Authors
-
-Net::DNS core development:
-  Marco Ceresa <ceresa@ieee.org>
-  Simone Carletti <weppos@weppos.net>
-
-Beta testing:
