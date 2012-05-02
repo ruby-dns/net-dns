@@ -11,6 +11,8 @@
 
 * FIXED: Use RbConfig instead of obsolete and deprecated Config (GH-28, GH-33) [Thanks @shadowbq, @eik3]
 
+* FIXED: SRV record not required by Net::DNS::RR (GH-27) [Thanks @sebastian]
+
 * CHANGED: Refactoring unit test to follow most used Ruby conventions.
 
 * CHANGED: Rewritten and simplified Net::DNS::Classes. Improved test harness.
