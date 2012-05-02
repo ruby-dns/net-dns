@@ -78,6 +78,8 @@ class ResolverTest < Test::Unit::TestCase
     ["mswin32", true],      # ruby 1.8.6 (2008-03-03 patchlevel 114) [i386-mswin32]
     ["mswin32", true],      # ruby 1.8.6 (2008-04-22 rev 6555) [x86-jruby1.1.1]
   ]
+  
+  C = Object.const_get(defined?(RbConfig) ? :RbConfig : :Config)::CONFIG
 
   def test_self_platform_windows_question
     RubyPlatforms.each do |platform, is_windows|
@@ -92,11 +94,11 @@ class ResolverTest < Test::Unit::TestCase
 
     def override_platform(new_platform, &block)
       raise LocalJumpError, "no block given" unless block_given?
-      old_platform = Config::CONFIG["host_os"]
-      Config::CONFIG["host_os"] = new_platform
+      old_platform = C["host_os"]
+      C["host_os"] = new_platform
       result = yield
     ensure
-      Config::CONFIG["host_os"] = old_platform
+      C["host_os"] = old_platform
       result
     end
 

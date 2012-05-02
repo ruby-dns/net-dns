@@ -1207,14 +1207,16 @@ module Net # :nodoc:
 
 
       class << self
-
+        
+        C = Object.const_get(defined?(RbConfig) ? :RbConfig : :Config)::CONFIG
+        
         # Returns true if running on a Windows platform.
         #
         # Note. This method doesn't rely on the RUBY_PLATFORM constant
         # because the comparison will fail when running on JRuby.
         # On JRuby RUBY_PLATFORM == 'java'.
         def platform_windows?
-          !!(Config::CONFIG["host_os"] =~ /msdos|mswin|djgpp|mingw/i)
+          !!(C["host_os"] =~ /msdos|mswin|djgpp|mingw/i)
         end
 
       end
