@@ -18,10 +18,10 @@ class DnsTimeoutTest < Test::Unit::TestCase
   end
 
   def test_initialize_should_set_raise_with_invalid_timeout
-    assert_raise(ArgumentError) { @klass.new(nil) }
-    assert_raise(ArgumentError) { @klass.new("") }
-    assert_raise(ArgumentError) { @klass.new("foo") }
-    assert_raise(ArgumentError) { @klass.new(-1) }
+    assert_raises(ArgumentError) { @klass.new(nil) }
+    assert_raises(ArgumentError) { @klass.new("") }
+    assert_raises(ArgumentError) { @klass.new("foo") }
+    assert_raises(ArgumentError) { @klass.new(-1) }
   end
 
 
@@ -33,7 +33,7 @@ class DnsTimeoutTest < Test::Unit::TestCase
 
 
   def test_timeout_should_raise_localjumperror_without_block
-    assert_raise(LocalJumpError) { @klass.new(1).timeout }
+    assert_raises(LocalJumpError) { @klass.new(1).timeout }
   end
 
 end
@@ -41,13 +41,13 @@ end
 class TcpTimeoutTest < Test::Unit::TestCase
 
   def test_initialize
-    assert_raise(ArgumentError) do
+    assert_raises(ArgumentError) do
       Net::DNS::Resolver::TcpTimeout.new("a")
     end
-    assert_raise(ArgumentError) do
+    assert_raises(ArgumentError) do
       Net::DNS::Resolver::TcpTimeout.new(-1)
     end
-    assert_raise(TimeoutError) do
+    assert_raises(TimeoutError) do
       Net::DNS::Resolver::TcpTimeout.new(0.1).timeout { sleep 2 }
     end
   end
@@ -68,7 +68,7 @@ class TcpTimeoutTest < Test::Unit::TestCase
   end
 
   def test_timeout_should_raise_localjumperror_without_block
-    assert_raise(LocalJumpError) { Net::DNS::Resolver::TcpTimeout.new(1).timeout }
+    assert_raises(LocalJumpError) { Net::DNS::Resolver::TcpTimeout.new(1).timeout }
   end
 
 end
@@ -76,13 +76,13 @@ end
 class UdpTimeoutTest < Test::Unit::TestCase
 
   def test_initialize
-    assert_raise(ArgumentError) do
+    assert_raises(ArgumentError) do
       Net::DNS::Resolver::UdpTimeout.new("a")
     end
-    assert_raise(ArgumentError) do
+    assert_raises(ArgumentError) do
       Net::DNS::Resolver::UdpTimeout.new(-1)
     end
-    assert_raise(TimeoutError) do
+    assert_raises(TimeoutError) do
       Net::DNS::Resolver::UdpTimeout.new(0.1).timeout {sleep 2}
     end
   end
@@ -103,7 +103,7 @@ class UdpTimeoutTest < Test::Unit::TestCase
   end
 
   def test_timeout_should_raise_localjumperror_without_block
-    assert_raise(LocalJumpError) { Net::DNS::Resolver::UdpTimeout.new(1).timeout }
+    assert_raises(LocalJumpError) { Net::DNS::Resolver::UdpTimeout.new(1).timeout }
   end
 
 end

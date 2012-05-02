@@ -1,10 +1,4 @@
-require 'net/dns'
-require 'net/dns/names'
-require 'net/dns/rr/types'
-require 'net/dns/rr/classes'
-
-
-module Net # :nodoc:
+module Net
   module DNS 
 
     #
@@ -48,7 +42,7 @@ module Net # :nodoc:
       end
       
       # An error in the +name+ part of a Question entry
-      class NameError < Error
+      class NameInvalid < Error
       end
       
       # +name+ part of a Question entry
@@ -174,12 +168,12 @@ module Net # :nodoc:
       def check_name(name)
         name.strip!
         if name =~ /[^\w\.\-_]/
-          raise NameError, "Question name #{name.inspect} not valid"          
+          raise NameInvalid, "Question name #{name.inspect} not valid"          
         else
           name
         end
       rescue
-        raise NameError, "Question name #{name.inspect} not valid"                  
+        raise NameInvalid, "Question name #{name.inspect} not valid"                  
       end
       
       def new_from_binary(data)

@@ -1,4 +1,4 @@
-module Net # :nodoc:
+module Net
   module DNS
 
     class RR
@@ -112,19 +112,19 @@ module Net # :nodoc:
         end
 
 
-        private
+      private
 
-          # Initialize a new instance from a Class name.
-          def initialize_from_str(str)
-            key = str.to_s.upcase
-            @num, @str = CLASSES[key], key
-          end
+        # Initialize a new instance from a Class name.
+        def initialize_from_str(str)
+          key = str.to_s.upcase
+          @num, @str = CLASSES[key], key
+        end
 
-          # Initialize a new instance from the Class value.
-          def initialize_from_num(num)
-            key = num.to_i
-            @num, @str = key, CLASSES.invert[key]
-          end
+        # Initialize a new instance from the Class value.
+        def initialize_from_num(num)
+          key = num.to_i
+          @num, @str = key, CLASSES.invert[key]
+        end
 
       end
 

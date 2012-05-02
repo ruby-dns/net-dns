@@ -1,11 +1,10 @@
 require 'logger'
-require 'net/dns'
 require 'net/dns/names'
 require 'net/dns/header'
 require 'net/dns/question'
 require 'net/dns/rr'
 
-module Net # :nodoc:
+module Net
   module DNS
 
     #

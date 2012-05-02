@@ -8,13 +8,13 @@ class NamesTest < Test::Unit::TestCase
     assert_nothing_raised do
       pack_name('a' * 63)
     end
-    assert_raise ArgumentError do
+    assert_raises ArgumentError do
       pack_name('a' * 64)
     end
     assert_nothing_raised do
       pack_name(['a' * 63, 'b' * 63, 'c' * 63, 'd' * 63].join('.'))
     end
-    assert_raise ArgumentError do
+    assert_raises ArgumentError do
       pack_name(['a' * 63, 'b' * 63, 'c' * 63, 'd' * 63, 'e'].join('.'))
     end
   end

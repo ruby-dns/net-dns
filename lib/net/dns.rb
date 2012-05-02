@@ -1,7 +1,8 @@
 require 'net/dns/core_ext'
 require 'net/dns/version'
+require 'net/dns/resolver'
 
-module Net # :nodoc:
+module Net
   module DNS
 
     # Packet size in bytes
@@ -107,4 +108,5 @@ module Net # :nodoc:
     include QueryClasses
 
   end
+
 end

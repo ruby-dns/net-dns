@@ -7,6 +7,8 @@
 
 * FIXED: Use Net::DNS::Resolver::Error class (not ResolverError, which does not exist).
 
+* CHANGED: Refactoring unit test to follow most used Ruby conventions.
+
 * CHANGED: Rewritten and simplified Net::DNS::Classes. Improved test harness.
 
 * CHANGED: Removed Jeweler development dependency.
@@ -16,6 +18,8 @@
 * CHANGED: Minimum supported Ruby version changed to Ruby 1.8.7.
 
 * CHANGED: Rescue NameError so unsupported record types only result in a warning.
+
+* FIXED: Cleaned up require dependency and recursive require statements.
 
 
 == Release 0.6.1

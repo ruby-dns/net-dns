@@ -64,7 +64,7 @@ class RRATest < Test::Unit::TestCase
 
   InvalidArguments.each_with_index do |arguments, index|
     define_method "test_initialize_should_raise_with_invalid_arguments_#{index}" do
-      assert_raise(ArgumentError) { Net::DNS::RR::A.new(arguments) }
+      assert_raises(ArgumentError) { Net::DNS::RR::A.new(arguments) }
     end
   end
 
@@ -74,7 +74,7 @@ class RRATest < Test::Unit::TestCase
   end
 
   def test_address_setter
-    assert_raise(ArgumentError) { @rr.address = nil }
+    assert_raises(ArgumentError) { @rr.address = nil }
 
     expected = IPAddr.new("64.233.187.99")
     assert_equal expected, @rr.address = "64.233.187.99"

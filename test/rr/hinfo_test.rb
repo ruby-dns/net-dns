@@ -80,7 +80,7 @@ class RRHINFOTest < Test::Unit::TestCase
 
   InvalidArguments.each_with_index do |arguments, index|
     define_method "test_initialize_should_raise_with_invalid_arguments_#{index}" do
-      assert_raise(ArgumentError) { p Net::DNS::RR::HINFO.new(arguments) }
+      assert_raises(ArgumentError) { p Net::DNS::RR::HINFO.new(arguments) }
     end
   end
 

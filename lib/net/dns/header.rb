@@ -1,8 +1,5 @@
-require 'net/dns'
-
-
-module Net # :nodoc:
-  module DNS 
+module Net
+  module DNS
 
     #
     # =Name
@@ -10,15 +7,15 @@ module Net # :nodoc:
     # Net::DNS::Header - DNS packet header class
     #
     # =Synopsis
-    # 
+    #
     #   require 'net/dns/header'
     #
     # =Description
-    # 
-    # The Net::DNS::Header class represents the header portion of a 
+    #
+    # The Net::DNS::Header class represents the header portion of a
     # DNS packet. An Header object is created whenever a new packet
     # is parsed or as user request.
-    # 
+    #
     #   header = Net::DNS::Header.new
     #     # ;; id = 18123
     #     # ;; qr = 0       opCode: 0       aa = 0  tc = 0  rd = 1
@@ -46,30 +43,30 @@ module Net # :nodoc:
     #
     # A lot of methods were written to keep a compatibility layer with
     # the Perl version of the library, as long as methods name which are
-    # more or less the same. 
+    # more or less the same.
     #
     class Header
 
       # A wrong +count+ parameter has been passed.
       class WrongCountError < ArgumentError
       end
-      
+
       # A wrong +recursive+ parameter has been passed.
       class WrongRecursiveError < ArgumentError
       end
-      
+
       # An invalid +opCode+ has been specified.
       class WrongOpcodeError < ArgumentError
       end
-      
+
       # Base error class.
       class Error < StandardError
       end
-      
+
       # The requested ID is already in use.
       class DuplicateIDError < Error
       end
-      
+
 
       #
       # = Name
@@ -86,13 +83,13 @@ module Net # :nodoc:
       #
       # =Description
       #
-      # The RCode class represents the RCode field in the Header portion of a  
-      # DNS packet. This field (called Response Code) is used to get informations  
+      # The RCode class represents the RCode field in the Header portion of a
+      # DNS packet. This field (called Response Code) is used to get informations
       # about the status of a DNS operation, such as a query or an update. These
       # are the values in the original Mockapetris's standard (RFC1035):
       #
       # * 0               No error condition
-      # * 1               Format error - The name server was unable to interpret 
+      # * 1               Format error - The name server was unable to interpret
       #                   the query.
       # * 2               Server failure - The name server was
       #                   unable to process this query due to a
@@ -114,7 +111,7 @@ module Net # :nodoc:
       #                   transfer) for particular data.
       # * 6-15            Reserved for future use.
       #
-      # In the next DNS RFCs, codes 6-15 has been assigned to the following 
+      # In the next DNS RFCs, codes 6-15 has been assigned to the following
       # errors:
       #
       # * 6               YXDomain
@@ -126,7 +123,7 @@ module Net # :nodoc:
       # More RCodes has to come for TSIGs and other operations.
       #
       class RCode
-        
+
         # Constant for +rcode+ Response Code No Error
         NOERROR = 0
         # Constant for +rcode+ Response Code Format Error
@@ -141,10 +138,10 @@ module Net # :nodoc:
         REFUSED = 5
 
 
-        
-        RCodeType = %w[NoError FormErr ServFail NXDomain NotImp  
-                      Refused YXDomain YXRRSet NXRRSet NotAuth NotZone]   
-        
+
+        RCodeType = %w[NoError FormErr ServFail NXDomain NotImp
+                      Refused YXDomain YXRRSet NXRRSet NotAuth NotZone]
+
         RCodeErrorString = ["No errors",
           "The name server was unable to interpret the query",
           "The name server was unable to process this query due to problem with the name server",
@@ -156,24 +153,24 @@ module Net # :nodoc:
           "",
           "",
           ""]
-        
+
         attr_reader :code, :type, :explanation
 
         def initialize(code)
           if (0..10).include? code
             @code         = code
             @type         = RCodeType[code]
-            @explanation  = RCodeErrorString[code] 
+            @explanation  = RCodeErrorString[code]
           else
             raise ArgumentError, "RCode `#{code}' out of range"
           end
         end
-        
+
         def to_s
           @code.to_s
         end
       end
-      
+
       # Constant for +opCode+ query
       QUERY   = 0
       # Constant for +opCode+ iquery
@@ -184,8 +181,8 @@ module Net # :nodoc:
       OPARR = %w[QUERY IQUERY STATUS]
 
       @@id_arr = []
-      
-      # Reader for +id+ attribute  
+
+      # Reader for +id+ attribute
       attr_reader :id
       # Reader for the operational code
       attr_reader :opCode
@@ -199,10 +196,10 @@ module Net # :nodoc:
       attr_reader :nsCount
       # Reader for addictional section entries number
       attr_reader :arCount
-      
+
       # Creates a new Net::DNS::Header object with the desired values,
       # which can be specified as an Hash argument. When called without
-      # arguments, defaults are used. If a data string is passed, values 
+      # arguments, defaults are used. If a data string is passed, values
       # are taken from parsing the string.
       #
       # Examples:
@@ -243,7 +240,7 @@ module Net # :nodoc:
         end
       end
 
-      # Creates a new Net::DNS::Header object from binary data, which is 
+      # Creates a new Net::DNS::Header object from binary data, which is
       # passed as a string object as argument.
       # The configurations parameters are taken from parsing the string.
       #
@@ -252,8 +249,8 @@ module Net # :nodoc:
       #   # Create a new Net::DNS::Header object with binary data
       #   header = Net::DNS::Header.new(data)
       #
-      #   header.auth? 
-      #     #=> "true" if it comes from authoritative name server 
+      #   header.auth?
+      #     #=> "true" if it comes from authoritative name server
       #
       def self.parse(arg)
         if arg.kind_of? String
@@ -264,9 +261,9 @@ module Net # :nodoc:
           raise ArgumentError, "Wrong argument class `#{arg.class}'"
         end
       end
-      
+
       # Inspect method, prints out all the options and relative values.
-      # 
+      #
       #   p Net::DNS::Header.new
       #     # ;; id = 18123
       #     # ;; qr = 0       opCode: 0       aa = 0  tc = 0  rd = 1
@@ -276,7 +273,7 @@ module Net # :nodoc:
       # This method will maybe be changed in the future to a more pretty
       # way of display output.
       #
-      def inspect 
+      def inspect
         ";; id = #@id\n" +
           if false # @opCode == "UPDATE"
             #do stuff
@@ -296,11 +293,11 @@ module Net # :nodoc:
               "arCount = #@arCount\n"
           end
       end
-      
+
       # The Net::DNS::Header#format method prints out the header
-      # in a special ascii representation of data, in a way 
-      # similar to those often found on RFCs. 
-      #   
+      # in a special ascii representation of data, in a way
+      # similar to those often found on RFCs.
+      #
       #   p Net::DNS::Header.new.format
       #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
       #     #  |             18123             |
@@ -318,7 +315,7 @@ module Net # :nodoc:
       #
       # This can be very usefull for didactical purpouses :)
       #
-      def format 
+      def format
         del = ("+-" * 16) + "+\n"
         len = del.length
         str = del + "|" + @id.to_s.center(len-3) + "|\n"
@@ -337,8 +334,8 @@ module Net # :nodoc:
         str += del + "|" + @arCount.to_s.center(len-3) + "|\n" + del
         str
       end
-      
-      # Returns the header data in binary format, appropriate 
+
+      # Returns the header data in binary format, appropriate
       # for use in a DNS query packet.
       #
       #   hdata = header.data
@@ -370,15 +367,15 @@ module Net # :nodoc:
           raise ArgumentError, "ID `#{val}' out of range"
         end
       end
-      
+
       # Checks whether the header is a query (+qr+ bit set to 0)
       #
       def query?
         @qr == 0
       end
 
-      # Set the +qr+ query response flag to be either +true+ or 
-      # +false+. You can also use the values 0 and 1. This flag 
+      # Set the +qr+ query response flag to be either +true+ or
+      # +false+. You can also use the values 0 and 1. This flag
       # indicates if the DNS packet contains a query or an answer,
       # so it should be set to +true+ in DNS answer packets.
       # If +qr+ is +true+, the packet is a response.
@@ -396,7 +393,7 @@ module Net # :nodoc:
         end
       end
 
-      # Checks whether the header is a response 
+      # Checks whether the header is a response
       # (+qr+ bit set to 1)
       #
       def response?
@@ -413,15 +410,15 @@ module Net # :nodoc:
       end
 
       # Set the +opCode+ variable to a new value. This fields indicates
-      # the type of the question present in the DNS packet; +val+ can be 
-      # one of the values QUERY, IQUERY or STATUS. 
+      # the type of the question present in the DNS packet; +val+ can be
+      # one of the values QUERY, IQUERY or STATUS.
       #
       # * QUERY is the standard DNS query
       # * IQUERY is the inverse query
       # * STATUS is used to query the nameserver for its status
       #
       # Example:
-      # 
+      #
       #   include Net::DNS
       #   header = Header.new
       #   header.opCode = Header::STATUS
@@ -447,10 +444,10 @@ module Net # :nodoc:
       end
 
       # Set the +aa+ flag (authoritative answer) to either +true+
-      # or +false+. You can also use 0 or 1. 
+      # or +false+. You can also use 0 or 1.
       #
       # This flag indicates whether a DNS answer packet contains
-      # authoritative data, meaning that is was generated by a 
+      # authoritative data, meaning that is was generated by a
       # nameserver authoritative for the domain of the question.
       #
       # Must only be set to +true+ in DNS answer packets.
@@ -467,7 +464,7 @@ module Net # :nodoc:
           raise ArgumentError, ":aa must be true(or 1) or false(or 0)"
         end
       end
-      
+
       # Checks whether the packet was truncated
       #
       #   # Sending packet using UDP
@@ -481,14 +478,14 @@ module Net # :nodoc:
         @tc == 1
       end
 
-      # Set the +tc+ flag (truncated packet) to either +true+ 
+      # Set the +tc+ flag (truncated packet) to either +true+
       # ot +false+. You can also use 0 or 1.
       #
       # The truncated flag is used in response packets to indicate
-      # that the amount of data to be trasmitted exceedes the 
-      # maximum allowed by the protocol in use, tipically UDP, and 
-      # that the data present in the packet has been truncated. 
-      # A different protocol (such has TCP) need to be used to 
+      # that the amount of data to be trasmitted exceedes the
+      # maximum allowed by the protocol in use, tipically UDP, and
+      # that the data present in the packet has been truncated.
+      # A different protocol (such has TCP) need to be used to
       # retrieve full data.
       #
       # Must only be set in DNS answer packets.
@@ -505,7 +502,7 @@ module Net # :nodoc:
           raise ArgumentError, ":tc must be true(or 1) or false(or 0)"
         end
       end
-      
+
       # Checks whether the packet has a recursion bit
       # set, meaning that recursion is desired
       #
@@ -544,7 +541,7 @@ module Net # :nodoc:
       def rd=(val)
         self.recursive = val
       end
-      
+
       # Checks whether recursion is available.
       # This flag is usually set by nameservers to indicate
       # that they support recursive-type queries.
@@ -579,7 +576,7 @@ module Net # :nodoc:
         @cd == 0
       end
 
-      # Set the +cd+ flag (checking disabled) to either +true+ 
+      # Set the +cd+ flag (checking disabled) to either +true+
       # ot +false+. You can also use 0 or 1.
       #
       def cd=(val)
@@ -603,11 +600,11 @@ module Net # :nodoc:
         @ad == 1
       end
 
-      # Set the +ad+ flag  to either +true+ 
+      # Set the +ad+ flag  to either +true+
       # ot +false+. You can also use 0 or 1.
       #
-      # The AD bit is only set on answers where signatures have 
-      # been cryptographically verified or the server is 
+      # The AD bit is only set on answers where signatures have
+      # been cryptographically verified or the server is
       # authoritative for the data and is allowed to set the bit by policy.
       #
       def ad=(val)
@@ -622,7 +619,7 @@ module Net # :nodoc:
           raise ArgumentError, ":ad must be true(or 1) or false(or 0)"
         end
       end
-      
+
       # Returns an error array for the header response code, or
       # +nil+ if no error is generated.
       #
@@ -644,14 +641,14 @@ module Net # :nodoc:
       def error?
         @rCode.code > 0
       end
-      
-      # Set the rCode value. This should only be done in DNS 
+
+      # Set the rCode value. This should only be done in DNS
       # answer packets.
       #
       def rCode=(val)
         @rCode = RCode.new(val)
       end
-      
+
       # Sets the number of entries in a question section
       #
       def qdCount=(val)
@@ -693,16 +690,16 @@ module Net # :nodoc:
       end
 
       private
-      
+
       def new_from_scratch
         @id = genID # generate ad unique id
         @qr = @aa = @tc = @ra = @ad = @cd = 0
-        @rCode = RCode.new(0) # no error 
+        @rCode = RCode.new(0) # no error
         @anCount = @nsCount = @arCount = 0
         @rd = @qdCount = 1
-        @opCode = QUERY # standard query, default message 
+        @opCode = QUERY # standard query, default message
       end
-      
+
       def new_from_binary(str)
         unless str.size == Net::DNS::HFIXEDSZ
           raise ArgumentError, "Header binary data has wrong size: `#{str.size}' bytes"
@@ -723,14 +720,14 @@ module Net # :nodoc:
         @nsCount     =  arr[5]
         @arCount     =  arr[6]
       end
-        
+
       def new_from_hash(hash)
         new_from_scratch
         hash.each do |key,val|
           eval "self.#{key.to_s} = val"
         end
       end
-        
+
       def genID
         while (@@id_arr.include?(q = rand(65535)))
         end

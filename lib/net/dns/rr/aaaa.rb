@@ -1,6 +1,4 @@
-require 'ipaddr'
-
-module Net # :nodoc:
+module Net
   module DNS
     class RR
 

@@ -32,7 +32,7 @@ class RRClassesTest < Test::Unit::TestCase
   end
 
   def test_initialize_should_raise_with_invalid_class
-    assert_raise(ArgumentError) { Net::DNS::RR::Classes.new(Hash.new) }
+    assert_raises(ArgumentError) { Net::DNS::RR::Classes.new(Hash.new) }
   end
 
 
@@ -75,7 +75,7 @@ class RRClassesTest < Test::Unit::TestCase
     assert  Net::DNS::RR::Classes.valid?(1)
     assert !Net::DNS::RR::Classes.valid?("Q")
     assert !Net::DNS::RR::Classes.valid?(256)
-    assert_raise(ArgumentError) { Net::DNS::RR::Classes.valid?(Hash.new) }
+    assert_raises(ArgumentError) { Net::DNS::RR::Classes.valid?(Hash.new) }
   end
 
   def test_self_regexp

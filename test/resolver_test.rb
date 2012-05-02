@@ -17,13 +17,13 @@ class ResolverTest < Test::Unit::TestCase
   end
 
   def test_initialize_with_invalid_config_should_raise_argumenterror
-    assert_raise(ArgumentError) { Net::DNS::Resolver.new("") }
-    assert_raise(ArgumentError) { Net::DNS::Resolver.new(0) }
-    assert_raise(ArgumentError) { Net::DNS::Resolver.new(:foo) }
+    assert_raises(ArgumentError) { Net::DNS::Resolver.new("") }
+    assert_raises(ArgumentError) { Net::DNS::Resolver.new(0) }
+    assert_raises(ArgumentError) { Net::DNS::Resolver.new(:foo) }
   end
 
   def test_send_with_no_nameservers_should_raise_resolvererror
-    assert_raise(Net::DNS::Resolver::Error) { Net::DNS::Resolver.new(:nameservers => []).send("example.com") }
+    assert_raises(Net::DNS::Resolver::Error) { Net::DNS::Resolver.new(:nameservers => []).send("example.com") }
   end
 
   # I know private methods are supposed to not be tested directly

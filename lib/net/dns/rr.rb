@@ -1,13 +1,13 @@
+require 'ipaddr'
 require 'net/dns/names'
 require 'net/dns/rr/types'
 require 'net/dns/rr/classes'
-
 
 %w(a aaaa ns cname hinfo mr mx txt soa ptr).each do |file|
   require "net/dns/rr/#{file}"
 end
 
-module Net # :nodoc:
+module Net
   module DNS
 
     #
@@ -146,9 +146,9 @@ module Net # :nodoc:
       # Return an instance of appropriate class and the offset
       # pointing at the end of the data parsed.
       #
-      def RR.parse_packet(data,offset)
+      def RR.parse_packet(data, offset)
         o = allocate
-        o.send(:new_from_binary,data,offset)
+        o.send(:new_from_binary, data, offset)
       end
 
       def name
@@ -248,7 +248,6 @@ module Net # :nodoc:
       private
 
         def new_from_string(rrstring)
-
           unless rrstring =~ RR_REGEXP
             raise ArgumentError,
             "Format error for RR string (maybe CLASS and TYPE not valid?)"

@@ -60,12 +60,12 @@ class RRMRTest < Test::Unit::TestCase
 
   InvalidArguments.each_with_index do |arguments, index|
     define_method "test_initialize_should_raise_with_invalid_arguments_#{index}" do
-      assert_raise(ArgumentError) { @klass.new(arguments) }
+      assert_raises(ArgumentError) { @klass.new(arguments) }
     end
   end
 
   def test_initialize_should_raise_with_missing_newname
-    error = assert_raise(ArgumentError) { @klass.new(:name => "eddie.movie.edu.") }
+    error = assert_raises(ArgumentError) { @klass.new(:name => "eddie.movie.edu.") }
     assert_match /:newname/, error.message
   end
 

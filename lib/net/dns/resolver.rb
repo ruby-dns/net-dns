@@ -1,7 +1,6 @@
 require 'rbconfig'
 require 'socket'
-require 'ipaddr'
-require 'logger'
+require 'timeout'
 require 'net/dns/packet'
 require 'net/dns/resolver/timeouts'
 
