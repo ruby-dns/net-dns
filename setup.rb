@@ -256,7 +256,7 @@ class ConfigTable_class
 
 end
 
-c = ::Config::CONFIG
+c = Object.const_get(defined?(RbConfig) ? :RbConfig : :Config)::CONFIG
 
 rubypath = c['bindir'] + '/' + c['ruby_install_name']
 
@@ -1245,8 +1245,9 @@ class Installer
   end
 
   def ruby_extentions(dir)
+    c = Object.const_get(defined?(RbConfig) ? :RbConfig : :Config)::CONFIG
     Dir.open(dir) {|d|
-      ents = d.select {|fname| /\.#{::Config::CONFIG['DLEXT']}\z/ =~ fname }
+      ents = d.select {|fname| /\.#{c['DLEXT']}\z/ =~ fname }
       if ents.empty?
         setup_rb_error "no ruby extention exists: 'ruby #{$0} setup' first"
       end
