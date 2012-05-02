@@ -7,6 +7,10 @@
 
 * FIXED: Use Net::DNS::Resolver::Error class (not ResolverError, which does not exist).
 
+* FIXED: Cleaned up require dependency and recursive require statements.
+
+* FIXED: Use RbConfig instead of obsolete and deprecated Config (GH-28, GH-33) [Thanks @shadowbq, @eik3]
+
 * CHANGED: Refactoring unit test to follow most used Ruby conventions.
 
 * CHANGED: Rewritten and simplified Net::DNS::Classes. Improved test harness.
@@ -19,18 +23,16 @@
 
 * CHANGED: Rescue NameError so unsupported record types only result in a warning.
 
-* FIXED: Cleaned up require dependency and recursive require statements.
-
 
 == Release 0.6.1
 
 * ADDED: Net::DNS::Packet#to_s method (alias of #inspect)
 
-* FIXED: typo in lib/net/dns/rr/ptr.rb [Thanks to Chris Lundquist]
+* FIXED: typo in lib/net/dns/rr/ptr.rb [Thanks Chris Lundquist]
 
-* FIXED: warning: method redefined; discarding old inspect [Thanks to Kevin Baker] (closes #3)
+* FIXED: warning: method redefined; discarding old inspect (GH-3) [Thanks Kevin Baker]
 
-* FIXED: issue with rescue ArgumentError (closes #5) and with IPAddr handling (closes #6)
+* FIXED: issue with rescue ArgumentError (GH-5) and with IPAddr handling (GH-6)
 
 
 == Release 0.6.0
