@@ -1,7 +1,7 @@
-= Changelog
+# Changelog
 
 
-== master
+## Release 0.7.0
 
 * ADDED: Added (experimental) Support for HINFO record.
 
@@ -34,7 +34,7 @@
 * CHANGED: Renamed Net::DNS::Resolver#send to Net::DNS::Resolver#query to avoid overriding default meaning of send method.
 
 
-== Release 0.6.1
+## Release 0.6.1
 
 * ADDED: Net::DNS::Packet#to_s method (alias of #inspect)
 
@@ -45,7 +45,7 @@
 * FIXED: issue with rescue ArgumentError (GH-5) and with IPAddr handling (GH-6)
 
 
-== Release 0.6.0
+## Release 0.6.0
 
 *WARNING:* If you are upgrading from a previous minor release, check out the Compatibility issue list below.
 
@@ -61,7 +61,7 @@
 
 * CHANGED: Moved main dns.rb file to lib/net folder as default for GEMs. In this way it can be autoloaded when the gem is required.
 
-=== Compatibility issues
+### Compatibility issues
 
 * CHANGED: RR#set_stype scope is now private to prevent invalid usage.
 
@@ -70,7 +70,7 @@
 * CHANGED: Renamed Net::DNS::RR::Types::Types to Net::DNS::RR::Types::TYPES to follow Ruby coding standards.
 
 
-== Release 0.4
+## Release 0.4
 
 * many bug fixes (thanks guys!)
 * a whole new class Net::DNS::Header::RCode
