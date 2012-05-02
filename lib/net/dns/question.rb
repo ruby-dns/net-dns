@@ -165,19 +165,16 @@ module Net
         result
       end
       
-      def check_name(name)
-        name.strip!
+      def check_name(input)
+        name = input.to_s.strip
         if name =~ /[^\w\.\-_]/
-          raise NameInvalid, "Question name #{name.inspect} not valid"          
-        else
-          name
+          raise NameInvalid, "Invalid Question Name `#{name}'"
         end
-      rescue
-        raise NameInvalid, "Question name #{name.inspect} not valid"                  
+        name
       end
       
       def new_from_binary(data)
-        str,type,cls = data.unpack("a#{data.size-4}nn")
+        str,type,cls = data.unpack("a#{data.size - 4}nn")
         @qName = build_qName(str)
         @qType = Net::DNS::RR::Types.new type
         @qClass = Net::DNS::RR::Classes.new cls

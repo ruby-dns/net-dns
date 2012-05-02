@@ -58,12 +58,12 @@ module Net
         private
 
           def subclass_new_from_hash(options)
-            if options.has_key? :address
+            if options.has_key?(:address)
               @address = check_address(options[:address])
-            elsif options.has_key? :rdata
+            elsif options.has_key?(:rdata)
               @address = check_address(options[:rdata])
             else
-              raise ArgumentError, ":address field is mandatory"
+              raise ArgumentError, ":address or :rdata field is mandatory"
             end
           end
 

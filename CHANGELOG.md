@@ -17,6 +17,8 @@
 
 * FIXED: Net::DNS::RR::PTR references an invalid parameter (GH-19) [Thanks @dd23]
 
+* FIXED: Net::DNS::Question changes input arguments (GH-7) [Thanks @gfarfl]
+
 * CHANGED: Refactoring unit test to follow most used Ruby conventions.
 
 * CHANGED: Rewritten and simplified Net::DNS::Classes. Improved test harness.

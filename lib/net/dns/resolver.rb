@@ -29,7 +29,7 @@ def Resolver(name, type = Net::DNS::A, cls = Net::DNS::IN, &block)
   end
 end
 
-module Net # :nodoc:
+module Net
   module DNS
 
     include Logger::Severity
@@ -215,7 +215,8 @@ module Net # :nodoc:
       # Net::DNS::Resolver Perl module.
       #
       def initialize(config = {})
-        raise ArgumentError, "Argument has to be Hash" unless config.kind_of? Hash
+        raise ArgumentError, "Expected `config' to be a Hash" unless config.is_a?(Hash)
+
         # config.downcase_keys!
         @config = Defaults.merge config
         @raw = false
@@ -299,12 +300,9 @@ module Net # :nodoc:
       #     #=> ["192.168.0.1","192.168.0.2"]
       #
       def nameservers
-        arr = []
-        @config[:nameservers].each do |x|
-          arr << x.to_s
-        end
-        arr
+        @config[:nameservers].map(&:to_s)
       end
+
       alias_method :nameserver, :nameservers
 
       # Set the list of resolver nameservers.
