@@ -13,6 +13,8 @@
 
 * FIXED: SRV record not required by Net::DNS::RR (GH-27) [Thanks @sebastian]
 
+* FIXED: Resolver now supports IPv6 (GH-32) [Thanks @jamesotron]
+
 * CHANGED: Refactoring unit test to follow most used Ruby conventions.
 
 * CHANGED: Rewritten and simplified Net::DNS::Classes. Improved test harness.
