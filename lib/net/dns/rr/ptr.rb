@@ -1,4 +1,4 @@
-module Net # :nodoc:
+module Net
   module DNS
     class RR
 
@@ -41,8 +41,8 @@ module Net # :nodoc:
         end
 
         def subclass_new_from_hash(args)
-          if args.has_key? :ptrdname or args.has_key? :ptr
-            @ptrdname = args[0][:ptrdname]
+          if args.has_key?(:ptrdname) or args.has_key?(:ptr)
+            @ptrdname = args[:ptrdname]
           else
             raise ArgumentError, ":ptrdname or :ptr field is mandatory but missing"
           end
@@ -53,8 +53,8 @@ module Net # :nodoc:
         end
 
         def subclass_new_from_binary(data,offset)
-          @ptrdname,offset = dn_expand(data,offset)
-          return offset
+          @ptrdname, offset = dn_expand(data,offset)
+          offset
         end
 
         private

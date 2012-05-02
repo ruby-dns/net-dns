@@ -15,6 +15,8 @@
 
 * FIXED: Resolver now supports IPv6 (GH-32) [Thanks @jamesotron]
 
+* FIXED: Net::DNS::RR::PTR references an invalid parameter (GH-19) [Thanks @dd23]
+
 * CHANGED: Refactoring unit test to follow most used Ruby conventions.
 
 * CHANGED: Rewritten and simplified Net::DNS::Classes. Improved test harness.
