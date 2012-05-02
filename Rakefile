@@ -28,6 +28,7 @@ spec = Gem::Specification.new do |s|
   s.rubyforge_project = "net-dns"
 
   s.add_development_dependency "rake",  "~> 0.9"
+  s.add_development_dependency "yard"
 
   s.files             = `git ls-files`.split("\n")
   s.test_files        = `git ls-files -- {test,spec,features}/*`.split("\n")
