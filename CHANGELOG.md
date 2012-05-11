@@ -1,6 +1,11 @@
 # Changelog
 
 
+## Release 0.7.1
+
+* FIXED: Invalid file permissions on several files (GH-35) [Thanks @jamespharaoh]
+
+
 ## Release 0.7.0
 
 * ADDED: Added (experimental) Support for HINFO record.
