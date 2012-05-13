@@ -55,7 +55,7 @@ module Net # :nodoc:
           @mname = mname if valid? mname
           @rname = rname if valid? rname
           @serial,@refresh,@retry,@expire,@minimum = [serial,refresh,ret,expire,minimum].collect do |i| 
-            i.to_i if valid? i.to_i
+            i.to_i if number? i.to_i
           end
         end
 
