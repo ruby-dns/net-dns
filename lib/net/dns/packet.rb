@@ -97,18 +97,19 @@ module Net
 
       # Creates a new instance of <tt>Net::DNS::Packet</tt> class. Arguments are the
       # canonical name of the resource, an optional type field and an optional
-      # class field. The record type and class can be omitted; they default
-      # to +A+ and +IN+.
+      # class field. If the arguments are omitted, no question is added to the new packet;
+      # type and class default to +A+ and +IN+ if a name is given.
       #
+      #   packet = Net::DNS::Packet.new
       #   packet = Net::DNS::Packet.new("www.example.com")
       #   packet = Net::DNS::Packet.new("example.com", Net::DNS::MX)
       #   packet = Net::DNS::Packet.new("example.com", Net::DNS::TXT, Net::DNS::CH)
       #
       # This class no longer instantiate object from binary data coming from
       # network streams. Please use <tt>Net::DNS::Packet.parse</tt> instead.
-      def initialize(name, type = Net::DNS::A, cls = Net::DNS::IN)
-        @header = Net::DNS::Header.new(:qdCount => 1)
-        @question = [Net::DNS::Question.new(name, type, cls)]
+      def initialize(name = nil, type = Net::DNS::A, cls = Net::DNS::IN)
+        @header = Net::DNS::Header.new(:qdCount => name.nil? ? 0 : 1)
+        @question = name.nil? ? [] : [Net::DNS::Question.new(name, type, cls)]
         @answer = []
         @authority = []
         @additional = []
