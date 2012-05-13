@@ -14,6 +14,7 @@ module Net # :nodoc:
           @soa_pack = pack_name(@mname)
           @soa_pack += pack_name(@rname)
           @soa_pack += [@serial,@refresh,@retry,@expire,@minimum].pack("N5")
+          @rdlength = @soa_pack.size
         end
 
         def get_data
