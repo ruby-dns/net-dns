@@ -33,7 +33,7 @@ module Net # :nodoc:
               raise ArgumentError, "Missing field :#{key}" unless args.has_key? key
             end
             @mname = args[:mname] if valid? args[:mname] 
-            @rname = args[:rname] if valid? args[:rname]
+            @rname = args[:rname] if rname? args[:rname]
             @serial = args[:serial] if number? args[:serial] 
             @refresh = args[:refresh] if number? args[:refresh] 
             @retry = args[:retry] if number? args[:retry] 
@@ -50,10 +50,19 @@ module Net # :nodoc:
           end
         end
 
+        def rname?(name)
+          begin
+            mailbox, domain = name.split(/(?<!\\)\./, 2)
+            return name if valid? domain
+          rescue
+          end
+          raise ArgumentError, "Invalid RNAME: #{name}"
+        end
+
         def subclass_new_from_string(str)
           mname,rname,serial,refresh,ret,expire,minimum = str.strip.split(" ")
           @mname = mname if valid? mname
-          @rname = rname if valid? rname
+          @rname = rname if rname? rname
           @serial,@refresh,@retry,@expire,@minimum = [serial,refresh,ret,expire,minimum].collect do |i| 
             i.to_i if number? i.to_i
           end
