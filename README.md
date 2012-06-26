@@ -1,43 +1,35 @@
-= Net::DNS
+# Net::DNS
 
 Net::DNS is a DNS library written in pure Ruby. It started as a port of Perl Net::DNS module, but it evolved in time into a full Ruby library.  
 
 
-== Features
+## Features
 
-* Complete OO interface
-* Clean and intuitive API
-* Modular and flexible
-
-
-== Requirements
-
-* Ruby >= 1.8.6 (not tested with previous versions)
-
-As of release TODO, Net::DNS is compatible with Ruby 1.9.1.
+- Complete OO interface
+- Clean and intuitive API
+- Modular and flexible
 
 
-== Install
+## Requirements
 
-Just use RubyGems:
-  
-  $ gem install net-dns
-
-If you want to install from source, you can use Rake:
-
-  $ rake install
-
-Or directly from setup.rb
-
-  $ ruby setup.rb
+* Ruby >= 1.8.7
 
 
-== API Documentation
+## Installation
 
-Visit the page http://marcoceresa.com/net-dns
+The best way to install this library is via [RubyGems](https://rubygems.org/).
+
+    $ gem install whois
+
+You might need administrator privileges on your system to install the gem.
 
 
-== Trivial resolver
+## API Documentation
+
+Visit the page http://rdoc.info/gems/net-dns
+
+
+## Trivial resolver
 
 The simplest way to use the library is to invoke the Resolver() method:
 
@@ -75,39 +67,39 @@ The output is compatible with BIND zone files and it's the same you would get wi
     ns3.google.com.         170275  IN      A       216.239.36.10
     ns4.google.com.         170275  IN      A       216.239.38.10
 
-
 An optional block can be passed yielding the Net::DNS::Packet object
 
-   Resolver("www.google.com") {|packet| puts packet.size + " bytes"}
-     #=> 484 bytes
+    Resolver("www.google.com") { |packet| puts packet.size + " bytes" }
+    # => 484 bytes
 
 Same for Net::DNS::Resolver.start():
 
     Net::DNS::Resolver.start("google.com").answer.size
-      #=> 5
+    # => 5
 
 As optional parameters, +TYPE+ and +CLASS+ can be specified.
 
-   p Net::DNS::Resolver.start("google.com", Net::DNS::MX)
+    p Net::DNS::Resolver.start("google.com", Net::DNS::MX)
+    
+    ;; Answer received from localhost:53 (316 bytes)
+    ;;
+    ;; HEADER SECTION
+    ;; id = 59980
+    ;; qr = 1       opCode: QUERY   aa = 0  tc = 0  rd = 1
+    ;; ra = 1       ad = 0  cd = 0  rcode = NoError
+    ;; qdCount = 1  anCount = 4     nsCount = 4     arCount = 8
+    
+    ;; QUESTION SECTION (1 record):
+    ;; google.com.                  IN      MX
+    
+    ;; ANSWER SECTION (4 records):
+    google.com.             10800   IN      MX      10 smtp2.google.com.
+    google.com.             10800   IN      MX      10 smtp3.google.com.
+    google.com.             10800   IN      MX      10 smtp4.google.com.
+    google.com.             10800   IN      MX      10 smtp1.google.com.
 
-   ;; Answer received from localhost:53 (316 bytes)
-   ;;
-   ;; HEADER SECTION
-   ;; id = 59980
-   ;; qr = 1       opCode: QUERY   aa = 0  tc = 0  rd = 1
-   ;; ra = 1       ad = 0  cd = 0  rcode = NoError
-   ;; qdCount = 1  anCount = 4     nsCount = 4     arCount = 8
-   
-   ;; QUESTION SECTION (1 record):
-   ;; google.com.                  IN      MX
-   
-   ;; ANSWER SECTION (4 records):
-   google.com.             10800   IN      MX      10 smtp2.google.com.
-   google.com.             10800   IN      MX      10 smtp3.google.com.
-   google.com.             10800   IN      MX      10 smtp4.google.com.
-   google.com.             10800   IN      MX      10 smtp1.google.com.
 
-== Handling the response packet
+## Handling the response packet
 
 The method Net::DNS::Resolver.start is a wrapper around Resolver.new. It returns a new Net::DNS::Packet object.
 
@@ -150,13 +142,14 @@ Gives:
     74.125.45.100 is alive
     74.125.67.100 is alive
     209.85.171.100 is alive
-	
 
-== Licence
+
+## License
 
 Net::DNS is distributed under the same license Ruby is.
 
 
-== Author
+## Authors
 
-(c) Marco Ceresa 2006-2009
+- Marco Ceresa (@bluemonk)
+- Simone Carletti (@weppos)
