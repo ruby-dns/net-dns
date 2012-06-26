@@ -8,7 +8,6 @@ require 'net/dns/resolver/timeouts'
 #
 # Calling the resolver directly:
 #
-#   require 'net/dns/resolver'
 #   puts Resolver("www.google.com").answer.size
 #   # => 5
 #

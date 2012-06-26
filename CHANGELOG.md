@@ -1,6 +1,11 @@
 # Changelog
 
 
+## master
+
+* CHANGED: require 'net/dns' is now the preferred way to load the library (GH-37). [Thanks @johnroa]
+
+
 ## Release 0.7.1
 
 * FIXED: Invalid file permissions on several files (GH-35) [Thanks @jamespharaoh]

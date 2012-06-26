@@ -42,7 +42,7 @@ Visit the page http://marcoceresa.com/net-dns
 The simplest way to use the library is to invoke the Resolver() method:
 
     require 'rubygems' 
-    require 'net/dns/resolver'
+    require 'net/dns'
     p Resolver("www.google.com")
 
 The output is compatible with BIND zone files and it's the same you would get with the dig utility.
