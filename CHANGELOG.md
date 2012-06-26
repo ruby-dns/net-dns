@@ -5,6 +5,8 @@
 
 * CHANGED: require 'net/dns' is now the preferred way to load the library (GH-37). [Thanks @johnroa]
 
+* CHANGED: Removed setup.rb installation script.
+
 
 ## Release 0.7.1
 
