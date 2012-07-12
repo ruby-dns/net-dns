@@ -1,41 +1,32 @@
 module Net
   module DNS
 
-    #
-    # =Name
-    #
-    # Net::DNS::Header - DNS packet header class
-    #
-    # =Synopsis
-    #
-    #   require 'net/dns/header'
-    #
-    # =Description
+    # DNS packet header class
     #
     # The Net::DNS::Header class represents the header portion of a
     # DNS packet. An Header object is created whenever a new packet
     # is parsed or as user request.
     #
     #   header = Net::DNS::Header.new
-    #     # ;; id = 18123
-    #     # ;; qr = 0       opCode: 0       aa = 0  tc = 0  rd = 1
-    #     # ;; ra = 0       ad = 0  cd = 0  rcode = 0
-    #     # ;; qdCount = 1  anCount = 0     nsCount = 0     arCount = 0
+    #   # ;; id = 18123
+    #   # ;; qr = 0       opCode: 0       aa = 0  tc = 0  rd = 1
+    #   # ;; ra = 0       ad = 0  cd = 0  rcode = 0
+    #   # ;; qdCount = 1  anCount = 0     nsCount = 0     arCount = 0
     #
     #   header.format
-    #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    #     #  |             18123             |
-    #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    #     #  |0|   0   |0|0|1|0|0| 0 |   0   |
-    #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    #     #  |               1               |
-    #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    #     #  |               0               |
-    #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    #     #  |               0               |
-    #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    #     #  |               0               |
-    #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #   #  |             18123             |
+    #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #   #  |0|   0   |0|0|1|0|0| 0 |   0   |
+    #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #   #  |               1               |
+    #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #   #  |               0               |
+    #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #   #  |               0               |
+    #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    #   #  |               0               |
+    #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     #
     #   # packet is an instance of Net::DNS::Packet
     #   header = packet.header
@@ -64,20 +55,13 @@ module Net
       end
 
 
-      #
-      # = Name
-      #
-      # Net::DNS::Header::RCode - DNS Header RCode handling class
-      #
-      # =Synopsis
+      # DNS Header RCode handling class
       #
       # It should be used internally by Net::DNS::Header class. However, it's still
       # possible to instantiate it directly.
       #
       #   require 'net/dns/header'
       #   rcode = Net::DNS::Header::RCode.new 0
-      #
-      # =Description
       #
       # The RCode class represents the RCode field in the Header portion of a
       # DNS packet. This field (called Response Code) is used to get informations
@@ -166,6 +150,7 @@ module Net
           @code.to_s
         end
       end
+
 
       # Constant for +opCode+ query
       QUERY   = 0
@@ -259,10 +244,10 @@ module Net
       # Inspect method, prints out all the options and relative values.
       #
       #   p Net::DNS::Header.new
-      #     # ;; id = 18123
-      #     # ;; qr = 0       opCode: 0       aa = 0  tc = 0  rd = 1
-      #     # ;; ra = 0       ad = 0  cd = 0  rcode = 0
-      #     # ;; qdCount = 1  anCount = 0     nsCount = 0     arCount = 0
+      #   # ;; id = 18123
+      #   # ;; qr = 0       opCode: 0       aa = 0  tc = 0  rd = 1
+      #   # ;; ra = 0       ad = 0  cd = 0  rcode = 0
+      #   # ;; qdCount = 1  anCount = 0     nsCount = 0     arCount = 0
       #
       # This method will maybe be changed in the future to a more pretty
       # way of display output.
@@ -293,19 +278,19 @@ module Net
       # similar to those often found on RFCs.
       #
       #   p Net::DNS::Header.new.format
-      #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      #     #  |             18123             |
-      #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      #     #  |0|   0   |0|0|1|0|0| 0 |   0   |
-      #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      #     #  |               1               |
-      #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      #     #  |               0               |
-      #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      #     #  |               0               |
-      #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      #     #  |               0               |
-      #     #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      #   #  |             18123             |
+      #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      #   #  |0|   0   |0|0|1|0|0| 0 |   0   |
+      #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      #   #  |               1               |
+      #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      #   #  |               0               |
+      #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      #   #  |               0               |
+      #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      #   #  |               0               |
+      #   #  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
       #
       # This can be very usefull for didactical purpouses :)
       #
@@ -393,7 +378,7 @@ module Net
       # Returns a string representation of the +opCode+
       #
       #   puts "Packet is a #{header.opCode_str}"
-      #     #=> Packet is a QUERY
+      #   #=> Packet is a QUERY
       #
       def opCode_str
         OPARR[@opCode]
@@ -679,7 +664,7 @@ module Net
         end
       end
 
-      private
+    private
 
       def new_from_scratch
         @id = genID # generate ad unique id
