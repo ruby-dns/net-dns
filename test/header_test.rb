@@ -119,9 +119,6 @@ class HeaderTest < Test::Unit::TestCase
     assert_raises(ArgumentError) do
       Header.parse("aa")
     end
-    assert_raises(Header::DuplicateIDError) do
-      @default.id = 441
-    end
     assert_raises(ArgumentError) do
       @default.id = 1000000
     end
