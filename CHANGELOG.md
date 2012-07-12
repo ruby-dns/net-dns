@@ -3,6 +3,8 @@
 
 ## master
 
+* CHANGED: Dropped duplicate query ID filter. Query ID is now randomically generated but it's not guaranteed to be unique (GH-39). [Thanks @ebroder]
+
 * CHANGED: require 'net/dns' is now the preferred way to load the library (GH-37). [Thanks @johnroa]
 
 * CHANGED: Removed setup.rb installation script.
