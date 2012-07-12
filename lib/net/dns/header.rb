@@ -63,10 +63,6 @@ module Net
       class Error < StandardError
       end
 
-      # The requested ID is already in use.
-      class DuplicateIDError < Error
-      end
-
 
       #
       # = Name
@@ -179,8 +175,6 @@ module Net
       STATUS  = 2
       # Array with given strings
       OPARR = %w[QUERY IQUERY STATUS]
-
-      @@id_arr = []
 
       # Reader for +id+ attribute
       attr_reader :id
@@ -357,12 +351,8 @@ module Net
       # performing security tests.
       #
       def id=(val)
-        if @@id_arr.include? val
-          raise DuplicateIDError, "ID `#{val}' already used"
-        end
         if (1..65535).include? val
           @id = val
-          @@id_arr.push val
         else
           raise ArgumentError, "ID `#{val}' out of range"
         end
@@ -729,10 +719,7 @@ module Net
       end
 
       def genID
-        while (@@id_arr.include?(q = rand(65535)))
-        end
-        @@id_arr.push(q)
-        q
+        rand(65535)
       end
 
     end
