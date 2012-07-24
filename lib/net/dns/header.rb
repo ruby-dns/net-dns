@@ -351,7 +351,7 @@ module Net
       # performing security tests.
       #
       def id=(val)
-        if (1..65535).include? val
+        if (0..65535).include? val
           @id = val
         else
           raise ArgumentError, "ID `#{val}' out of range"
