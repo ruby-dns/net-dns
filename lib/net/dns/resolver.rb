@@ -1056,7 +1056,7 @@ module Net
         if self.class.platform_windows?
           require 'win32/resolv'
           arr = Win32::Resolv.get_resolv_info
-          self.domain = arr[0].to_s
+          self.domain = arr[0][0]
           self.nameservers = arr[1]
         else
           IO.foreach(@config[:config_file]) do |line|
