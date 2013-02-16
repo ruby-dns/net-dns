@@ -19,7 +19,7 @@ Net::DNS is a DNS library written in pure Ruby. It started as a port of Perl Net
 
 The best way to install this library is via [RubyGems](https://rubygems.org/).
 
-    $ gem install whois
+    $ gem install net-dns
 
 You might need administrator privileges on your system to install the gem.
 
