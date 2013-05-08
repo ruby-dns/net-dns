@@ -16,6 +16,11 @@ class ResolverTest < Test::Unit::TestCase
     assert_nothing_raised { Net::DNS::Resolver.new({}) }
   end
 
+  def test_initialize_with_multi_name_servers
+    resolver = Net::DNS::Resolver.new({:config_file => 'fixtures/resolv.conf'})
+    assert_equal ['192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4'], resolver.nameservers
+  end
+
   def test_initialize_with_invalid_config_should_raise_argumenterror
     assert_raises(ArgumentError) { Net::DNS::Resolver.new("") }
     assert_raises(ArgumentError) { Net::DNS::Resolver.new(0) }

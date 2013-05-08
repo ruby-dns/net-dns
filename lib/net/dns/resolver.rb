@@ -1065,6 +1065,7 @@ module Net
           self.domain = arr[0].to_s
           self.nameservers = arr[1]
         else
+          nameservers = []
           IO.foreach(@config[:config_file]) do |line|
             line.gsub!(/\s*[;#].*/,"")
             next unless line =~ /\S/
@@ -1074,9 +1075,10 @@ module Net
             when /^\s*search\s+(.*)/
               self.searchlist = $1.split(" ")
             when /^\s*nameserver\s+(.*)/
-              self.nameservers = $1.split(" ")
+              nameservers << $1.split(" ")
             end
           end
+          self.nameservers = nameservers.flatten
         end
       end
 
