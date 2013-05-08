@@ -10,7 +10,7 @@ module Net # :nodoc:
 
 
         def initialize(seconds)
-          if seconds.is_a? Numeric and seconds >= 0
+          if seconds.is_a?(Numeric) && seconds >= 0
             @seconds = seconds
           else
             raise ArgumentError, "Invalid value for tcp timeout"
@@ -20,11 +20,7 @@ module Net # :nodoc:
         # Returns a string representation of the timeout corresponding
         # to the number of <tt>@seconds</tt>.
         def to_s
-          if @seconds == 0
-            @output.to_s
-          else
-            @seconds.to_s
-          end
+          @seconds == 0 ? @output.to_s : @seconds.to_s
         end
 
         def pretty_to_s

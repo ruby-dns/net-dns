@@ -3,6 +3,6 @@
 pkg/*
 Gemfile.lock
 
-# YARD artifacts
+# YARD
 .yardoc
 yardoc/

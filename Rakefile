@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler'
 
-$:.unshift(File.dirname(__FILE__) + "/lib")
+$:.unshift(File.dirname(__FILE__) + '/lib')
 require 'net/dns'
 
 
@@ -11,7 +11,7 @@ PKG_VERSION = ENV['PKG_VERSION'] || Net::DNS::VERSION
 
 
 # Run test by default.
-task :default => :test
+task :default => [:test, :spec]
 
 
 spec = Gem::Specification.new do |s|
@@ -27,7 +27,8 @@ spec = Gem::Specification.new do |s|
   s.homepage          = "http://github.com/bluemonk/net-dns"
   s.rubyforge_project = "net-dns"
 
-  s.add_development_dependency "rake",  "~> 10.0"
+  s.add_development_dependency "rake"
+  s.add_development_dependency "rspec"
   s.add_development_dependency "yard"
 
   s.files             = `git ls-files`.split("\n")
@@ -59,10 +60,32 @@ Rake::TestTask.new do |t|
 end
 
 
-require 'yard'
-require 'yard/rake/yardoc_task'
+require 'rspec/core/rake_task'
+begin
+  require 'fuubar'
+rescue LoadError
+end
 
-YARD::Rake::YardocTask.new(:yardoc)
+RSpec::Core::RakeTask.new do |t|
+  t.verbose = !!ENV["VERBOSE"]
+  t.rspec_opts  = []
+  t.rspec_opts << ['--format', 'Fuubar'] if defined?(Fuubar)
+end
+
+
+require 'yard'
+
+YARD::Rake::YardocTask.new(:yardoc) do |y|
+  y.options = ["--output-dir", "yardoc"]
+end
+
+namespace :yardoc do
+  task :clobber do
+    rm_r "yardoc" rescue nil
+  end
+end
+
+task :clobber => "yardoc:clobber"
 
 
 desc "Open an irb session preloaded with this library"
