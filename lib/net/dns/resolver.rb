@@ -457,6 +457,12 @@ module Net
       end
       alias srcaddr source_address
 
+      # Get the local ipv6 address from which the resolver sends queries
+      #
+      def source_address_inet6
+        @config[:source_address_inet6].to_s
+      end
+      
       # Set the local source address from which the resolver sends its queries.
       #
       #   res.source_address = "172.16.100.1"
@@ -596,7 +602,7 @@ module Net
         @config.each do |key,val|
           if key == :log_file or key == :config_file
             str << "#{key}: #{val} \t"
-            else
+          else
             str << "#{key}: #{eval(key.to_s)} \t"
           end
           str << "\n;; " if i % 2 == 0

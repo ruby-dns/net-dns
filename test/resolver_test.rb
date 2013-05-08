@@ -72,6 +72,10 @@ class ResolverTest < Test::Unit::TestCase
     assert_equal Net::DNS::IN.to_i,           packet.question.first.qClass.to_i
   end
 
+  def test_should_return_state_without_exception
+    res = Net::DNS::Resolver.new
+    assert_nothing_raised {res.state}
+  end
 
   RubyPlatforms = [
     ["darwin9.0", false],   # Mac OS X
