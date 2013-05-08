@@ -9,7 +9,6 @@ rvm:
   - rbx-18mode
   # - ruby-head
   # - jruby-head
-  - ree
 notifications:
   recipients:
     - weppos@weppos.net
