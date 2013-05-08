@@ -12,4 +12,5 @@ Dir[File.join(SPEC_ROOT, "support/**/*.rb")].each { |f| require f }
 RSpec.configure do |config|
   # config.mock_with :mocha
   c.syntax = :expect
+  c.order = :random
 end
