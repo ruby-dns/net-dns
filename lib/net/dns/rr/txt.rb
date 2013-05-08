@@ -37,6 +37,11 @@ module Net # :nodoc:
 
         def subclass_new_from_string(str)
           @txt = str.strip
+          if @txt[0] == '"' and @txt[-1] == '"'
+            @txt = @txt[1, @txt.length-2]
+          else
+            raise ArgumentError, "TXT RR data must be enclosed in \"quotes\""
+          end
         end
 
         def subclass_new_from_binary(data,offset)
