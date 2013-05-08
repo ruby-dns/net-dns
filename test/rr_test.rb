@@ -87,7 +87,7 @@ class RRTest < Test::Unit::TestCase
     assert_equal @mx.preference, 10
     assert_equal @mx.exchange, "mailhost.example.com."
     assert_equal @cname.cname, "www1.example.com"
-    assert_equal @txt.txt, '"text record"'
+    assert_equal @txt.txt, 'text record'
     assert_equal @a_binary.address.to_s, "10.1.2.3"
     assert_equal @mx_binary.preference, 10
     assert_equal @mx_binary.exchange, "mailhost.example.com."
