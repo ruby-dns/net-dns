@@ -2,7 +2,7 @@ require 'test_helper'
 require 'net/dns/rr'
 
 class RRTest < Test::Unit::TestCase
-  
+
   def setup
     @rr_name = "example.com."
     @type = "A"
@@ -12,16 +12,16 @@ class RRTest < Test::Unit::TestCase
 
     @defaults = Net::DNS::RR.new(:name => @rr_name,
                                  :rdata => @rdata)
-    
-    
+
+
     @a_hash = Net::DNS::RR.new(:name => @rr_name,
                                :ttl => @ttl,
                                :cls => @cls,
                                :type => @type,
                                :address => @rdata)
-    
+
     @a_string = Net::DNS::RR::A.new("example.com. 10800 IN A 64.233.187.99")
-    
+
     @str = "example.com.            10800   IN      A       64.233.187.99"
 
     @a     = Net::DNS::RR.new("foo.example.com. 86400 A 10.1.2.3")
@@ -31,14 +31,14 @@ class RRTest < Test::Unit::TestCase
 
     @a_data = @a.data
     @a_binary = Net::DNS::RR.parse(@a_data)
-    @mx_data = @mx.data 
+    @mx_data = @mx.data
     @mx_binary = Net::DNS::RR.parse(@mx_data)
 
     @array = [@rr_name,@ttl,@cls,@type,@rdata]
   end
 
   def test_classes
-    assert_instance_of Net::DNS::RR::A, @a 
+    assert_instance_of Net::DNS::RR::A, @a
     assert_instance_of Net::DNS::RR::MX, @mx
     assert_instance_of Net::DNS::RR::CNAME, @cname
     assert_instance_of Net::DNS::RR::TXT, @txt
@@ -52,7 +52,7 @@ class RRTest < Test::Unit::TestCase
     assert_equal @cname.ttl, 10800
     assert_equal @txt.ttl, 3600
     assert_equal @a_binary.ttl, 86400
-    assert_equal @mx_binary.ttl, 7200    
+    assert_equal @mx_binary.ttl, 7200
   end
 
   def test_types
@@ -60,17 +60,17 @@ class RRTest < Test::Unit::TestCase
     assert_equal @mx.type, "MX"
     assert_equal @cname.type, "CNAME"
     assert_equal @txt.type, "TXT"
-    assert_equal @a_binary.type, "A"    
-    assert_equal @mx_binary.type, "MX"    
+    assert_equal @a_binary.type, "A"
+    assert_equal @mx_binary.type, "MX"
   end
-  
+
   def test_cls
     assert_equal @a.cls, "IN"
     assert_equal @mx.cls, "IN"
     assert_equal @cname.cls, "IN"
     assert_equal @txt.cls, "HS"
-    assert_equal @a_binary.cls, "IN"    
-    assert_equal @mx_binary.cls, "IN"    
+    assert_equal @a_binary.cls, "IN"
+    assert_equal @mx_binary.cls, "IN"
   end
 
   def test_name
@@ -78,10 +78,10 @@ class RRTest < Test::Unit::TestCase
     assert_equal @mx.name, "example.com."
     assert_equal @cname.name, "www.example.com"
     assert_equal @txt.name, "baz.example.com"
-    assert_equal @a_binary.name, "foo.example.com."    
-    assert_equal @mx_binary.name, "example.com."    
-  end    
-  
+    assert_equal @a_binary.name, "foo.example.com."
+    assert_equal @mx_binary.name, "example.com."
+  end
+
   def test_rdata
     assert_equal @a.address.to_s, "10.1.2.3"
     assert_equal @mx.preference, 10
@@ -92,14 +92,14 @@ class RRTest < Test::Unit::TestCase
     assert_equal @mx_binary.preference, 10
     assert_equal @mx_binary.exchange, "mailhost.example.com."
   end
-  
+
   def test_simple
     assert_equal @rr_name,  @defaults.name
     assert_equal @type,  @defaults.type
     assert_equal @cls,   @defaults.cls
     assert_equal @ttl,   @defaults.ttl
     assert_equal @rdata, @defaults.rdata.to_s
-    
+
     assert_equal(@str,@a_hash.inspect)
     assert_equal(@rr_name, @a_hash.name)
     assert_equal(@type, @a_hash.type)
@@ -113,7 +113,7 @@ class RRTest < Test::Unit::TestCase
     assert_equal(@cls, @a_string.cls)
     assert_equal(@ttl, @a_string.ttl)
     assert_equal(@rdata, @a_string.address.to_s)
-    
+
     assert_equal(@a_data, @a_binary.data)
     assert_equal(@mx_data, @mx_binary.data)
 
@@ -132,4 +132,3 @@ class RRTest < Test::Unit::TestCase
   end
 
 end
-
