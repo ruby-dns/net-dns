@@ -92,9 +92,7 @@ module Net
               when IPAddr
                 input
               when Integer # Address in numeric form
-                tmp = [(input >> 24), (input >> 16) & 0xFF, (input >> 8) & 0xFF, input & 0xFF]
-                tmp = tmp.collect { |x| x.to_s }.join(".")
-                IPAddr.new(tmp)
+                IPAddr.new(input, Socket::AF_INET) # We know we are IPv4
               when String
                 IPAddr.new(input)
               else

@@ -81,7 +81,7 @@ class RRATest < Test::Unit::TestCase
     assert_equal expected, @rr.address
 
     expected = IPAddr.new("64.233.187.90")
-    assert_equal expected, @rr.address = 1089059674
+    assert_equal expected, @rr.address = expected.to_i
     assert_equal expected, @rr.address
 
     expected = IPAddr.new("64.233.187.80")
