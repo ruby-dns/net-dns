@@ -121,11 +121,11 @@ class RRTest < Test::Unit::TestCase
     assert_equal(@array, @a_hash.to_a)
   end
 
-  expected_exception_classes = [ArgumentError]
-  # In Ruby 2.0.0 the exception class changes.
-  expected_exception_classes << IPAddr::InvalidAddressError if defined? IPAddr::InvalidAddressError
-
   def test_range
+    expected_exception_classes = [ArgumentError]
+    # In Ruby 2.0.0 the exception class changes.
+    expected_exception_classes << IPAddr::InvalidAddressError if defined? IPAddr::InvalidAddressError
+
     assert_raises(*expected_exception_classes) do
       Net::DNS::RR.new("google.com. 10800 IM A")
     end
