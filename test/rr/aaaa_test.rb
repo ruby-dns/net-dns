@@ -62,13 +62,9 @@ class RRAAAATest < Test::Unit::TestCase
     # FIXME: "google.com. 10800 IM AAAA",
   ]
 
-  expected_exception_classes = [ArgumentError]
-  # In Ruby 2.0.0 the exception class changes.
-  expected_exception_classes << IPAddr::InvalidAddressError if defined? IPAddr::InvalidAddressError
-
   InvalidArguments.each_with_index do |arguments, index|
     define_method "test_initialize_should_raise_with_invalid_arguments_#{index}" do
-      assert_raises(*expected_exception_classes) { Net::DNS::RR::AAAA.new(arguments) }
+      assert_raises(*EXPECTED_EXCEPTION_CLASSES) { Net::DNS::RR::AAAA.new(arguments) }
     end
   end
 
