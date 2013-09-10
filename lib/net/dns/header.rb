@@ -152,14 +152,17 @@ module Net
       end
 
 
+      # Listing: http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-5
       # Constant for +opCode+ query
       QUERY   = 0
       # Constant for +opCode+ iquery
       IQUERY  = 1
       # Constant for +opCode+ status
       STATUS  = 2
+      # Constant for +opCode+ notify
+      NOTIFY  = 4
       # Array with given strings
-      OPARR = %w[QUERY IQUERY STATUS]
+      OPARR = %w[QUERY IQUERY STATUS UNASSIGNED NOTIFY]
 
       # Reader for +id+ attribute
       attr_reader :id
@@ -391,6 +394,7 @@ module Net
       # * QUERY is the standard DNS query
       # * IQUERY is the inverse query
       # * STATUS is used to query the nameserver for its status
+      # * NOTIFY is to notify a slave that it should check for an updated SOA on the master
       #
       # Example:
       #
@@ -399,10 +403,10 @@ module Net
       #   header.opCode = Header::STATUS
       #
       def opCode=(val)
-        if (0..2).include? val
+        if [0, 1, 2, 4].include? val
           @opCode = val
         else
-          raise WrongOpcodeError, "Wrong opCode value (#{val}), must be QUERY, IQUERY or STATUS"
+          raise WrongOpcodeError, "Wrong opCode value (#{val}), must be QUERY, IQUERY, STATUS, or NOTIFY"
         end
       end
 
