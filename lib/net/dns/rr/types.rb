@@ -55,6 +55,7 @@ module Net # :nodoc:
           'RRSIG'     => 46,      # draft-ietf-dnsext-dnssec-2535typecode-change
           'NSEC'      => 47,      # draft-ietf-dnsext-dnssec-2535typecode-change
           'DNSKEY'    => 48,      # draft-ietf-dnsext-dnssec-2535typecode-change
+          'SPF'       => 99,      # RFC 4408
           'UINFO'     => 100,     # non-standard
           'UID'       => 101,     # non-standard
           'GID'       => 102,     # non-standard

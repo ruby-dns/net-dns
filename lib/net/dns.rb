@@ -71,6 +71,7 @@ module Net
       RRSIG     = 46
       NSEC      = 47
       DNSKEY    = 48
+      SPF       = 99
       UINFO     = 100
       UID       = 101
       GID       = 102

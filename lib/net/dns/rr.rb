@@ -3,7 +3,7 @@ require 'net/dns/names'
 require 'net/dns/rr/types'
 require 'net/dns/rr/classes'
 
-%w(a aaaa cname hinfo mr mx ns ptr soa srv txt).each do |file|
+%w(a aaaa cname hinfo mr mx ns ptr soa srv txt spf).each do |file|
   require "net/dns/rr/#{file}"
 end
 
