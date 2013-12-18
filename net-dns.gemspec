@@ -19,11 +19,7 @@ Gem::Specification.new do |s|
              "lib/net/dns/rr/mx.rb", "lib/net/dns/rr/ns.rb", "lib/net/dns/rr/null.rb",
              "lib/net/dns/rr/ptr.rb", "lib/net/dns/rr/soa.rb", "lib/net/dns/rr/srv.rb",
              "lib/net/dns/rr/txt.rb", "lib/net/dns/rr/types.rb", "lib/net/dns/version.rb",
-             "net-dns.gemspec", "test/header_test.rb", "test/names_test.rb", "test/packet_test.rb",
-             "test/question_test.rb", "test/resolver/timeouts_test.rb", "test/resolver_test.rb",
-             "test/rr/a_test.rb", "test/rr/aaaa_test.rb", "test/rr/classes_test.rb",
-             "test/rr/cname_test.rb", "test/rr/hinfo_test.rb", "test/rr/mr_test.rb", "test/rr/mx_test.rb",
-             "test/rr/ns_test.rb", "test/rr/types_test.rb", "test/rr_test.rb", "test/test_helper.rb"]
+             "net-dns.gemspec"]
   s.homepage = "http://github.com/bluemonk/net-dns"
   s.require_paths = ["lib"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.8.7")
@@ -31,10 +27,11 @@ Gem::Specification.new do |s|
   s.rubygems_version = "2.0.3"
   s.summary = "Pure Ruby DNS library."
   s.test_files = ["test/header_test.rb", "test/names_test.rb", "test/packet_test.rb", "test/question_test.rb",
-                  "test/resolver/timeouts_test.rb", "test/resolver_test.rb", "test/rr/a_test.rb",
-                  "test/rr/aaaa_test.rb", "test/rr/classes_test.rb", "test/rr/cname_test.rb",
-                  "test/rr/hinfo_test.rb", "test/rr/mr_test.rb", "test/rr/mx_test.rb", "test/rr/ns_test.rb",
-                  "test/rr/types_test.rb", "test/rr_test.rb", "test/test_helper.rb"]
+                  "test/resolver_test.rb", "test/rr/a_test.rb", "test/rr/aaaa_test.rb", "test/rr/classes_test.rb",
+                  "test/rr/cname_test.rb", "test/rr/hinfo_test.rb", "test/rr/mr_test.rb", "test/rr/mx_test.rb",
+                  "test/rr/ns_test.rb", "test/rr/types_test.rb", "test/rr_test.rb", "test/test_helper.rb",
+                  "spec/spec_helper.rb", "spec/unit/resolver/dns_timeout_spec.rb",
+                  "spec/unit/resolver/tcp_timeout_spec.rb", "spec/unit/resolver/udp_timeout_spec.rb"]
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
