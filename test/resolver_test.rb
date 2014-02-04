@@ -21,6 +21,16 @@ class ResolverTest < Test::Unit::TestCase
     assert_equal ['192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4'], resolver.nameservers
   end
 
+  def test_initialize_with_dns
+    resolver = Net::DNS::Resolver.new(:nameservers => "google-public-dns-a.google.com")
+    assert_equal [IPAddr.new('8.8.8.8')], resolver.nameservers
+  end
+
+  def test_initialize_with_dns_array
+    resolver = Net::DNS::Resolver.new(:nameservers => "google-public-dns-a.google.com google-public-dns-b.google.com")
+    assert_equal [IPAddr.new('8.8.8.8'), IPAddr.new('8.8.4.4')], resolver.nameservers
+  end
+
   def test_initialize_with_invalid_config_should_raise_argumenterror
     assert_raises(ArgumentError) { Net::DNS::Resolver.new("") }
     assert_raises(ArgumentError) { Net::DNS::Resolver.new(0) }
