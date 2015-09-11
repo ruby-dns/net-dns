@@ -106,11 +106,19 @@ module Net # :nodoc:
       end
 
       def valid?(name)
-        if name =~ /^([a-z0-9]([-a-z0-9]*[a-z0-9])?\.)+((a[cdefgilmnoqrstuwxz]|aero|arpa)|(b[abdefghijmnorstvwyz]|biz)|(c[acdfghiklmnorsuvxyz]|cat|com|coop)|d[ejkmoz]|(e[ceghrstu]|edu)|f[ijkmor]|(g[abdefghilmnpqrstuwy]|gov)|h[kmnrtu]|(i[delmnoqrst]|info|int)|(j[emop]|jobs)|k[eghimnprwyz]|l[abcikrstuvy]|(m[acdghklmnopqrstuvwxyz]|mil|mobi|museum)|(n[acefgilopruz]|name|net)|(om|org)|(p[aefghklmnrstwy]|pro)|qa|r[eouw]|s[abcdeghijklmnortvyz]|(t[cdfghjklmnoprtvwz]|travel)|u[agkmsyz]|v[aceginu]|w[fs]|y[etu]|z[amw])$/i
-          return name
-        else
-          raise ArgumentError, "Invalid FQDN: #{name}"
+        raise ArgumentError, "Invalid FQDN: #{name}" if name.length < 1 or name.length > 255
+
+        return name if name == '.' # the root domain is the only valid domain that begins with a dot
+
+        parts = name.split('.', -1)
+        parts.delete_at(parts.length-1) if parts.last.empty? # the domain may end with a dot
+
+        parts.each do |part|
+          raise ArgumentError, "Invalid FQDN: #{name}" if
+            not part =~ /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/i or part.length < 1 or part.length > 63
         end
+
+        return name
       end
 
     end
