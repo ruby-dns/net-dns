@@ -19,6 +19,10 @@ module Net # :nodoc:
           @rdlength = @txt_pack.size
         end
 
+        def get_inspect
+          "\"#{@txt}\""
+        end
+
         def get_data
           @txt_pack
         end
@@ -33,18 +37,24 @@ module Net # :nodoc:
 
         def subclass_new_from_string(str)
           @txt = str.strip
+          if @txt[0] == '"' and @txt[-1] == '"'
+            @txt = @txt[1, @txt.length-2]
+          else
+            raise ArgumentError, "TXT RR data must be enclosed in \"quotes\""
+          end
         end
 
         def subclass_new_from_binary(data,offset)
           off_end = offset + @rdlength
-          @txt = ""
+          rs = []
           while offset < off_end
             len = data.unpack("@#{offset} C")[0]
             offset += 1
             str = data[offset..offset+len-1]
             offset += len
-            @txt << str << " "
+            rs << str
           end
+          @txt = rs.join(" ")
           return offset
         end
 
