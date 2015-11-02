@@ -120,7 +120,8 @@ module Net
 
 
         RCodeType = %w[NoError FormErr ServFail NXDomain NotImp
-                      Refused YXDomain YXRRSet NXRRSet NotAuth NotZone]
+                      Refused YXDomain YXRRSet NXRRSet NotAuth NotZone
+                      Reserved Reserved Reserved Reserved Reserved]
 
         RCodeErrorString = ["No errors",
           "The name server was unable to interpret the query",
@@ -132,12 +133,17 @@ module Net
           "",
           "",
           "",
+          "",
+          "",
+          "",
+          "",
+          "",
           ""]
 
         attr_reader :code, :type, :explanation
 
         def initialize(code)
-          if (0..10).include? code
+          if (0..15).include? code
             @code         = code
             @type         = RCodeType[code]
             @explanation  = RCodeErrorString[code]
