@@ -462,7 +462,7 @@ module Net
       def source_address_inet6
         @config[:source_address_inet6].to_s
       end
-      
+
       # Set the local source address from which the resolver sends its queries.
       #
       #   res.source_address = "172.16.100.1"
@@ -950,7 +950,7 @@ module Net
       #
       #   ip = IPAddr.new("172.16.100.2")
       #   packet = res.query(ip)
-      #   
+      #
       #   packet = res.query("172.16.100.2")
       #
       # Use +packet.header.ancount+ or +packet.answer+ to find out if there
@@ -1195,8 +1195,10 @@ module Net
       def query_udp(packet, packet_data)
         socket4 = UDPSocket.new
         socket4.bind(@config[:source_address].to_s,@config[:source_port])
-        socket6 = UDPSocket.new(Socket::AF_INET6)
-        socket6.bind(@config[:source_address_inet6].to_s,@config[:source_port])
+        if @config[:nameservers].any? { |ns| ns.ipv6? }
+          socket6 = UDPSocket.new(Socket::AF_INET6)
+          socket6.bind(@config[:source_address_inet6].to_s,@config[:source_port])
+        end
 
         ans = nil
         response = ""
