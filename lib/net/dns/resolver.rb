@@ -342,38 +342,8 @@ module Net
       # The default is 127.0.0.1 (localhost)
       #
       def nameservers=(arg)
-        case arg
-        when String
-          begin
-            @config[:nameservers] = [IPAddr.new(arg)]
-            @logger.info "Nameservers list changed to value #{@config[:nameservers].inspect}"
-          rescue ArgumentError # arg is in the name form, not IP
-            nameservers_from_name(arg)
-          end
-        when IPAddr
-          @config[:nameservers] = [arg]
-          @logger.info "Nameservers list changed to value #{@config[:nameservers].inspect}"
-        when Array
-          @config[:nameservers] = []
-          arg.each do |x|
-            @config[:nameservers] << case x
-                                     when String
-                                       begin
-                                         IPAddr.new(x)
-                                       rescue ArgumentError
-                                         nameservers_from_name(arg)
-                                         return
-                                       end
-                                     when IPAddr
-                                       x
-                                     else
-                                       raise ArgumentError, "Wrong argument format"
-                                     end
-          end
-          @logger.info "Nameservers list changed to value #{@config[:nameservers].inspect}"
-        else
-          raise ArgumentError, "Wrong argument format, neither String, Array nor IPAddr"
-        end
+        @config[:nameservers] = convert_nameservers_arg_to_ips(arg)
+        @logger.info "Nameservers list changed to value #{@config[:nameservers].inspect}"
       end
       alias_method("nameserver=","nameservers=")
 
@@ -1105,6 +1075,22 @@ module Net
         end
       end
 
+      def convert_nameservers_arg_to_ips(arg)
+        case arg
+        when IPAddr ; [arg]
+        when String ;
+          begin
+          [IPAddr.new(arg)]
+          rescue ArgumentError # arg is in the name form, not IP
+            nameservers_from_name(arg)
+          end
+        when Array ;
+          arg.map{|x| convert_nameservers_arg_to_ips(x) }.flatten
+        else
+          raise ArgumentError, "Wrong argument format, neither String, Array nor IPAddr"
+        end
+      end
+
       def nameservers_from_name(arg)
         arr = []
         arg.split(" ").each do |name|
@@ -1112,7 +1098,7 @@ module Net
             arr << ip
           end
         end
-        @config[:nameservers] << arr
+        arr
       end
 
       def make_query_packet(string, type, cls)
