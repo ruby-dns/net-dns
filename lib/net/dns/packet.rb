@@ -119,7 +119,7 @@ module Net
 
       # Checks if the packet is a QUERY packet
       def query?
-        @header.opCode == Net::DNS::Header::QUERY
+        @header.query?
       end
 
       # Returns the packet object in binary data, suitable
