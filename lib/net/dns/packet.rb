@@ -542,7 +542,7 @@ module Net
               @additional << rrobj
               @logger.debug rrobj.inspect
             rescue NameError => e
-              warn "Net::DNS supported record type: #{e.message}"
+              warn "Net::DNS unsupported record type: #{e.message}"
             end
           end
 
