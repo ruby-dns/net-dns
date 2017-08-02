@@ -17,8 +17,4 @@ notifications:
   recipients:
     - weppos@weppos.net
 
-matrix:
-  allow_failures:
-    - rvm: 2.0.0
-
 script: bundle exec rspec spec
