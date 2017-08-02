@@ -1,4 +1,7 @@
 source "http://rubygems.org"
 
-# Specify your gem's dependencies in whois.gemspec
 gemspec
+
+group :test do
+  gem 'rspec', '~> 3.1.0'
+end
