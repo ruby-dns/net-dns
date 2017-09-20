@@ -86,7 +86,7 @@ module Net # :nodoc:
           case type
             when String
               TYPES.has_key?(type)
-            when Fixnum
+            when Integer
               TYPES.invert.has_key?(type)
             else
               raise ArgumentError, "Wrong type class: #{type.class}"
@@ -97,7 +97,7 @@ module Net # :nodoc:
         # given the numeric value
         def self.to_str(type)
           case type
-            when Fixnum
+            when Integer
               if TYPES.invert.has_key? type
                 TYPES.invert[type]
               else
@@ -123,7 +123,7 @@ module Net # :nodoc:
           when String
             # type in the form "A" or "NS"
             new_from_string(type.upcase)
-          when Fixnum
+          when Integer
             # type in numeric form
             new_from_num(type)
           when nil
