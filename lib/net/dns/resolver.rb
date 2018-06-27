@@ -94,6 +94,9 @@ module Net
       class NoResponseError < Error
       end
 
+      class InvalidDomainNameError < StandardError
+      end
+
       # An hash with the defaults values of almost all the
       # configuration parameters of a resolver object. See
       # the description for each parameter to have an
@@ -1224,7 +1227,7 @@ module Net
       # FIXME: a ? method should never raise.
       def valid?(name)
         if name =~ /[^-\w\.]/
-          raise ArgumentError, "Invalid domain name #{name}"
+          raise InvalidDomainNameError, "Invalid domain name #{name}"
         else
           true
         end

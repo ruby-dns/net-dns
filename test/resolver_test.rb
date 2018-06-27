@@ -82,6 +82,11 @@ class ResolverTest < Test::Unit::TestCase
     assert_nothing_raised {res.state}
   end
 
+  def test_should_raise_invalid_domain_exception
+    res = Net::DNS::Resolver.new
+    assert_raises(Net::DNS::Resolver::InvalidDomainNameError) {res.domain = "*.google.com"}
+  end
+
   RubyPlatforms = [
     ["darwin9.0", false],   # Mac OS X
     ["darwin", false],      # JRuby on Mac OS X
