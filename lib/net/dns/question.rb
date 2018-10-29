@@ -143,7 +143,7 @@ module Net
       #   q.inspect # => "google.com.                  IN      A       "
       #
       def to_s
-        "#{inspect}"
+        inspect.to_s
       end
 
       private

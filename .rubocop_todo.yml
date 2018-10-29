@@ -518,31 +518,6 @@ Style/TrivialAccessors:
     - 'lib/net/dns/rr/mx.rb'
     - 'lib/net/dns/rr/ns.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-Style/UnneededInterpolation:
-  Exclude:
-    - 'demo/check_soa.rb'
-    - 'demo/threads.rb'
-    - 'lib/net/dns/names.rb'
-    - 'lib/net/dns/question.rb'
-    - 'lib/net/dns/rr/null.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/UnneededPercentQ:
-  Exclude:
-    - 'test/unit/rr/hinfo_test.rb'
-
-# Offense count: 21
-# Cop supports --auto-correct.
-Style/VariableInterpolation:
-  Exclude:
-    - 'lib/net/dns/header.rb'
-    - 'lib/net/dns/packet.rb'
-    - 'lib/net/dns/rr/null.rb'
-    - 'lib/net/dns/rr/soa.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/ZeroLengthPredicate:

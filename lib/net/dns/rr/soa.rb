@@ -20,7 +20,7 @@ module Net # :nodoc:
         end
 
         def get_inspect
-          "#@mname #@rname #@serial #@refresh #@retry #@expire #@minimum"
+          "#{@mname} #{@rname} #{@serial} #{@refresh} #{@retry} #{@expire} #{@minimum}"
         end
 
         def subclass_new_from_hash(args)

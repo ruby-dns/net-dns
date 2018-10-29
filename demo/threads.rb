@@ -1,4 +1,4 @@
-require 'rubygems' if "#{RUBY_VERSION}" < "1.9.0"
+require 'rubygems' if RUBY_VERSION.to_s < "1.9.0"
 require 'net/dns'
 
 a = ["ibm.com", "sun.com", "redhat.com"]

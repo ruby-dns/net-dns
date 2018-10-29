@@ -19,7 +19,7 @@ module Net # :nodoc:
         end
 
         def get_inspect
-          "#@null"
+          @null.to_s
         end
 
         def subclass_new_from_hash(args)

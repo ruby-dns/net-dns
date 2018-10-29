@@ -210,7 +210,7 @@ module Net
       def inspect
         retval = ""
         if (@answerfrom != "0.0.0.0:0") && @answerfrom
-          retval += ";; Answer received from #@answerfrom (#{@answersize} bytes)\n;;\n"
+          retval += ";; Answer received from #{@answerfrom} (#{@answersize} bytes)\n;;\n"
         end
 
         retval += ";; HEADER SECTION\n"
