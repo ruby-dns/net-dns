@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'net/dns/rr'
 
-class RRMRTest < Test::Unit::TestCase
+class RRMRTest < Minitest::Test
 
   def setup
     @klass      = Net::DNS::RR::MR

@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'net/dns/question'
 
-class QuestionTest < Test::Unit::TestCase
+class QuestionTest < Minitest::Test
 
   def setup
     @domain = 'example.com.'

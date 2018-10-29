@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'net/dns/names'
 
-class NamesTest < Test::Unit::TestCase
+class NamesTest < Minitest::Test
   include Net::DNS::Names
 
   def test_long_names

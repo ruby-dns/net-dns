@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'net/dns/rr'
 
-class RRTypesTest < Test::Unit::TestCase
+class RRTypesTest < Minitest::Test
 
   def setup
   end

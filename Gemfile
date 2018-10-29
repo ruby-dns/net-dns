@@ -1,7 +1,7 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 gemspec
 
-group :test do
-  gem 'rspec', '~> 3.1.0'
-end
+gem "rspec"
+gem "minitest"
+gem "minitest-reporters"

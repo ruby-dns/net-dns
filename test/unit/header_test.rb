@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'net/dns/header'
 
-class HeaderTest < Test::Unit::TestCase
+class HeaderTest < Minitest::Test
   include Net::DNS
   
   def setup
