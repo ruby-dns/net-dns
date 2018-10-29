@@ -61,7 +61,7 @@ module Net # :nodoc:
           @mname, offset = dn_expand(data, offset)
           @rname, offset = dn_expand(data, offset)
           @serial, @refresh, @retry, @expire, @minimum = data.unpack("@#{offset} N5")
-          return offset + 5 * Net::DNS::INT32SZ
+          offset + 5 * Net::DNS::INT32SZ
         end
 
         private

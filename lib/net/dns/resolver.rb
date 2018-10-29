@@ -1015,7 +1015,7 @@ module Net
           end
         end
 
-        return response
+        response
       end
 
       # Performs a zone transfer for the zone passed as a parameter.

@@ -44,7 +44,7 @@ module Net # :nodoc:
             offset += len
             @txt << str << " "
           end
-          return offset
+          offset
         end
 
         private

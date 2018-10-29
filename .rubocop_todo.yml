@@ -448,19 +448,6 @@ Style/RedundantParentheses:
     - 'lib/net/dns/question.rb'
     - 'lib/net/dns/resolver/socks.rb'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'lib/net/dns/header.rb'
-    - 'lib/net/dns/names.rb'
-    - 'lib/net/dns/packet.rb'
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/rr/null.rb'
-    - 'lib/net/dns/rr/soa.rb'
-    - 'lib/net/dns/rr/txt.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/RedundantSelf:

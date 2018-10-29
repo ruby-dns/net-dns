@@ -36,7 +36,7 @@ module Net # :nodoc:
 
         def subclass_new_from_binary(data, offset)
           @null = data[offset..offset + @rdlength]
-          return offset + @rdlength
+          offset + @rdlength
         end
 
         private
