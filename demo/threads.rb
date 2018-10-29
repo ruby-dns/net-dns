@@ -18,5 +18,3 @@ end
 threads.each do |t|
   t.join
 end
-
-

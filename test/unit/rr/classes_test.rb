@@ -2,19 +2,17 @@ require 'test_helper'
 require 'net/dns/rr'
 
 class RRClassesTest < Minitest::Test
-
   def setup
     @classes = {}
     @regexp_string = "ANY|CH|HS|IN|NONE"
   end
 
-
   StrAndNum = [
-      ['IN'   ,   1],
-      ['CH'   ,   3],
-      ['HS'   ,   4],
-      ['NONE' , 254],
-      ['ANY'  , 255],
+    ['IN', 1],
+    ['CH',   3],
+    ['HS',   4],
+    ['NONE', 254],
+    ['ANY', 255],
   ]
 
   StrAndNum.each do |str, num|
@@ -34,7 +32,6 @@ class RRClassesTest < Minitest::Test
     assert_raises(ArgumentError) { Net::DNS::RR::Classes.new(Hash.new) }
   end
 
-
   def test_inspect
     assert_equal 1, Net::DNS::RR::Classes.new(1).inspect
     assert_equal 1, Net::DNS::RR::Classes.new("IN").inspect
@@ -49,7 +46,6 @@ class RRClassesTest < Minitest::Test
     assert_equal 1, Net::DNS::RR::Classes.new(1).to_i
     assert_equal 1, Net::DNS::RR::Classes.new("IN").to_i
   end
-
 
   def test_self_default
     @_default = Net::DNS::RR::Classes.default
@@ -69,7 +65,6 @@ class RRClassesTest < Minitest::Test
     instance = Net::DNS::RR::Classes.new(nil)
     assert_equal 1,    instance.to_i
     assert_equal "IN", instance.to_s
-
   ensure
     Net::DNS::RR::Classes.default = Net::DNS::RR::Classes::CLASSES.invert[@_default]
   end
@@ -85,5 +80,4 @@ class RRClassesTest < Minitest::Test
   def test_self_regexp
     assert_equal @regexp_string, Net::DNS::RR::Classes.regexp
   end
-
 end

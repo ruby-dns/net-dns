@@ -3,11 +3,8 @@ require 'timeout'
 module Net # :nodoc:
   module DNS
     class Resolver
-
       class DnsTimeout
-
         attr_reader :seconds
-
 
         def initialize(seconds)
           if seconds.is_a?(Numeric) && seconds >= 0
@@ -33,27 +30,26 @@ module Net # :nodoc:
         # If @seconds is 0 or nil, no timeout is set.
         def timeout(&block)
           raise LocalJumpError, "no block given" unless block_given?
+
           Timeout.timeout(@seconds, &block)
         end
 
-
         private
 
-          def transform(secs)
-            case secs
-              when 0
-                to_s
-              when 1..59
-                "#{secs} seconds"
-              when 60..3559
-                "#{secs / 60} minutes and #{secs % 60} seconds"
-              else
-                hours = secs / 3600
-                secs -= (hours * 3600)
-                "#{hours} hours, #{secs / 60} minutes and #{secs % 60} seconds"
-            end
+        def transform(secs)
+          case secs
+          when 0
+            to_s
+          when 1..59
+            "#{secs} seconds"
+          when 60..3559
+            "#{secs / 60} minutes and #{secs % 60} seconds"
+          else
+            hours = secs / 3600
+            secs -= (hours * 3600)
+            "#{hours} hours, #{secs / 60} minutes and #{secs % 60} seconds"
           end
-
+        end
       end
 
       class TcpTimeout < DnsTimeout
@@ -69,7 +65,6 @@ module Net # :nodoc:
           super
         end
       end
-
     end
   end
 end

@@ -2,7 +2,6 @@ require 'test_helper'
 require 'net/dns/rr'
 
 class RRMRTest < Minitest::Test
-
   def setup
     @klass      = Net::DNS::RR::MR
     @rr         = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.bornagain.edu.", :ttl => 9000)
@@ -15,7 +14,6 @@ class RRMRTest < Minitest::Test
     @rr_value   = "eddie.bornagain.edu."
     @rr_output  = "eddie.movie.edu.        9000    IN      MR      eddie.bornagain.edu."
   end
-
 
   def test_initialize_from_hash
     @record = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.bornagain.edu.", :ttl => 9000)
@@ -48,7 +46,6 @@ class RRMRTest < Minitest::Test
   #   assert_equal @rr_newname, @record.newname
   # end
 
-
   InvalidArguments = [
     # FIXME: { :name => "eddie.movie.edu.", :newname => "foo___bar" },
     # FIXME: { :name => "eddie.movie.edu.", :newname => "foo$bar" },
@@ -69,23 +66,21 @@ class RRMRTest < Minitest::Test
     assert_match /:newname/, error.message
   end
 
-
   def test_value
     @rr = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.newname.edu.")
-    assert_equal  "eddie.newname.edu.", @rr.value
+    assert_equal "eddie.newname.edu.", @rr.value
 
     @rr = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.othername.edu.")
-    assert_equal  "eddie.othername.edu.", @rr.value
+    assert_equal "eddie.othername.edu.", @rr.value
   end
 
   def test_newname
     @rr = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.newname.edu.")
-    assert_equal  "eddie.newname.edu.", @rr.newname
+    assert_equal "eddie.newname.edu.", @rr.newname
 
     @rr = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.othername.edu.")
     assert_equal  "eddie.othername.edu.", @rr.newname
   end
-
 
   def test_inspect
     assert_equal  "eddie.movie.edu.        9000    IN      MR      eddie.bornagain.edu.",
@@ -101,5 +96,4 @@ class RRMRTest < Minitest::Test
     assert_equal  ["eddie.movie.edu.", 9000, "IN", "MR", "eddie.bornagain.edu."],
                   @rr.to_a
   end
-
 end

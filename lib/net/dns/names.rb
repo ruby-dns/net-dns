@@ -1,8 +1,6 @@
 module Net # :nodoc:
   module DNS
-
     module Names
-
       # Base error class.
       class Error < StandardError
       end
@@ -10,7 +8,6 @@ module Net # :nodoc:
       # Generic Names Error.
       class ExpandError < Error
       end
-
 
       INT16SZ = 2
 
@@ -23,29 +20,33 @@ module Net # :nodoc:
       # offset, which indicates the point in the packet in which the
       # parsing has arrived.
       #
-      def dn_expand(packet,offset)
+      def dn_expand(packet, offset)
         name = ""
         packetlen = packet.size
         while true
-          raise ExpandError, "Offset is greater than packet lenght!" if packetlen < (offset+1)
+          raise ExpandError, "Offset is greater than packet lenght!" if packetlen < (offset + 1)
+
           len = packet.unpack("@#{offset} C")[0]
 
           if len == 0
             offset += 1
             break
           elsif (len & 0xC0) == 0xC0
-            raise ExpandError, "Packet ended before offset expand" if packetlen < (offset+INT16SZ)
+            raise ExpandError, "Packet ended before offset expand" if packetlen < (offset + INT16SZ)
+
             ptr = packet.unpack("@#{offset} n")[0]
             ptr &= 0x3FFF
-            name2 = dn_expand(packet,ptr)[0]
+            name2 = dn_expand(packet, ptr)[0]
             raise ExpandError, "Packet is malformed!" if name2 == nil
+
             name += name2
             offset += INT16SZ
             break
           else
             offset += 1
-            raise ExpandError, "No expansion found" if packetlen < (offset+len)
-            elem = packet[offset..offset+len-1]
+            raise ExpandError, "No expansion found" if packetlen < (offset + len)
+
+            elem = packet[offset..offset + len - 1]
             name += "#{elem}."
             offset += len
           end
@@ -54,16 +55,18 @@ module Net # :nodoc:
       end
 
       def pack_name(name)
-        if name.size > 255 
+        if name.size > 255
           raise ArgumentError, "Name may not exceed 255 chars"
         end
+
         arr = name.split(".")
         str = ""
         arr.each do |elem|
           if elem.size > 63
             raise ArgumentError, "Label may not exceed 63 chars"
           end
-          str += [elem.size,elem].pack("Ca*")
+
+          str += [elem.size, elem].pack("Ca*")
         end
         str += [0].pack("C")
         str
@@ -74,16 +77,16 @@ module Net # :nodoc:
         ar = []
         string = ""
         arr.size.times do |i|
-          x = i+1
+          x = i + 1
           elem = arr[-x]
           len = elem.size
-          string = ((string.reverse)+([len,elem].pack("Ca*")).reverse).reverse
+          string = ((string.reverse) + ([len, elem].pack("Ca*")).reverse).reverse
           ar.unshift(string)
         end
         return ar
       end
 
-      def dn_comp(name,offset,compnames)
+      def dn_comp(name, offset, compnames)
         names = {}
         ptr = 0
         str = ""
@@ -97,12 +100,12 @@ module Net # :nodoc:
           else
             len = entry.unpack("C")[0]
             elem = entry[1..len]
-            str += [len,elem].pack("Ca*")
-            names.update({"#{entry}" => offset})
+            str += [len, elem].pack("Ca*")
+            names.update({ "#{entry}" => offset })
             offset += len
           end
         end
-        return str,offset,names
+        return str, offset, names
       end
 
       def valid?(name)
@@ -112,7 +115,6 @@ module Net # :nodoc:
           raise ArgumentError, "Invalid FQDN: #{name}"
         end
       end
-
     end
   end
 end

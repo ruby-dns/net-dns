@@ -2,7 +2,6 @@ require 'test_helper'
 require 'net/dns/question'
 
 class QuestionTest < Minitest::Test
-
   def setup
     @domain = 'example.com.'
     @type   = 'MX'
@@ -10,7 +9,7 @@ class QuestionTest < Minitest::Test
     @data = "\006google\003com\000\000\001\000\001"
 
     @default = Net::DNS::Question.new(@domain)
-    @string  = Net::DNS::Question.new(@domain,@type,@cls)
+    @string  = Net::DNS::Question.new(@domain, @type, @cls)
     @binary  = Net::DNS::Question.parse(@data)
     @binary2 = Net::DNS::Question.parse(@string.data)
   end
@@ -79,5 +78,4 @@ class QuestionTest < Minitest::Test
     assert_equal  "supercalifragilistichespiralidoso.com IN      A       ",
                   Net::DNS::Question.new("supercalifragilistichespiralidoso.com").to_s
   end
-
 end

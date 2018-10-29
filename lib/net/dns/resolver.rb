@@ -27,7 +27,6 @@ end
 
 module Net
   module DNS
-
     include Logger::Severity
 
     # = Net::DNS::Resolver - DNS resolver class
@@ -87,7 +86,6 @@ module Net
     #      % setenv RES_OPTIONS "retrans:3 retry:2 debug"
     #
     class Resolver
-
       class Error < StandardError
       end
 
@@ -120,9 +118,7 @@ module Net
         :udp_timeout => UdpTimeout.new(5),
       }
 
-
       class << self
-
         C = Object.const_get(defined?(RbConfig) ? :RbConfig : :Config)::CONFIG
 
         # Quick resolver method. Bypass the configuration using
@@ -142,9 +138,7 @@ module Net
         def platform_windows?
           !!(C["host_os"] =~ /msdos|mswin|djgpp|mingw/i)
         end
-
       end
-
 
       # Creates a new resolver object.
       #
@@ -255,8 +249,6 @@ module Net
         # 4) defaults (and /etc/resolv.conf for config)
         #------------------------------------------------------------
 
-
-
         #------------------------------------------------------------
         # Parsing config file
         #------------------------------------------------------------
@@ -270,8 +262,9 @@ module Net
         #------------------------------------------------------------
         # Parsing arguments
         #------------------------------------------------------------
-        config.each do |key,val|
+        config.each do |key, val|
           next if key == :log_file or key == :config_file
+
           begin
             eval "self.#{key.to_s} = val"
           rescue NoMethodError
@@ -309,7 +302,7 @@ module Net
           @config[:searchlist] = [arg] if valid? arg
           @logger.info "Searchlist changed to value #{@config[:searchlist].inspect}"
         when Array
-          @config[:searchlist] = arg if arg.all? {|x| valid? x}
+          @config[:searchlist] = arg if arg.all? { |x| valid? x }
           @logger.info "Searchlist changed to value #{@config[:searchlist].inspect}"
         else
           raise ArgumentError, "Wrong argument format, neither String nor Array"
@@ -375,7 +368,7 @@ module Net
           raise ArgumentError, "Wrong argument format, neither String, Array nor IPAddr"
         end
       end
-      alias_method("nameserver=","nameservers=")
+      alias_method("nameserver=", "nameservers=")
 
       # Return a string with the default domain.
       def domain
@@ -440,6 +433,7 @@ module Net
         unless root?
           raise ResolverPermissionError, "Are you root?"
         end
+
         if (0..65535).include?(num)
           @config[:source_port] = num
         else
@@ -462,7 +456,7 @@ module Net
       def source_address_inet6
         @config[:source_address_inet6].to_s
       end
-      
+
       # Set the local source address from which the resolver sends its queries.
       #
       #   res.source_address = "172.16.100.1"
@@ -492,9 +486,9 @@ module Net
         end
 
         begin
-          port = rand(64000)+1024
+          port = rand(64000) + 1024
           @logger.warn "Try to determine state of source address #{addr} with port #{port}"
-          a = TCPServer.new(addr.to_s,port)
+          a = TCPServer.new(addr.to_s, port)
         rescue SystemCallError => e
           case e.errno
           when 98 # Port already in use!
@@ -581,7 +575,7 @@ module Net
       #
       def recursive=(bool)
         case bool
-        when TrueClass,FalseClass
+        when TrueClass, FalseClass
           @config[:recursive] = bool
           @logger.info("Recursive state changed to #{bool}")
         else
@@ -599,7 +593,7 @@ module Net
       def state
         str = ";; RESOLVER state:\n;; "
         i = 1
-        @config.each do |key,val|
+        @config.each do |key, val|
           if key == :log_file or key == :config_file
             str << "#{key}: #{val} \t"
           else
@@ -633,7 +627,7 @@ module Net
       #
       def defname=(bool)
         case bool
-        when TrueClass,FalseClass
+        when TrueClass, FalseClass
           @config[:defname] = bool
           @logger.info("Defname state changed to #{bool}")
         else
@@ -652,14 +646,14 @@ module Net
       # the search list. Default is true.
       def dns_search=(bool)
         case bool
-        when TrueClass,FalseClass
+        when TrueClass, FalseClass
           @config[:dns_search] = bool
           @logger.info("DNS search state changed to #{bool}")
         else
           raise ArgumentError, "Argument must be boolean"
         end
       end
-      alias_method("dnsrch=","dns_search=")
+      alias_method("dnsrch=", "dns_search=")
 
       # Get the state of the use_tcp flag.
       #
@@ -681,7 +675,7 @@ module Net
       #
       def use_tcp=(bool)
         case bool
-        when TrueClass,FalseClass
+        when TrueClass, FalseClass
           @config[:use_tcp] = bool
           @logger.info("Use tcp flag changed to #{bool}")
         else
@@ -697,7 +691,7 @@ module Net
 
       def ignore_truncated=(bool)
         case bool
-        when TrueClass,FalseClass
+        when TrueClass, FalseClass
           @config[:ignore_truncated] = bool
           @logger.info("Ignore truncated flag changed to #{bool}")
         else
@@ -861,14 +855,13 @@ module Net
       # Returns a Net::DNS::Packet object. If you need to examine the response packet
       # whether it contains any answers or not, use the Resolver#query method instead.
       #
-      def search(name,type=Net::DNS::A,cls=Net::DNS::IN)
-
-        return query(name,type,cls) if name.class == IPAddr
+      def search(name, type = Net::DNS::A, cls = Net::DNS::IN)
+        return query(name, type, cls) if name.class == IPAddr
 
         # If the name contains at least one dot then try it as is first.
         if name.include? "."
           @logger.debug "Search(#{name},#{Net::DNS::RR::Types.new(type)},#{Net::DNS::RR::Classes.new(cls)})"
-          ans = query(name,type,cls)
+          ans = query(name, type, cls)
           return ans if ans.header.anCount > 0
         end
 
@@ -877,15 +870,14 @@ module Net
           @config[:searchlist].each do |domain|
             newname = name + "." + domain
             @logger.debug "Search(#{newname},#{Net::DNS::RR::Types.new(type)},#{Net::DNS::RR::Classes.new(cls)})"
-            ans = query(newname,type,cls)
+            ans = query(newname, type, cls)
             return ans if ans.header.anCount > 0
           end
         end
 
         # Finally, if the name has no dots then try it as is.
         @logger.debug "Search(#{name},#{Net::DNS::RR::Types.new(type)},#{Net::DNS::RR::Classes.new(cls)})"
-        query(name+".",type,cls)
-
+        query(name + ".", type, cls)
       end
 
       # Performs a DNS query for the given name; the search list
@@ -912,9 +904,8 @@ module Net
       # packet whether it contains any answers or not, use the Resolver#query
       # method instead.
       #
-      def query(name,type=Net::DNS::A,cls=Net::DNS::IN)
-
-        return send(name,type,cls) if name.class == IPAddr
+      def query(name, type = Net::DNS::A, cls = Net::DNS::IN)
+        return send(name, type, cls) if name.class == IPAddr
 
         # If the name doesn't contain any dots then append the default domain.
         if name !~ /\./ and name !~ /:/ and @config[:defname]
@@ -923,8 +914,7 @@ module Net
 
         @logger.debug "Query(#{name},#{Net::DNS::RR::Types.new(type)},#{Net::DNS::RR::Classes.new(cls)})"
 
-        send(name,type,cls)
-
+        send(name, type, cls)
       end
 
       # Performs a DNS query for the given name.  Neither the
@@ -950,7 +940,7 @@ module Net
       #
       #   ip = IPAddr.new("172.16.100.2")
       #   packet = res.query(ip)
-      #   
+      #
       #   packet = res.query("172.16.100.2")
       #
       # Use +packet.header.ancount+ or +packet.answer+ to find out if there
@@ -963,9 +953,9 @@ module Net
 
         method = :query_udp
         packet = if argument.kind_of? Net::DNS::Packet
-          argument
-        else
-          make_query_packet(argument, type, cls)
+                   argument
+                 else
+                   make_query_packet(argument, type, cls)
         end
 
         # Store packet_data for performance improvements,
@@ -1012,14 +1002,14 @@ module Net
           raise NoResponseError, message
         end
 
-        @logger.info "Received #{ans[0].size} bytes from #{ans[1][2]+":"+ans[1][1].to_s}"
-        response = Net::DNS::Packet.parse(ans[0],ans[1])
+        @logger.info "Received #{ans[0].size} bytes from #{ans[1][2] + ":" + ans[1][1].to_s}"
+        response = Net::DNS::Packet.parse(ans[0], ans[1])
 
         if response.header.truncated? and not ignore_truncated?
           @logger.warn "Packet truncated, retrying using TCP"
           self.use_tcp = true
           begin
-            return query(argument,type,cls)
+            return query(argument, type, cls)
           ensure
             self.use_tcp = false
           end
@@ -1067,8 +1057,9 @@ module Net
         else
           nameservers = []
           IO.foreach(@config[:config_file]) do |line|
-            line.gsub!(/\s*[;#].*/,"")
+            line.gsub!(/\s*[;#].*/, "")
             next unless line =~ /\S/
+
             case line
             when /^\s*domain\s+(\S+)/
               self.domain = $1
@@ -1095,7 +1086,7 @@ module Net
         end
         if ENV['RES_OPTIONS']
           ENV['RES_OPTIONS'].split(" ").each do |opt|
-            name,val = opt.split(":")
+            name, val = opt.split(":")
             begin
               eval("self.#{name} = #{val}")
             rescue NoMethodError
@@ -1145,22 +1136,21 @@ module Net
       end
 
       def query_tcp(packet, packet_data)
-
         ans = nil
         length = [packet_data.size].pack("n")
 
         @config[:nameservers].each do |ns|
           begin
             buffer = ""
-            socket = Socket.new(Socket::AF_INET,Socket::SOCK_STREAM,0)
-            socket.bind(Socket.pack_sockaddr_in(@config[:source_port],@config[:source_address].to_s))
+            socket = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
+            socket.bind(Socket.pack_sockaddr_in(@config[:source_port], @config[:source_address].to_s))
 
-            sockaddr = Socket.pack_sockaddr_in(@config[:port],ns.to_s)
+            sockaddr = Socket.pack_sockaddr_in(@config[:port], ns.to_s)
 
             @config[:tcp_timeout].timeout do
               socket.connect(sockaddr)
               @logger.info "Contacting nameserver #{ns} port #{@config[:port]}"
-              socket.write(length+packet_data)
+              socket.write(length + packet_data)
               ans = socket.recv(Net::DNS::INT16SZ)
               len = ans.unpack("n")[0]
 
@@ -1173,7 +1163,7 @@ module Net
 
               while (buffer.size < len)
                 left = len - buffer.size
-                temp,from = socket.recvfrom(left)
+                temp, from = socket.recvfrom(left)
                 buffer += temp
               end
 
@@ -1182,7 +1172,7 @@ module Net
                 next
               end
             end
-            return [buffer,["",@config[:port],ns.to_s,ns.to_s]]
+            return [buffer, ["", @config[:port], ns.to_s, ns.to_s]]
           rescue TimeoutError
             @logger.warn "Nameserver #{ns} not responding within TCP timeout, trying next one"
             next
@@ -1194,9 +1184,9 @@ module Net
 
       def query_udp(packet, packet_data)
         socket4 = UDPSocket.new
-        socket4.bind(@config[:source_address].to_s,@config[:source_port])
+        socket4.bind(@config[:source_address].to_s, @config[:source_port])
         socket6 = UDPSocket.new(Socket::AF_INET6)
-        socket6.bind(@config[:source_address_inet6].to_s,@config[:source_port])
+        socket6.bind(@config[:source_address_inet6].to_s, @config[:source_port])
 
         ans = nil
         response = ""
@@ -1205,11 +1195,11 @@ module Net
             @config[:udp_timeout].timeout do
               @logger.info "Contacting nameserver #{ns} port #{@config[:port]}"
               ans = if ns.ipv6?
-                socket6.send(packet_data, 0, ns.to_s, @config[:port])
-                socket6.recvfrom(@config[:packet_size])
-              else
-                socket4.send(packet_data, 0, ns.to_s, @config[:port])
-                socket4.recvfrom(@config[:packet_size])
+                      socket6.send(packet_data, 0, ns.to_s, @config[:port])
+                      socket6.recvfrom(@config[:packet_size])
+                    else
+                      socket4.send(packet_data, 0, ns.to_s, @config[:port])
+                      socket4.recvfrom(@config[:packet_size])
               end
             end
             break if ans
@@ -1229,7 +1219,6 @@ module Net
           true
         end
       end
-
     end
   end
 end

@@ -3,7 +3,6 @@ require 'net/dns/rr'
 require 'net/dns/rr/hinfo'
 
 class RRHINFOTest < Minitest::Test
-
   def setup
     @rr_name    = ""
     @rr_type    = "HINFO"
@@ -17,7 +16,6 @@ class RRHINFOTest < Minitest::Test
 
     @rr         = Net::DNS::RR::HINFO.new(:name => @rr_name, :cpu => @rr_cpu, :os => @rr_os)
   end
-
 
   def test_initialize_from_hash
     @record = Net::DNS::RR::HINFO.new(:name => @rr_name, :cpu => @rr_cpu, :os => @rr_os)
@@ -54,7 +52,7 @@ class RRHINFOTest < Minitest::Test
     assert_equal @rr_os,      @record.os
   end
 
-  # FIXME: Can't get valid data
+  #  FIXME: Can't get valid data
   # def test_parse
   #   data = "\002in\000\000\r\000\001\000\000*0\000!\017PC-Intel-700mhz\020Redhat Linux 7.1"
   #   @record = Net::DNS::RR.parse(data)
@@ -68,7 +66,6 @@ class RRHINFOTest < Minitest::Test
   #   assert_equal @rr_cpu,     @record.cpu
   #   assert_equal @rr_os,      @record.os
   # end
-
 
   InvalidArguments = [
     { :name => "google.com" },
@@ -84,7 +81,6 @@ class RRHINFOTest < Minitest::Test
     end
   end
 
-
   def test_cpu
     assert_equal  @rr_cpu, @rr.cpu
   end
@@ -93,11 +89,9 @@ class RRHINFOTest < Minitest::Test
     assert_equal  @rr_os, @rr.os
   end
 
-
   def test_value
     assert_equal  %Q{"PC-Intel-700mhz" "Redhat Linux 7.1"}, @rr.value
   end
-
 
   def test_inspect
     assert_equal  %Q{                                IN      HINFO   "PC-Intel-700mhz" "Redhat Linux 7.1"},
@@ -113,5 +107,4 @@ class RRHINFOTest < Minitest::Test
     assert_equal  [nil, nil, "IN", "HINFO", %Q{"PC-Intel-700mhz" "Redhat Linux 7.1"}],
                   @rr.to_a
   end
-
 end

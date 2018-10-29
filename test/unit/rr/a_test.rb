@@ -2,7 +2,6 @@ require 'test_helper'
 require 'net/dns/rr'
 
 class RRATest < Minitest::Test
-
   def setup
     @rr_name    = "google.com."
     @rr_type    = "A"
@@ -15,7 +14,6 @@ class RRATest < Minitest::Test
 
     @rr         = Net::DNS::RR::A.new(:name => @rr_name, :address => @rr_address, :ttl => @rr_ttl)
   end
-
 
   def test_initialize_from_hash
     @record = Net::DNS::RR::A.new(:name => @rr_name, :address => @rr_value, :ttl => @rr_ttl)
@@ -51,7 +49,6 @@ class RRATest < Minitest::Test
     assert_equal @rr_value,   @record.value
   end
 
-
   InvalidArguments = [
     { :name => "google.com", :address => "255.256" },
     { :name => "google.com" },
@@ -68,9 +65,8 @@ class RRATest < Minitest::Test
     end
   end
 
-
   def test_address_getter
-    assert_equal  @rr_address, @rr.address
+    assert_equal @rr_address, @rr.address
   end
 
   def test_address_setter
@@ -89,11 +85,9 @@ class RRATest < Minitest::Test
     assert_equal expected, @rr.address
   end
 
-
   def test_value
     assert_equal  @rr_value, @rr.value
   end
-
 
   def test_inspect
     assert_equal  "google.com.             10000   IN      A       64.233.187.99",
@@ -109,5 +103,4 @@ class RRATest < Minitest::Test
     assert_equal  ["google.com.", 10000, "IN", "A", "64.233.187.99"],
                   @rr.to_a
   end
-
 end

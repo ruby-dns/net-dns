@@ -2,7 +2,6 @@ require 'test_helper'
 require 'net/dns/rr'
 
 class RRMXTest < Minitest::Test
-
   def setup
     @rr_name        = "example.com."
     @rr_type        = "MX"
@@ -16,7 +15,6 @@ class RRMXTest < Minitest::Test
 
     @rr         = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail.example.com.", :ttl => 10000)
   end
-
 
   def test_initialize_from_hash
     @record = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail.example.com.", :ttl => 10000)
@@ -53,7 +51,6 @@ class RRMXTest < Minitest::Test
   #   assert_equal @rr_exchange,    @record.exchange
   # end
 
-
   InvalidArguments = [
     { :name => "google.com" },
     Object.new,
@@ -68,31 +65,29 @@ class RRMXTest < Minitest::Test
     end
   end
 
-
   def test_preference
     @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail.example.com.")
-    assert_equal  10, @rr.preference
+    assert_equal 10, @rr.preference
 
     @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 100, :exchange => "mail.example.com.")
-    assert_equal  100, @rr.preference
+    assert_equal 100, @rr.preference
   end
 
   def test_exchange
     @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail.example.com.")
-    assert_equal  "mail.example.com.", @rr.exchange
+    assert_equal "mail.example.com.", @rr.exchange
 
     @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail2.example.com.")
-    assert_equal  "mail2.example.com.", @rr.exchange
+    assert_equal "mail2.example.com.", @rr.exchange
   end
 
   def test_value
     @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail.example.com.")
-    assert_equal  "10 mail.example.com.", @rr.value
+    assert_equal "10 mail.example.com.", @rr.value
 
     @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 100, :exchange => "mail2.example.com.")
     assert_equal  "100 mail2.example.com.", @rr.value
   end
-
 
   def test_inspect
     assert_equal  "example.com.            10000   IN      MX      10 mail.example.com.",
@@ -108,5 +103,4 @@ class RRMXTest < Minitest::Test
     assert_equal  ["example.com.", 10000, "IN", "MX", "10 mail.example.com."],
                   @rr.to_a
   end
-
 end

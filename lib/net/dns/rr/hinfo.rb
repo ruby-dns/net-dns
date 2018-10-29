@@ -1,7 +1,6 @@
 module Net # :nodoc:
   module DNS
     class RR
-
       #
       # = System Information Record (HINFO)
       #
@@ -13,7 +12,6 @@ module Net # :nodoc:
       # Single space between CPU and OS parameters.
       #
       class HINFO < RR
-
         # Gets the CPU value.
         #
         # Returns a String.
@@ -36,7 +34,6 @@ module Net # :nodoc:
           %Q{"#{cpu}" "#{os}"}
         end
 
-
         # Gets a list of all the attributes for this record.
         #
         # Returns an Array of values.
@@ -44,65 +41,60 @@ module Net # :nodoc:
           [nil, nil, cls.to_s, type.to_s, value]
         end
 
-
         private
 
-          def subclass_new_from_hash(options)
-            if options.has_key?(:cpu) && options.has_key?(:os)
-              @cpu = options[:cpu]
-              @os  = options[:os]
-            else
-              raise ArgumentError, ":cpu and :os fields are mandatory"
-            end
+        def subclass_new_from_hash(options)
+          if options.has_key?(:cpu) && options.has_key?(:os)
+            @cpu = options[:cpu]
+            @os  = options[:os]
+          else
+            raise ArgumentError, ":cpu and :os fields are mandatory"
           end
+        end
 
-          def subclass_new_from_string(str)
-            @cpu, @os = check_hinfo(str)
+        def subclass_new_from_string(str)
+          @cpu, @os = check_hinfo(str)
+        end
+
+        def subclass_new_from_binary(data, offset)
+          len = data.unpack("@#{offset} C").first
+          offset += 1
+          @cpu = data[offset..(offset + len)]
+          offset += len
+
+          len = data.unpack("@#{offset} C").first
+          offset += 1
+          @os = data[offset..(offset + len)]
+          offset += len
+        end
+
+        def set_type
+          @type = Net::DNS::RR::Types.new("HINFO")
+        end
+
+        def get_inspect
+          value
+        end
+
+        def check_hinfo(input)
+          if input.to_s.strip =~ /^(?:["']?(.*?)["']?)\s+(?:["']?(.*?)["']?)$/
+            [$1, $2]
+          else
+            raise ArgumentError, "Invalid HINFO Section `#{input}'"
           end
+        end
 
-          def subclass_new_from_binary(data, offset)
-            len  = data.unpack("@#{offset} C").first
-            offset += 1
-            @cpu = data[offset..(offset + len)]
-            offset += len
-            
-            len  = data.unpack("@#{offset} C").first
-            offset += 1
-            @os  = data[offset..(offset + len)]
-            offset += len
-          end
+        def build_pack
+          @hinfo_pack  = ""
+          @hinfo_pack += [cpu.size].pack("C") + cpu
+          @hinfo_pack += [os.size].pack("C") + os
+          @rdlength = @hinfo_pack.size
+        end
 
-
-          def set_type
-            @type = Net::DNS::RR::Types.new("HINFO")
-          end
-
-          def get_inspect
-            value
-          end
-
-
-          def check_hinfo(input)
-            if input.to_s.strip =~ /^(?:["']?(.*?)["']?)\s+(?:["']?(.*?)["']?)$/
-              [$1, $2]
-            else
-              raise ArgumentError, "Invalid HINFO Section `#{input}'"
-            end
-          end
-
-          def build_pack
-            @hinfo_pack  = ""
-            @hinfo_pack += [cpu.size].pack("C") + cpu
-            @hinfo_pack += [os.size ].pack("C") + os
-            @rdlength = @hinfo_pack.size
-          end
-
-          def get_data
-            @hinfo_pack
-          end
-
+        def get_data
+          @hinfo_pack
+        end
       end
-
     end
   end
 end

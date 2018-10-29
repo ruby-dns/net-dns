@@ -6,7 +6,6 @@ require 'net/dns/rr'
 
 module Net
   module DNS
-
     #
     # = Net::DNS::Packet
     #
@@ -91,7 +90,6 @@ module Net
       class PacketError < Error
       end
 
-
       attr_reader :header, :question, :answer, :authority, :additional
       attr_reader :answerfrom, :answersize
 
@@ -116,7 +114,6 @@ module Net
         @logger.level = $DEBUG ? Logger::DEBUG : Logger::WARN
       end
 
-
       # Checks if the packet is a QUERY packet
       def query?
         @header.opCode == Net::DNS::Header::QUERY
@@ -129,7 +126,7 @@ module Net
       #   puts "Packet is #{packet_data.size} bytes long"
       #
       def data
-        qdcount=ancount=nscount=arcount=0
+        qdcount = ancount = nscount = arcount = 0
         data = @header.data
         headerlength = data.length
 
@@ -138,15 +135,15 @@ module Net
           qdcount += 1
         end
         @answer.each do |rr|
-          data += rr.data#(data.length)
+          data += rr.data # (data.length)
           ancount += 1
         end
         @authority.each do |rr|
-          data += rr.data#(data.length)
+          data += rr.data # (data.length)
           nscount += 1
         end
         @additional.each do |rr|
-          data += rr.data#(data.length)
+          data += rr.data # (data.length)
           arcount += 1
         end
 
@@ -168,33 +165,33 @@ module Net
       def data_comp
         offset = 0
         compnames = {}
-        qdcount=ancount=nscount=arcount=0
+        qdcount = ancount = nscount = arcount = 0
         data = @header.data
         headerlength = data.length
 
         @question.each do |question|
-          str,offset,names = question.data
+          str, offset, names = question.data
           data += str
           compnames.update(names)
           qdcount += 1
         end
 
         @answer.each do |rr|
-          str,offset,names = rr.data(offset,compnames)
+          str, offset, names = rr.data(offset, compnames)
           data += str
           compnames.update(names)
           ancount += 1
         end
 
         @authority.each do |rr|
-          str,offset,names = rr.data(offset,compnames)
+          str, offset, names = rr.data(offset, compnames)
           data += str
           compnames.update(names)
           nscount += 1
         end
 
         @additional.each do |rr|
-          str,offset,names = rr.data(offset,compnames)
+          str, offset, names = rr.data(offset, compnames)
           data += str
           compnames.update(names)
           arcount += 1
@@ -276,7 +273,7 @@ module Net
       def question=(object)
         case object
         when Array
-          if object.all? {|x| x.kind_of? Net::DNS::Question}
+          if object.all? { |x| x.kind_of? Net::DNS::Question }
             @question = object
           else
             raise ArgumentError, "Some of the elements is not an Net::DNS::Question object"
@@ -292,16 +289,16 @@ module Net
       # to the answer section of this <tt>Net::DNS::Packet</tt> instance.
       def answer=(object)
         case object
-          when Array
-            if object.all? {|x| x.kind_of? Net::DNS::RR}
-              @answer = object
-            else
-              raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
-            end
-          when Net::DNS::RR
-            @answer = [object]
+        when Array
+          if object.all? { |x| x.kind_of? Net::DNS::RR }
+            @answer = object
           else
-            raise ArgumentError, "Invalid argument, not a RR object nor an array of objects"
+            raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
+          end
+        when Net::DNS::RR
+          @answer = [object]
+        else
+          raise ArgumentError, "Invalid argument, not a RR object nor an array of objects"
         end
       end
 
@@ -309,16 +306,16 @@ module Net
       # to the additional section of this <tt>Net::DNS::Packet</tt> instance.
       def additional=(object)
         case object
-          when Array
-            if object.all? {|x| x.kind_of? Net::DNS::RR}
-              @additional = object
-            else
-              raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
-            end
-          when Net::DNS::RR
-            @additional = [object]
+        when Array
+          if object.all? { |x| x.kind_of? Net::DNS::RR }
+            @additional = object
           else
-            raise ArgumentError, "Invalid argument, not a RR object nor an array of objects"
+            raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
+          end
+        when Net::DNS::RR
+          @additional = [object]
+        else
+          raise ArgumentError, "Invalid argument, not a RR object nor an array of objects"
         end
       end
 
@@ -326,16 +323,16 @@ module Net
       # to the authority section of this <tt>Net::DNS::Packet</tt> instance.
       def authority=(object)
         case object
-          when Array
-            if object.all? {|x| x.kind_of? Net::DNS::RR}
-              @authority = object
-            else
-              raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
-            end
-          when Net::DNS::RR
-            @authority = [object]
+        when Array
+          if object.all? { |x| x.kind_of? Net::DNS::RR }
+            @authority = object
           else
-            raise ArgumentError, "Invalid argument, not a RR object nor an array of objects"
+            raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
+          end
+        when Net::DNS::RR
+          @authority = [object]
+        else
+          raise ArgumentError, "Invalid argument, not a RR object nor an array of objects"
         end
       end
 
@@ -351,6 +348,7 @@ module Net
       def each_address(&block)
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::A
+
           yield elem.address
         end
       end
@@ -365,6 +363,7 @@ module Net
       def each_nameserver(&block)
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::NS
+
           yield elem.nsdname
         end
       end
@@ -379,6 +378,7 @@ module Net
       def each_mx(&block)
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::MX
+
           yield elem.preference, elem.exchange
         end
       end
@@ -393,6 +393,7 @@ module Net
       def each_cname(&block)
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::CNAME
+
           yield elem.cname
         end
       end
@@ -407,6 +408,7 @@ module Net
       def each_ptr(&block)
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::PTR
+
           yield elem.ptrdname
         end
       end
@@ -436,7 +438,6 @@ module Net
         header.rCode.code == Net::DNS::Header::RCode::NAME
       end
 
-
       # Creates a new instance of <tt>Net::DNS::Packet</tt> class from binary data,
       # taken out from a network stream. For example:
       #
@@ -459,105 +460,101 @@ module Net
 
       private
 
-        # New packet from binary data
-        def new_from_data(data, from = nil)
-          unless from
-            if data.kind_of? Array
-              data, from = data
-            else
-              from = [0, 0, "0.0.0.0", "unknown"]
-            end
+      # New packet from binary data
+      def new_from_data(data, from = nil)
+        unless from
+          if data.kind_of? Array
+            data, from = data
+          else
+            from = [0, 0, "0.0.0.0", "unknown"]
           end
-
-          @answerfrom = from[2] + ":" + from[1].to_s
-          @answersize = data.size
-          @logger = Logger.new $stdout
-          @logger.level = $DEBUG ? Logger::DEBUG : Logger::WARN
-
-          #------------------------------------------------------------
-          # Header section
-          #------------------------------------------------------------
-          offset = Net::DNS::HFIXEDSZ
-          @header = Net::DNS::Header.parse(data[0..offset-1])
-
-          @logger.debug ";; HEADER SECTION"
-          @logger.debug @header.inspect
-
-          #------------------------------------------------------------
-          # Question section
-          #------------------------------------------------------------
-          section = @header.opCode == "UPDATE" ? "ZONE" : "QUESTION"
-          @logger.debug ";; #{section} SECTION (#{@header.qdCount} record#{@header.qdCount == 1 ? '': 's'})"
-
-          @question = []
-          @header.qdCount.times do
-            qobj,offset = parse_question(data,offset)
-            @question << qobj
-            @logger.debug ";; #{qobj.inspect}"
-          end
-
-          #------------------------------------------------------------
-          # Answer/prerequisite section
-          #------------------------------------------------------------
-          section = @header.opCode == "UPDATE" ? "PREREQUISITE" : "ANSWER"
-          @logger.debug ";; #{section} SECTION (#{@header.qdCount} record#{@header.qdCount == 1 ? '': 's'})"
-
-          @answer = []
-          @header.anCount.times do
-            begin
-              rrobj,offset = Net::DNS::RR.parse_packet(data,offset)
-              @answer << rrobj
-              @logger.debug rrobj.inspect
-            rescue NameError => e
-              warn "Net::DNS unsupported record type: #{e.message}"
-            end
-          end
-
-          #------------------------------------------------------------
-          # Authority/update section
-          #------------------------------------------------------------
-          section = @header.opCode == "UPDATE" ? "UPDATE" : "AUTHORITY"
-          @logger.debug ";; #{section} SECTION (#{@header.nsCount} record#{@header.nsCount == 1 ? '': 's'})"
-
-          @authority = []
-          @header.nsCount.times do
-            begin
-              rrobj,offset = Net::DNS::RR.parse_packet(data,offset)
-              @authority << rrobj
-              @logger.debug rrobj.inspect
-            rescue NameError => e
-              warn "Net::DNS unsupported record type: #{e.message}"
-            end
-          end
-
-          #------------------------------------------------------------
-          # Additional section
-          #------------------------------------------------------------
-          @logger.debug ";; ADDITIONAL SECTION (#{@header.arCount} record#{@header.arCount == 1 ? '': 's'})"
-
-          @additional = []
-          @header.arCount.times do
-            begin
-              rrobj,offset = Net::DNS::RR.parse_packet(data,offset)
-              @additional << rrobj
-              @logger.debug rrobj.inspect
-            rescue NameError => e
-              warn "Net::DNS supported record type: #{e.message}"
-            end
-          end
-
         end
 
+        @answerfrom = from[2] + ":" + from[1].to_s
+        @answersize = data.size
+        @logger = Logger.new $stdout
+        @logger.level = $DEBUG ? Logger::DEBUG : Logger::WARN
 
-        # Parse question section
-        def parse_question(data,offset)
-          size = (dn_expand(data, offset)[1] - offset) + (2 * Net::DNS::INT16SZ)
-          return [Net::DNS::Question.parse(data[offset, size]), offset + size]
-        rescue StandardError => e
-          raise PacketError, "Caught exception, maybe packet malformed => #{e.message}"
+        #------------------------------------------------------------
+        # Header section
+        #------------------------------------------------------------
+        offset = Net::DNS::HFIXEDSZ
+        @header = Net::DNS::Header.parse(data[0..offset - 1])
+
+        @logger.debug ";; HEADER SECTION"
+        @logger.debug @header.inspect
+
+        #------------------------------------------------------------
+        # Question section
+        #------------------------------------------------------------
+        section = @header.opCode == "UPDATE" ? "ZONE" : "QUESTION"
+        @logger.debug ";; #{section} SECTION (#{@header.qdCount} record#{@header.qdCount == 1 ? '' : 's'})"
+
+        @question = []
+        @header.qdCount.times do
+          qobj, offset = parse_question(data, offset)
+          @question << qobj
+          @logger.debug ";; #{qobj.inspect}"
         end
 
+        #------------------------------------------------------------
+        # Answer/prerequisite section
+        #------------------------------------------------------------
+        section = @header.opCode == "UPDATE" ? "PREREQUISITE" : "ANSWER"
+        @logger.debug ";; #{section} SECTION (#{@header.qdCount} record#{@header.qdCount == 1 ? '' : 's'})"
+
+        @answer = []
+        @header.anCount.times do
+          begin
+            rrobj, offset = Net::DNS::RR.parse_packet(data, offset)
+            @answer << rrobj
+            @logger.debug rrobj.inspect
+          rescue NameError => e
+            warn "Net::DNS unsupported record type: #{e.message}"
+          end
+        end
+
+        #------------------------------------------------------------
+        # Authority/update section
+        #------------------------------------------------------------
+        section = @header.opCode == "UPDATE" ? "UPDATE" : "AUTHORITY"
+        @logger.debug ";; #{section} SECTION (#{@header.nsCount} record#{@header.nsCount == 1 ? '' : 's'})"
+
+        @authority = []
+        @header.nsCount.times do
+          begin
+            rrobj, offset = Net::DNS::RR.parse_packet(data, offset)
+            @authority << rrobj
+            @logger.debug rrobj.inspect
+          rescue NameError => e
+            warn "Net::DNS unsupported record type: #{e.message}"
+          end
+        end
+
+        #------------------------------------------------------------
+        # Additional section
+        #------------------------------------------------------------
+        @logger.debug ";; ADDITIONAL SECTION (#{@header.arCount} record#{@header.arCount == 1 ? '' : 's'})"
+
+        @additional = []
+        @header.arCount.times do
+          begin
+            rrobj, offset = Net::DNS::RR.parse_packet(data, offset)
+            @additional << rrobj
+            @logger.debug rrobj.inspect
+          rescue NameError => e
+            warn "Net::DNS supported record type: #{e.message}"
+          end
+        end
+      end
+
+      # Parse question section
+      def parse_question(data, offset)
+        size = (dn_expand(data, offset)[1] - offset) + (2 * Net::DNS::INT16SZ)
+        return [Net::DNS::Question.parse(data[offset, size]), offset + size]
+      rescue StandardError => e
+        raise PacketError, "Caught exception, maybe packet malformed => #{e.message}"
+      end
     end
-
   end
 end

@@ -2,7 +2,6 @@ require 'test_helper'
 require 'net/dns/rr'
 
 class RRAAAATest < Minitest::Test
-
   def setup
     @rr_name    = "www.nic.it."
     @rr_type    = "AAAA"
@@ -15,7 +14,6 @@ class RRAAAATest < Minitest::Test
 
     @rr         = Net::DNS::RR::AAAA.new(:name => @rr_name, :address => @rr_address, :ttl => @rr_ttl)
   end
-
 
   def test_initialize_from_hash
     @record = Net::DNS::RR::AAAA.new(:name => @rr_name, :address => @rr_value, :ttl => @rr_ttl)
@@ -51,7 +49,6 @@ class RRAAAATest < Minitest::Test
     assert_equal @rr_value,   @record.value
   end
 
-
   InvalidArguments = [
     { :name => "google.com", :address => "2a00" },
     { :name => "google.com" },
@@ -68,9 +65,8 @@ class RRAAAATest < Minitest::Test
     end
   end
 
-
   def test_address_getter
-    assert_equal  @rr_address, @rr.address
+    assert_equal @rr_address, @rr.address
   end
 
   def test_address_setter
@@ -85,11 +81,9 @@ class RRAAAATest < Minitest::Test
     assert_equal expected, @rr.address
   end
 
-
   def test_value
     assert_equal  @rr_value, @rr.value
   end
-
 
   def test_inspect
     assert_equal  "www.nic.it.             60      IN      AAAA    2a00:d40:1:1::239",
@@ -105,5 +99,4 @@ class RRAAAATest < Minitest::Test
     assert_equal  ["www.nic.it.", 60, "IN", "AAAA", "2a00:d40:1:1::239"],
                   @rr.to_a
   end
-
 end

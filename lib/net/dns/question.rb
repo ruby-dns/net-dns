@@ -1,20 +1,19 @@
 module Net
-  module DNS 
-
+  module DNS
     #
     # =Name
     #
     # Net::DNS::Question - DNS packet question class
     #
     # =Synopsis
-    # 
+    #
     #   require 'net/dns/question'
     #
     # =Description
     #
     # This class represent the Question portion of a DNS packet. The number
     # of question entries is stored in the +qdCount+ variable of an Header
-    # object. 
+    # object.
     #
     # A new object can be created passing the name of the query and the type
     # of answer desired, plus an optional argument containing the class:
@@ -26,13 +25,13 @@ module Net
     # packet, as when an answer is received.
     # To obtain the binary data from a question object you can use
     # the method Question#data:
-    # 
+    #
     #   question.data
     #      #=> "\006google\003com\000\000\001\000\001"
     #
     # A lot of methods were written to keep a compatibility layer with
     # the Perl version of the library, as long as methods name which are
-    # more or less the same. 
+    # more or less the same.
     #
     class Question
       include Names
@@ -40,18 +39,18 @@ module Net
       # Base error class.
       class Error < StandardError
       end
-      
+
       # An error in the +name+ part of a Question entry
       class NameInvalid < Error
       end
-      
+
       # +name+ part of a Question entry
-      attr_reader :qName 
+      attr_reader :qName
       # +type+ part of a Question entry
-      attr_reader :qType 
+      attr_reader :qType
       # +class+ part of a Question entry
-      attr_reader :qClass 
-      
+      attr_reader :qClass
+
       # Creates a new Net::DNS::Question object:
       #
       #   question = Net::DNS::Question.new("example.com")
@@ -60,8 +59,8 @@ module Net
       #      #=> "example.com                   MX      IN"
       #   question = Net::DNS::Question.new("example.com", Net::DNS::TXT, Net::DNS::HS)
       #      #=> "example.com                   TXT     HS"
-      
-      # If not specified, +type+ and +cls+ arguments defaults 
+
+      # If not specified, +type+ and +cls+ arguments defaults
       # to Net::DNS::A and Net::DNS::IN respectively.
       #
       def initialize(name, type = Net::DNS::A, cls = Net::DNS::IN)
@@ -83,18 +82,18 @@ module Net
         o.send(:new_from_binary, arg.to_s)
         o
       end
-      
+
       # Outputs binary data from a Question object
       #
       #   question.data
       #      #=> "\006google\003com\000\000\001\000\001"
       #
       def data
-        [pack_name(@qName),@qType.to_i,@qClass.to_i].pack("a*nn")
+        [pack_name(@qName), @qType.to_i, @qClass.to_i].pack("a*nn")
       end
-      
+
       # Return the binary data of the objects, plus an offset
-      # and an Hash with references to compressed names. For use in 
+      # and an Hash with references to compressed names. For use in
       # Net::DNS::Packet compressed packet creation.
       def comp_data
         arr = @qName.split(".")
@@ -103,20 +102,19 @@ module Net
         names = {}
         offset = Net::DNS::HFIXEDSZ
         arr.size.times do |i|
-          x = i+1
+          x = i + 1
           elem = arr[-x]
           len = elem.size
-          string = ((string.reverse)+([len,elem].pack("Ca*")).reverse).reverse
+          string = ((string.reverse) + ([len, elem].pack("Ca*")).reverse).reverse
           names[string] = offset
           offset += len
         end
         offset += 2 * Net::DNS::INT16SZ
         str += "\000"
-        [[str,@qType.to_i,@qClass.to_i].pack("a*nn"),offset,names]
+        [[str, @qType.to_i, @qClass.to_i].pack("a*nn"), offset, names]
       end
-      
-      
-      # 
+
+      #
       # call-seq:
       #   question.inspect -> string
       #
@@ -133,8 +131,8 @@ module Net
         end
         [@qName, @qClass.to_s, @qType.to_s].pack("A#{len} A8 A8")
       end
-      
-      # 
+
+      #
       # call-seq:
       #   question.to_s -> string
       #
@@ -147,42 +145,41 @@ module Net
       def to_s
         "#{self.inspect}"
       end
-      
-      
+
       private
-      
+
       def build_qName(str)
         result = ""
         offset = 0
         loop do
           len = str.unpack("@#{offset} C")[0]
           break if len == 0
+
           offset += 1
-          result += str[offset..offset+len-1]
+          result += str[offset..offset + len - 1]
           result += "."
           offset += len
         end
         result
       end
-      
+
       def check_name(input)
         name = input.to_s.strip
         if name =~ /[^\w\.\-_]/
           raise NameInvalid, "Invalid Question Name `#{name}'"
         end
+
         name
       end
-      
+
       def new_from_binary(data)
-        str,type,cls = data.unpack("a#{data.size - 4}nn")
+        str, type, cls = data.unpack("a#{data.size - 4}nn")
         @qName = build_qName(str)
         @qType = Net::DNS::RR::Types.new type
         @qClass = Net::DNS::RR::Classes.new cls
       rescue StandardError => e
         raise ArgumentError, "Invalid data: #{data.inspect}"
       end
-
     end
-    
   end
 end

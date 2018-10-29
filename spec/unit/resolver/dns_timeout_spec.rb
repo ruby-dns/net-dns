@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'net/dns/resolver/timeouts'
 
 describe Net::DNS::Resolver::DnsTimeout do
-
   subject { described_class.new(10) }
 
   describe "#initialize" do
@@ -34,5 +33,4 @@ describe Net::DNS::Resolver::DnsTimeout do
       expect { subject.timeout }.to raise_error(LocalJumpError)
     end
   end
-
 end

@@ -2,7 +2,6 @@ require 'test_helper'
 require 'net/dns/rr'
 
 class RRCNAMETest < Minitest::Test
-
   def setup
     @rr_name    = "www.google.com."
     @rr_type    = "CNAME"
@@ -15,7 +14,6 @@ class RRCNAMETest < Minitest::Test
 
     @rr         = Net::DNS::RR::CNAME.new(:name => @rr_name, :cname => @rr_cname, :ttl => @rr_ttl)
   end
-
 
   def test_initialize_from_hash
     @record = Net::DNS::RR::CNAME.new(:name => @rr_name, :cname => @rr_value, :ttl => @rr_ttl)
@@ -51,7 +49,6 @@ class RRCNAMETest < Minitest::Test
     assert_equal @rr_value,   @record.value
   end
 
-
   InvalidArguments = [
     # FIXME: { :name => "google.com", :cname => "foo___bar" },
     # FIXME: { :name => "google.com", :cname => "foo$bar" },
@@ -68,16 +65,13 @@ class RRCNAMETest < Minitest::Test
     end
   end
 
-
   def test_cname_getter
     assert_equal  @rr_cname, @rr.cname
   end
 
-
   def test_value
     assert_equal  @rr_value, @rr.value
   end
-
 
   def test_inspect
     assert_equal  "www.google.com.         550317  IN      CNAME   www.l.google.com.",
@@ -93,5 +87,4 @@ class RRCNAMETest < Minitest::Test
     assert_equal  ["www.google.com.", 550317, "IN", "CNAME", "www.l.google.com."],
                   @rr.to_a
   end
-
 end

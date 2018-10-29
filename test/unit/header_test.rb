@@ -3,9 +3,8 @@ require 'net/dns/header'
 
 class HeaderTest < Minitest::Test
   include Net::DNS
-  
-  def setup
 
+  def setup
     @default = Header.new
     @hash = Header.new(:id => 441,
                        :qr => 1,
@@ -21,7 +20,7 @@ class HeaderTest < Minitest::Test
                        :anCount => 2,
                        :nsCount => 3,
                        :arCount => 3)
-    
+
     @modified = Header.new
     @modified.id = 442
     @modified.qr = true
@@ -38,10 +37,9 @@ class HeaderTest < Minitest::Test
     @modified.arCount = 3
 
     @data = @modified.data
-    num = [(@data.unpack("n")[0]+1)].pack("n")
-    @data[0],@data[1] = num[0], num[1]
+    num = [(@data.unpack("n")[0] + 1)].pack("n")
+    @data[0], @data[1] = num[0], num[1]
     @binary = Header.parse(@data)
-    
   end
 
   def test_simple
@@ -60,7 +58,7 @@ class HeaderTest < Minitest::Test
     assert_equal(@default.nsCount, 0)
     assert_equal(@default.arCount, 0)
 
-    assert_equal(@hash.id, 441)    
+    assert_equal(@hash.id, 441)
     assert_equal(@hash.query?, false)
     assert_equal(@hash.response?, true)
     assert_equal(@hash.opCode, Header::IQUERY)
@@ -75,8 +73,8 @@ class HeaderTest < Minitest::Test
     assert_equal(@hash.anCount, 2)
     assert_equal(@hash.nsCount, 3)
     assert_equal(@hash.arCount, 3)
-    
-    assert_equal(@modified.id, 442)    
+
+    assert_equal(@modified.id, 442)
     assert_equal(@modified.query?, false)
     assert_equal(@modified.response?, true)
     assert_equal(@modified.opCode, Header::IQUERY)
@@ -91,10 +89,10 @@ class HeaderTest < Minitest::Test
     assert_equal(@modified.anCount, 2)
     assert_equal(@modified.nsCount, 3)
     assert_equal(@modified.arCount, 3)
-    
+
     assert_equal(@binary.data, @data)
 
-    assert_equal(@binary.id, 443)    
+    assert_equal(@binary.id, 443)
     assert_equal(@binary.query?, false)
     assert_equal(@binary.response?, true)
     assert_equal(@binary.opCode, Header::IQUERY)
@@ -109,7 +107,7 @@ class HeaderTest < Minitest::Test
     assert_equal(@binary.anCount, 2)
     assert_equal(@binary.nsCount, 3)
     assert_equal(@binary.arCount, 3)
-    
+
     assert_raises(ArgumentError) do
       Header.new(Array.new)
     end
@@ -123,45 +121,43 @@ class HeaderTest < Minitest::Test
       @default.id = 1000000
     end
     assert_raises(ArgumentError) do
-      @default.qr=2
+      @default.qr = 2
     end
     assert_raises(Header::WrongOpcodeError) do
-      @default.opCode=4
+      @default.opCode = 4
     end
     assert_raises(ArgumentError) do
-      @default.aa=2
+      @default.aa = 2
     end
     assert_raises(ArgumentError) do
-      @default.tc=2
+      @default.tc = 2
     end
     assert_raises(Header::WrongRecursiveError) do
-      @default.recursive=2
+      @default.recursive = 2
     end
     assert_raises(ArgumentError) do
-      @default.ra=2
+      @default.ra = 2
     end
     assert_raises(ArgumentError) do
-      @default.cd=2
+      @default.cd = 2
     end
     assert_raises(ArgumentError) do
-      @default.ad=2
+      @default.ad = 2
     end
     assert_raises(ArgumentError) do
-      @default.rCode=46
+      @default.rCode = 46
     end
     assert_raises(Header::WrongCountError) do
-      @default.qdCount=100000
+      @default.qdCount = 100000
     end
     assert_raises(Header::WrongCountError) do
-      @default.anCount=100000
+      @default.anCount = 100000
     end
     assert_raises(Header::WrongCountError) do
-      @default.nsCount=100000
+      @default.nsCount = 100000
     end
     assert_raises(Header::WrongCountError) do
-      @default.arCount=100000
+      @default.arCount = 100000
     end
-  end    
-
+  end
 end
-    

@@ -1,8 +1,6 @@
 module Net # :nodoc:
   module DNS
-
     module HashKeys # :nodoc:
-
       # Returns an hash with all the
       # keys turned into downcase
       #
@@ -12,16 +10,14 @@ module Net # :nodoc:
       #
       def downcase_keys!
         hsh = Hash.new
-        self.each do |key,val|
+        self.each do |key, val|
           hsh[key.downcase] = val
         end
         self.replace(hsh)
       end
-      
     end
 
     module HashOperators # :nodoc:
-
       # Performs a sort of group difference
       # operation on hashes or arrays
       #
@@ -33,18 +29,15 @@ module Net # :nodoc:
       #
       def -(other)
         case other
-          when Hash
-            delete_if { |k,v| other.has_key?(k) }
-          when Array
-            delete_if { |k,v| other.include?(k) }
+        when Hash
+          delete_if { |k, v| other.has_key?(k) }
+        when Array
+          delete_if { |k, v| other.include?(k) }
         end
       end
-
     end
-
   end
 end
-
 
 class Hash # :nodoc:
   include Net::DNS::HashKeys

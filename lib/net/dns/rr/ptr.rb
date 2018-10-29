@@ -1,18 +1,16 @@
 module Net
   module DNS
     class RR
-
       #
       # = Pointer Record (PTR)
       #
       # Class for DNS Pointer (PTR) resource records.
       #
-      # Pointer records are the opposite of A and AAAA RRs 
+      # Pointer records are the opposite of A and AAAA RRs
       # and are used in Reverse Map zone files to map
       # an IP address (IPv4 or IPv6) to a host name.
       #
       class PTR < RR
-
         # Gets the PTR value.
         #
         # Returns a String.
@@ -29,7 +27,6 @@ module Net
         def value
           ptrdname.to_s
         end
-
 
         private
 
@@ -61,23 +58,20 @@ module Net
 
         private
 
-          def set_type
-            @type = Net::DNS::RR::Types.new("PTR")
-          end
+        def set_type
+          @type = Net::DNS::RR::Types.new("PTR")
+        end
 
-          def get_inspect
-            value
-          end
+        def get_inspect
+          value
+        end
 
-
-          def check_name(input)
-            IPAddr.new(str)
-          rescue
-            raise ArgumentError, "Invalid PTR Section `#{input}'"
-          end
-
+        def check_name(input)
+          IPAddr.new(str)
+        rescue
+          raise ArgumentError, "Invalid PTR Section `#{input}'"
+        end
       end
-
     end
   end
 end

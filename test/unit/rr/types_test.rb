@@ -2,10 +2,9 @@ require 'test_helper'
 require 'net/dns/rr'
 
 class RRTypesTest < Minitest::Test
-
   def setup
   end
-    
+
   def test_default
     @_default = Net::DNS::RR::Types.default
 
@@ -24,7 +23,6 @@ class RRTypesTest < Minitest::Test
     instance = Net::DNS::RR::Types.new(nil)
     assert_equal("255", instance.to_str)
     assert_equal("ANY", instance.to_s)
-
   ensure
     Net::DNS::RR::Types.default = Net::DNS::RR::Types::TYPES.invert[@_default]
   end
@@ -50,7 +48,7 @@ class RRTypesTest < Minitest::Test
       assert_match /\|?#{key}\|?/, pattern
     end
   end
-  
+
   def test_valid?
     assert_equal(true,  Net::DNS::RR::Types.valid?("A"))
     assert_equal(true,  Net::DNS::RR::Types.valid?(1))
@@ -70,5 +68,4 @@ class RRTypesTest < Minitest::Test
       Net::DNS::RR::Types.to_str("string")
     end
   end
-
 end

@@ -5,7 +5,6 @@ require_relative 'dns/rr'
 
 module Net
   module DNS
-
     # Packet size in bytes
     PACKETSZ  = 512
 
@@ -24,9 +23,7 @@ module Net
     # Size of a short int
     INT16SZ   = 2
 
-
     module QueryTypes
-
       SIGZERO   = 0
       A         = 1
       NS        = 2
@@ -83,11 +80,9 @@ module Net
       MAILB     = 253
       MAILA     = 254
       ANY       = 255
-
     end
 
     module QueryClasses
-
       # Internet class
       IN        = 1
 
@@ -102,12 +97,9 @@ module Net
 
       # Any class
       ANY       = 255
-
     end
 
     include QueryTypes
     include QueryClasses
-
   end
-
 end

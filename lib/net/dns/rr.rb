@@ -9,7 +9,6 @@ end
 
 module Net
   module DNS
-
     #
     # = Net::DNS::RR - DNS Resource Record class
     #
@@ -42,7 +41,6 @@ module Net
     class RR
       include Names
 
-
       # Base error class.
       class Error < StandardError
       end
@@ -50,7 +48,6 @@ module Net
       # Error in parsing binary data, maybe from a malformed packet.
       class DataError < Error
       end
-
 
       # Regexp matching an RR string
       RR_REGEXP = Regexp.new("^\\s*(\\S+)\\s*(\\d+)?\\s+(" +
@@ -62,7 +59,6 @@ module Net
       # Dimension of the sum of class, type, TTL and rdlength fields in a
       # RR portion of the packet, in bytes
       RRFIXEDSZ = 10
-
 
       # Create a new instance of Net::DNS::RR class, or an instance of
       # any of the subclass of the appropriate type.
@@ -108,12 +104,12 @@ module Net
       #
       def initialize(arg)
         instance = case arg
-          when String
-            new_from_string(arg)
-          when Hash
-            new_from_hash(arg)
-          else
-            raise ArgumentError, "Invalid argument, must be a RR string or an hash of values"
+                   when String
+                     new_from_string(arg)
+                   when Hash
+                     new_from_hash(arg)
+                   else
+                     raise ArgumentError, "Invalid argument, must be a RR string or an hash of values"
         end
 
         if @type.to_s == "ANY"
@@ -169,7 +165,6 @@ module Net
         @cls.to_s
       end
 
-
       def value
         get_inspect
       end
@@ -201,13 +196,12 @@ module Net
       #
       # TO FIX in one of the future releases
       #
-      def comp_data(offset,compnames)
+      def comp_data(offset, compnames)
         str, offset, names = dn_comp(@name, offset, compnames)
         str    += [@type.to_i, @cls.to_i, ttl, @rdlength].pack("n2 N n")
         offset += Net::DNS::RRFIXEDSZ
         [str, offset, names]
       end
-
 
       # Returns a human readable representation of this record.
       # The value is always a String.
@@ -244,111 +238,115 @@ module Net
         [name, ttl, cls.to_s, type.to_s, value]
       end
 
-
       private
 
-        def new_from_string(rrstring)
-          unless rrstring =~ RR_REGEXP
-            raise ArgumentError,
-            "Format error for RR string (maybe CLASS and TYPE not valid?)"
-          end
+      def new_from_string(rrstring)
+        unless rrstring =~ RR_REGEXP
+          raise ArgumentError,
+                "Format error for RR string (maybe CLASS and TYPE not valid?)"
+        end
 
-          # Name of RR - mandatory
-          begin
-            @name = $1.downcase
-          rescue NoMethodError
-            raise ArgumentError, "Missing name field in RR string #{rrstring}"
-          end
+        # Name of RR - mandatory
+        begin
+          @name = $1.downcase
+        rescue NoMethodError
+          raise ArgumentError, "Missing name field in RR string #{rrstring}"
+        end
 
-          # Time to live for RR, default 3 hours
-          @ttl = $2 ? $2.to_i : 10800
+        # Time to live for RR, default 3 hours
+        @ttl = $2 ? $2.to_i : 10800
 
-          # RR class, default to IN
-          @cls = Net::DNS::RR::Classes.new $3
+        # RR class, default to IN
+        @cls = Net::DNS::RR::Classes.new $3
 
-          # RR type, default to A
-          @type = Net::DNS::RR::Types.new $4
+        # RR type, default to A
+        @type = Net::DNS::RR::Types.new $4
 
-          # All the rest is data
-          @rdata = $5 ? $5.strip : ""
+        # All the rest is data
+        @rdata = $5 ? $5.strip : ""
 
-          if self.class == Net::DNS::RR
-            Net::DNS::RR.const_get(@type.to_s).new(rrstring)
+        if self.class == Net::DNS::RR
+          Net::DNS::RR.const_get(@type.to_s).new(rrstring)
+        else
+          subclass_new_from_string(@rdata)
+          self.class
+        end
+      end
+
+      def new_from_hash(args)
+        # Name field is mandatory
+        unless args.has_key? :name
+          raise ArgumentError, ":name field is mandatory"
+        end
+
+        @name  = args[:name].downcase
+        @ttl   = args[:ttl] ? args[:ttl].to_i : 10800 # Default 3 hours
+        @type  = Net::DNS::RR::Types.new args[:type]
+        @cls = Net::DNS::RR::Classes.new args[:cls]
+
+        @rdata = args[:rdata] ? args[:rdata].strip : ""
+        @rdlength = args[:rdlength] || @rdata.size
+
+        if self.class == Net::DNS::RR
+          Net::DNS::RR.const_get(@type.to_s).new(args)
+        else
+          hash = args - [:name, :ttl, :type, :cls]
+          if hash.has_key? :rdata
+            subclass_new_from_string(hash[:rdata])
           else
-            subclass_new_from_string(@rdata)
-            self.class
+            subclass_new_from_hash(hash)
           end
+          self.class
         end
+      end
 
-        def new_from_hash(args)
-          # Name field is mandatory
-          unless args.has_key? :name
-            raise ArgumentError, ":name field is mandatory"
-          end
+      def new_from_binary(data, offset)
+        if self.class == Net::DNS::RR
+          temp = dn_expand(data, offset)[1]
+          type = Net::DNS::RR::Types.new data.unpack("@#{temp} n")[0]
+          (eval "Net::DNS::RR::#{type}").parse_packet(data, offset)
+        else
+          @name, offset = dn_expand(data, offset)
+          rrtype, cls, @ttl, @rdlength = data.unpack("@#{offset} n2 N n")
+          @type = Net::DNS::RR::Types.new rrtype
+          @cls = Net::DNS::RR::Classes.new cls
+          offset += RRFIXEDSZ
+          offset = subclass_new_from_binary(data, offset)
+          build_pack
+          set_type
+          [self, offset]
+        end
+      end
 
-          @name  = args[:name].downcase
-          @ttl   = args[:ttl] ? args[:ttl].to_i : 10800 # Default 3 hours
-          @type  = Net::DNS::RR::Types.new args[:type]
-          @cls  = Net::DNS::RR::Classes.new args[:cls]
+      # Methods to be overridden by subclasses
+      def subclass_new_from_array(arr)
+      end
 
-          @rdata = args[:rdata] ? args[:rdata].strip : ""
-          @rdlength = args[:rdlength] || @rdata.size
+      def subclass_new_from_string(str)
+      end
 
-          if self.class == Net::DNS::RR
-            Net::DNS::RR.const_get(@type.to_s).new(args)
-          else
-            hash = args - [:name, :ttl, :type, :cls]
-            if hash.has_key? :rdata
-              subclass_new_from_string(hash[:rdata])
-            else
-              subclass_new_from_hash(hash)
-            end
-            self.class
-          end
-        end
+      def subclass_new_from_hash(hash)
+      end
 
-        def new_from_binary(data,offset)
-          if self.class == Net::DNS::RR
-            temp = dn_expand(data,offset)[1]
-            type = Net::DNS::RR::Types.new data.unpack("@#{temp} n")[0]
-            (eval "Net::DNS::RR::#{type}").parse_packet(data,offset)
-          else
-            @name,offset = dn_expand(data,offset)
-            rrtype,cls,@ttl,@rdlength = data.unpack("@#{offset} n2 N n")
-            @type = Net::DNS::RR::Types.new rrtype
-            @cls = Net::DNS::RR::Classes.new cls
-            offset += RRFIXEDSZ
-            offset = subclass_new_from_binary(data,offset)
-            build_pack
-            set_type
-            [self, offset]
-          end
-        end
+      def subclass_new_from_binary(data, offset)
+      end
 
-        # Methods to be overridden by subclasses
-        def subclass_new_from_array(arr)
-        end
-        def subclass_new_from_string(str)
-        end
-        def subclass_new_from_hash(hash)
-        end
-        def subclass_new_from_binary(data, offset)
-        end
-        def build_pack
-        end
-        def get_inspect
-          @rdata
-        end
-        def get_data
-          @rdata
-        end
+      def build_pack
+      end
 
-        def set_type
-          # TODO: Here we should probably
-          # raise NotImplementedError
-          # if we want the method to be implemented in any subclass.
-        end
+      def get_inspect
+        @rdata
+      end
 
+      def get_data
+        @rdata
+      end
+
+      def set_type
+        # TODO: Here we should probably
+        # raise NotImplementedError
+        # if we want the method to be implemented in any subclass.
+      end
 
       def self.new(*args)
         o   = allocate
@@ -359,8 +357,6 @@ module Net
           o
         end
       end
-
     end
-
   end
 end

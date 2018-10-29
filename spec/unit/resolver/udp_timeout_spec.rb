@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'net/dns/resolver/timeouts'
 
 describe Net::DNS::Resolver::UdpTimeout do
-
   subject { described_class.new(10) }
 
   it "inherits from DnsTimeout" do
@@ -44,5 +43,4 @@ describe Net::DNS::Resolver::UdpTimeout do
       expect(described_class.new(3690).pretty_to_s).to eq("1 hours, 1 minutes and 30 seconds")
     end
   end
-
 end

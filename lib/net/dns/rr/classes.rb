@@ -1,8 +1,6 @@
 module Net
   module DNS
-
     class RR
-
       #
       # = Net::DNS::Classes
       #
@@ -10,32 +8,30 @@ module Net
       # class field in a DNS packet.
       #
       class Classes
-
         # Hash with the values of each RR class stored with the
         # respective id number.
         CLASSES = {
-          'IN'        => 1,       # RFC 1035
-          'CH'        => 3,       # RFC 1035
-          'HS'        => 4,       # RFC 1035
-          'NONE'      => 254,     # RFC 2136
-          'ANY'       => 255,     # RFC 1035
+          'IN' => 1,       # RFC 1035
+          'CH' => 3,       # RFC 1035
+          'HS' => 4,       # RFC 1035
+          'NONE' => 254, # RFC 2136
+          'ANY' => 255, # RFC 1035
         }
 
         # The default value when class is nil in Resource Records
         @@default = CLASSES["IN"]
-
 
         # Creates a new object representing an RR class. Performs some
         # checks on the argument validity too. Il +cls+ is +nil+, the
         # default value is +ANY+ or the one set with Classes.default=
         def initialize(cls)
           case cls
-            when String
-              initialize_from_str(cls)
-            when Integer
-              initialize_from_num(cls)
-            when nil
-              initialize_from_num(@@default)
+          when String
+            initialize_from_str(cls)
+          when Integer
+            initialize_from_num(cls)
+          when nil
+            initialize_from_num(@@default)
           end
 
           if @str.nil? || @num.nil?
@@ -63,7 +59,6 @@ module Net
         def to_i
           @num.to_i
         end
-
 
         def self.default
           @@default
@@ -99,12 +94,12 @@ module Net
         #
         def self.valid?(cls)
           case cls
-            when String
-              CLASSES.has_key?(cls)
-            when Integer
-              CLASSES.invert.has_key?(cls)
-            else
-              raise ArgumentError, "Wrong cls class: #{cls.class}"
+          when String
+            CLASSES.has_key?(cls)
+          when Integer
+            CLASSES.invert.has_key?(cls)
+          else
+            raise ArgumentError, "Wrong cls class: #{cls.class}"
           end
         end
 
@@ -114,8 +109,7 @@ module Net
           CLASSES.keys.sort.join("|")
         end
 
-
-      private
+        private
 
         # Initialize a new instance from a Class name.
         def initialize_from_str(str)
@@ -128,9 +122,7 @@ module Net
           key = num.to_i
           @num, @str = key, CLASSES.invert[key]
         end
-
       end
-
     end
   end
 end

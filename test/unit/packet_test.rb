@@ -2,7 +2,6 @@ require 'test_helper'
 require 'net/dns/packet'
 
 class PacketTest < Minitest::Test
-
   def setup
     @klass  = Net::DNS::Packet
     @domain = 'example.com'
@@ -23,7 +22,7 @@ class PacketTest < Minitest::Test
     @question = @klass.new(@domain).question.first
     assert_equal @domain, @question.qName
     assert_equal Net::DNS::RR::Types.new(Net::DNS::A).to_s, @question.qType.to_s
-    assert_equal Net::DNS::RR::Classes.new(Net::DNS::IN).to_s, @question.qClass.to_s 
+    assert_equal Net::DNS::RR::Classes.new(Net::DNS::IN).to_s, @question.qClass.to_s
 
     @question = @klass.new(@domain, Net::DNS::MX, Net::DNS::HS).question.first
     assert_equal @domain, @question.qName
@@ -45,5 +44,4 @@ class PacketTest < Minitest::Test
     assert_instance_of Array,               @record.additional
     assert_instance_of Net::DNS::RR::A,     @record.additional.first
   end
-
-end    
+end

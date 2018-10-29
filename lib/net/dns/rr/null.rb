@@ -1,7 +1,6 @@
 module Net # :nodoc:
   module DNS
     class RR
-
       #------------------------------------------------------------
       # RR type NULL
       #------------------------------------------------------------
@@ -35,19 +34,17 @@ module Net # :nodoc:
           @null = str.strip
         end
 
-        def subclass_new_from_binary(data,offset)
-          @null = data[offset..offset+@rdlength]
+        def subclass_new_from_binary(data, offset)
+          @null = data[offset..offset + @rdlength]
           return offset + @rdlength
         end
 
         private
 
-          def set_type
-            @type = Net::DNS::RR::Types.new("NULL")
-          end
-
+        def set_type
+          @type = Net::DNS::RR::Types.new("NULL")
+        end
       end
-
     end
   end
 end

@@ -1,6 +1,5 @@
 module Net
   module DNS
-
     # DNS packet header class
     #
     # The Net::DNS::Header class represents the header portion of a
@@ -37,7 +36,6 @@ module Net
     # more or less the same.
     #
     class Header
-
       # A wrong +count+ parameter has been passed.
       class WrongCountError < ArgumentError
       end
@@ -53,7 +51,6 @@ module Net
       # Base error class.
       class Error < StandardError
       end
-
 
       # DNS Header RCode handling class
       #
@@ -103,7 +100,6 @@ module Net
       # More RCodes has to come for TSIGs and other operations.
       #
       class RCode
-
         # Constant for +rcode+ Response Code No Error
         NOERROR = 0
         # Constant for +rcode+ Response Code Format Error
@@ -117,22 +113,20 @@ module Net
         # Constant for +rcode+ Response Code Refused Error
         REFUSED = 5
 
-
-
         RCodeType = %w[NoError FormErr ServFail NXDomain NotImp
-                      Refused YXDomain YXRRSet NXRRSet NotAuth NotZone]
+                       Refused YXDomain YXRRSet NXRRSet NotAuth NotZone]
 
         RCodeErrorString = ["No errors",
-          "The name server was unable to interpret the query",
-          "The name server was unable to process this query due to problem with the name server",
-          "Domain name referenced in the query does not exists",
-          "The name server does not support the requested kind of query",
-          "The name server refuses to perform the specified operation for policy reasons",
-          "",
-          "",
-          "",
-          "",
-          ""]
+                            "The name server was unable to interpret the query",
+                            "The name server was unable to process this query due to problem with the name server",
+                            "Domain name referenced in the query does not exists",
+                            "The name server does not support the requested kind of query",
+                            "The name server refuses to perform the specified operation for policy reasons",
+                            "",
+                            "",
+                            "",
+                            "",
+                            ""]
 
         attr_reader :code, :type, :explanation
 
@@ -150,7 +144,6 @@ module Net
           @code.to_s
         end
       end
-
 
       # Constant for +opCode+ query
       QUERY   = 0
@@ -255,21 +248,21 @@ module Net
       def inspect
         ";; id = #@id\n" +
           if false # @opCode == "UPDATE"
-            #do stuff
+            # do stuff
           else
             ";; qr = #@qr\t" +
-              "opCode: #{opCode_str}\t" +
-              "aa = #@aa\t" +
-              "tc = #@tc\t" +
-              "rd = #@rd\n" +
-              ";; ra = #@ra\t" +
-              "ad = #@ad\t" +
-              "cd = #@cd\t" +
-              "rcode = #{@rCode.type}\n" +
-              ";; qdCount = #@qdCount\t"+
-              "anCount = #@anCount\t"+
-              "nsCount = #@nsCount\t"+
-              "arCount = #@arCount\n"
+            "opCode: #{opCode_str}\t" +
+            "aa = #@aa\t" +
+            "tc = #@tc\t" +
+            "rd = #@rd\n" +
+            ";; ra = #@ra\t" +
+            "ad = #@ad\t" +
+            "cd = #@cd\t" +
+            "rcode = #{@rCode.type}\n" +
+            ";; qdCount = #@qdCount\t" +
+            "anCount = #@anCount\t" +
+            "nsCount = #@nsCount\t" +
+            "arCount = #@arCount\n"
           end
       end
 
@@ -297,7 +290,7 @@ module Net
       def format
         del = ("+-" * 16) + "+\n"
         len = del.length
-        str = del + "|" + @id.to_s.center(len-3) + "|\n"
+        str = del + "|" + @id.to_s.center(len - 3) + "|\n"
         str += del + "|" + @qr.to_s
         str += "|" + @opCode.to_s.center(7)
         str += "|" + @aa.to_s
@@ -307,10 +300,10 @@ module Net
         str += "|" + @ad.to_s
         str += "|" + @cd.to_s.center(3)
         str += "|" + @rCode.to_s.center(7) + "|\n"
-        str += del + "|" + @qdCount.to_s.center(len-3) + "|\n"
-        str += del + "|" + @anCount.to_s.center(len-3) + "|\n"
-        str += del + "|" + @nsCount.to_s.center(len-3) + "|\n"
-        str += del + "|" + @arCount.to_s.center(len-3) + "|\n" + del
+        str += del + "|" + @qdCount.to_s.center(len - 3) + "|\n"
+        str += del + "|" + @anCount.to_s.center(len - 3) + "|\n"
+        str += del + "|" + @nsCount.to_s.center(len - 3) + "|\n"
+        str += del + "|" + @arCount.to_s.center(len - 3) + "|\n" + del
         str
       end
 
@@ -323,8 +316,8 @@ module Net
       def data
         arr = []
         arr.push(@id)
-        arr.push((@qr<<7)|(@opCode<<3)|(@aa<<2)|(@tc<<1)|@rd)
-        arr.push((@ra<<7)|(@ad<<5)|(@cd<<4)|@rCode.code)
+        arr.push((@qr << 7) | (@opCode << 3) | (@aa << 2) | (@tc << 1) | @rd)
+        arr.push((@ra << 7) | (@ad << 5) | (@cd << 4) | @rCode.code)
         arr.push(@qdCount)
         arr.push(@anCount)
         arr.push(@nsCount)
@@ -361,7 +354,7 @@ module Net
           @qr = 1
         when false
           @qr = 0
-        when 0,1
+        when 0, 1
           @qr = val
         else
           raise ArgumentError, ":qr must be true(or 1) or false(or 0)"
@@ -433,7 +426,7 @@ module Net
           @aa = 1
         when false
           @aa = 0
-        when 0,1
+        when 0, 1
           @aa = val
         else
           raise ArgumentError, ":aa must be true(or 1) or false(or 0)"
@@ -471,7 +464,7 @@ module Net
           @tc = 1
         when false
           @tc = 0
-        when 0,1
+        when 0, 1
           @tc = val
         else
           raise ArgumentError, ":tc must be true(or 1) or false(or 0)"
@@ -536,7 +529,7 @@ module Net
           @ra = 1
         when false
           @ra = 0
-        when 0,1
+        when 0, 1
           @ra = val
         else
           raise ArgumentError, ":ra must be true(or 1) or false(or 0)"
@@ -560,7 +553,7 @@ module Net
           @cd = 1
         when false
           @cd = 0
-        when 0,1
+        when 0, 1
           @cd = val
         else
           raise ArgumentError, ":cd must be true(or 1) or false(or 0)"
@@ -588,7 +581,7 @@ module Net
           @ad = 1
         when false
           @ad = 0
-        when 0,1
+        when 0, 1
           @ad = val
         else
           raise ArgumentError, ":ad must be true(or 1) or false(or 0)"
@@ -664,7 +657,7 @@ module Net
         end
       end
 
-    private
+      private
 
       def new_from_scratch
         @id = genID # generate ad unique id
@@ -679,6 +672,7 @@ module Net
         unless str.size == Net::DNS::HFIXEDSZ
           raise ArgumentError, "Header binary data has wrong size: `#{str.size}' bytes"
         end
+
         arr = str.unpack("n C2 n4")
         @id          =  arr[0]
         @qr          = (arr[1] >> 7) & 0x01
@@ -698,7 +692,7 @@ module Net
 
       def new_from_hash(hash)
         new_from_scratch
-        hash.each do |key,val|
+        hash.each do |key, val|
           eval "self.#{key.to_s} = val"
         end
       end
@@ -706,8 +700,6 @@ module Net
       def genID
         rand(65535)
       end
-
     end
-
   end
 end
