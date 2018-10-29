@@ -80,10 +80,10 @@ module Net # :nodoc:
           x = i + 1
           elem = arr[-x]
           len = elem.size
-          string = ((string.reverse) + ([len, elem].pack("Ca*")).reverse).reverse
+          string = (string.reverse + [len, elem].pack("Ca*").reverse).reverse
           ar.unshift(string)
         end
-        return ar
+        ar
       end
 
       def dn_comp(name, offset, compnames)
@@ -105,12 +105,12 @@ module Net # :nodoc:
             offset += len
           end
         end
-        return str, offset, names
+        [str, offset, names]
       end
 
       def valid?(name)
         if name =~ /^([a-z0-9]([-a-z0-9]*[a-z0-9])?\.)+((a[cdefgilmnoqrstuwxz]|aero|arpa)|(b[abdefghijmnorstvwyz]|biz)|(c[acdfghiklmnorsuvxyz]|cat|com|coop)|d[ejkmoz]|(e[ceghrstu]|edu)|f[ijkmor]|(g[abdefghilmnpqrstuwy]|gov)|h[kmnrtu]|(i[delmnoqrst]|info|int)|(j[emop]|jobs)|k[eghimnprwyz]|l[abcikrstuvy]|(m[acdghklmnopqrstuvwxyz]|mil|mobi|museum)|(n[acefgilopruz]|name|net)|(om|org)|(p[aefghklmnrstwy]|pro)|qa|r[eouw]|s[abcdeghijklmnortvyz]|(t[cdfghjklmnoprtvwz]|travel)|u[agkmsyz]|v[aceginu]|w[fs]|y[etu]|z[amw])$/i
-          return name
+          name
         else
           raise ArgumentError, "Invalid FQDN: #{name}"
         end

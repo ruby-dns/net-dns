@@ -10,10 +10,10 @@ module Net # :nodoc:
       #
       def downcase_keys!
         hsh = {}
-        self.each do |key, val|
+        each do |key, val|
           hsh[key.downcase] = val
         end
-        self.replace(hsh)
+        replace(hsh)
       end
     end
 

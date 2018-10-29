@@ -597,7 +597,7 @@ module Net
       #     #=> was unable to interpret the query
       #
       def rCode_str
-        return rCode.type, rCode.explanation
+        [rCode.type, rCode.explanation]
       end
 
       # Checks for errors in the DNS packet

@@ -440,30 +440,6 @@ Style/RandomWithOffset:
   Exclude:
     - 'lib/net/dns/resolver.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-Style/RedundantParentheses:
-  Exclude:
-    - 'lib/net/dns/names.rb'
-    - 'lib/net/dns/question.rb'
-    - 'lib/net/dns/resolver/socks.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'lib/net/dns/core_ext.rb'
-    - 'lib/net/dns/question.rb'
-    - 'lib/net/dns/resolver.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: implicit, explicit
-Style/RescueStandardError:
-  Exclude:
-    - 'lib/net/dns/rr/ptr.rb'
-
 # Offense count: 566
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.

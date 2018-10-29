@@ -78,7 +78,7 @@ class RawSocket # :nodoc:
   end
 
   def genID
-    while (@@id_arr.include?(q = rand(65535)))
+    while @@id_arr.include?(q = rand(65535))
     end
     @@id_arr.push(q)
     q

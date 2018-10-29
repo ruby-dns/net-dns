@@ -105,7 +105,7 @@ module Net
           x = i + 1
           elem = arr[-x]
           len = elem.size
-          string = ((string.reverse) + ([len, elem].pack("Ca*")).reverse).reverse
+          string = (string.reverse + [len, elem].pack("Ca*").reverse).reverse
           names[string] = offset
           offset += len
         end
@@ -143,7 +143,7 @@ module Net
       #   q.inspect # => "google.com.                  IN      A       "
       #
       def to_s
-        "#{self.inspect}"
+        "#{inspect}"
       end
 
       private

@@ -994,7 +994,7 @@ module Net
           end
         end
 
-        ans = self.send(method, packet, packet_data)
+        ans = send(method, packet, packet_data)
 
         unless ans
           message = "No response from nameservers list"
