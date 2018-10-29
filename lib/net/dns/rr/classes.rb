@@ -95,9 +95,9 @@ module Net
         def self.valid?(cls)
           case cls
           when String
-            CLASSES.has_key?(cls)
+            CLASSES.key?(cls)
           when Integer
-            CLASSES.invert.has_key?(cls)
+            CLASSES.invert.key?(cls)
           else
             raise ArgumentError, "Wrong cls class: #{cls.class}"
           end

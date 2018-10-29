@@ -24,11 +24,11 @@ module Net # :nodoc:
         end
 
         def subclass_new_from_hash(args)
-          if args.has_key? :rdata
+          if args.key? :rdata
             subclass_new_from_string(args[:rdata])
           else
             %i[mname rname serial refresh retry expire minimum].each do |key|
-              raise ArgumentError, "Missing field :#{key}" unless args.has_key? key
+              raise ArgumentError, "Missing field :#{key}" unless args.key? key
             end
             @mname = args[:mname] if valid? args[:mname]
             @rname = args[:rname] if valid? args[:rname]

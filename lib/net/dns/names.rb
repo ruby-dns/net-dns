@@ -92,7 +92,7 @@ module Net # :nodoc:
         str = ""
         arr = names_array(name)
         arr.each do |entry|
-          if compnames.has_key?(entry)
+          if compnames.key?(entry)
             ptr = 0xC000 | compnames[entry]
             str += [ptr].pack("n")
             offset += INT16SZ

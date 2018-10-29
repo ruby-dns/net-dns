@@ -23,7 +23,7 @@ module Net # :nodoc:
         end
 
         def subclass_new_from_hash(args)
-          if args.has_key? :txt
+          if args.key? :txt
             @txt = args[:txt].strip
           else
             raise ArgumentError, ":txt field is mandatory but missing"

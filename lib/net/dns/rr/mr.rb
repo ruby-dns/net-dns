@@ -25,7 +25,7 @@ module Net # :nodoc:
         private
 
         def subclass_new_from_hash(options)
-          if options.has_key?(:newname)
+          if options.key?(:newname)
             @newname = check_name(options[:newname])
           else
             raise ArgumentError, ":newname field is mandatory"

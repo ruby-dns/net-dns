@@ -36,7 +36,7 @@ module Net # :nodoc:
         private
 
         def subclass_new_from_hash(options)
-          if options.has_key?(:preference) && options.has_key?(:exchange)
+          if options.key?(:preference) && options.key?(:exchange)
             @preference = options[:preference].to_i
             @exchange = options[:exchange]
           else

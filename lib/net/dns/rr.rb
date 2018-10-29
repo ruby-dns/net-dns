@@ -275,7 +275,7 @@ module Net
 
       def new_from_hash(args)
         # Name field is mandatory
-        unless args.has_key? :name
+        unless args.key? :name
           raise ArgumentError, ":name field is mandatory"
         end
 
@@ -291,7 +291,7 @@ module Net
           Net::DNS::RR.const_get(@type.to_s).new(args)
         else
           hash = args - %i[name ttl type cls]
-          if hash.has_key? :rdata
+          if hash.key? :rdata
             subclass_new_from_string(hash[:rdata])
           else
             subclass_new_from_hash(hash)

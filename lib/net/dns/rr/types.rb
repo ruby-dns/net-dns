@@ -75,7 +75,7 @@ module Net # :nodoc:
         # Be able to control the default type to assign when
         # type is +nil+. Default to +A+
         def self.default=(str)
-          if TYPES.has_key? str
+          if TYPES.key? str
             @@default = TYPES[str]
           else
             raise ArgumentError, "Unknown type #{str}"
@@ -86,9 +86,9 @@ module Net # :nodoc:
         def self.valid?(type)
           case type
           when String
-            TYPES.has_key?(type)
+            TYPES.key?(type)
           when Integer
-            TYPES.invert.has_key?(type)
+            TYPES.invert.key?(type)
           else
             raise ArgumentError, "Wrong type class: #{type.class}"
           end
@@ -99,7 +99,7 @@ module Net # :nodoc:
         def self.to_str(type)
           case type
           when Integer
-            if TYPES.invert.has_key? type
+            if TYPES.invert.key? type
               TYPES.invert[type]
             else
               raise ArgumentError, "Unknown type number #{type}"
@@ -167,7 +167,7 @@ module Net # :nodoc:
             # TODO!!!
           else
             # String with name of type
-            if TYPES.has_key? type
+            if TYPES.key? type
               @str = type
               @num = TYPES[type]
             else
@@ -178,7 +178,7 @@ module Net # :nodoc:
 
         # Contructor for numeric data type.
         def new_from_num(type)
-          if TYPES.invert.has_key? type
+          if TYPES.invert.key? type
             @num = type
             @str = TYPES.invert[type]
           else

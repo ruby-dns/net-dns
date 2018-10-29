@@ -30,7 +30,7 @@ module Net # :nodoc:
       def -(other)
         case other
         when Hash
-          delete_if { |k, v| other.has_key?(k) }
+          delete_if { |k, v| other.key?(k) }
         when Array
           delete_if { |k, v| other.include?(k) }
         end

@@ -44,7 +44,7 @@ module Net # :nodoc:
         private
 
         def subclass_new_from_hash(options)
-          if options.has_key?(:cpu) && options.has_key?(:os)
+          if options.key?(:cpu) && options.key?(:os)
             @cpu = options[:cpu]
             @os  = options[:os]
           else
