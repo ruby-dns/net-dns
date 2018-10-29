@@ -236,12 +236,6 @@ Style/EmptyMethod:
     - 'lib/net/dns/rr.rb'
     - 'test/unit/rr/types_test.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/Encoding:
-  Exclude:
-    - 'net-dns.gemspec'
-
 # Offense count: 4
 Style/EvalWithLocation:
   Exclude:
