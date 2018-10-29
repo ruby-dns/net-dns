@@ -247,23 +247,23 @@ module Net
       #
       def inspect
         ";; id = #{@id}\n" +
-          if false # @opCode == "UPDATE"
-            # do stuff
-          else
-            ";; qr = #{@qr}\t" \
-            "opCode: #{opCode_str}\t" \
-            "aa = #{@aa}\t" \
-            "tc = #{@tc}\t" \
-            "rd = #{@rd}\n" \
-            ";; ra = #{@ra}\t" \
-            "ad = #{@ad}\t" \
-            "cd = #{@cd}\t" \
-            "rcode = #{@rCode.type}\n" \
-            ";; qdCount = #{@qdCount}\t" \
-            "anCount = #{@anCount}\t" \
-            "nsCount = #{@nsCount}\t" \
-            "arCount = #{@arCount}\n"
-          end
+            if false # @opCode == "UPDATE"
+              # do stuff
+            else
+              ";; qr = #{@qr}\t" \
+              "opCode: #{opCode_str}\t" \
+              "aa = #{@aa}\t" \
+              "tc = #{@tc}\t" \
+              "rd = #{@rd}\n" \
+              ";; ra = #{@ra}\t" \
+              "ad = #{@ad}\t" \
+              "cd = #{@cd}\t" \
+              "rcode = #{@rCode.type}\n" \
+              ";; qdCount = #{@qdCount}\t" \
+              "anCount = #{@anCount}\t" \
+              "nsCount = #{@nsCount}\t" \
+              "arCount = #{@arCount}\n"
+            end
       end
 
       # The Net::DNS::Header#format method prints out the header

@@ -97,25 +97,25 @@ module Net
       # the description for each parameter to have an
       # explanation of its usage.
       Defaults = {
-          config_file: "/etc/resolv.conf",
-          log_file: $stdout,
-          port: 53,
-          searchlist: [],
-          nameservers: [IPAddr.new("127.0.0.1")],
-          domain: "",
-          source_port: 0,
-          source_address: IPAddr.new("0.0.0.0"),
-          source_address_inet6: IPAddr.new('::'),
-          retry_interval: 5,
-          retry_number: 4,
-          recursive: true,
-          defname: true,
-          dns_search: true,
-          use_tcp: false,
-          ignore_truncated: false,
-          packet_size: 512,
-          tcp_timeout: TcpTimeout.new(5),
-          udp_timeout: UdpTimeout.new(5),
+        config_file: "/etc/resolv.conf",
+        log_file: $stdout,
+        port: 53,
+        searchlist: [],
+        nameservers: [IPAddr.new("127.0.0.1")],
+        domain: "",
+        source_port: 0,
+        source_address: IPAddr.new("0.0.0.0"),
+        source_address_inet6: IPAddr.new('::'),
+        retry_interval: 5,
+        retry_number: 4,
+        recursive: true,
+        defname: true,
+        dns_search: true,
+        use_tcp: false,
+        ignore_truncated: false,
+        packet_size: 512,
+        tcp_timeout: TcpTimeout.new(5),
+        udp_timeout: UdpTimeout.new(5),
       }.freeze
 
       class << self
@@ -595,9 +595,9 @@ module Net
         i = 1
         @config.each do |key, val|
           str << if (key == :log_file) || (key == :config_file)
-                   "#{key}: #{val} \t"
-                 else
-                   "#{key}: #{eval(key.to_s)} \t"
+            "#{key}: #{val} \t"
+          else
+            "#{key}: #{eval(key.to_s)} \t"
                  end
           str << "\n;; " if i % 2 == 0
           i += 1
@@ -953,9 +953,9 @@ module Net
 
         method = :query_udp
         packet = if argument.is_a? Net::DNS::Packet
-                   argument
-                 else
-                   make_query_packet(argument, type, cls)
+          argument
+        else
+          make_query_packet(argument, type, cls)
         end
 
         # Store packet_data for performance improvements,
@@ -1195,11 +1195,11 @@ module Net
             @config[:udp_timeout].timeout do
               @logger.info "Contacting nameserver #{ns} port #{@config[:port]}"
               ans = if ns.ipv6?
-                      socket6.send(packet_data, 0, ns.to_s, @config[:port])
-                      socket6.recvfrom(@config[:packet_size])
-                    else
-                      socket4.send(packet_data, 0, ns.to_s, @config[:port])
-                      socket4.recvfrom(@config[:packet_size])
+                socket6.send(packet_data, 0, ns.to_s, @config[:port])
+                socket6.recvfrom(@config[:packet_size])
+              else
+                socket4.send(packet_data, 0, ns.to_s, @config[:port])
+                socket4.recvfrom(@config[:packet_size])
               end
             end
             break if ans

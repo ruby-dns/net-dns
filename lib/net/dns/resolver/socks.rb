@@ -138,10 +138,10 @@ class UdpRawSocket < RawSocket # :nodoc:
 
   def make_transport_header(pay_size)
     make_udp_header([
-                        [@src_port, 'n'], # source port
-                        [@dest_port, 'n'],       # destination port
-                        [8 + pay_size, 'n'],     # len
-                        [0, 'n']                 # checksum (mandatory)
-                    ])
+      [@src_port, 'n'], # source port
+      [@dest_port, 'n'],       # destination port
+      [8 + pay_size, 'n'],     # len
+      [0, 'n']                 # checksum (mandatory)
+    ])
   end
 end

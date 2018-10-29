@@ -125,9 +125,9 @@ module Net
       #
       def inspect
         len = if @qName.size > 29
-                @qName.size + 1
-              else
-                29
+          @qName.size + 1
+        else
+          29
               end
         [@qName, @qClass.to_s, @qType.to_s].pack("A#{len} A8 A8")
       end

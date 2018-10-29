@@ -50,11 +50,11 @@ class RRAAAATest < Minitest::Test
   end
 
   InvalidArguments = [
-      { name: "google.com", address: "2a00" },
-      { name: "google.com" },
-      Object.new,
-      Array.new(7),
-      "10800 IN AAAA",
+    { name: "google.com", address: "2a00" },
+    { name: "google.com" },
+    Object.new,
+    Array.new(7),
+    "10800 IN AAAA",
     # FIXME: "google.com. 10800 IN B",
     # FIXME: "google.com. 10800 IM AAAA",
   ].freeze

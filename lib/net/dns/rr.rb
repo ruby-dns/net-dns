@@ -104,12 +104,12 @@ module Net
       #
       def initialize(arg)
         instance = case arg
-                   when String
-                     new_from_string(arg)
-                   when Hash
-                     new_from_hash(arg)
-                   else
-                     raise ArgumentError, "Invalid argument, must be a RR string or an hash of values"
+        when String
+          new_from_string(arg)
+        when Hash
+          new_from_hash(arg)
+        else
+          raise ArgumentError, "Invalid argument, must be a RR string or an hash of values"
         end
 
         if @type.to_s == "ANY"

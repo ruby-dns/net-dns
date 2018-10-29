@@ -46,11 +46,11 @@ class RRNSTest < Minitest::Test
   end
 
   InvalidArguments = [
-      { name: "google.com", nsdname: "255.256" },
-      { name: "google.com" },
-      Object.new,
-      Array.new(7),
-      "10800 IN A",
+    { name: "google.com", nsdname: "255.256" },
+    { name: "google.com" },
+    Object.new,
+    Array.new(7),
+    "10800 IN A",
   ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|

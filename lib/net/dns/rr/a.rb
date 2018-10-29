@@ -82,16 +82,16 @@ module Net
 
         def check_address(input)
           address = case input
-                    when IPAddr
-                      input
-                    when Integer # Address in numeric form
-                      tmp = [(input >> 24), (input >> 16) & 0xFF, (input >> 8) & 0xFF, input & 0xFF]
-                      tmp = tmp.collect(&:to_s).join(".")
-                      IPAddr.new(tmp)
-                    when String
-                      IPAddr.new(input)
-                    else
-                      raise ArgumentError, "Invalid IP address `#{input}'"
+          when IPAddr
+            input
+          when Integer # Address in numeric form
+            tmp = [(input >> 24), (input >> 16) & 0xFF, (input >> 8) & 0xFF, input & 0xFF]
+            tmp = tmp.collect(&:to_s).join(".")
+            IPAddr.new(tmp)
+          when String
+            IPAddr.new(input)
+          else
+            raise ArgumentError, "Invalid IP address `#{input}'"
           end
 
           unless address.ipv4?

@@ -8,11 +8,11 @@ class RRClassesTest < Minitest::Test
   end
 
   StrAndNum = [
-      ['IN', 1],
-      ['CH',   3],
-      ['HS',   4],
-      ['NONE', 254],
-      ['ANY', 255],
+    ['IN', 1],
+    ['CH',   3],
+    ['HS',   4],
+    ['NONE', 254],
+    ['ANY', 255],
   ].freeze
 
   StrAndNum.each do |str, num|

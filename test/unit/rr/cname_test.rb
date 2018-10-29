@@ -50,13 +50,13 @@ class RRCNAMETest < Minitest::Test
   end
 
   InvalidArguments = [
-      # FIXME: { :name => "google.com", :cname => "foo___bar" },
-      # FIXME: { :name => "google.com", :cname => "foo$bar" },
-      { name: "google.com" },
-      Object.new,
-      Array.new(7),
-      "10800 IN CNAME",
-      "google.com. 10800 IN CNAME",
+    # FIXME: { :name => "google.com", :cname => "foo___bar" },
+    # FIXME: { :name => "google.com", :cname => "foo$bar" },
+    { name: "google.com" },
+    Object.new,
+    Array.new(7),
+    "10800 IN CNAME",
+    "google.com. 10800 IN CNAME",
   ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|

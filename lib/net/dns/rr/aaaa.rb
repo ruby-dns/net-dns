@@ -65,12 +65,12 @@ module Net
 
         def check_address(input)
           address = case input
-                    when IPAddr
-                      input
-                    when String
-                      IPAddr.new(input)
-                    else
-                      raise ArgumentError, "Invalid IP address `#{input}'"
+          when IPAddr
+            input
+          when String
+            IPAddr.new(input)
+          else
+            raise ArgumentError, "Invalid IP address `#{input}'"
           end
 
           unless address.ipv6?
