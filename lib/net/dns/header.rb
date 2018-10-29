@@ -126,7 +126,7 @@ module Net
                             "",
                             "",
                             "",
-                            ""].freeze
+                            "",].freeze
 
         attr_reader :code, :type, :explanation
 

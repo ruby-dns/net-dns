@@ -50,13 +50,13 @@ class RRATest < Minitest::Test
   end
 
   InvalidArguments = [
-    { name: "google.com", address: "255.256" },
-    { name: "google.com" },
-    Object.new,
-    Array.new(7),
-    "10800 IN A",
-    "google.com. 10800 IN B",
-    "google.com. 10800 IM A"
+      { name: "google.com", address: "255.256" },
+      { name: "google.com" },
+      Object.new,
+      Array.new(7),
+      "10800 IN A",
+      "google.com. 10800 IN B",
+      "google.com. 10800 IM A",
   ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|

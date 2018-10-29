@@ -68,11 +68,11 @@ class RRHINFOTest < Minitest::Test
   # end
 
   InvalidArguments = [
-    { name: "google.com" },
-    Object.new,
-    Array.new(7),
-    "10800 IN HINFO",
-    "IN HINFO"
+      { name: "google.com" },
+      Object.new,
+      Array.new(7),
+      "10800 IN HINFO",
+      "IN HINFO",
   ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|

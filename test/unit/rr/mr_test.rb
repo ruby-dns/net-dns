@@ -47,12 +47,12 @@ class RRMRTest < Minitest::Test
   # end
 
   InvalidArguments = [
-    # FIXME: { :name => "eddie.movie.edu.", :newname => "foo___bar" },
-    # FIXME: { :name => "eddie.movie.edu.", :newname => "foo$bar" },
-    # FIXME: { :name => "eddie.movie.edu", :newname => "eddie.newname.edu." },
-    Object.new,
-    Array.new(7),
-    "9000  IN  MR"
+      # FIXME: { :name => "eddie.movie.edu.", :newname => "foo___bar" },
+      # FIXME: { :name => "eddie.movie.edu.", :newname => "foo$bar" },
+      # FIXME: { :name => "eddie.movie.edu", :newname => "eddie.newname.edu." },
+      Object.new,
+      Array.new(7),
+      "9000  IN  MR",
   ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|

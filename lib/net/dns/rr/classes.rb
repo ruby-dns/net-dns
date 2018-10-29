@@ -11,11 +11,11 @@ module Net
         # Hash with the values of each RR class stored with the
         # respective id number.
         CLASSES = {
-          'IN' => 1,       # RFC 1035
-          'CH' => 3,       # RFC 1035
-          'HS' => 4,       # RFC 1035
-          'NONE' => 254, # RFC 2136
-          'ANY' => 255, # RFC 1035
+            'IN' => 1, # RFC 1035
+            'CH' => 3,       # RFC 1035
+            'HS' => 4,       # RFC 1035
+            'NONE' => 254, # RFC 2136
+            'ANY' => 255, # RFC 1035
         }.freeze
 
         # The default value when class is nil in Resource Records
