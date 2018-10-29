@@ -50,7 +50,7 @@ class RRNSTest < Minitest::Test
     { name: "google.com" },
     Object.new,
     Array.new(7),
-    "10800 IN A",
+    "10800 IN A"
   ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|

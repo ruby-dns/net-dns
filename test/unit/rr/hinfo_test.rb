@@ -72,7 +72,7 @@ class RRHINFOTest < Minitest::Test
     Object.new,
     Array.new(7),
     "10800 IN HINFO",
-    "IN HINFO",
+    "IN HINFO"
   ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|

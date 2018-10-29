@@ -12,7 +12,7 @@ class RRClassesTest < Minitest::Test
     ['CH',   3],
     ['HS',   4],
     ['NONE', 254],
-    ['ANY', 255],
+    ['ANY', 255]
   ].freeze
 
   StrAndNum.each do |str, num|

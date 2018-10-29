@@ -56,7 +56,7 @@ class RRMXTest < Minitest::Test
     Object.new,
     Array.new(7),
     "10800 IN NS",
-    "google.com. 10800 IN NS",
+    "google.com. 10800 IN NS"
   ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|

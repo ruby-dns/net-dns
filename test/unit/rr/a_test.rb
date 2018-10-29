@@ -56,7 +56,7 @@ class RRATest < Minitest::Test
     Array.new(7),
     "10800 IN A",
     "google.com. 10800 IN B",
-    "google.com. 10800 IM A",
+    "google.com. 10800 IM A"
   ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|

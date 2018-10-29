@@ -481,28 +481,6 @@ Style/TernaryParentheses:
   Exclude:
     - 'lib/net/dns/packet.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInArrayLiteral:
-  Exclude:
-    - 'test/unit/rr/a_test.rb'
-    - 'test/unit/rr/classes_test.rb'
-    - 'test/unit/rr/cname_test.rb'
-    - 'test/unit/rr/hinfo_test.rb'
-    - 'test/unit/rr/mr_test.rb'
-    - 'test/unit/rr/mx_test.rb'
-    - 'test/unit/rr/ns_test.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInHashLiteral:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
-
 # Offense count: 12
 # Cop supports --auto-correct.
 # Configuration parameters: ExactNameMatch, AllowPredicates, AllowDSLWriters, IgnoreClassMethods, Whitelist.

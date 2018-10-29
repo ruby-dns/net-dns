@@ -52,7 +52,7 @@ class RRMRTest < Minitest::Test
     # FIXME: { :name => "eddie.movie.edu", :newname => "eddie.newname.edu." },
     Object.new,
     Array.new(7),
-    "9000  IN  MR",
+    "9000  IN  MR"
   ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|
