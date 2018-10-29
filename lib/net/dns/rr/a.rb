@@ -84,10 +84,9 @@ module Net
           address = case input
           when IPAddr
             input
-          when Integer # Address in numeric form
-            tmp = [(input >> 24), (input >> 16) & 0xFF, (input >> 8) & 0xFF, input & 0xFF]
-            tmp = tmp.collect(&:to_s).join(".")
-            IPAddr.new(tmp)
+          # Address in numeric form
+          when Integer
+            IPAddr.new(input, Socket::AF_INET)
           when String
             IPAddr.new(input)
           else

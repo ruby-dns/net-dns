@@ -12,7 +12,7 @@ class RRATest < Minitest::Test
 
     @rr_output  = "google.com.             10000   IN      A       64.233.187.99"
 
-    @rr         = Net::DNS::RR::A.new(name: @rr_name, address: @rr_address, ttl: @rr_ttl)
+    @rr = Net::DNS::RR::A.new(name: @rr_name, address: @rr_address, ttl: @rr_ttl)
   end
 
   def test_initialize_from_hash
@@ -77,7 +77,7 @@ class RRATest < Minitest::Test
     assert_equal expected, @rr.address
 
     expected = IPAddr.new("64.233.187.90")
-    assert_equal expected, @rr.address = 1_089_059_674
+    assert_equal expected, @rr.address = expected.to_i
     assert_equal expected, @rr.address
 
     expected = IPAddr.new("64.233.187.80")
