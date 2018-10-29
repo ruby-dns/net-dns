@@ -41,7 +41,7 @@ module Net # :nodoc:
         end
 
         def number?(num)
-          if num.kind_of? Integer and num > 0
+          if num.is_a?(Integer) && (num > 0)
             true
           else
             raise ArgumentError, "Wrong format field: #{num} not a number or less than zero"

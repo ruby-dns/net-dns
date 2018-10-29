@@ -29,7 +29,7 @@ class RRClassesTest < Minitest::Test
   end
 
   def test_initialize_should_raise_with_invalid_class
-    assert_raises(ArgumentError) { Net::DNS::RR::Classes.new(Hash.new) }
+    assert_raises(ArgumentError) { Net::DNS::RR::Classes.new({}) }
   end
 
   def test_inspect
@@ -74,7 +74,7 @@ class RRClassesTest < Minitest::Test
     assert  Net::DNS::RR::Classes.valid?(1)
     assert !Net::DNS::RR::Classes.valid?("Q")
     assert !Net::DNS::RR::Classes.valid?(256)
-    assert_raises(ArgumentError) { Net::DNS::RR::Classes.valid?(Hash.new) }
+    assert_raises(ArgumentError) { Net::DNS::RR::Classes.valid?({}) }
   end
 
   def test_self_regexp

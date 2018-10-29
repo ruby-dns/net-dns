@@ -131,7 +131,7 @@ module Net
         attr_reader :code, :type, :explanation
 
         def initialize(code)
-          if (0..10).include? code
+          if (0..10).cover? code
             @code         = code
             @type         = RCodeType[code]
             @explanation  = RCodeErrorString[code]
@@ -205,7 +205,7 @@ module Net
       # See also each option for a detailed explanation of usage.
       #
       def initialize(arg = {})
-        if arg.kind_of? Hash
+        if arg.is_a? Hash
           new_from_hash(arg)
         else
           raise ArgumentError, "Wrong argument class `#{arg.class}'"
@@ -225,7 +225,7 @@ module Net
       #     #=> "true" if it comes from authoritative name server
       #
       def self.parse(arg)
-        if arg.kind_of? String
+        if arg.is_a? String
           o = allocate
           o.send(:new_from_binary, arg)
           o
@@ -329,7 +329,7 @@ module Net
       # performing security tests.
       #
       def id=(val)
-        if (0..65535).include? val
+        if (0..65535).cover? val
           @id = val
         else
           raise ArgumentError, "ID `#{val}' out of range"
@@ -392,7 +392,7 @@ module Net
       #   header.opCode = Header::STATUS
       #
       def opCode=(val)
-        if (0..2).include? val
+        if (0..2).cover? val
           @opCode = val
         else
           raise WrongOpcodeError, "Wrong opCode value (#{val}), must be QUERY, IQUERY or STATUS"
@@ -620,7 +620,7 @@ module Net
       # Sets the number of entries in a question section
       #
       def qdCount=(val)
-        if (0..65535).include? val
+        if (0..65535).cover? val
           @qdCount = val
         else
           raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
@@ -630,7 +630,7 @@ module Net
       # Sets the number of RRs in an answer section
       #
       def anCount=(val)
-        if (0..65535).include? val
+        if (0..65535).cover? val
           @anCount = val
         else
           raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
@@ -640,7 +640,7 @@ module Net
       # Sets the number of RRs in an authority section
       #
       def nsCount=(val)
-        if (0..65535).include? val
+        if (0..65535).cover? val
           @nsCount = val
         else
           raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
@@ -650,7 +650,7 @@ module Net
       # Sets the number of RRs in an addictional section
       #
       def arCount=(val)
-        if (0..65535).include? val
+        if (0..65535).cover? val
           @arCount = val
         else
           raise WrongCountError, "Wrong number of count: `#{val}' must be 0-65535"

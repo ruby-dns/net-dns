@@ -209,7 +209,7 @@ module Net
       # of this <tt>Net::DNS::Packet</tt> instance.
       def inspect
         retval = ""
-        if @answerfrom != "0.0.0.0:0" and @answerfrom
+        if (@answerfrom != "0.0.0.0:0") && @answerfrom
           retval += ";; Answer received from #@answerfrom (#{@answersize} bytes)\n;;\n"
         end
 
@@ -251,7 +251,7 @@ module Net
 
         retval
       end
-      alias_method :to_s, :inspect
+      alias to_s inspect
 
       # Delegates to <tt>Net::DNS::Header#truncated?</tt>.
       def truncated?
@@ -261,7 +261,7 @@ module Net
       # Assigns a <tt>Net::DNS::Header</tt> <tt>object</tt>
       # to this <tt>Net::DNS::Packet</tt> instance.
       def header=(object)
-        if object.kind_of? Net::DNS::Header
+        if object.is_a? Net::DNS::Header
           @header = object
         else
           raise ArgumentError, "Argument must be a Net::DNS::Header object"
@@ -273,7 +273,7 @@ module Net
       def question=(object)
         case object
         when Array
-          if object.all? { |x| x.kind_of? Net::DNS::Question }
+          if object.all? { |x| x.is_a? Net::DNS::Question }
             @question = object
           else
             raise ArgumentError, "Some of the elements is not an Net::DNS::Question object"
@@ -290,7 +290,7 @@ module Net
       def answer=(object)
         case object
         when Array
-          if object.all? { |x| x.kind_of? Net::DNS::RR }
+          if object.all? { |x| x.is_a? Net::DNS::RR }
             @answer = object
           else
             raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
@@ -307,7 +307,7 @@ module Net
       def additional=(object)
         case object
         when Array
-          if object.all? { |x| x.kind_of? Net::DNS::RR }
+          if object.all? { |x| x.is_a? Net::DNS::RR }
             @additional = object
           else
             raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
@@ -324,7 +324,7 @@ module Net
       def authority=(object)
         case object
         when Array
-          if object.all? { |x| x.kind_of? Net::DNS::RR }
+          if object.all? { |x| x.is_a? Net::DNS::RR }
             @authority = object
           else
             raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
@@ -463,7 +463,7 @@ module Net
       # New packet from binary data
       def new_from_data(data, from = nil)
         unless from
-          if data.kind_of? Array
+          if data.is_a? Array
             data, from = data
           else
             from = [0, 0, "0.0.0.0", "unknown"]

@@ -101,7 +101,7 @@ module Net # :nodoc:
             len = entry.unpack("C")[0]
             elem = entry[1..len]
             str += [len, elem].pack("Ca*")
-            names.update({ "#{entry}" => offset })
+            names.update("#{entry}" => offset)
             offset += len
           end
         end

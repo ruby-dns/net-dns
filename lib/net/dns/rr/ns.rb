@@ -51,7 +51,7 @@ module Net # :nodoc:
 
         def check_name(input)
           name = input.to_s
-          unless name =~ /(\w\.?)+\s*$/ and name =~ /[a-zA-Z]/
+          unless name =~ /(\w\.?)+\s*$/ && name =~ /[a-zA-Z]/
             raise ArgumentError, "Invalid Name Server `#{name}'"
           end
 

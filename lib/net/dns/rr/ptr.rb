@@ -18,7 +18,7 @@ module Net
           @ptrdname.to_s
         end
 
-        alias_method :ptr, :ptrdname
+        alias ptr ptrdname
 
         # Gets the standardized value for this record,
         # represented by the value of <tt>ptrdname</tt>.
@@ -40,7 +40,7 @@ module Net
         end
 
         def subclass_new_from_hash(args)
-          if args.has_key?(:ptrdname) or args.has_key?(:ptr)
+          if args.has_key?(:ptrdname) || args.has_key?(:ptr)
             @ptrdname = args[:ptrdname]
           else
             raise ArgumentError, ":ptrdname or :ptr field is mandatory"

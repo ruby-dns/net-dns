@@ -70,7 +70,7 @@ class RawSocket # :nodoc:
   end
 
   def check_port port
-    if (1..65535).include? port and port.kind_of? Integer
+    if (1..65535).cover?(port) && port.is_a?(Integer)
       port
     else
       raise ArgumentError, "Port #{port} not valid"

@@ -263,7 +263,7 @@ module Net
         # Parsing arguments
         #------------------------------------------------------------
         config.each do |key, val|
-          next if key == :log_file or key == :config_file
+          next if (key == :log_file) || (key == :config_file)
 
           begin
             eval "self.#{key.to_s} = val"
@@ -318,7 +318,7 @@ module Net
         @config[:nameservers].map(&:to_s)
       end
 
-      alias_method :nameserver, :nameservers
+      alias nameserver nameservers
 
       # Set the list of resolver nameservers.
       # +arg+ can be a single ip address or an array of addresses.
@@ -401,7 +401,7 @@ module Net
       # The default is port 53.
       #
       def port=(num)
-        if (0..65535).include? num
+        if (0..65535).cover? num
           @config[:port] = num
           @logger.info "Port number changed to #{num}"
         else
@@ -434,7 +434,7 @@ module Net
           raise ResolverPermissionError, "Are you root?"
         end
 
-        if (0..65535).include?(num)
+        if (0..65535).cover?(num)
           @config[:source_port] = num
         else
           raise ArgumentError, "Wrong port number #{num}"
@@ -546,7 +546,7 @@ module Net
       # Set the number of times the resolver will try a query.
       # Default 4 times.
       def retry_number=(num)
-        if num.kind_of? Integer and num > 0
+        if num.is_a?(Integer) && (num > 0)
           @config[:retry_number] = num
           @logger.info "Retrasmissions number changed to #{num}"
         else
@@ -565,8 +565,8 @@ module Net
       def recursive?
         @config[:recursive]
       end
-      alias_method :recurse, :recursive?
-      alias_method :recursive, :recursive?
+      alias recurse recursive?
+      alias recursive recursive?
 
       # Sets whether or not the resolver should perform recursive
       # queries. Default is true.
@@ -582,7 +582,7 @@ module Net
           raise ArgumentError, "Argument must be boolean"
         end
       end
-      alias_method :recurse=, :recursive=
+      alias recurse= recursive=
 
       # Return a string representing the resolver state, suitable
       # for printing on the screen.
@@ -594,11 +594,11 @@ module Net
         str = ";; RESOLVER state:\n;; "
         i = 1
         @config.each do |key, val|
-          if key == :log_file or key == :config_file
-            str << "#{key}: #{val} \t"
-          else
-            str << "#{key}: #{eval(key.to_s)} \t"
-          end
+          str << if (key == :log_file) || (key == :config_file)
+                   "#{key}: #{val} \t"
+                 else
+                   "#{key}: #{eval(key.to_s)} \t"
+                 end
           str << "\n;; " if i % 2 == 0
           i += 1
         end
@@ -639,7 +639,7 @@ module Net
       def dns_search
         @config[:dns_search]
       end
-      alias_method :dnsrch, :dns_search
+      alias dnsrch dns_search
 
       # Set the flag +dns_search+ in a boolean state. If +dns_search+
       # is true, when using the Resolver#search method will be applied
@@ -660,8 +660,8 @@ module Net
       def use_tcp?
         @config[:use_tcp]
       end
-      alias_method :usevc, :use_tcp?
-      alias_method :use_tcp, :use_tcp?
+      alias usevc use_tcp?
+      alias use_tcp use_tcp?
 
       # If +use_tcp+ is true, the resolver will perform all queries
       # using TCP virtual circuits instead of UDP datagrams, which
@@ -687,7 +687,7 @@ module Net
       def ignore_truncated?
         @config[:ignore_truncated]
       end
-      alias_method :ignore_truncated, :ignore_truncated?
+      alias ignore_truncated ignore_truncated?
 
       def ignore_truncated=(bool)
         case bool
@@ -801,7 +801,7 @@ module Net
       # Note that this will destroy the precedent logger.
       #
       def logger=(logger)
-        if logger.kind_of? Logger
+        if logger.is_a? Logger
           @logger.close
           @logger = logger
         else
@@ -866,7 +866,7 @@ module Net
         end
 
         # If the name doesn't end in a dot then apply the search list.
-        if name !~ /\.$/ and @config[:dns_search]
+        if name !~ /\.$/ && @config[:dns_search]
           @config[:searchlist].each do |domain|
             newname = name + "." + domain
             @logger.debug "Search(#{newname},#{Net::DNS::RR::Types.new(type)},#{Net::DNS::RR::Classes.new(cls)})"
@@ -908,7 +908,7 @@ module Net
         return send(name, type, cls) if name.class == IPAddr
 
         # If the name doesn't contain any dots then append the default domain.
-        if name !~ /\./ and name !~ /:/ and @config[:defname]
+        if name !~ /\./ && name !~ /:/ && @config[:defname]
           name += "." + @config[:domain]
         end
 
@@ -952,7 +952,7 @@ module Net
         end
 
         method = :query_udp
-        packet = if argument.kind_of? Net::DNS::Packet
+        packet = if argument.is_a? Net::DNS::Packet
                    argument
                  else
                    make_query_packet(argument, type, cls)
@@ -1005,7 +1005,7 @@ module Net
         @logger.info "Received #{ans[0].size} bytes from #{ans[1][2] + ":" + ans[1][1].to_s}"
         response = Net::DNS::Packet.parse(ans[0], ans[1])
 
-        if response.header.truncated? and not ignore_truncated?
+        if response.header.truncated? && (not ignore_truncated?)
           @logger.warn "Packet truncated, retrying using TCP"
           self.use_tcp = true
           begin

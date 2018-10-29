@@ -182,14 +182,6 @@ Naming/VariableName:
     - 'lib/net/dns/header.rb'
     - 'lib/net/dns/question.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-Performance/RangeInclude:
-  Exclude:
-    - 'lib/net/dns/header.rb'
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/resolver/socks.rb'
-
 # Offense count: 5
 Security/Eval:
   Exclude:
@@ -197,54 +189,11 @@ Security/Eval:
     - 'lib/net/dns/resolver.rb'
     - 'lib/net/dns/rr.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: prefer_alias, prefer_alias_method
-Style/Alias:
-  Exclude:
-    - 'lib/net/dns/packet.rb'
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/rr/ptr.rb'
-
-# Offense count: 14
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always, conditionals
-Style/AndOr:
-  Exclude:
-    - 'demo/check_soa.rb'
-    - 'lib/net/dns/packet.rb'
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/resolver/socks.rb'
-    - 'lib/net/dns/rr/cname.rb'
-    - 'lib/net/dns/rr/ns.rb'
-    - 'lib/net/dns/rr/ptr.rb'
-    - 'lib/net/dns/rr/soa.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowedChars.
 Style/AsciiComments:
   Exclude:
     - 'test/unit/rr/hinfo_test.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: percent_q, bare_percent
-Style/BarePercentLiterals:
-  Exclude:
-    - 'lib/net/dns/rr/hinfo.rb'
-    - 'test/unit/rr/hinfo_test.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: braces, no_braces, context_dependent
-Style/BracesAroundHashParameters:
-  Exclude:
-    - 'lib/net/dns/names.rb'
-    - 'test/unit/resolver_test.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -255,39 +204,12 @@ Style/ClassAndModuleChildren:
     - 'test/test_helper.rb'
     - 'test/unit/resolver_test.rb'
 
-# Offense count: 13
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: is_a?, kind_of?
-Style/ClassCheck:
-  Exclude:
-    - 'lib/net/dns/header.rb'
-    - 'lib/net/dns/packet.rb'
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/resolver/socks.rb'
-    - 'lib/net/dns/rr/soa.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/ClassMethods:
-  Exclude:
-    - 'lib/net/dns/rr.rb'
-
 # Offense count: 5
 Style/ClassVars:
   Exclude:
     - 'lib/net/dns/resolver/socks.rb'
     - 'lib/net/dns/rr/classes.rb'
     - 'lib/net/dns/rr/types.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'lib/net/dns/question.rb'
-    - 'lib/net/dns/resolver.rb'
 
 # Offense count: 6
 Style/Documentation:
@@ -304,16 +226,6 @@ Style/DoubleNegation:
   Exclude:
     - 'Rakefile'
     - 'lib/net/dns/resolver.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-Style/EmptyLiteral:
-  Exclude:
-    - 'lib/net/dns/core_ext.rb'
-    - 'test/unit/header_test.rb'
-    - 'test/unit/question_test.rb'
-    - 'test/unit/rr/classes_test.rb'
-    - 'test/unit/rr/types_test.rb'
 
 # Offense count: 6
 # Cop supports --auto-correct.

@@ -37,7 +37,7 @@ class RRTypesTest < Minitest::Test
       assert_equal(num.to_s, instance_from_num.to_str)
     end
     assert_raises(ArgumentError) do
-      Net::DNS::RR::Types.new(Hash.new)
+      Net::DNS::RR::Types.new({})
     end
   end
 
@@ -55,7 +55,7 @@ class RRTypesTest < Minitest::Test
     assert_equal(false, Net::DNS::RR::Types.valid?("Q"))
     assert_equal(false, Net::DNS::RR::Types.valid?(256))
     assert_raises(ArgumentError) do
-      Net::DNS::RR::Types.valid? Hash.new
+      Net::DNS::RR::Types.valid?({})
     end
   end
 

@@ -40,7 +40,7 @@ class QuestionTest < Minitest::Test
       Net::DNS::Question.new("test{")
     end
     assert_raises(ArgumentError) do
-      Net::DNS::Question.parse(Array.new)
+      Net::DNS::Question.parse([])
     end
     assert_raises(ArgumentError) do
       Net::DNS::Question.parse("test")

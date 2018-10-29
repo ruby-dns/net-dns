@@ -109,10 +109,10 @@ class HeaderTest < Minitest::Test
     assert_equal(@binary.arCount, 3)
 
     assert_raises(ArgumentError) do
-      Header.new(Array.new)
+      Header.new([])
     end
     assert_raises(ArgumentError) do
-      Header.parse(Array.new)
+      Header.parse([])
     end
     assert_raises(ArgumentError) do
       Header.parse("aa")

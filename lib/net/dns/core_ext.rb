@@ -9,7 +9,7 @@ module Net # :nodoc:
       #      #=> {"test"=>1,"foobar"=>2}
       #
       def downcase_keys!
-        hsh = Hash.new
+        hsh = {}
         self.each do |key, val|
           hsh[key.downcase] = val
         end

@@ -124,11 +124,11 @@ module Net
       #   q.inspect # => "google.com.                  IN      A       "
       #
       def inspect
-        if @qName.size > 29 then
-          len = @qName.size + 1
-        else
-          len = 29
-        end
+        len = if @qName.size > 29 then
+                @qName.size + 1
+              else
+                29
+              end
         [@qName, @qClass.to_s, @qType.to_s].pack("A#{len} A8 A8")
       end
 

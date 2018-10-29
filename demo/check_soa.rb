@@ -18,7 +18,7 @@ domain = ARGV[0]
 res = Net::DNS::Resolver.new(:defname => false, :retry => 2)
 
 ns_req = res.query(domain, Net::DNS::NS)
-unless ns_req and ns_req.header.anCount > 0
+unless ns_req && (ns_req.header.anCount > 0)
   raise ArgumentError, "No nameservers found for domain: #{res.errorstring}"
 end
 

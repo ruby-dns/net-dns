@@ -129,7 +129,7 @@ module Net
       # This method is used when parsing a binary packet by the Packet
       # class.
       #
-      def RR.parse(data)
+      def self.parse(data)
         o = allocate
         obj, offset = o.send(:new_from_binary, data, 0)
         obj
@@ -142,7 +142,7 @@ module Net
       # Return an instance of appropriate class and the offset
       # pointing at the end of the data parsed.
       #
-      def RR.parse_packet(data, offset)
+      def self.parse_packet(data, offset)
         o = allocate
         o.send(:new_from_binary, data, offset)
       end
