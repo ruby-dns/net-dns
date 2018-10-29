@@ -290,27 +290,6 @@ Style/FormatStringToken:
 Style/GuardClause:
   Enabled: false
 
-# Offense count: 129
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
-# SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
-Style/HashSyntax:
-  Exclude:
-    - 'Rakefile'
-    - 'demo/check_soa.rb'
-    - 'lib/net/dns/packet.rb'
-    - 'lib/net/dns/resolver.rb'
-    - 'test/unit/header_test.rb'
-    - 'test/unit/resolver_test.rb'
-    - 'test/unit/rr/a_test.rb'
-    - 'test/unit/rr/aaaa_test.rb'
-    - 'test/unit/rr/cname_test.rb'
-    - 'test/unit/rr/hinfo_test.rb'
-    - 'test/unit/rr/mr_test.rb'
-    - 'test/unit/rr/mx_test.rb'
-    - 'test/unit/rr/ns_test.rb'
-    - 'test/unit/rr_test.rb'
-
 # Offense count: 1
 Style/IfInsideElse:
   Exclude:

@@ -12,11 +12,11 @@ class RRCNAMETest < Minitest::Test
 
     @rr_output  = "www.google.com.         550317  IN      CNAME   www.l.google.com."
 
-    @rr         = Net::DNS::RR::CNAME.new(:name => @rr_name, :cname => @rr_cname, :ttl => @rr_ttl)
+    @rr         = Net::DNS::RR::CNAME.new(name: @rr_name, cname: @rr_cname, ttl: @rr_ttl)
   end
 
   def test_initialize_from_hash
-    @record = Net::DNS::RR::CNAME.new(:name => @rr_name, :cname => @rr_value, :ttl => @rr_ttl)
+    @record = Net::DNS::RR::CNAME.new(name: @rr_name, cname: @rr_value, ttl: @rr_ttl)
     assert_equal @rr_output,  @record.to_s
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
@@ -52,7 +52,7 @@ class RRCNAMETest < Minitest::Test
   InvalidArguments = [
     # FIXME: { :name => "google.com", :cname => "foo___bar" },
     # FIXME: { :name => "google.com", :cname => "foo$bar" },
-    { :name => "google.com" },
+    { name: "google.com" },
     Object.new,
     Array.new(7),
     "10800 IN CNAME",

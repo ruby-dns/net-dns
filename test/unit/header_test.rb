@@ -6,20 +6,20 @@ class HeaderTest < Minitest::Test
 
   def setup
     @default = Header.new
-    @hash = Header.new(:id => 441,
-                       :qr => 1,
-                       :opCode => Header::IQUERY,
-                       :aa => 1,
-                       :tc => 1,
-                       :rd => 0,
-                       :cd => 0,
-                       :ad => 0,
-                       :ra => 1,
-                       :rCode => Header::RCode::FORMAT,
-                       :qdCount => 1,
-                       :anCount => 2,
-                       :nsCount => 3,
-                       :arCount => 3)
+    @hash = Header.new(id: 441,
+                       qr: 1,
+                       opCode: Header::IQUERY,
+                       aa: 1,
+                       tc: 1,
+                       rd: 0,
+                       cd: 0,
+                       ad: 0,
+                       ra: 1,
+                       rCode: Header::RCode::FORMAT,
+                       qdCount: 1,
+                       anCount: 2,
+                       nsCount: 3,
+                       arCount: 3)
 
     @modified = Header.new
     @modified.id = 442

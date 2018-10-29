@@ -1,8 +1,8 @@
 require "bundler/gem_tasks"
 
 # Run test by default.
-task :default => :test
-task :test => [:testunit, :spec]
+task default: :test
+task test: [:testunit, :spec]
 
 require 'rake/testtask'
 

@@ -9,14 +9,14 @@ class RRTest < Minitest::Test
     @ttl = 10800
     @rdata = "64.233.187.99"
 
-    @defaults = Net::DNS::RR.new(:name => @rr_name,
-                                 :rdata => @rdata)
+    @defaults = Net::DNS::RR.new(name: @rr_name,
+                                 rdata: @rdata)
 
-    @a_hash = Net::DNS::RR.new(:name => @rr_name,
-                               :ttl => @ttl,
-                               :cls => @cls,
-                               :type => @type,
-                               :address => @rdata)
+    @a_hash = Net::DNS::RR.new(name: @rr_name,
+                               ttl: @ttl,
+                               cls: @cls,
+                               type: @type,
+                               address: @rdata)
 
     @a_string = Net::DNS::RR::A.new("example.com. 10800 IN A 64.233.187.99")
 

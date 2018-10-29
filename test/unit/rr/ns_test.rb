@@ -11,11 +11,11 @@ class RRNSTest < Minitest::Test
 
     @rr_output  = "google.com.             10800   IN      NS      ns1.google.com."
 
-    @rr         = Net::DNS::RR::NS.new(:name => "google.com.", :nsdname => "ns1.google.com.", :ttl => @rr_ttl)
+    @rr         = Net::DNS::RR::NS.new(name: "google.com.", nsdname: "ns1.google.com.", ttl: @rr_ttl)
   end
 
   def test_initialize_from_hash
-    @record = Net::DNS::RR::NS.new(:name => "google.com.", :nsdname => "ns1.google.com.")
+    @record = Net::DNS::RR::NS.new(name: "google.com.", nsdname: "ns1.google.com.")
     assert_equal @rr_output,  @record.inspect
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
@@ -46,8 +46,8 @@ class RRNSTest < Minitest::Test
   end
 
   InvalidArguments = [
-    { :name => "google.com", :nsdname => "255.256" },
-    { :name => "google.com" },
+    { name: "google.com", nsdname: "255.256" },
+    { name: "google.com" },
     Object.new,
     Array.new(7),
     "10800 IN A",

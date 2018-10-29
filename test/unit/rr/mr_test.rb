@@ -4,7 +4,7 @@ require 'net/dns/rr'
 class RRMRTest < Minitest::Test
   def setup
     @klass      = Net::DNS::RR::MR
-    @rr         = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.bornagain.edu.", :ttl => 9000)
+    @rr         = @klass.new(name: "eddie.movie.edu.", newname: "eddie.bornagain.edu.", ttl: 9000)
 
     @rr_name    = "eddie.movie.edu."
     @rr_type    = "MR"
@@ -16,7 +16,7 @@ class RRMRTest < Minitest::Test
   end
 
   def test_initialize_from_hash
-    @record = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.bornagain.edu.", :ttl => 9000)
+    @record = @klass.new(name: "eddie.movie.edu.", newname: "eddie.bornagain.edu.", ttl: 9000)
     assert_equal @rr_output,  @record.inspect
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
@@ -62,23 +62,23 @@ class RRMRTest < Minitest::Test
   end
 
   def test_initialize_should_raise_with_missing_newname
-    error = assert_raises(ArgumentError) { @klass.new(:name => "eddie.movie.edu.") }
+    error = assert_raises(ArgumentError) { @klass.new(name: "eddie.movie.edu.") }
     assert_match /:newname/, error.message
   end
 
   def test_value
-    @rr = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.newname.edu.")
+    @rr = @klass.new(name: "eddie.movie.edu.", newname: "eddie.newname.edu.")
     assert_equal "eddie.newname.edu.", @rr.value
 
-    @rr = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.othername.edu.")
+    @rr = @klass.new(name: "eddie.movie.edu.", newname: "eddie.othername.edu.")
     assert_equal "eddie.othername.edu.", @rr.value
   end
 
   def test_newname
-    @rr = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.newname.edu.")
+    @rr = @klass.new(name: "eddie.movie.edu.", newname: "eddie.newname.edu.")
     assert_equal "eddie.newname.edu.", @rr.newname
 
-    @rr = @klass.new(:name => "eddie.movie.edu.", :newname => "eddie.othername.edu.")
+    @rr = @klass.new(name: "eddie.movie.edu.", newname: "eddie.othername.edu.")
     assert_equal  "eddie.othername.edu.", @rr.newname
   end
 

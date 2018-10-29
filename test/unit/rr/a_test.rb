@@ -12,11 +12,11 @@ class RRATest < Minitest::Test
 
     @rr_output  = "google.com.             10000   IN      A       64.233.187.99"
 
-    @rr         = Net::DNS::RR::A.new(:name => @rr_name, :address => @rr_address, :ttl => @rr_ttl)
+    @rr         = Net::DNS::RR::A.new(name: @rr_name, address: @rr_address, ttl: @rr_ttl)
   end
 
   def test_initialize_from_hash
-    @record = Net::DNS::RR::A.new(:name => @rr_name, :address => @rr_value, :ttl => @rr_ttl)
+    @record = Net::DNS::RR::A.new(name: @rr_name, address: @rr_value, ttl: @rr_ttl)
     assert_equal @rr_output,  @record.to_s
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
@@ -50,8 +50,8 @@ class RRATest < Minitest::Test
   end
 
   InvalidArguments = [
-    { :name => "google.com", :address => "255.256" },
-    { :name => "google.com" },
+    { name: "google.com", address: "255.256" },
+    { name: "google.com" },
     Object.new,
     Array.new(7),
     "10800 IN A",

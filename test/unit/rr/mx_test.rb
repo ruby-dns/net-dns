@@ -13,11 +13,11 @@ class RRMXTest < Minitest::Test
 
     @rr_output  = "example.com.            10000   IN      MX      10 mail.example.com."
 
-    @rr         = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail.example.com.", :ttl => 10000)
+    @rr         = Net::DNS::RR::MX.new(name: "example.com.", preference: 10, exchange: "mail.example.com.", ttl: 10000)
   end
 
   def test_initialize_from_hash
-    @record = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail.example.com.", :ttl => 10000)
+    @record = Net::DNS::RR::MX.new(name: "example.com.", preference: 10, exchange: "mail.example.com.", ttl: 10000)
     assert_equal @rr_output,      @record.to_s
     assert_equal @rr_name,        @record.name
     assert_equal @rr_type,        @record.type
@@ -52,7 +52,7 @@ class RRMXTest < Minitest::Test
   # end
 
   InvalidArguments = [
-    { :name => "google.com" },
+    { name: "google.com" },
     Object.new,
     Array.new(7),
     "10800 IN NS",
@@ -66,26 +66,26 @@ class RRMXTest < Minitest::Test
   end
 
   def test_preference
-    @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail.example.com.")
+    @rr = Net::DNS::RR::MX.new(name: "example.com.", preference: 10, exchange: "mail.example.com.")
     assert_equal 10, @rr.preference
 
-    @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 100, :exchange => "mail.example.com.")
+    @rr = Net::DNS::RR::MX.new(name: "example.com.", preference: 100, exchange: "mail.example.com.")
     assert_equal 100, @rr.preference
   end
 
   def test_exchange
-    @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail.example.com.")
+    @rr = Net::DNS::RR::MX.new(name: "example.com.", preference: 10, exchange: "mail.example.com.")
     assert_equal "mail.example.com.", @rr.exchange
 
-    @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail2.example.com.")
+    @rr = Net::DNS::RR::MX.new(name: "example.com.", preference: 10, exchange: "mail2.example.com.")
     assert_equal "mail2.example.com.", @rr.exchange
   end
 
   def test_value
-    @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 10, :exchange => "mail.example.com.")
+    @rr = Net::DNS::RR::MX.new(name: "example.com.", preference: 10, exchange: "mail.example.com.")
     assert_equal "10 mail.example.com.", @rr.value
 
-    @rr = Net::DNS::RR::MX.new(:name => "example.com.", :preference => 100, :exchange => "mail2.example.com.")
+    @rr = Net::DNS::RR::MX.new(name: "example.com.", preference: 100, exchange: "mail2.example.com.")
     assert_equal  "100 mail2.example.com.", @rr.value
   end
 

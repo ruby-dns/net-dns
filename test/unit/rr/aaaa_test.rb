@@ -12,11 +12,11 @@ class RRAAAATest < Minitest::Test
 
     @rr_output  = "www.nic.it.             60      IN      AAAA    2a00:d40:1:1::239"
 
-    @rr         = Net::DNS::RR::AAAA.new(:name => @rr_name, :address => @rr_address, :ttl => @rr_ttl)
+    @rr         = Net::DNS::RR::AAAA.new(name: @rr_name, address: @rr_address, ttl: @rr_ttl)
   end
 
   def test_initialize_from_hash
-    @record = Net::DNS::RR::AAAA.new(:name => @rr_name, :address => @rr_value, :ttl => @rr_ttl)
+    @record = Net::DNS::RR::AAAA.new(name: @rr_name, address: @rr_value, ttl: @rr_ttl)
     assert_equal @rr_output,  @record.to_s
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
@@ -50,8 +50,8 @@ class RRAAAATest < Minitest::Test
   end
 
   InvalidArguments = [
-    { :name => "google.com", :address => "2a00" },
-    { :name => "google.com" },
+    { name: "google.com", address: "2a00" },
+    { name: "google.com" },
     Object.new,
     Array.new(7),
     "10800 IN AAAA",

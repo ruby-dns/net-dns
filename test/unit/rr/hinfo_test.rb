@@ -14,11 +14,11 @@ class RRHINFOTest < Minitest::Test
     @rr_cpu     = "PC-Intel-700mhz"
     @rr_os      = "Redhat Linux 7.1"
 
-    @rr         = Net::DNS::RR::HINFO.new(:name => @rr_name, :cpu => @rr_cpu, :os => @rr_os)
+    @rr         = Net::DNS::RR::HINFO.new(name: @rr_name, cpu: @rr_cpu, os: @rr_os)
   end
 
   def test_initialize_from_hash
-    @record = Net::DNS::RR::HINFO.new(:name => @rr_name, :cpu => @rr_cpu, :os => @rr_os)
+    @record = Net::DNS::RR::HINFO.new(name: @rr_name, cpu: @rr_cpu, os: @rr_os)
     assert_equal @rr_output,  @record.to_s
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
@@ -68,7 +68,7 @@ class RRHINFOTest < Minitest::Test
   # end
 
   InvalidArguments = [
-    { :name => "google.com" },
+    { name: "google.com" },
     Object.new,
     Array.new(7),
     "10800 IN HINFO",

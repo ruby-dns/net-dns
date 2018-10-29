@@ -15,7 +15,7 @@ domain = ARGV[0]
 # Find all the nameservers for the domain.
 #------------------------------------------------------------------------------
 
-res = Net::DNS::Resolver.new(:defname => false, :retry => 2)
+res = Net::DNS::Resolver.new(defname: false, retry: 2)
 
 ns_req = res.query(domain, Net::DNS::NS)
 unless ns_req && (ns_req.header.anCount > 0)

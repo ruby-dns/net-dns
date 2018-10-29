@@ -15,7 +15,7 @@ class ResolverTest < Minitest::Test
   end
 
   def test_initialize_with_multi_name_servers
-    resolver = Net::DNS::Resolver.new(:config_file => File.expand_path('../../../spec/fixtures/resolv.conf', __FILE__))
+    resolver = Net::DNS::Resolver.new(config_file: File.expand_path('../../../spec/fixtures/resolv.conf', __FILE__))
     assert_equal ['192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4'], resolver.nameservers
   end
 
@@ -26,7 +26,7 @@ class ResolverTest < Minitest::Test
   end
 
   def test_query_with_no_nameservers_should_raise_resolvererror
-    assert_raises(Net::DNS::Resolver::Error) { Net::DNS::Resolver.new(:nameservers => []).query("example.com") }
+    assert_raises(Net::DNS::Resolver::Error) { Net::DNS::Resolver.new(nameservers: []).query("example.com") }
   end
 
   # def test_send_to_ipv6_nameserver_should_not_raise_einval
