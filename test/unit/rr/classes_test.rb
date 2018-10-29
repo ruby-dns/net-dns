@@ -13,7 +13,7 @@ class RRClassesTest < Minitest::Test
     ['HS',   4],
     ['NONE', 254],
     ['ANY', 255],
-  ]
+  ].freeze
 
   StrAndNum.each do |str, num|
     define_method "test_initialize_from_str_#{str}" do

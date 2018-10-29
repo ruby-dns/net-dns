@@ -57,7 +57,7 @@ class RRAAAATest < Minitest::Test
     "10800 IN AAAA",
     # FIXME: "google.com. 10800 IN B",
     # FIXME: "google.com. 10800 IM AAAA",
-  ]
+  ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|
     define_method "test_initialize_should_raise_with_invalid_arguments_#{index}" do

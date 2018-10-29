@@ -116,7 +116,7 @@ module Net
         packet_size: 512,
         tcp_timeout: TcpTimeout.new(5),
         udp_timeout: UdpTimeout.new(5),
-      }
+      }.freeze
 
       class << self
         C = Object.const_get(defined?(RbConfig) ? :RbConfig : :Config)::CONFIG

@@ -340,25 +340,6 @@ Style/MultipleComparison:
   Exclude:
     - 'lib/net/dns/resolver.rb'
 
-# Offense count: 16
-# Cop supports --auto-correct.
-Style/MutableConstant:
-  Exclude:
-    - 'lib/net/dns/header.rb'
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/rr/classes.rb'
-    - 'lib/net/dns/rr/types.rb'
-    - 'lib/net/dns/version.rb'
-    - 'test/unit/resolver_test.rb'
-    - 'test/unit/rr/a_test.rb'
-    - 'test/unit/rr/aaaa_test.rb'
-    - 'test/unit/rr/classes_test.rb'
-    - 'test/unit/rr/cname_test.rb'
-    - 'test/unit/rr/hinfo_test.rb'
-    - 'test/unit/rr/mr_test.rb'
-    - 'test/unit/rr/mx_test.rb'
-    - 'test/unit/rr/ns_test.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

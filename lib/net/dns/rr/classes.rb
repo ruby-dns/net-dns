@@ -16,7 +16,7 @@ module Net
           'HS' => 4,       # RFC 1035
           'NONE' => 254, # RFC 2136
           'ANY' => 255, # RFC 1035
-        }
+        }.freeze
 
         # The default value when class is nil in Resource Records
         @@default = CLASSES["IN"]

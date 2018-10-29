@@ -57,7 +57,7 @@ class RRCNAMETest < Minitest::Test
     Array.new(7),
     "10800 IN CNAME",
     "google.com. 10800 IN CNAME",
-  ]
+  ].freeze
 
   InvalidArguments.each_with_index do |arguments, index|
     define_method "test_initialize_should_raise_with_invalid_arguments_#{index}" do

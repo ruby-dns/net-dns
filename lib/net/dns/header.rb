@@ -114,7 +114,7 @@ module Net
         REFUSED = 5
 
         RCodeType = %w[NoError FormErr ServFail NXDomain NotImp
-                       Refused YXDomain YXRRSet NXRRSet NotAuth NotZone]
+                       Refused YXDomain YXRRSet NXRRSet NotAuth NotZone].freeze
 
         RCodeErrorString = ["No errors",
                             "The name server was unable to interpret the query",
@@ -126,7 +126,7 @@ module Net
                             "",
                             "",
                             "",
-                            ""]
+                            ""].freeze
 
         attr_reader :code, :type, :explanation
 
@@ -152,7 +152,7 @@ module Net
       # Constant for +opCode+ status
       STATUS  = 2
       # Array with given strings
-      OPARR = %w[QUERY IQUERY STATUS]
+      OPARR = %w[QUERY IQUERY STATUS].freeze
 
       # Reader for +id+ attribute
       attr_reader :id
