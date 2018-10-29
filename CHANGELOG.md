@@ -1,11 +1,15 @@
 # Changelog
 
 
-## master
+## Release 0.9.0
 
 - FIXED: Fixed CI run (GH-77).
 
 - FIXED: Fixed deprecated references to Fixnum.
+
+- CHANGED: Major code cleanup.
+
+- CHANGED: Minimum Ruby version is now 2.1
 
 
 ## Release 0.8.0
