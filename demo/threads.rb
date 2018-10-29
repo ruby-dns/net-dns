@@ -5,7 +5,7 @@ a = ["ibm.com", "sun.com", "redhat.com"]
 
 threads = []
 
-for dom in a
+a.each do |dom|
   threads << Thread.new(dom) do |domain|
     res = Net::DNS::Resolver.new
     res.query(domain, Net::DNS::NS).each_nameserver do |ns|

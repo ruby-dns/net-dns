@@ -53,7 +53,7 @@ module Net
 
         def subclass_new_from_binary(data, offset)
           tokens = data.unpack("@#{offset} n8")
-          @address = IPAddr.new(sprintf("%x:%x:%x:%x:%x:%x:%x:%x", *tokens))
+          @address = IPAddr.new(format("%x:%x:%x:%x:%x:%x:%x:%x", *tokens))
           offset + 16
         end
 

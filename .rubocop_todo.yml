@@ -236,34 +236,11 @@ Style/EmptyMethod:
     - 'lib/net/dns/rr.rb'
     - 'test/unit/rr/types_test.rb'
 
-# Offense count: 4
-Style/EvalWithLocation:
-  Exclude:
-    - 'lib/net/dns/header.rb'
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/rr.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/EvenOdd:
   Exclude:
     - 'lib/net/dns/resolver.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: each, for
-Style/For:
-  Exclude:
-    - 'demo/threads.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: format, sprintf, percent
-Style/FormatString:
-  Exclude:
-    - 'lib/net/dns/rr/aaaa.rb'
 
 # Offense count: 8
 # Configuration parameters: .
