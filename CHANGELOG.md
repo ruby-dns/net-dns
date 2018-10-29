@@ -1,6 +1,13 @@
 # Changelog
 
 
+## master
+
+- FIXED: Fixed CI run (GH-77).
+
+- FIXED: Fixed deprecated references to Fixnum.
+
+
 ## Release 0.8.0
 
 - FIXED: undefined local variable or method `source_address_inet6' (GH-40). [Thanks @simsicon]

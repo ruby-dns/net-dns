@@ -32,7 +32,7 @@ module Net
           case cls
             when String
               initialize_from_str(cls)
-            when Fixnum
+            when Integer
               initialize_from_num(cls)
             when nil
               initialize_from_num(@@default)
@@ -101,7 +101,7 @@ module Net
           case cls
             when String
               CLASSES.has_key?(cls)
-            when Fixnum
+            when Integer
               CLASSES.invert.has_key?(cls)
             else
               raise ArgumentError, "Wrong cls class: #{cls.class}"
