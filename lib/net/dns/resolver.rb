@@ -231,7 +231,8 @@ module Net
       # Net::DNS::Resolver Perl module.
       #
       def initialize(config = {})
-        raise ArgumentError, "Expected `config' to be a Hash" unless config.is_a?(Hash)
+        config.is_a?(Hash) or
+            raise(ArgumentError, "Expected `config' to be a Hash")
 
         # config.downcase_keys!
         @config = Defaults.merge config
@@ -402,12 +403,11 @@ module Net
       # The default is port 53.
       #
       def port=(num)
-        if (0..65_535).cover? num
-          @config[:port] = num
-          @logger.info "Port number changed to #{num}"
-        else
-          raise ArgumentError, "Wrong port number #{num}"
-        end
+        (0..65_535).cover?(num) or
+            raise(ArgumentError, "Wrong port number #{num}")
+
+        @config[:port] = num
+        @logger.info "Port number changed to #{num}"
       end
 
       # Get the value of the source port number.
@@ -431,15 +431,12 @@ module Net
       # underlaying layers.
       #
       def source_port=(num)
-        unless root?
-          raise ResolverPermissionError, "Are you root?"
-        end
+        root? or
+            raise(ResolverPermissionError, "Are you root?")
+        (0..65_535).cover?(num) or
+            raise(ArgumentError, "Wrong port number #{num}")
 
-        if (0..65_535).cover?(num)
-          @config[:source_port] = num
-        else
-          raise ArgumentError, "Wrong port number #{num}"
-        end
+        @config[:source_port] = num
       end
       alias srcport= source_port=
 
@@ -482,9 +479,8 @@ module Net
       # The default is 0.0.0.0, meaning any local address (chosen on routing needs).
       #
       def source_address=(addr)
-        unless addr.respond_to? :to_s
-          raise ArgumentError, "Wrong address argument #{addr}"
-        end
+        addr.respond_to?(:to_s) or
+            raise(ArgumentError, "Wrong address argument #{addr}")
 
         begin
           port = rand(1024..65_023)
@@ -527,12 +523,11 @@ module Net
 
       # Set the retrasmission interval in seconds. Default 5 seconds.
       def retry_interval=(num)
-        if num > 0
-          @config[:retry_interval] = num
-          @logger.info "Retransmission interval changed to #{num} seconds"
-        else
-          raise ArgumentError, "Interval must be positive"
-        end
+        num.positive? or
+            raise(ArgumentError, "Interval must be positive")
+
+        @config[:retry_interval] = num
+        @logger.info "Retransmission interval changed to #{num} seconds"
       end
       alias retrans= retry_interval=
 
@@ -547,12 +542,11 @@ module Net
       # Set the number of times the resolver will try a query.
       # Default 4 times.
       def retry_number=(num)
-        if num.is_a?(Integer) && (num > 0)
-          @config[:retry_number] = num
-          @logger.info "Retrasmissions number changed to #{num}"
-        else
-          raise ArgumentError, "Retry value must be a positive integer"
-        end
+        num.is_a?(Integer) && (num > 0) or
+            raise(ArgumentError, "Retry value must be a positive integer")
+
+        @config[:retry_number] = num
+        @logger.info "Retrasmissions number changed to #{num}"
       end
       alias_method('retry=', 'retry_number=')
 
@@ -802,12 +796,11 @@ module Net
       # Note that this will destroy the precedent logger.
       #
       def logger=(logger)
-        if logger.is_a? Logger
-          @logger.close
-          @logger = logger
-        else
-          raise ArgumentError, "Argument must be an instance of Logger class"
-        end
+        logger.is_a?(Logger) or
+            raise(ArgumentError, "Argument must be an instance of Logger class")
+
+        @logger.close
+        @logger = logger
       end
 
       # Set the log level for the built-in logging facility.
@@ -948,9 +941,8 @@ module Net
       # were any records in the answer section.
       #
       def query(argument, type = Net::DNS::A, cls = Net::DNS::IN)
-        if @config[:nameservers].empty?
-          raise Resolver::Error, "No nameservers specified!"
-        end
+        !@config[:nameservers].empty? or
+            raise(Resolver::Error, "No nameservers specified!")
 
         method = :query_udp
         packet = if argument.is_a? Net::DNS::Packet
@@ -1214,11 +1206,10 @@ module Net
 
       # FIXME: a ? method should never raise.
       def valid?(name)
-        if name =~ /[^-\w\.]/
-          raise ArgumentError, "Invalid domain name #{name}"
-        else
-          true
-        end
+        name !~ /[^-\w\.]/ or
+            raise(ArgumentError, "Invalid domain name #{name}")
+
+        true
       end
     end
   end
