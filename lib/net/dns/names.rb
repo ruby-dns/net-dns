@@ -12,7 +12,7 @@ module Net # :nodoc:
       INT16SZ = 2
 
       # Expand a compressed name in a DNS Packet object. Please
-      # see RFC1025 for an explanation of how the compression
+      # see RFC1035 for an explanation of how the compression
       # in DNS packets works, how may it be useful and how should
       # be handled.
       #
