@@ -266,7 +266,7 @@ module Net
           next if (key == :log_file) || (key == :config_file)
 
           begin
-            eval "self.#{key.to_s} = val"
+            eval "self.#{key} = val"
           rescue NoMethodError
             raise ArgumentError, "Option #{key} not valid"
           end

@@ -10,9 +10,7 @@ module Net # :nodoc:
         # Gets the name server value.
         #
         # Returns a String.
-        def nsdname
-          @nsdname
-        end
+        attr_reader :nsdname
 
         # Gets the standardized value for this record,
         # represented by the value of <tt>nsdname</tt>.

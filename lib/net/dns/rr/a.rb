@@ -25,9 +25,7 @@ module Net
         # Gets the current IPv4 address for this record.
         #
         # Returns an instance of IPAddr.
-        def address
-          @address
-        end
+        attr_reader :address
 
         # Assigns a new IPv4 address to this record, which can be in the
         # form of a <tt>String</tt> or an <tt>IPAddr</tt> object.

@@ -14,16 +14,12 @@ module Net # :nodoc:
         # Gets the preference value.
         #
         # Returns an Integer.
-        def preference
-          @preference
-        end
+        attr_reader :preference
 
         # Gets the exchange value.
         #
         # Returns a String.
-        def exchange
-          @exchange
-        end
+        attr_reader :exchange
 
         # Gets the standardized value for this record,
         # represented by the value of <tt>preference</tt> and <tt>exchange</tt>.

@@ -10,9 +10,7 @@ module Net
         # Gets the current IPv6 address for this record.
         #
         # Returns an instance of IPAddr.
-        def address
-          @address
-        end
+        attr_reader :address
 
         # Assigns a new IPv6 address to this record, which can be in the
         # form of a <tt>String</tt> or an <tt>IPAddr</tt> object.

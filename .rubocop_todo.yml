@@ -50,13 +50,6 @@ Lint/NonLocalExitFromIterator:
   Exclude:
     - 'lib/net/dns/resolver.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Lint/StringConversionInInterpolation:
-  Exclude:
-    - 'lib/net/dns/header.rb'
-    - 'lib/net/dns/resolver.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
@@ -189,12 +182,6 @@ Security/Eval:
     - 'lib/net/dns/resolver.rb'
     - 'lib/net/dns/rr.rb'
 
-# Offense count: 1
-# Configuration parameters: AllowedChars.
-Style/AsciiComments:
-  Exclude:
-    - 'test/unit/rr/hinfo_test.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, EnforcedStyle.
@@ -279,21 +266,6 @@ Style/IfUnlessModifier:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Enabled: false
-
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: ExactNameMatch, AllowPredicates, AllowDSLWriters, IgnoreClassMethods, Whitelist.
-# Whitelist: to_ary, to_a, to_c, to_enum, to_h, to_hash, to_i, to_int, to_io, to_open, to_path, to_proc, to_r, to_regexp, to_str, to_s, to_sym
-Style/TrivialAccessors:
-  Exclude:
-    - 'lib/net/dns/rr.rb'
-    - 'lib/net/dns/rr/a.rb'
-    - 'lib/net/dns/rr/aaaa.rb'
-    - 'lib/net/dns/rr/cname.rb'
-    - 'lib/net/dns/rr/hinfo.rb'
-    - 'lib/net/dns/rr/mr.rb'
-    - 'lib/net/dns/rr/mx.rb'
-    - 'lib/net/dns/rr/ns.rb'
 
 # Offense count: 187
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

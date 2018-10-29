@@ -14,9 +14,7 @@ module Net # :nodoc:
         # Gets the canonical name value.
         #
         # Returns a String.
-        def cname
-          @cname
-        end
+        attr_reader :cname
 
         # Gets the standardized value for this record,
         # represented by the value of <tt>cname</tt>.

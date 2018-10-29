@@ -10,9 +10,7 @@ module Net # :nodoc:
         # Gets the newname value.
         #
         # Returns a String.
-        def newname
-          @newname
-        end
+        attr_reader :newname
 
         # Gets the standardized value for this record,
         # represented by the value of <tt>newname</tt>.

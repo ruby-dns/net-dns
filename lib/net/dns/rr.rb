@@ -147,13 +147,9 @@ module Net
         o.send(:new_from_binary, data, offset)
       end
 
-      def name
-        @name
-      end
+      attr_reader :name
 
-      def ttl
-        @ttl
-      end
+      attr_reader :ttl
 
       # Type accessor
       def type
@@ -171,9 +167,7 @@ module Net
 
       # Data belonging to that appropriate class,
       # not to be used (use real accessors instead)
-      def rdata
-        @rdata
-      end
+      attr_reader :rdata
 
       # Return the RR object in binary data format, suitable
       # for using in network streams.

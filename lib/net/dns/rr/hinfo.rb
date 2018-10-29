@@ -15,16 +15,12 @@ module Net # :nodoc:
         # Gets the CPU value.
         #
         # Returns a String.
-        def cpu
-          @cpu
-        end
+        attr_reader :cpu
 
         # Gets the OS value.
         #
         # Returns a String.
-        def os
-          @os
-        end
+        attr_reader :os
 
         # Gets the standardized value for this record,
         # represented by the value of <tt>cpu</tt> and <tt>os</tt>.
