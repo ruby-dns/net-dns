@@ -4,8 +4,7 @@ require 'net/dns/rr'
 class RRClassesTest < Minitest::Test
 
   def setup
-    @classes = {
-    }
+    @classes = {}
     @regexp_string = "ANY|CH|HS|IN|NONE"
   end
 
@@ -53,6 +52,8 @@ class RRClassesTest < Minitest::Test
 
 
   def test_self_default
+    @_default = Net::DNS::RR::Classes.default
+
     # Default type should be ANY => 255
     instance = Net::DNS::RR::Classes.new(nil)
     assert_equal 1,    instance.to_i
@@ -68,6 +69,9 @@ class RRClassesTest < Minitest::Test
     instance = Net::DNS::RR::Classes.new(nil)
     assert_equal 1,    instance.to_i
     assert_equal "IN", instance.to_s
+
+  ensure
+    Net::DNS::RR::Classes.default = Net::DNS::RR::Classes::CLASSES.invert[@_default]
   end
 
   def test_self_valid?

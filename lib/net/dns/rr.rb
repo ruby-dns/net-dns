@@ -1,10 +1,10 @@
 require 'ipaddr'
-require 'net/dns/names'
-require 'net/dns/rr/types'
-require 'net/dns/rr/classes'
+require_relative 'names'
+require_relative 'rr/types'
+require_relative 'rr/classes'
 
 %w(a aaaa cname hinfo mr mx ns ptr soa srv txt).each do |file|
-  require "net/dns/rr/#{file}"
+  require_relative "rr/#{file}"
 end
 
 module Net
@@ -352,7 +352,7 @@ module Net
 
       def self.new(*args)
         o   = allocate
-        obj = o.send(:initialize,*args)
+        obj = o.send(:initialize, *args)
         if self == Net::DNS::RR
           obj
         else
