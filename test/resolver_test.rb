@@ -84,7 +84,7 @@ class ResolverTest < Test::Unit::TestCase
 
   def test_should_raise_invalid_domain_exception
     res = Net::DNS::Resolver.new
-    assert_raises(Net::DNS::Resolver::InvalidDomainNameError) {res.domain = "*.google.com"}
+    assert_raises(Net::DNS::Resolver::InvalidDomainNameError) { res.domain = "*.google.com" }
   end
 
   RubyPlatforms = [
