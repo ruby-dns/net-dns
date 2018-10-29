@@ -23,7 +23,7 @@ module Net # :nodoc:
       def dn_expand(packet, offset)
         name = ""
         packetlen = packet.size
-        while true
+        loop do
           raise ExpandError, "Offset is greater than packet lenght!" if packetlen < (offset + 1)
 
           len = packet.unpack("@#{offset} C")[0]

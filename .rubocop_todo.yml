@@ -315,12 +315,6 @@ Style/IfUnlessModifier:
     - 'lib/net/dns/rr/ns.rb'
     - 'spec/spec_helper.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/InfiniteLoop:
-  Exclude:
-    - 'lib/net/dns/names.rb'
-
 # Offense count: 12
 # Cop supports --auto-correct.
 Style/LineEndConcatenation:
