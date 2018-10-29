@@ -149,12 +149,6 @@ Security/Eval:
     - 'lib/net/dns/resolver.rb'
     - 'lib/net/dns/rr.rb'
 
-# Offense count: 1
-# Configuration parameters: AllowedChars.
-Style/AsciiComments:
-  Exclude:
-    - 'test/unit/rr/hinfo_test.rb'
-
 # Offense count: 8
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -202,12 +196,6 @@ Style/EvalWithLocation:
     - 'lib/net/dns/header.rb'
     - 'lib/net/dns/resolver.rb'
     - 'lib/net/dns/rr.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EvenOdd:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
 
 # Offense count: 41
 # Configuration parameters: MinBodyLength.

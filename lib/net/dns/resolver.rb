@@ -349,19 +349,20 @@ module Net
         when Array
           @config[:nameservers] = []
           arg.each do |x|
-            @config[:nameservers] << case x
-                                     when String
-                                       begin
-                                         IPAddr.new(x)
-                                       rescue ArgumentError
-                                         nameservers_from_name(arg)
-                                         return
-                                       end
-                                     when IPAddr
-                                       x
-                                     else
-                                       raise ArgumentError, "Wrong argument format"
-                                     end
+            val = case x
+            when String
+              begin
+                IPAddr.new(x)
+              rescue ArgumentError
+                nameservers_from_name(arg)
+                return
+              end
+            when IPAddr
+              x
+            else
+              raise ArgumentError, "Wrong argument format"
+            end
+            @config[:nameservers] << val
           end
           @logger.info "Nameservers list changed to value #{@config[:nameservers].inspect}"
         else
@@ -598,8 +599,8 @@ module Net
             "#{key}: #{val} \t"
           else
             "#{key}: #{eval(key.to_s)} \t"
-                 end
-          str << "\n;; " if i % 2 == 0
+          end
+          str << "\n;; " if i.even?
           i += 1
         end
         str

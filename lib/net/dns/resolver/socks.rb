@@ -40,17 +40,18 @@ class RawSocket # :nodoc:
   end
 
   def send(payload = '')
-    packet = make_ip_header([[@version + '0101', 'B8'], # version, hlen
-                             [0, 'C'],                          # tos
-                             [@tot_lenght + payload.size, 'n'], # total len
-                             [@id, 'n'],                        # id
-                             [0, 'n'],                          # flags, offset
-                             [64, 'C'],                         # ttl
-                             [@protocol, 'C'],                  # protocol
-                             [0, 'n'],                          # checksum
-                             [@src_addr.to_i, 'N'],             # source
-                             [@dest_addr.to_i, 'N'],            # destination
-                            ])
+    packet = make_ip_header([
+      [@version + '0101', 'B8'],          # version, hlen
+      [0, 'C'],                           # tos
+      [@tot_lenght + payload.size, 'n'],  # total len
+      [@id, 'n'],                         # id
+      [0, 'n'],                           # flags, offset
+      [64, 'C'],                          # ttl
+      [@protocol, 'C'],                   # protocol
+      [0, 'n'],                           # checksum
+      [@src_addr.to_i, 'N'],              # source
+      [@dest_addr.to_i, 'N'],             # destination
+    ])
     packet << make_transport_header(payload.size)
     packet << [payload].pack("a*")
     @socket.send(packet, 0, @to)

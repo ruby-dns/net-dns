@@ -52,7 +52,8 @@ class RRHINFOTest < Minitest::Test
     assert_equal @rr_os,      @record.os
   end
 
-  #  FIXME: Can't get valid data
+  # FIXME: Can't get valid data
+  #
   # def test_parse
   #   data = "\002in\000\000\r\000\001\000\000*0\000!\017PC-Intel-700mhz\020Redhat Linux 7.1"
   #   @record = Net::DNS::RR.parse(data)
