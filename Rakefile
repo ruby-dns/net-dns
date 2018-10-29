@@ -15,6 +15,11 @@ Rake::TestTask.new(:testunit) do |t|
 end
 
 
+require "rubocop/rake_task"
+
+RuboCop::RakeTask.new
+
+
 require 'rspec/core/rake_task'
 begin
   require 'fuubar'
