@@ -27,7 +27,7 @@ module Net # :nodoc:
         #
         # Returns a String.
         def value
-          %("#{cpu}" "#{os}")
+          %Q("#{cpu}" "#{os}")
         end
 
         # Gets a list of all the attributes for this record.

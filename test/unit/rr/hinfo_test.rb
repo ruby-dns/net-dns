@@ -8,8 +8,8 @@ class RRHINFOTest < Minitest::Test
     @rr_type    = "HINFO"
     @rr_cls     = "IN"
     @rr_ttl     = nil
-    @rr_value   = %("PC-Intel-700mhz" "Redhat Linux 7.1")
-    @rr_output  = %(                                IN      HINFO   "PC-Intel-700mhz" "Redhat Linux 7.1")
+    @rr_value   = '"PC-Intel-700mhz" "Redhat Linux 7.1"'
+    @rr_output  = '                                IN      HINFO   "PC-Intel-700mhz" "Redhat Linux 7.1"'
 
     @rr_cpu     = "PC-Intel-700mhz"
     @rr_os      = "Redhat Linux 7.1"
@@ -31,7 +31,7 @@ class RRHINFOTest < Minitest::Test
   end
 
   def test_initialize_from_string
-    @record = Net::DNS::RR::HINFO.new(%(#{@rr_name} #{@rr_ttl} #{@rr_cls} #{@rr_type} PC-Intel-700mhz "Redhat Linux 7.1"))
+    @record = Net::DNS::RR::HINFO.new(%Q(#{@rr_name} #{@rr_ttl} #{@rr_cls} #{@rr_type} PC-Intel-700mhz "Redhat Linux 7.1"))
     assert_equal @rr_output,  @record.to_s
     assert_equal @rr_value,   @record.value
 
@@ -91,21 +91,21 @@ class RRHINFOTest < Minitest::Test
   end
 
   def test_value
-    assert_equal  %("PC-Intel-700mhz" "Redhat Linux 7.1"), @rr.value
+    assert_equal  '"PC-Intel-700mhz" "Redhat Linux 7.1"', @rr.value
   end
 
   def test_inspect
-    assert_equal  %(                                IN      HINFO   "PC-Intel-700mhz" "Redhat Linux 7.1"),
+    assert_equal  '                                IN      HINFO   "PC-Intel-700mhz" "Redhat Linux 7.1"',
                   @rr.inspect
   end
 
   def test_to_s
-    assert_equal  %(                                IN      HINFO   "PC-Intel-700mhz" "Redhat Linux 7.1"),
+    assert_equal  '                                IN      HINFO   "PC-Intel-700mhz" "Redhat Linux 7.1"',
                   @rr.to_s
   end
 
   def test_to_a
-    assert_equal  [nil, nil, "IN", "HINFO", %("PC-Intel-700mhz" "Redhat Linux 7.1")],
+    assert_equal  [nil, nil, "IN", "HINFO", '"PC-Intel-700mhz" "Redhat Linux 7.1"'],
                   @rr.to_a
   end
 end
