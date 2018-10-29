@@ -772,7 +772,6 @@ module Net
       # the old one, which will then be impossibile to recover.
       #
       def log_file=(log)
-        @logger.close
         @config[:log_file] = log
         @logger = Logger.new(@config[:log_file])
         @logger.level = $DEBUG ? Logger::DEBUG : Logger::WARN
@@ -799,7 +798,6 @@ module Net
         logger.is_a?(Logger) or
             raise(ArgumentError, "Argument must be an instance of Logger class")
 
-        @logger.close
         @logger = logger
       end
 
