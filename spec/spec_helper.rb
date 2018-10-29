@@ -2,7 +2,7 @@ require 'rspec'
 require 'net/dns'
 
 unless defined?(SPEC_ROOT)
-  SPEC_ROOT = File.expand_path("../", __FILE__)
+  SPEC_ROOT = File.expand_path(__dir__)
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,

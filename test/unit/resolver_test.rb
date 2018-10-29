@@ -15,7 +15,7 @@ class ResolverTest < Minitest::Test
   end
 
   def test_initialize_with_multi_name_servers
-    resolver = Net::DNS::Resolver.new(config_file: File.expand_path('../../../spec/fixtures/resolv.conf', __FILE__))
+    resolver = Net::DNS::Resolver.new(config_file: File.expand_path('../../spec/fixtures/resolv.conf', __dir__))
     assert_equal ['192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4'], resolver.nameservers
   end
 

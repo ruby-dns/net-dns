@@ -249,14 +249,6 @@ Style/EvenOdd:
   Exclude:
     - 'lib/net/dns/resolver.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/ExpandPathArguments:
-  Exclude:
-    - 'net-dns.gemspec'
-    - 'spec/spec_helper.rb'
-    - 'test/unit/resolver_test.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
