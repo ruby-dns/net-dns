@@ -1,4 +1,7 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
-# Specify your gem's dependencies in whois.gemspec
 gemspec
+
+gem "rspec"
+gem "minitest"
+gem "minitest-reporters"

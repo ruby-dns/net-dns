@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'net/dns/rr'
 
-class RRAAAATest < Test::Unit::TestCase
+class RRAAAATest < Minitest::Test
 
   def setup
     @rr_name    = "www.nic.it."

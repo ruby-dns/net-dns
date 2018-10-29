@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'net/dns/rr'
 
-class RRCNAMETest < Test::Unit::TestCase
+class RRCNAMETest < Minitest::Test
 
   def setup
     @rr_name    = "www.google.com."

@@ -6,7 +6,7 @@ class Net::DNS::Resolver
 end
 
 
-class ResolverTest < Test::Unit::TestCase
+class ResolverTest < Minitest::Test
 
   def test_initialize
     assert_nothing_raised { Net::DNS::Resolver.new }
@@ -17,7 +17,7 @@ class ResolverTest < Test::Unit::TestCase
   end
 
   def test_initialize_with_multi_name_servers
-    resolver = Net::DNS::Resolver.new({ :config_file => File.expand_path('../../spec/fixtures/resolv.conf', __FILE__) })
+    resolver = Net::DNS::Resolver.new({ :config_file => File.expand_path('../../../spec/fixtures/resolv.conf', __FILE__) })
     assert_equal ['192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4'], resolver.nameservers
   end
 

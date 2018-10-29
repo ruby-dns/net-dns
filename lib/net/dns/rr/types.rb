@@ -71,6 +71,10 @@ module Net # :nodoc:
         # The default value when type is nil in Resource Records
         @@default = TYPES["A"]
 
+        def self.default
+          @@default
+        end
+
         # Be able to control the default type to assign when
         # type is +nil+. Default to +A+
         def self.default=(str)

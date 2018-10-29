@@ -65,6 +65,9 @@ module Net
         end
 
 
+        def self.default
+          @@default
+        end
 
         # Be able to control the default class to assign when
         # cls argument is +nil+. Default to +IN+

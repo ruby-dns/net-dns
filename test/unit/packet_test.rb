@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'net/dns/packet'
 
-class PacketTest < Test::Unit::TestCase
+class PacketTest < Minitest::Test
 
   def setup
     @klass  = Net::DNS::Packet

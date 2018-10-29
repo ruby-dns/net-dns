@@ -1,17 +1,19 @@
 require 'test_helper'
 require 'net/dns/rr'
 
-class RRTypesTest < Test::Unit::TestCase
+class RRTypesTest < Minitest::Test
 
   def setup
   end
     
   def test_default
+    @_default = Net::DNS::RR::Types.default
+
     # Default type should be ANY => 255
     instance = Net::DNS::RR::Types.new(nil)
     assert_equal("1", instance.to_str)
     assert_equal("A", instance.to_s)
-    
+
     # Let's change default behaviour
     Net::DNS::RR::Types.default = "A"
     instance = Net::DNS::RR::Types.new(nil)
@@ -22,6 +24,9 @@ class RRTypesTest < Test::Unit::TestCase
     instance = Net::DNS::RR::Types.new(nil)
     assert_equal("255", instance.to_str)
     assert_equal("ANY", instance.to_s)
+
+  ensure
+    Net::DNS::RR::Types.default = Net::DNS::RR::Types::TYPES.invert[@_default]
   end
 
   def test_types

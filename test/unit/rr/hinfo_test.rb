@@ -2,7 +2,7 @@ require 'test_helper'
 require 'net/dns/rr'
 require 'net/dns/rr/hinfo'
 
-class RRHINFOTest < Test::Unit::TestCase
+class RRHINFOTest < Minitest::Test
 
   def setup
     @rr_name    = ""
