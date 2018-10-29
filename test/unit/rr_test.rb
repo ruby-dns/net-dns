@@ -6,7 +6,7 @@ class RRTest < Minitest::Test
     @rr_name = "example.com."
     @type = "A"
     @cls = "IN"
-    @ttl = 10800
+    @ttl = 10_800
     @rdata = "64.233.187.99"
 
     @defaults = Net::DNS::RR.new(name: @rr_name,
@@ -45,11 +45,11 @@ class RRTest < Minitest::Test
   end
 
   def test_ttl
-    assert_equal @a.ttl, 86400
+    assert_equal @a.ttl, 86_400
     assert_equal @mx.ttl, 7200
-    assert_equal @cname.ttl, 10800
+    assert_equal @cname.ttl, 10_800
     assert_equal @txt.ttl, 3600
-    assert_equal @a_binary.ttl, 86400
+    assert_equal @a_binary.ttl, 86_400
     assert_equal @mx_binary.ttl, 7200
   end
 

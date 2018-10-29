@@ -96,7 +96,7 @@ module Net
                       raise ArgumentError, "Invalid IP address `#{input}'"
           end
 
-          if !address.ipv4?
+          unless address.ipv4?
             raise(ArgumentError, "Must specify an IPv4 address")
           end
 

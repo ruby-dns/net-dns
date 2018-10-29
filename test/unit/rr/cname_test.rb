@@ -6,7 +6,7 @@ class RRCNAMETest < Minitest::Test
     @rr_name    = "www.google.com."
     @rr_type    = "CNAME"
     @rr_cls     = "IN"
-    @rr_ttl     = 550317
+    @rr_ttl     = 550_317
     @rr_value   = "www.l.google.com."
     @rr_cname   = @rr_value
 
@@ -84,7 +84,7 @@ class RRCNAMETest < Minitest::Test
   end
 
   def test_to_a
-    assert_equal  ["www.google.com.", 550317, "IN", "CNAME", "www.l.google.com."],
+    assert_equal  ["www.google.com.", 550_317, "IN", "CNAME", "www.l.google.com."],
                   @rr.to_a
   end
 end

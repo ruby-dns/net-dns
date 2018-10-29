@@ -23,7 +23,7 @@ class RRHINFOTest < Minitest::Test
     assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
     assert_equal @rr_cls,     @record.cls
-    assert_equal 10800,       @record.ttl
+    assert_equal 10_800, @record.ttl
     assert_equal @rr_value,   @record.value
 
     assert_equal @rr_cpu,     @record.cpu
@@ -45,7 +45,7 @@ class RRHINFOTest < Minitest::Test
     # FIXME: assert_equal @rr_name,    @record.name
     assert_equal @rr_type,    @record.type
     assert_equal @rr_cls,     @record.cls
-    assert_equal 10800,       @record.ttl
+    assert_equal 10_800, @record.ttl
     assert_equal @rr_value,   @record.value
 
     assert_equal @rr_cpu,     @record.cpu

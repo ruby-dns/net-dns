@@ -6,18 +6,18 @@ class RRMXTest < Minitest::Test
     @rr_name        = "example.com."
     @rr_type        = "MX"
     @rr_cls         = "IN"
-    @rr_ttl         = 10000
+    @rr_ttl         = 10_000
     @rr_preference  = 10
     @rr_exchange    = "mail.example.com."
     @rr_value       = "#{@rr_preference} #{@rr_exchange}"
 
     @rr_output  = "example.com.            10000   IN      MX      10 mail.example.com."
 
-    @rr         = Net::DNS::RR::MX.new(name: "example.com.", preference: 10, exchange: "mail.example.com.", ttl: 10000)
+    @rr         = Net::DNS::RR::MX.new(name: "example.com.", preference: 10, exchange: "mail.example.com.", ttl: 10_000)
   end
 
   def test_initialize_from_hash
-    @record = Net::DNS::RR::MX.new(name: "example.com.", preference: 10, exchange: "mail.example.com.", ttl: 10000)
+    @record = Net::DNS::RR::MX.new(name: "example.com.", preference: 10, exchange: "mail.example.com.", ttl: 10_000)
     assert_equal @rr_output,      @record.to_s
     assert_equal @rr_name,        @record.name
     assert_equal @rr_type,        @record.type
@@ -100,7 +100,7 @@ class RRMXTest < Minitest::Test
   end
 
   def test_to_a
-    assert_equal  ["example.com.", 10000, "IN", "MX", "10 mail.example.com."],
+    assert_equal  ["example.com.", 10_000, "IN", "MX", "10 mail.example.com."],
                   @rr.to_a
   end
 end

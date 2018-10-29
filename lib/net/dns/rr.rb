@@ -254,7 +254,7 @@ module Net
         end
 
         # Time to live for RR, default 3 hours
-        @ttl = Regexp.last_match(2) ? Regexp.last_match(2).to_i : 10800
+        @ttl = Regexp.last_match(2) ? Regexp.last_match(2).to_i : 10_800
 
         # RR class, default to IN
         @cls = Net::DNS::RR::Classes.new Regexp.last_match(3)
@@ -280,7 +280,7 @@ module Net
         end
 
         @name  = args[:name].downcase
-        @ttl   = args[:ttl] ? args[:ttl].to_i : 10800 # Default 3 hours
+        @ttl   = args[:ttl] ? args[:ttl].to_i : 10_800 # Default 3 hours
         @type  = Net::DNS::RR::Types.new args[:type]
         @cls = Net::DNS::RR::Classes.new args[:cls]
 

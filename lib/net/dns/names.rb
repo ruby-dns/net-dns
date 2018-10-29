@@ -37,7 +37,7 @@ module Net # :nodoc:
             ptr = packet.unpack("@#{offset} n")[0]
             ptr &= 0x3FFF
             name2 = dn_expand(packet, ptr)[0]
-            raise ExpandError, "Packet is malformed!" if name2 == nil
+            raise ExpandError, "Packet is malformed!" if name2.nil?
 
             name += name2
             offset += INT16SZ

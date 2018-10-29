@@ -124,7 +124,7 @@ module Net
       #   q.inspect # => "google.com.                  IN      A       "
       #
       def inspect
-        len = if @qName.size > 29 then
+        len = if @qName.size > 29
                 @qName.size + 1
               else
                 29

@@ -119,7 +119,7 @@ class HeaderTest < Minitest::Test
       Header.parse("aa")
     end
     assert_raises(ArgumentError) do
-      @default.id = 1000000
+      @default.id = 1_000_000
     end
     assert_raises(ArgumentError) do
       @default.qr = 2
@@ -149,16 +149,16 @@ class HeaderTest < Minitest::Test
       @default.rCode = 46
     end
     assert_raises(Header::WrongCountError) do
-      @default.qdCount = 100000
+      @default.qdCount = 100_000
     end
     assert_raises(Header::WrongCountError) do
-      @default.anCount = 100000
+      @default.anCount = 100_000
     end
     assert_raises(Header::WrongCountError) do
-      @default.nsCount = 100000
+      @default.nsCount = 100_000
     end
     assert_raises(Header::WrongCountError) do
-      @default.arCount = 100000
+      @default.arCount = 100_000
     end
   end
 end

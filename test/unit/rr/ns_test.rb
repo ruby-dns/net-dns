@@ -6,7 +6,7 @@ class RRNSTest < Minitest::Test
     @rr_name    = "google.com."
     @rr_type    = "NS"
     @rr_cls     = "IN"
-    @rr_ttl     = 10800
+    @rr_ttl     = 10_800
     @rr_nsdname = "ns1.google.com."
 
     @rr_output  = "google.com.             10800   IN      NS      ns1.google.com."
@@ -74,7 +74,7 @@ class RRNSTest < Minitest::Test
   end
 
   def test_to_a
-    assert_equal  ["google.com.", 10800, "IN", "NS", "ns1.google.com."],
+    assert_equal  ["google.com.", 10_800, "IN", "NS", "ns1.google.com."],
                   @rr.to_a
   end
 end

@@ -63,7 +63,7 @@ ns_req.each_nameserver do |ns|
 
     soa_req = res.send(domain, Net::DNS::SOA, Net::DNS::IN)
 
-    if soa_req == nil
+    if soa_req.nil?
       puts res.errorstring, "\n"
       next
     end

@@ -401,7 +401,7 @@ module Net
       # The default is port 53.
       #
       def port=(num)
-        if (0..65535).cover? num
+        if (0..65_535).cover? num
           @config[:port] = num
           @logger.info "Port number changed to #{num}"
         else
@@ -434,7 +434,7 @@ module Net
           raise ResolverPermissionError, "Are you root?"
         end
 
-        if (0..65535).cover?(num)
+        if (0..65_535).cover?(num)
           @config[:source_port] = num
         else
           raise ArgumentError, "Wrong port number #{num}"
@@ -486,7 +486,7 @@ module Net
         end
 
         begin
-          port = rand(64000) + 1024
+          port = rand(1024..65_023)
           @logger.warn "Try to determine state of source address #{addr} with port #{port}"
           a = TCPServer.new(addr.to_s, port)
         rescue SystemCallError => e
@@ -947,7 +947,7 @@ module Net
       # were any records in the answer section.
       #
       def query(argument, type = Net::DNS::A, cls = Net::DNS::IN)
-        if @config[:nameservers].size == 0
+        if @config[:nameservers].empty?
           raise Resolver::Error, "No nameservers specified!"
         end
 
@@ -1005,7 +1005,7 @@ module Net
         @logger.info "Received #{ans[0].size} bytes from #{ans[1][2] + ':' + ans[1][1].to_s}"
         response = Net::DNS::Packet.parse(ans[0], ans[1])
 
-        if response.header.truncated? && (not ignore_truncated?)
+        if response.header.truncated? && !ignore_truncated?
           @logger.warn "Packet truncated, retrying using TCP"
           self.use_tcp = true
           begin

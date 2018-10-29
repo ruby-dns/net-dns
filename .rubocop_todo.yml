@@ -290,11 +290,6 @@ Style/FormatStringToken:
 Style/GuardClause:
   Enabled: false
 
-# Offense count: 1
-Style/IfInsideElse:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
-
 # Offense count: 23
 # Cop supports --auto-correct.
 Style/IfUnlessModifier:
@@ -314,81 +309,6 @@ Style/IfUnlessModifier:
     - 'lib/net/dns/rr/mx.rb'
     - 'lib/net/dns/rr/ns.rb'
     - 'spec/spec_helper.rb'
-
-# Offense count: 12
-# Cop supports --auto-correct.
-Style/LineEndConcatenation:
-  Exclude:
-    - 'lib/net/dns/header.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: require_parentheses, require_no_parentheses, require_no_parentheses_except_multiline
-Style/MethodDefParentheses:
-  Exclude:
-    - 'lib/net/dns/resolver/socks.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/MultilineIfThen:
-  Exclude:
-    - 'lib/net/dns/question.rb'
-
-# Offense count: 2
-Style/MultipleComparison:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: both, prefix, postfix
-Style/NegatedIf:
-  Exclude:
-    - 'lib/net/dns/rr/a.rb'
-    - 'lib/net/dns/rr/aaaa.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: predicate, comparison
-Style/NilComparison:
-  Exclude:
-    - 'demo/check_soa.rb'
-    - 'lib/net/dns/names.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/Not:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
-
-# Offense count: 35
-# Cop supports --auto-correct.
-# Configuration parameters: Strict.
-Style/NumericLiterals:
-  MinDigits: 11
-
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle, IgnoredMethods.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
-    - 'lib/net/dns/header.rb'
-    - 'lib/net/dns/names.rb'
-    - 'lib/net/dns/packet.rb'
-    - 'lib/net/dns/question.rb'
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/resolver/timeouts.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RandomWithOffset:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
 
 # Offense count: 566
 # Cop supports --auto-correct.
@@ -411,13 +331,6 @@ Style/TrivialAccessors:
     - 'lib/net/dns/rr/mr.rb'
     - 'lib/net/dns/rr/mx.rb'
     - 'lib/net/dns/rr/ns.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/ZeroLengthPredicate:
-  Exclude:
-    - 'lib/net/dns/packet.rb'
-    - 'lib/net/dns/resolver.rb'
 
 # Offense count: 187
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

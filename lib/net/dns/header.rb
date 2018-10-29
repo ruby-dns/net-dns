@@ -250,18 +250,18 @@ module Net
           if false # @opCode == "UPDATE"
             # do stuff
           else
-            ";; qr = #{@qr}\t" +
-            "opCode: #{opCode_str}\t" +
-            "aa = #{@aa}\t" +
-            "tc = #{@tc}\t" +
-            "rd = #{@rd}\n" +
-            ";; ra = #{@ra}\t" +
-            "ad = #{@ad}\t" +
-            "cd = #{@cd}\t" +
-            "rcode = #{@rCode.type}\n" +
-            ";; qdCount = #{@qdCount}\t" +
-            "anCount = #{@anCount}\t" +
-            "nsCount = #{@nsCount}\t" +
+            ";; qr = #{@qr}\t" \
+            "opCode: #{opCode_str}\t" \
+            "aa = #{@aa}\t" \
+            "tc = #{@tc}\t" \
+            "rd = #{@rd}\n" \
+            ";; ra = #{@ra}\t" \
+            "ad = #{@ad}\t" \
+            "cd = #{@cd}\t" \
+            "rcode = #{@rCode.type}\n" \
+            ";; qdCount = #{@qdCount}\t" \
+            "anCount = #{@anCount}\t" \
+            "nsCount = #{@nsCount}\t" \
             "arCount = #{@arCount}\n"
           end
       end
@@ -329,7 +329,7 @@ module Net
       # performing security tests.
       #
       def id=(val)
-        if (0..65535).cover? val
+        if (0..65_535).cover? val
           @id = val
         else
           raise ArgumentError, "ID `#{val}' out of range"
@@ -620,7 +620,7 @@ module Net
       # Sets the number of entries in a question section
       #
       def qdCount=(val)
-        if (0..65535).cover? val
+        if (0..65_535).cover? val
           @qdCount = val
         else
           raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
@@ -630,7 +630,7 @@ module Net
       # Sets the number of RRs in an answer section
       #
       def anCount=(val)
-        if (0..65535).cover? val
+        if (0..65_535).cover? val
           @anCount = val
         else
           raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
@@ -640,7 +640,7 @@ module Net
       # Sets the number of RRs in an authority section
       #
       def nsCount=(val)
-        if (0..65535).cover? val
+        if (0..65_535).cover? val
           @nsCount = val
         else
           raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
@@ -650,7 +650,7 @@ module Net
       # Sets the number of RRs in an addictional section
       #
       def arCount=(val)
-        if (0..65535).cover? val
+        if (0..65_535).cover? val
           @arCount = val
         else
           raise WrongCountError, "Wrong number of count: `#{val}' must be 0-65535"
@@ -698,7 +698,7 @@ module Net
       end
 
       def genID
-        rand(65535)
+        rand(65_535)
       end
     end
   end

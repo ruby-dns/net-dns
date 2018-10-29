@@ -58,7 +58,7 @@ class RawSocket # :nodoc:
 
   private
 
-  def check_addr addr
+  def check_addr(addr)
     case addr
     when String
       IPAddr.new(addr)
@@ -69,8 +69,8 @@ class RawSocket # :nodoc:
     end
   end
 
-  def check_port port
-    if (1..65535).cover?(port) && port.is_a?(Integer)
+  def check_port(port)
+    if (1..65_535).cover?(port) && port.is_a?(Integer)
       port
     else
       raise ArgumentError, "Port #{port} not valid"
@@ -78,7 +78,7 @@ class RawSocket # :nodoc:
   end
 
   def genID
-    while @@id_arr.include?(q = rand(65535))
+    while @@id_arr.include?(q = rand(65_535))
     end
     @@id_arr.push(q)
     q

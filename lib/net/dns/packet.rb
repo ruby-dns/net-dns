@@ -223,7 +223,7 @@ module Net
           retval += ";; " + qr.inspect + "\n"
         end
 
-        unless @answer.size == 0
+        unless @answer.empty?
           retval += "\n"
           section = @header.opCode == "UPDATE" ? "PREREQUISITE" : "ANSWER"
           retval += ";; #{section} SECTION (#{@header.anCount} record#{@header.anCount == 1 ? '' : 's'}):\n"
@@ -232,7 +232,7 @@ module Net
           end
         end
 
-        unless @authority.size == 0
+        unless @authority.empty?
           retval += "\n"
           section = @header.opCode == "UPDATE" ? "UPDATE" : "AUTHORITY"
           retval += ";; #{section} SECTION (#{@header.nsCount} record#{@header.nsCount == 1 ? '' : 's'}):\n"
@@ -241,7 +241,7 @@ module Net
           end
         end
 
-        unless @additional.size == 0
+        unless @additional.empty?
           retval += "\n"
           retval += ";; ADDITIONAL SECTION (#{@header.arCount} record#{@header.arCount == 1 ? '' : 's'}):\n"
           @additional.each do |rr|

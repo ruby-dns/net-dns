@@ -6,7 +6,7 @@ class RRATest < Minitest::Test
     @rr_name    = "google.com."
     @rr_type    = "A"
     @rr_cls     = "IN"
-    @rr_ttl     = 10000
+    @rr_ttl     = 10_000
     @rr_value   = "64.233.187.99"
     @rr_address = IPAddr.new(@rr_value)
 
@@ -77,7 +77,7 @@ class RRATest < Minitest::Test
     assert_equal expected, @rr.address
 
     expected = IPAddr.new("64.233.187.90")
-    assert_equal expected, @rr.address = 1089059674
+    assert_equal expected, @rr.address = 1_089_059_674
     assert_equal expected, @rr.address
 
     expected = IPAddr.new("64.233.187.80")
@@ -100,7 +100,7 @@ class RRATest < Minitest::Test
   end
 
   def test_to_a
-    assert_equal  ["google.com.", 10000, "IN", "A", "64.233.187.99"],
+    assert_equal  ["google.com.", 10_000, "IN", "A", "64.233.187.99"],
                   @rr.to_a
   end
 end

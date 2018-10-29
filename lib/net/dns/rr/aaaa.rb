@@ -75,7 +75,7 @@ module Net
                       raise ArgumentError, "Invalid IP address `#{input}'"
           end
 
-          if !address.ipv6?
+          unless address.ipv6?
             raise(ArgumentError, "Must specify an IPv6 address")
           end
 
