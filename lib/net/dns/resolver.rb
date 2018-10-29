@@ -94,7 +94,7 @@ module Net
       class NoResponseError < Error
       end
 
-      class InvalidDomainNameError < StandardError
+      class InvalidDomainNameError < Error
       end
 
       # An hash with the defaults values of almost all the
