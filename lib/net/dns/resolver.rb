@@ -484,7 +484,7 @@ module Net
 
         begin
           port = rand(1024..65_023)
-          @logger.warn "Try to determine state of source address #{addr} with port #{port}"
+          @logger.info "Try to determine state of source address #{addr} with port #{port}"
           a = TCPServer.new(addr.to_s, port)
         rescue SystemCallError => e
           case e.errno
@@ -977,10 +977,10 @@ module Net
 
         if type == Net::DNS::AXFR
           if @raw
-            @logger.warn "AXFR query, switching to TCP over RAW socket"
+            @logger.info "AXFR query, switching to TCP over RAW socket"
             method = :send_raw_tcp
           else
-            @logger.warn "AXFR query, switching to TCP"
+            @logger.info "AXFR query, switching to TCP"
             method = :query_tcp
           end
         end
