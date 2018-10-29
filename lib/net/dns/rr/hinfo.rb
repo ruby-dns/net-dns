@@ -31,7 +31,7 @@ module Net # :nodoc:
         #
         # Returns a String.
         def value
-          %{"#{cpu}" "#{os}"}
+          %("#{cpu}" "#{os}")
         end
 
         # Gets a list of all the attributes for this record.
@@ -78,7 +78,7 @@ module Net # :nodoc:
 
         def check_hinfo(input)
           if input.to_s.strip =~ /^(?:["']?(.*?)["']?)\s+(?:["']?(.*?)["']?)$/
-            [$1, $2]
+            [Regexp.last_match(1), Regexp.last_match(2)]
           else
             raise ArgumentError, "Invalid HINFO Section `#{input}'"
           end

@@ -38,7 +38,8 @@ class HeaderTest < Minitest::Test
 
     @data = @modified.data
     num = [(@data.unpack("n")[0] + 1)].pack("n")
-    @data[0], @data[1] = num[0], num[1]
+    @data[0] = num[0]
+    @data[1] = num[1]
     @binary = Header.parse(@data)
   end
 

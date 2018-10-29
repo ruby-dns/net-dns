@@ -2,12 +2,12 @@ require "bundler/gem_tasks"
 
 # Run test by default.
 task default: :test
-task test: [:testunit, :spec]
+task test: %i[testunit spec]
 
 require 'rake/testtask'
 
 Rake::TestTask.new(:testunit) do |t|
-  t.libs = %w(lib test)
+  t.libs = %w[lib test]
   t.pattern = "test/**/*_test.rb"
   t.verbose = !ENV["VERBOSE"].nil?
   t.warning = !ENV["WARNING"].nil?

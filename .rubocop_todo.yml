@@ -384,49 +384,6 @@ Style/NumericPredicate:
     - 'lib/net/dns/resolver.rb'
     - 'lib/net/dns/resolver/timeouts.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/ParallelAssignment:
-  Exclude:
-    - 'lib/net/dns/rr/classes.rb'
-    - 'test/unit/header_test.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
-Style/ParenthesesAroundCondition:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/resolver/socks.rb'
-
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/net/dns/rr.rb'
-    - 'lib/net/dns/rr/hinfo.rb'
-    - 'net-dns.gemspec'
-    - 'test/unit/rr/hinfo_test.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: lower_case_q, upper_case_q
-Style/PercentQLiterals:
-  Exclude:
-    - 'test/unit/rr/hinfo_test.rb'
-
-# Offense count: 14
-# Cop supports --auto-correct.
-Style/PerlBackrefs:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/rr.rb'
-    - 'lib/net/dns/rr/hinfo.rb'
-    - 'lib/net/dns/rr/mx.rb'
-
 # Offense count: 28
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -446,40 +403,6 @@ Style/RandomWithOffset:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiteralsInInterpolation:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: MinSize.
-# SupportedStyles: percent, brackets
-Style/SymbolArray:
-  EnforcedStyle: brackets
-
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoredMethods.
-# IgnoredMethods: respond_to, define_method
-Style/SymbolProc:
-  Exclude:
-    - 'demo/threads.rb'
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/rr.rb'
-    - 'lib/net/dns/rr/a.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, AllowSafeAssignment.
-# SupportedStyles: require_parentheses, require_no_parentheses, require_parentheses_when_complex
-Style/TernaryParentheses:
-  Exclude:
-    - 'lib/net/dns/packet.rb'
 
 # Offense count: 12
 # Cop supports --auto-correct.

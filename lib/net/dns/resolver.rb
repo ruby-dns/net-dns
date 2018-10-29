@@ -1002,7 +1002,7 @@ module Net
           raise NoResponseError, message
         end
 
-        @logger.info "Received #{ans[0].size} bytes from #{ans[1][2] + ":" + ans[1][1].to_s}"
+        @logger.info "Received #{ans[0].size} bytes from #{ans[1][2] + ':' + ans[1][1].to_s}"
         response = Net::DNS::Packet.parse(ans[0], ans[1])
 
         if response.header.truncated? && (not ignore_truncated?)
@@ -1042,7 +1042,7 @@ module Net
         query(name, Net::DNS::MX, cls).answer.each do |entry|
           arr << entry if entry.type == 'MX'
         end
-        arr.sort_by { |a| a.preference }
+        arr.sort_by(&:preference)
       end
 
       private
@@ -1062,11 +1062,11 @@ module Net
 
             case line
             when /^\s*domain\s+(\S+)/
-              self.domain = $1
+              self.domain = Regexp.last_match(1)
             when /^\s*search\s+(.*)/
-              self.searchlist = $1.split(" ")
+              self.searchlist = Regexp.last_match(1).split(" ")
             when /^\s*nameserver\s+(.*)/
-              nameservers << $1.split(" ")
+              nameservers << Regexp.last_match(1).split(" ")
             end
           end
           self.nameservers = nameservers.flatten
@@ -1161,7 +1161,7 @@ module Net
                 next
               end
 
-              while (buffer.size < len)
+              while buffer.size < len
                 left = len - buffer.size
                 temp, from = socket.recvfrom(left)
                 buffer += temp

@@ -88,7 +88,7 @@ module Net
                       input
                     when Integer # Address in numeric form
                       tmp = [(input >> 24), (input >> 16) & 0xFF, (input >> 8) & 0xFF, input & 0xFF]
-                      tmp = tmp.collect { |x| x.to_s }.join(".")
+                      tmp = tmp.collect(&:to_s).join(".")
                       IPAddr.new(tmp)
                     when String
                       IPAddr.new(input)

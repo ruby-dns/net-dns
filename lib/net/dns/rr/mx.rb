@@ -69,7 +69,7 @@ module Net # :nodoc:
             raise ArgumentError, "Invalid MX section `#{str}'"
           end
 
-          [$1.to_i, $2]
+          [Regexp.last_match(1).to_i, Regexp.last_match(2)]
         end
 
         def build_pack

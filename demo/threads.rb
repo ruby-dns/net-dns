@@ -15,6 +15,4 @@ for dom in a
   end
 end
 
-threads.each do |t|
-  t.join
-end
+threads.each(&:join)

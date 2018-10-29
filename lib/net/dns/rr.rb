@@ -3,7 +3,7 @@ require_relative 'names'
 require_relative 'rr/types'
 require_relative 'rr/classes'
 
-%w(a aaaa cname hinfo mr mx ns ptr soa srv txt).each do |file|
+%w[a aaaa cname hinfo mr mx ns ptr soa srv txt].each do |file|
   require_relative "rr/#{file}"
 end
 
@@ -220,7 +220,7 @@ module Net
       #   #=> "example.com.            7200    IN      MX      10 mailhost.example.com."
       #
       def to_s
-        items = to_a.map { |e| e.to_s }
+        items = to_a.map(&:to_s)
         if @name.size < 24
           items.pack("A24 A8 A8 A8 A*")
         else
@@ -248,22 +248,22 @@ module Net
 
         # Name of RR - mandatory
         begin
-          @name = $1.downcase
+          @name = Regexp.last_match(1).downcase
         rescue NoMethodError
           raise ArgumentError, "Missing name field in RR string #{rrstring}"
         end
 
         # Time to live for RR, default 3 hours
-        @ttl = $2 ? $2.to_i : 10800
+        @ttl = Regexp.last_match(2) ? Regexp.last_match(2).to_i : 10800
 
         # RR class, default to IN
-        @cls = Net::DNS::RR::Classes.new $3
+        @cls = Net::DNS::RR::Classes.new Regexp.last_match(3)
 
         # RR type, default to A
-        @type = Net::DNS::RR::Types.new $4
+        @type = Net::DNS::RR::Types.new Regexp.last_match(4)
 
         # All the rest is data
-        @rdata = $5 ? $5.strip : ""
+        @rdata = Regexp.last_match(5) ? Regexp.last_match(5).strip : ""
 
         if self.class == Net::DNS::RR
           Net::DNS::RR.const_get(@type.to_s).new(rrstring)
@@ -290,7 +290,7 @@ module Net
         if self.class == Net::DNS::RR
           Net::DNS::RR.const_get(@type.to_s).new(args)
         else
-          hash = args - [:name, :ttl, :type, :cls]
+          hash = args - %i[name ttl type cls]
           if hash.has_key? :rdata
             subclass_new_from_string(hash[:rdata])
           else

@@ -217,7 +217,7 @@ module Net
         retval += @header.inspect
 
         retval += "\n"
-        section = (@header.opCode == "UPDATE") ? "ZONE" : "QUESTION"
+        section = @header.opCode == "UPDATE" ? "ZONE" : "QUESTION"
         retval += ";; #{section} SECTION (#{@header.qdCount} record#{@header.qdCount == 1 ? '' : 's'}):\n"
         @question.each do |qr|
           retval += ";; " + qr.inspect + "\n"
@@ -225,7 +225,7 @@ module Net
 
         unless @answer.size == 0
           retval += "\n"
-          section = (@header.opCode == "UPDATE") ? "PREREQUISITE" : "ANSWER"
+          section = @header.opCode == "UPDATE" ? "PREREQUISITE" : "ANSWER"
           retval += ";; #{section} SECTION (#{@header.anCount} record#{@header.anCount == 1 ? '' : 's'}):\n"
           @answer.each do |rr|
             retval += rr.inspect + "\n"
@@ -234,7 +234,7 @@ module Net
 
         unless @authority.size == 0
           retval += "\n"
-          section = (@header.opCode == "UPDATE") ? "UPDATE" : "AUTHORITY"
+          section = @header.opCode == "UPDATE" ? "UPDATE" : "AUTHORITY"
           retval += ";; #{section} SECTION (#{@header.nsCount} record#{@header.nsCount == 1 ? '' : 's'}):\n"
           @authority.each do |rr|
             retval += rr.inspect + "\n"
