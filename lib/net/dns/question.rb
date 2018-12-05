@@ -165,7 +165,7 @@ module Net
 
       def check_name(input)
         name = input.to_s.strip
-        if name =~ /[^\w\.\-_]/
+        if name =~ /[^\w\.\-_\*]/
           raise NameInvalid, "Invalid Question Name `#{name}'"
         end
 
