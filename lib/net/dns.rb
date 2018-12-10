@@ -1,5 +1,4 @@
 require_relative 'dns/version'
-require_relative 'dns/core_ext'
 require_relative 'dns/resolver'
 require_relative 'dns/rr'
 
