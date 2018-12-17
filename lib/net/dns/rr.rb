@@ -284,7 +284,7 @@ module Net
         if self.class == Net::DNS::RR
           Net::DNS::RR.const_get(@type.to_s).new(args)
         else
-          hash = args - %i[name ttl type cls]
+          hash = args.delete_if { |k, _| %i[name ttl type cls].include?(k) }
           if hash.key? :rdata
             subclass_new_from_string(hash[:rdata])
           else

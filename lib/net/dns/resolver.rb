@@ -234,7 +234,6 @@ module Net
         config.is_a?(Hash) or
             raise(ArgumentError, "Expected `config' to be a Hash")
 
-        # config.downcase_keys!
         @config = Defaults.merge config
         @raw = false
 
