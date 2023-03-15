@@ -1147,7 +1147,7 @@ module Net
               @logger.info "Receiving #{len} bytes..."
 
               if len == 0
-                @logger.warn "Receiving 0 lenght packet from nameserver #{ns}, trying next."
+                @logger.warn "Receiving 0 length packet from nameserver #{ns}, trying next."
                 next
               end
 
@@ -1170,6 +1170,7 @@ module Net
             socket.close
           end
         end
+        ans
       end
 
       def query_udp(packet, packet_data)
