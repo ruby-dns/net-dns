@@ -1163,7 +1163,7 @@ module Net
               end
             end
             return [buffer, ["", @config[:port], ns.to_s, ns.to_s]]
-          rescue TimeoutError
+          rescue Timeout::Error
             @logger.warn "Nameserver #{ns} not responding within TCP timeout, trying next one"
             next
           ensure
@@ -1193,7 +1193,7 @@ module Net
               end
             end
             break if ans
-          rescue TimeoutError
+          rescue Timeout::Error
             @logger.warn "Nameserver #{ns} not responding within UDP timeout, trying next one"
             next
           end
