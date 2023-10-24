@@ -43,6 +43,15 @@ class QuestionTest < Minitest::Test
       Net::DNS::Question.parse([])
     end
     assert_raises(ArgumentError) do
+      Net::DNS::Question.parse("[]")
+    end
+    assert_raises(ArgumentError) do
+      Net::DNS::Question.parse("12344")
+    end
+    assert_raises(ArgumentError) do
+      Net::DNS::Question.parse("12345")
+    end
+    assert_raises(ArgumentError) do
       Net::DNS::Question.parse("test")
     end
   end

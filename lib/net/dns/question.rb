@@ -173,6 +173,8 @@ module Net
       end
 
       def new_from_binary(data)
+        raise NameInvalid if data.size <= 4
+
         str, type, cls = data.unpack("a#{data.size - 4}nn")
         @qName = build_qName(str)
         @qType = Net::DNS::RR::Types.new type
