@@ -1,33 +1,44 @@
 # Changelog
 
 
+## Release 0.20.0
+
+- CHANGED: Minimum Ruby version is now 2.7
+
+- CHANGED: Merged changes from gitlab-net-dns @stanhu
+
+- FIXED: Fixed undefined method 'size' errors (GH-46, GH-81) @stanhu
+
+- FIXED: uninitialized constant Net::DNS::Resolver::TimeoutError (GH-82, GH-83, GH-84)
+
+
 ## Release 0.9.0
-
-- FIXED: Fixed CI run (GH-77).
-
-- FIXED: Fixed deprecated references to Fixnum.
 
 - CHANGED: Major code cleanup.
 
 - CHANGED: Minimum Ruby version is now 2.1
 
+- FIXED: Fixed CI run (GH-77).
+
+- FIXED: Fixed deprecated references to Fixnum.
+
 
 ## Release 0.8.0
 
-- FIXED: undefined local variable or method `source_address_inet6' (GH-40). [Thanks @simsicon]
+- FIXED: undefined local variable or method `source_address_inet6' (GH-40). @simsicon
 
-- FIXED: Fixed bug on parsing multiple nameservers on different lines (GH-45). [Thanks @nicholasren]
+- FIXED: Fixed bug on parsing multiple nameservers on different lines (GH-45). @nicholasren
+  
+- CHANGED: Dropped duplicate query ID filter. Query ID is now randomically generated but it's not guaranteed to be unique (GH-39). @ebroder
 
-- CHANGED: Dropped duplicate query ID filter. Query ID is now randomically generated but it's not guaranteed to be unique (GH-39). [Thanks @ebroder]
-
-- CHANGED: require 'net/dns' is now the preferred way to load the library (GH-37). [Thanks @johnroa]
+- CHANGED: require 'net/dns' is now the preferred way to load the library (GH-37). @johnroa
 
 - CHANGED: Removed setup.rb installation script.
 
 
 ## Release 0.7.1
 
-- FIXED: Invalid file permissions on several files (GH-35) [Thanks @jamespharaoh]
+- FIXED: Invalid file permissions on several files (GH-35) @jamespharaoh
 
 
 ## Release 0.7.0
@@ -38,15 +49,15 @@
 
 - FIXED: Cleaned up require dependency and recursive require statements.
 
-- FIXED: Use RbConfig instead of obsolete and deprecated Config (GH-28, GH-33) [Thanks @shadowbq, @eik3]
+- FIXED: Use RbConfig instead of obsolete and deprecated Config (GH-28, GH-33) @shadowbq, @eik3
 
-- FIXED: SRV record not required by Net::DNS::RR (GH-27) [Thanks @sebastian]
+- FIXED: SRV record not required by Net::DNS::RR (GH-27) @sebastian
 
-- FIXED: Resolver now supports IPv6 (GH-32) [Thanks @jamesotron]
+- FIXED: Resolver now supports IPv6 (GH-32) @jamesotron
 
-- FIXED: Net::DNS::RR::PTR references an invalid parameter (GH-19) [Thanks @dd23]
+- FIXED: Net::DNS::RR::PTR references an invalid parameter (GH-19) @dd23
 
-- FIXED: Net::DNS::Question changes input arguments (GH-7) [Thanks @gfarfl]
+- FIXED: Net::DNS::Question changes input arguments (GH-7) @gfarfl
 
 - CHANGED: Refactoring unit test to follow most used Ruby conventions.
 
@@ -67,9 +78,9 @@
 
 - ADDED: Net::DNS::Packet#to_s method (alias of #inspect)
 
-- FIXED: typo in lib/net/dns/rr/ptr.rb [Thanks Chris Lundquist]
+- FIXED: typo in lib/net/dns/rr/ptr.rb. Thanks Chris Lundquist.
 
-- FIXED: warning: method redefined; discarding old inspect (GH-3) [Thanks Kevin Baker]
+- FIXED: warning: method redefined; discarding old inspect (GH-3). Thanks Kevin Baker.
 
 - FIXED: issue with rescue ArgumentError (GH-5) and with IPAddr handling (GH-6)
 
