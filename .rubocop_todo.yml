@@ -370,14 +370,6 @@ Style/RedundantArgument:
     - 'lib/net/dns/rr/soa.rb'
     - 'lib/net/dns/rr/txt.rb'
 
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil, AllowedMethods, MaxChainLength.
-# AllowedMethods: present?, blank?, presence, try, try!
-Style/SafeNavigation:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
-
 # Offense count: 30
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: Mode.
