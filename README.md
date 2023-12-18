@@ -12,7 +12,7 @@ Net::DNS is a DNS library written in pure Ruby. It started as a port of Perl Net
 
 ## Requirements
 
-Ruby >= 2.1
+Ruby >= 2.6
 
 
 ## Installation
