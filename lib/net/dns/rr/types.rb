@@ -64,6 +64,7 @@ module Net # :nodoc:
           'ZONEMD' => 63,     # RFC 8976
           'SVCB' => 64,       # RFC 9460
           'HTTPS' => 65,      # RFC 9460
+          'SPF' => 99,        # RFC 4408 (obsolete)
           'UINFO' => 100,     # non-standard (obsolete)
           'UID' => 101,       # non-standard (obsolete)
           'GID' => 102,       # non-standard (obsolete)
