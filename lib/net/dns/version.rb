@@ -3,6 +3,6 @@
 module Net
   module DNS
     # The current library version.
-    VERSION = "0.9.0"
+    VERSION = "0.20.0"
   end
 end
