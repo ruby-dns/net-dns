@@ -14,17 +14,6 @@ Gemspec/RequireMFA:
   Exclude:
     - 'net-dns.gemspec'
 
-# Offense count: 9
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentOneStep, IndentationWidth.
-# SupportedStyles: case, end
-Layout/CaseIndentation:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/rr.rb'
-    - 'lib/net/dns/rr/a.rb'
-    - 'lib/net/dns/rr/aaaa.rb'
-
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
 Layout/ElseAlignment:
