@@ -32,12 +32,10 @@ module Net # :nodoc:
         private
 
         def subclass_new_from_hash(options)
-          if options.key?(:preference) && options.key?(:exchange)
-            @preference = options[:preference].to_i
-            @exchange = options[:exchange]
-          else
-            raise ArgumentError, ":preference and :exchange fields are mandatory"
-          end
+          raise ArgumentError, ":preference and :exchange fields are mandatory" unless options.key?(:preference) && options.key?(:exchange)
+
+          @preference = options[:preference].to_i
+          @exchange = options[:exchange]
         end
 
         def subclass_new_from_string(str)

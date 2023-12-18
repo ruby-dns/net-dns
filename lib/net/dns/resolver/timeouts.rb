@@ -7,11 +7,9 @@ module Net # :nodoc:
         attr_reader :seconds
 
         def initialize(seconds)
-          if seconds.is_a?(Numeric) && seconds >= 0
-            @seconds = seconds
-          else
-            raise ArgumentError, "Invalid value for tcp timeout"
-          end
+          raise ArgumentError, "Invalid value for tcp timeout" unless seconds.is_a?(Numeric) && seconds >= 0
+
+          @seconds = seconds
         end
 
         # Returns a string representation of the timeout corresponding

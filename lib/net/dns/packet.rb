@@ -261,11 +261,9 @@ module Net
       # Assigns a <tt>Net::DNS::Header</tt> <tt>object</tt>
       # to this <tt>Net::DNS::Packet</tt> instance.
       def header=(object)
-        if object.is_a? Net::DNS::Header
-          @header = object
-        else
-          raise ArgumentError, "Argument must be a Net::DNS::Header object"
-        end
+        raise ArgumentError, "Argument must be a Net::DNS::Header object" unless object.is_a? Net::DNS::Header
+
+        @header = object
       end
 
       # Assigns a <tt>Net::DNS::Question</tt> <tt>object</tt>
@@ -273,11 +271,10 @@ module Net
       def question=(object)
         case object
         when Array
-          if object.all? { |x| x.is_a? Net::DNS::Question }
-            @question = object
-          else
-            raise ArgumentError, "Some of the elements is not an Net::DNS::Question object"
-          end
+          raise ArgumentError, "Some of the elements is not an Net::DNS::Question object" unless object.all? { |x| x.is_a? Net::DNS::Question }
+
+          @question = object
+
         when Net::DNS::Question
           @question = [object]
         else
@@ -290,11 +287,10 @@ module Net
       def answer=(object)
         case object
         when Array
-          if object.all? { |x| x.is_a? Net::DNS::RR }
-            @answer = object
-          else
-            raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
-          end
+          raise ArgumentError, "Some of the elements is not an Net::DNS::RR object" unless object.all? { |x| x.is_a? Net::DNS::RR }
+
+          @answer = object
+
         when Net::DNS::RR
           @answer = [object]
         else
@@ -307,11 +303,10 @@ module Net
       def additional=(object)
         case object
         when Array
-          if object.all? { |x| x.is_a? Net::DNS::RR }
-            @additional = object
-          else
-            raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
-          end
+          raise ArgumentError, "Some of the elements is not an Net::DNS::RR object" unless object.all? { |x| x.is_a? Net::DNS::RR }
+
+          @additional = object
+
         when Net::DNS::RR
           @additional = [object]
         else
@@ -324,11 +319,10 @@ module Net
       def authority=(object)
         case object
         when Array
-          if object.all? { |x| x.is_a? Net::DNS::RR }
-            @authority = object
-          else
-            raise ArgumentError, "Some of the elements is not an Net::DNS::RR object"
-          end
+          raise ArgumentError, "Some of the elements is not an Net::DNS::RR object" unless object.all? { |x| x.is_a? Net::DNS::RR }
+
+          @authority = object
+
         when Net::DNS::RR
           @authority = [object]
         else

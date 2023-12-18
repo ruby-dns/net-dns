@@ -23,11 +23,9 @@ module Net # :nodoc:
         end
 
         def subclass_new_from_hash(args)
-          if args.key? :null
-            @null = args[:null]
-          else
-            raise ArgumentError, ":null field is mandatory but missing"
-          end
+          raise ArgumentError, ":null field is mandatory but missing" unless args.key? :null
+
+          @null = args[:null]
         end
 
         def subclass_new_from_string(str)

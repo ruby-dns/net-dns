@@ -41,11 +41,9 @@ module Net # :nodoc:
         end
 
         def number?(num)
-          if num.is_a?(Integer) && (num > 0)
-            true
-          else
-            raise ArgumentError, "Wrong format field: #{num} not a number or less than zero"
-          end
+          raise ArgumentError, "Wrong format field: #{num} not a number or less than zero" unless num.is_a?(Integer) && (num > 0)
+
+          true
         end
 
         def subclass_new_from_string(str)

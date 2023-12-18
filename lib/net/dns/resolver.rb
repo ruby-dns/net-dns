@@ -1074,14 +1074,14 @@ module Net
         if ENV['LOCALDOMAIN']
           self.domain = ENV['LOCALDOMAIN']
         end
-        if ENV['RES_OPTIONS']
-          ENV['RES_OPTIONS'].split(" ").each do |opt|
-            name, val = opt.split(":")
-            begin
-              eval("self.#{name} = #{val}")
-            rescue NoMethodError
-              raise ArgumentError, "Invalid ENV option #{name}"
-            end
+        return unless ENV['RES_OPTIONS']
+
+        ENV['RES_OPTIONS'].split(" ").each do |opt|
+          name, val = opt.split(":")
+          begin
+            eval("self.#{name} = #{val}")
+          rescue NoMethodError
+            raise ArgumentError, "Invalid ENV option #{name}"
           end
         end
       end

@@ -75,11 +75,9 @@ module Net # :nodoc:
         # Be able to control the default type to assign when
         # type is +nil+. Default to +A+
         def self.default=(str)
-          if TYPES.key? str
-            @@default = TYPES[str]
-          else
-            raise ArgumentError, "Unknown type #{str}"
-          end
+          raise ArgumentError, "Unknown type #{str}" unless TYPES.key? str
+
+          @@default = TYPES[str]
         end
 
         # Checks whether +type+ is a valid RR type.
@@ -99,11 +97,10 @@ module Net # :nodoc:
         def self.to_str(type)
           case type
           when Integer
-            if TYPES.invert.key? type
-              TYPES.invert[type]
-            else
-              raise ArgumentError, "Unknown type number #{type}"
-            end
+            raise ArgumentError, "Unknown type number #{type}" unless TYPES.invert.key? type
+
+            TYPES.invert[type]
+
           else
             raise ArgumentError, "Wrong type class: #{type.class}"
           end
@@ -167,23 +164,20 @@ module Net # :nodoc:
             # TODO!!!
           else
             # String with name of type
-            if TYPES.key? type
-              @str = type
-              @num = TYPES[type]
-            else
-              raise ArgumentError, "Unknown type #{type}"
-            end
+            raise ArgumentError, "Unknown type #{type}" unless TYPES.key? type
+
+            @str = type
+            @num = TYPES[type]
+
           end
         end
 
         # Contructor for numeric data type.
         def new_from_num(type)
-          if TYPES.invert.key? type
-            @num = type
-            @str = TYPES.invert[type]
-          else
-            raise ArgumentError, "Unkown type number #{type}"
-          end
+          raise ArgumentError, "Unkown type number #{type}" unless TYPES.invert.key? type
+
+          @num = type
+          @str = TYPES.invert[type]
         end
       end
     end

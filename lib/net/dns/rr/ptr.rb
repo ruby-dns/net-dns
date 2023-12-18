@@ -40,11 +40,9 @@ module Net
         end
 
         def subclass_new_from_hash(args)
-          if args.key?(:ptrdname) || args.key?(:ptr)
-            @ptrdname = args[:ptrdname]
-          else
-            raise ArgumentError, ":ptrdname or :ptr field is mandatory"
-          end
+          raise ArgumentError, ":ptrdname or :ptr field is mandatory" unless args.key?(:ptrdname) || args.key?(:ptr)
+
+          @ptrdname = args[:ptrdname]
         end
 
         def subclass_new_from_string(str)

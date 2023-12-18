@@ -131,13 +131,11 @@ module Net
         attr_reader :code, :type, :explanation
 
         def initialize(code)
-          if (0..10).cover? code
-            @code         = code
-            @type         = RCodeType[code]
-            @explanation  = RCodeErrorString[code]
-          else
-            raise ArgumentError, "RCode `#{code}' out of range"
-          end
+          raise ArgumentError, "RCode `#{code}' out of range" unless (0..10).cover? code
+
+          @code         = code
+          @type         = RCodeType[code]
+          @explanation  = RCodeErrorString[code]
         end
 
         def to_s
@@ -205,11 +203,9 @@ module Net
       # See also each option for a detailed explanation of usage.
       #
       def initialize(arg = {})
-        if arg.is_a? Hash
-          new_from_hash(arg)
-        else
-          raise ArgumentError, "Wrong argument class `#{arg.class}'"
-        end
+        raise ArgumentError, "Wrong argument class `#{arg.class}'" unless arg.is_a? Hash
+
+        new_from_hash(arg)
       end
 
       # Creates a new Net::DNS::Header object from binary data, which is
@@ -225,13 +221,11 @@ module Net
       #     #=> "true" if it comes from authoritative name server
       #
       def self.parse(arg)
-        if arg.is_a? String
-          o = allocate
-          o.send(:new_from_binary, arg)
-          o
-        else
-          raise ArgumentError, "Wrong argument class `#{arg.class}'"
-        end
+        raise ArgumentError, "Wrong argument class `#{arg.class}'" unless arg.is_a? String
+
+        o = allocate
+        o.send(:new_from_binary, arg)
+        o
       end
 
       # Inspect method, prints out all the options and relative values.
@@ -329,11 +323,9 @@ module Net
       # performing security tests.
       #
       def id=(val)
-        if (0..65_535).cover? val
-          @id = val
-        else
-          raise ArgumentError, "ID `#{val}' out of range"
-        end
+        raise ArgumentError, "ID `#{val}' out of range" unless (0..65_535).cover? val
+
+        @id = val
       end
 
       # Checks whether the header is a query (+qr+ bit set to 0)
@@ -392,11 +384,9 @@ module Net
       #   header.opCode = Header::STATUS
       #
       def opCode=(val)
-        if (0..2).cover? val
-          @opCode = val
-        else
-          raise WrongOpcodeError, "Wrong opCode value (#{val}), must be QUERY, IQUERY or STATUS"
-        end
+        raise WrongOpcodeError, "Wrong opCode value (#{val}), must be QUERY, IQUERY or STATUS" unless (0..2).cover? val
+
+        @opCode = val
       end
 
       # Checks whether the response is authoritative
@@ -620,41 +610,33 @@ module Net
       # Sets the number of entries in a question section
       #
       def qdCount=(val)
-        if (0..65_535).cover? val
-          @qdCount = val
-        else
-          raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
-        end
+        raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535" unless (0..65_535).cover? val
+
+        @qdCount = val
       end
 
       # Sets the number of RRs in an answer section
       #
       def anCount=(val)
-        if (0..65_535).cover? val
-          @anCount = val
-        else
-          raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
-        end
+        raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535" unless (0..65_535).cover? val
+
+        @anCount = val
       end
 
       # Sets the number of RRs in an authority section
       #
       def nsCount=(val)
-        if (0..65_535).cover? val
-          @nsCount = val
-        else
-          raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535"
-        end
+        raise WrongCountError, "Wrong number of count (#{val}), must be 0-65535" unless (0..65_535).cover? val
+
+        @nsCount = val
       end
 
       # Sets the number of RRs in an addictional section
       #
       def arCount=(val)
-        if (0..65_535).cover? val
-          @arCount = val
-        else
-          raise WrongCountError, "Wrong number of count: `#{val}' must be 0-65535"
-        end
+        raise WrongCountError, "Wrong number of count: `#{val}' must be 0-65535" unless (0..65_535).cover? val
+
+        @arCount = val
       end
 
       private

@@ -40,12 +40,10 @@ module Net # :nodoc:
         private
 
         def subclass_new_from_hash(options)
-          if options.key?(:cpu) && options.key?(:os)
-            @cpu = options[:cpu]
-            @os  = options[:os]
-          else
-            raise ArgumentError, ":cpu and :os fields are mandatory"
-          end
+          raise ArgumentError, ":cpu and :os fields are mandatory" unless options.key?(:cpu) && options.key?(:os)
+
+          @cpu = options[:cpu]
+          @os  = options[:os]
         end
 
         def subclass_new_from_string(str)
@@ -73,11 +71,9 @@ module Net # :nodoc:
         end
 
         def check_hinfo(input)
-          if input.to_s.strip =~ /^(?:["']?(.*?)["']?)\s+(?:["']?(.*?)["']?)$/
-            [Regexp.last_match(1), Regexp.last_match(2)]
-          else
-            raise ArgumentError, "Invalid HINFO Section `#{input}'"
-          end
+          raise ArgumentError, "Invalid HINFO Section `#{input}'" unless input.to_s.strip =~ /^(?:["']?(.*?)["']?)\s+(?:["']?(.*?)["']?)$/
+
+          [Regexp.last_match(1), Regexp.last_match(2)]
         end
 
         def build_pack

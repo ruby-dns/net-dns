@@ -34,9 +34,9 @@ module Net
             initialize_from_num(@@default)
           end
 
-          if @str.nil? || @num.nil?
-            raise ArgumentError, "Unable to create a `Classes' from `#{cls}'"
-          end
+          return unless @str.nil? || @num.nil?
+
+          raise ArgumentError, "Unable to create a `Classes' from `#{cls}'"
         end
 
         # Returns the class in number format
@@ -67,11 +67,9 @@ module Net
         # Be able to control the default class to assign when
         # cls argument is +nil+. Default to +IN+
         def self.default=(str)
-          if CLASSES[str]
-            @@default = CLASSES[str]
-          else
-            raise ArgumentError, "Unknown class `#{str}'"
-          end
+          raise ArgumentError, "Unknown class `#{str}'" unless CLASSES[str]
+
+          @@default = CLASSES[str]
         end
 
         # Returns whether <tt>cls</tt> is a valid RR class.

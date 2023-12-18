@@ -71,11 +71,9 @@ class RawSocket # :nodoc:
   end
 
   def check_port(port)
-    if (1..65_535).cover?(port) && port.is_a?(Integer)
-      port
-    else
-      raise ArgumentError, "Port #{port} not valid"
-    end
+    raise ArgumentError, "Port #{port} not valid" unless (1..65_535).cover?(port) && port.is_a?(Integer)
+
+    port
   end
 
   def genID
