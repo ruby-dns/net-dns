@@ -85,13 +85,6 @@ Layout/MultilineOperationIndentation:
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
-Lint/AmbiguousOperatorPrecedence:
-  Exclude:
-    - 'lib/net/dns/resolver.rb'
-    - 'lib/net/dns/rr/soa.rb'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
 Lint/AmbiguousRegexpLiteral:
   Exclude:
     - 'test/unit/rr/mr_test.rb'

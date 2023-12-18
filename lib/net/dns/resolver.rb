@@ -541,7 +541,7 @@ module Net
       # Set the number of times the resolver will try a query.
       # Default 4 times.
       def retry_number=(num)
-        num.is_a?(Integer) && (num > 0) or
+        (num.is_a?(Integer) && (num > 0)) or
             raise(ArgumentError, "Retry value must be a positive integer")
 
         @config[:retry_number] = num
