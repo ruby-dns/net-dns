@@ -20,8 +20,4 @@ Gem::Specification.new do |s|
   end
   s.require_paths = ["lib"]
   s.extra_rdoc_files = %w( LICENSE.txt )
-
-  s.add_development_dependency "mocha"
-  s.add_development_dependency "rake"
-  s.add_development_dependency "yard"
 end

@@ -6,21 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 3
-# Configuration parameters: EnforcedStyle, AllowedGems, Include.
-# SupportedStyles: Gemfile, gems.rb, gemspec
-# Include: **/*.gemspec, **/Gemfile, **/gems.rb
-Gemspec/DevelopmentDependencies:
-  Exclude:
-    - 'net-dns.gemspec'
-
-# Offense count: 3
-# Configuration parameters: Severity, Include.
-# Include: **/*.gemspec
-Gemspec/DuplicatedAssignment:
-  Exclude:
-    - 'net-dns.gemspec'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: Severity, Include.
