@@ -14,13 +14,6 @@ Gemspec/RequireMFA:
   Exclude:
     - 'net-dns.gemspec'
 
-# Offense count: 1
-# Configuration parameters: Severity, Include.
-# Include: **/*.gemspec
-Gemspec/RequiredRubyVersion:
-  Exclude:
-    - 'net-dns.gemspec'
-
 # Offense count: 9
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, IndentOneStep, IndentationWidth.
