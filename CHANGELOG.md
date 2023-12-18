@@ -11,6 +11,8 @@
 
 - FIXED: uninitialized constant Net::DNS::Resolver::TimeoutError (GH-82, GH-83, GH-84)
 
+- ADDED: Added URI/SPF/CAA type code
+
 
 ## Release 0.9.0
 
