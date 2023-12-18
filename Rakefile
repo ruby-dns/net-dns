@@ -1,7 +1,7 @@
 require "bundler/gem_tasks"
 
 task default: :test
-task test: [:minitest, :spec]
+task test: [:minitest, :spec] # rubocop:disable Style/SymbolArray
 
 
 require "rake/testtask"
