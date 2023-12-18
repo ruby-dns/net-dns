@@ -499,13 +499,11 @@ module Net
 
         @answer = []
         @header.anCount.times do
-          begin
-            rrobj, offset = Net::DNS::RR.parse_packet(data, offset)
-            @answer << rrobj
-            @logger.debug rrobj.inspect
-          rescue NameError => e
-            warn "Net::DNS unsupported record type: #{e.message}"
-          end
+          rrobj, offset = Net::DNS::RR.parse_packet(data, offset)
+          @answer << rrobj
+          @logger.debug rrobj.inspect
+        rescue NameError => e
+          warn "Net::DNS unsupported record type: #{e.message}"
         end
 
         #------------------------------------------------------------
@@ -516,13 +514,11 @@ module Net
 
         @authority = []
         @header.nsCount.times do
-          begin
-            rrobj, offset = Net::DNS::RR.parse_packet(data, offset)
-            @authority << rrobj
-            @logger.debug rrobj.inspect
-          rescue NameError => e
-            warn "Net::DNS unsupported record type: #{e.message}"
-          end
+          rrobj, offset = Net::DNS::RR.parse_packet(data, offset)
+          @authority << rrobj
+          @logger.debug rrobj.inspect
+        rescue NameError => e
+          warn "Net::DNS unsupported record type: #{e.message}"
         end
 
         #------------------------------------------------------------
@@ -532,13 +528,11 @@ module Net
 
         @additional = []
         @header.arCount.times do
-          begin
-            rrobj, offset = Net::DNS::RR.parse_packet(data, offset)
-            @additional << rrobj
-            @logger.debug rrobj.inspect
-          rescue NameError => e
-            warn "Net::DNS unsupported record type: #{e.message}"
-          end
+          rrobj, offset = Net::DNS::RR.parse_packet(data, offset)
+          @additional << rrobj
+          @logger.debug rrobj.inspect
+        rescue NameError => e
+          warn "Net::DNS unsupported record type: #{e.message}"
         end
       end
 

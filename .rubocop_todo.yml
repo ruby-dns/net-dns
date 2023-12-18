@@ -430,13 +430,6 @@ Style/RedundantArgument:
     - 'lib/net/dns/rr/soa.rb'
     - 'lib/net/dns/rr/txt.rb'
 
-# Offense count: 5
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantBegin:
-  Exclude:
-    - 'lib/net/dns/packet.rb'
-    - 'lib/net/dns/resolver.rb'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Style/RedundantFreeze:

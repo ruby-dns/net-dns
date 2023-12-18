@@ -1130,7 +1130,6 @@ module Net
         length = [packet_data.size].pack("n")
 
         @config[:nameservers].each do |ns|
-          begin
             buffer = ""
             socket = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
             socket.bind(Socket.pack_sockaddr_in(@config[:source_port], @config[:source_address].to_s))
@@ -1163,12 +1162,11 @@ module Net
               end
             end
             return [buffer, ["", @config[:port], ns.to_s, ns.to_s]]
-          rescue Timeout::Error
+        rescue Timeout::Error
             @logger.warn "Nameserver #{ns} not responding within TCP timeout, trying next one"
             next
-          ensure
+        ensure
             socket.close
-          end
         end
         ans
       end
@@ -1182,7 +1180,6 @@ module Net
         ans = nil
         response = ""
         @config[:nameservers].each do |ns|
-          begin
             @config[:udp_timeout].timeout do
               @logger.info "Contacting nameserver #{ns} port #{@config[:port]}"
               ans = if ns.ipv6?
@@ -1194,10 +1191,9 @@ module Net
               end
             end
             break if ans
-          rescue Timeout::Error
+        rescue Timeout::Error
             @logger.warn "Nameserver #{ns} not responding within UDP timeout, trying next one"
             next
-          end
         end
         ans
       end
