@@ -245,18 +245,18 @@ module Net
               # do stuff
             else
               ";; qr = #{@qr}\t" \
-              "opCode: #{opCode_str}\t" \
-              "aa = #{@aa}\t" \
-              "tc = #{@tc}\t" \
-              "rd = #{@rd}\n" \
-              ";; ra = #{@ra}\t" \
-              "ad = #{@ad}\t" \
-              "cd = #{@cd}\t" \
-              "rcode = #{@rCode.type}\n" \
-              ";; qdCount = #{@qdCount}\t" \
-              "anCount = #{@anCount}\t" \
-              "nsCount = #{@nsCount}\t" \
-              "arCount = #{@arCount}\n"
+                "opCode: #{opCode_str}\t" \
+                "aa = #{@aa}\t" \
+                "tc = #{@tc}\t" \
+                "rd = #{@rd}\n" \
+                ";; ra = #{@ra}\t" \
+                "ad = #{@ad}\t" \
+                "cd = #{@cd}\t" \
+                "rcode = #{@rCode.type}\n" \
+                ";; qdCount = #{@qdCount}\t" \
+                "anCount = #{@anCount}\t" \
+                "nsCount = #{@nsCount}\t" \
+                "arCount = #{@arCount}\n"
             end
       end
 

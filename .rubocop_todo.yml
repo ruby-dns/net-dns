@@ -65,14 +65,6 @@ Layout/IndentationWidth:
     - 'lib/net/dns/question.rb'
     - 'lib/net/dns/resolver.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented
-Layout/LineEndStringConcatenationIndentation:
-  Exclude:
-    - 'lib/net/dns/header.rb'
-
 # Offense count: 12
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, IndentationWidth.
