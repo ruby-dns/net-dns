@@ -331,15 +331,6 @@ Style/Documentation:
     - 'lib/net/dns/resolver.rb'
     - 'lib/net/dns/resolver/timeouts.rb'
 
-# Offense count: 6
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Exclude:
-    - 'lib/net/dns/rr.rb'
-    - 'test/unit/rr/types_test.rb'
-
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
 Style/EvalWithLocation:

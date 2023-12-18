@@ -10,6 +10,10 @@ AllCops:
 Style/BarePercentLiterals:
   EnforcedStyle: percent_q
 
+# Pick one option for consistency.
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
 # Be consistent. The trailing comma also allows easy reordering.
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: consistent_comma
