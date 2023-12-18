@@ -85,15 +85,6 @@ Layout/MultilineOperationIndentation:
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowForAlignment, EnforcedStyleForExponentOperator, EnforcedStyleForRationalLiterals.
-# SupportedStylesForExponentOperator: space, no_space
-# SupportedStylesForRationalLiterals: space, no_space
-Layout/SpaceAroundOperators:
-  Exclude:
-    - 'lib/net/dns/header.rb'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
 Lint/AmbiguousOperatorPrecedence:
   Exclude:
     - 'lib/net/dns/resolver.rb'

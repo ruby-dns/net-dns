@@ -674,12 +674,12 @@ module Net
         end
 
         arr = str.unpack("n C2 n4")
-        @id          =  arr[0]
+        @id = arr[0]
         @qr          = (arr[1] >> 7) & 0x01
         @opCode      = (arr[1] >> 3) & 0x0F
         @aa          = (arr[1] >> 2) & 0x01
         @tc          = (arr[1] >> 1) & 0x01
-        @rd          =  arr[1] & 0x1
+        @rd = arr[1] & 0x1
         @ra          = (arr[2] >> 7) & 0x01
         @ad          = (arr[2] >> 5) & 0x01
         @cd          = (arr[2] >> 4) & 0x01
