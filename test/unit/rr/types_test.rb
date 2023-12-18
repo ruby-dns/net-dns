@@ -53,7 +53,7 @@ class RRTypesTest < Minitest::Test
     assert_equal(true,  Net::DNS::RR::Types.valid?("A"))
     assert_equal(true,  Net::DNS::RR::Types.valid?(1))
     assert_equal(false, Net::DNS::RR::Types.valid?("Q"))
-    assert_equal(false, Net::DNS::RR::Types.valid?(12345))
+    assert_equal(false, Net::DNS::RR::Types.valid?(12_345))
     assert_raises(ArgumentError) do
       Net::DNS::RR::Types.valid?({})
     end
@@ -62,7 +62,7 @@ class RRTypesTest < Minitest::Test
   def test_to_str
     assert_equal("A", Net::DNS::RR::Types.to_str(1))
     assert_raises(ArgumentError) do
-      Net::DNS::RR::Types.to_str(12345)
+      Net::DNS::RR::Types.to_str(12_345)
     end
     assert_raises(ArgumentError) do
       Net::DNS::RR::Types.to_str("string")
