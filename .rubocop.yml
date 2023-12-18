@@ -1,3 +1,6 @@
 inherit_from:
-  - .rubocop_defaults.yml
   - .rubocop_todo.yml
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.7
