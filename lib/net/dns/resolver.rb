@@ -16,7 +16,7 @@ require 'net/dns/resolver/timeouts'
 #   Resolver("www.google.com") { |packet| puts packet.size + " bytes" }
 #   # => 484 bytes
 #
-def Resolver(name, type = Net::DNS::A, cls = Net::DNS::IN, &block)
+def Resolver(name, type = Net::DNS::A, cls = Net::DNS::IN)
   resolver = Net::DNS::Resolver.start(name, type, cls)
   if block_given?
     yield resolver
@@ -1125,7 +1125,7 @@ module Net
         packet
       end
 
-      def query_tcp(packet, packet_data)
+      def query_tcp(_packet, packet_data)
         ans = nil
         length = [packet_data.size].pack("n")
 
@@ -1171,7 +1171,7 @@ module Net
         ans
       end
 
-      def query_udp(packet, packet_data)
+      def query_udp(_packet, packet_data)
         socket4 = UDPSocket.new
         socket4.bind(@config[:source_address].to_s, @config[:source_port])
         socket6 = UDPSocket.new(Socket::AF_INET6)

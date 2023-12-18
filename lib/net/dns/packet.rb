@@ -339,7 +339,7 @@ module Net
       #
       # As you can see in the documentation for the <tt>Net::DNS::RR::A</tt> class,
       # the address returned is an instance of <tt>IPAddr</tt> class.
-      def each_address(&block)
+      def each_address
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::A
 
@@ -354,7 +354,7 @@ module Net
       #     puts "Nameserver found: #{ns}"
       #   end
       #
-      def each_nameserver(&block)
+      def each_nameserver
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::NS
 
@@ -369,7 +369,7 @@ module Net
       #     puts "Mail exchange #{name} has preference #{pref}"
       #   end
       #
-      def each_mx(&block)
+      def each_mx
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::MX
 
@@ -384,7 +384,7 @@ module Net
       #     puts "Canonical name: #{cname}"
       #   end
       #
-      def each_cname(&block)
+      def each_cname
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::CNAME
 
@@ -399,7 +399,7 @@ module Net
       #     puts "Pointer for resource: #{ptr}"
       #   end
       #
-      def each_ptr(&block)
+      def each_ptr
         @answer.each do |elem|
           next unless elem.class == Net::DNS::RR::PTR
 

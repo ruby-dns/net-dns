@@ -101,7 +101,7 @@ class ResolverTest < Minitest::Test
 
   private
 
-  def override_platform(new_platform, &block)
+  def override_platform(new_platform)
     raise LocalJumpError, "no block given" unless block_given?
 
     old_platform = C["host_os"]
