@@ -6,6 +6,10 @@ AllCops:
   TargetRubyVersion: 2.6
 
 
+# Array indentation should be consistent with method/variable definition.
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
 # %q() is easier to grep than %()
 Style/BarePercentLiterals:
   EnforcedStyle: percent_q
