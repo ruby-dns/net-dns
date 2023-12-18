@@ -90,8 +90,13 @@ module Net
       class PacketError < Error
       end
 
-      attr_reader :header, :question, :answer, :authority, :additional
-      attr_reader :answerfrom, :answersize
+      attr_reader :header
+      attr_reader :question
+      attr_reader :answer
+      attr_reader :authority
+      attr_reader :additional
+      attr_reader :answerfrom
+      attr_reader :answersize
 
       # Creates a new instance of <tt>Net::DNS::Packet</tt> class. Arguments are the
       # canonical name of the resource, an optional type field and an optional

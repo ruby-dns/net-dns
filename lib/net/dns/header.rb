@@ -128,7 +128,9 @@ module Net
                             "",
                             "",].freeze
 
-        attr_reader :code, :type, :explanation
+        attr_reader :code
+        attr_reader :type
+        attr_reader :explanation
 
         def initialize(code)
           raise ArgumentError, "RCode `#{code}' out of range" unless (0..10).cover? code

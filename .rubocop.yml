@@ -13,6 +13,9 @@ Layout/CaseIndentation:
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
+Style/AccessorGrouping:
+  EnforcedStyle: separated
+
 # %q() is easier to grep than %()
 Style/BarePercentLiterals:
   EnforcedStyle: percent_q

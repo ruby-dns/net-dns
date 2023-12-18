@@ -5,7 +5,10 @@ module Net # :nodoc:
       # RR type SRV
       #------------------------------------------------------------
       class SRV < RR
-        attr_reader :priority, :weight, :port, :host
+        attr_reader :priority
+        attr_reader :weight
+        attr_reader :port
+        attr_reader :host
 
         private
 

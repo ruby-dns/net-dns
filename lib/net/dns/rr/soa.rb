@@ -5,7 +5,13 @@ module Net # :nodoc:
       # RR type SOA
       #------------------------------------------------------------
       class SOA < RR
-        attr_reader :mname, :rname, :serial, :refresh, :retry, :expire, :minimum
+        attr_reader :mname
+        attr_reader :rname
+        attr_reader :serial
+        attr_reader :refresh
+        attr_reader :retry
+        attr_reader :expire
+        attr_reader :minimum
 
         private
 
