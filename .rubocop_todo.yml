@@ -287,15 +287,6 @@ Style/AccessorGrouping:
     - 'lib/net/dns/rr.rb'
 
 # Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: percent_q, bare_percent
-Style/BarePercentLiterals:
-  Exclude:
-    - 'lib/net/dns/rr/hinfo.rb'
-    - 'test/unit/rr/hinfo_test.rb'
-
-# Offense count: 2
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: nested, compact

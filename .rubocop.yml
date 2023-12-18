@@ -4,3 +4,8 @@ inherit_from:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 2.6
+
+
+# %q() is easier to grep than %()
+Style/BarePercentLiterals:
+  EnforcedStyle: percent_q
