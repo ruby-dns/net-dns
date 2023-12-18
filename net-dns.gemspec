@@ -19,5 +19,5 @@ Gem::Specification.new do |s|
     end
   end
   s.require_paths = ["lib"]
-  s.extra_rdoc_files = %w( LICENSE.txt )
+  s.extra_rdoc_files = %w(LICENSE.txt)
 end

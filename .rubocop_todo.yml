@@ -94,12 +94,6 @@ Layout/SpaceAroundOperators:
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
-Layout/SpaceInsidePercentLiteralDelimiters:
-  Exclude:
-    - 'net-dns.gemspec'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
 Lint/AmbiguousOperatorPrecedence:
   Exclude:
     - 'lib/net/dns/resolver.rb'
