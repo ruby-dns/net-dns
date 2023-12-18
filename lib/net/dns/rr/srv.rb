@@ -23,7 +23,7 @@ module Net # :nodoc:
 
           @host = []
           while offset < off_end
-            len = data.unpack("@#{offset} C")[0]
+            len = data.unpack1("@#{offset} C")
             offset += 1
             str = data[offset..offset + len - 1]
             offset += len

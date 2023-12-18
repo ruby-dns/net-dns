@@ -1141,7 +1141,7 @@ module Net
               @logger.info "Contacting nameserver #{ns} port #{@config[:port]}"
               socket.write(length + packet_data)
               ans = socket.recv(Net::DNS::INT16SZ)
-              len = ans.unpack("n")[0]
+              len = ans.unpack1("n")
 
               @logger.info "Receiving #{len} bytes..."
 

@@ -37,7 +37,7 @@ class HeaderTest < Minitest::Test
     @modified.arCount = 3
 
     @data = @modified.data
-    num = [(@data.unpack("n")[0] + 1)].pack("n")
+    num = [(@data.unpack1("n") + 1)].pack("n")
     @data[0] = num[0]
     @data[1] = num[1]
     @binary = Header.parse(@data)

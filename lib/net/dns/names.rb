@@ -26,7 +26,7 @@ module Net # :nodoc:
         loop do
           raise ExpandError, "Offset is greater than packet length!" if packetlen < (offset + 1)
 
-          len = packet.unpack("@#{offset} C")[0]
+          len = packet.unpack1("@#{offset} C")
 
           if len == 0
             offset += 1
@@ -34,7 +34,7 @@ module Net # :nodoc:
           elsif (len & 0xC0) == 0xC0
             raise ExpandError, "Packet ended before offset expand" if packetlen < (offset + INT16SZ)
 
-            ptr = packet.unpack("@#{offset} n")[0]
+            ptr = packet.unpack1("@#{offset} n")
             ptr &= 0x3FFF
             name2 = dn_expand(packet, ptr)[0]
             raise ExpandError, "Packet is malformed!" if name2.nil?
@@ -98,7 +98,7 @@ module Net # :nodoc:
             offset += INT16SZ
             break
           else
-            len = entry.unpack("C")[0]
+            len = entry.unpack1("C")
             elem = entry[1..len]
             str += [len, elem].pack("Ca*")
             names.update(entry.to_s => offset)

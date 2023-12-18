@@ -297,7 +297,7 @@ module Net
       def new_from_binary(data, offset)
         if self.class == Net::DNS::RR
           temp = dn_expand(data, offset)[1]
-          type = Net::DNS::RR::Types.new data.unpack("@#{temp} n")[0]
+          type = Net::DNS::RR::Types.new data.unpack1("@#{temp} n")
           (eval "Net::DNS::RR::#{type}").parse_packet(data, offset)
         else
           @name, offset = dn_expand(data, offset)

@@ -152,7 +152,7 @@ module Net
         result = ""
         offset = 0
         loop do
-          len = str.unpack("@#{offset} C")[0]
+          len = str.unpack1("@#{offset} C")
           break if len == 0
 
           offset += 1

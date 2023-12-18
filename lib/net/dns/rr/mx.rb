@@ -43,7 +43,7 @@ module Net # :nodoc:
         end
 
         def subclass_new_from_binary(data, offset)
-          @preference = data.unpack("@#{offset} n")[0]
+          @preference = data.unpack1("@#{offset} n")
           offset += 2
           @exchange, offset = dn_expand(data, offset)
           offset

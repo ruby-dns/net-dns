@@ -51,12 +51,12 @@ module Net # :nodoc:
         end
 
         def subclass_new_from_binary(data, offset)
-          len = data.unpack("@#{offset} C").first
+          len = data.unpack1("@#{offset} C")
           offset += 1
           @cpu = data[offset..(offset + len)]
           offset += len
 
-          len = data.unpack("@#{offset} C").first
+          len = data.unpack1("@#{offset} C")
           offset += 1
           @os = data[offset..(offset + len)]
           offset += len
