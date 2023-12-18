@@ -13,3 +13,7 @@ Style/BarePercentLiterals:
 # Be consistent. The trailing comma also allows easy reordering.
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: consistent_comma
+
+# Be consistent. The trailing comma also allows easy reordering.
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
