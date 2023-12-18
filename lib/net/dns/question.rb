@@ -179,7 +179,7 @@ module Net
         @qName = build_qName(str)
         @qType = Net::DNS::RR::Types.new type
         @qClass = Net::DNS::RR::Classes.new cls
-      rescue StandardError => e
+      rescue StandardError
         raise ArgumentError, "Invalid data: #{data.inspect}"
       end
     end
