@@ -86,7 +86,7 @@ class ResolverTest < Minitest::Test
     ["linux-gnu", false],
     ["mingw32", true],      # ruby 1.8.6 (2008-03-03 patchlevel 114) [i386-mingw32]
     ["mswin32", true],      # ruby 1.8.6 (2008-03-03 patchlevel 114) [i386-mswin32]
-    ["mswin32", true],      # ruby 1.8.6 (2008-04-22 rev 6555) [x86-jruby1.1.1]
+    ["mswin32", true], # ruby 1.8.6 (2008-04-22 rev 6555) [x86-jruby1.1.1]
   ].freeze
 
   C = Object.const_get(defined?(RbConfig) ? :RbConfig : :Config)::CONFIG

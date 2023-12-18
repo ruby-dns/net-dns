@@ -50,7 +50,7 @@ class RawSocket # :nodoc:
       [@protocol, 'C'],                   # protocol
       [0, 'n'],                           # checksum
       [@src_addr.to_i, 'N'],              # source
-      [@dest_addr.to_i, 'N'],             # destination
+      [@dest_addr.to_i, 'N'], # destination
     ])
     packet << make_transport_header(payload.size)
     packet << [payload].pack("a*")
@@ -140,7 +140,7 @@ class UdpRawSocket < RawSocket # :nodoc:
       [@src_port, 'n'], # source port
       [@dest_port, 'n'],       # destination port
       [8 + pay_size, 'n'],     # len
-      [0, 'n']                 # checksum (mandatory)
+      [0, 'n'], # checksum (mandatory)
     ])
   end
 end

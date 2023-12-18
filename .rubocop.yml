@@ -9,3 +9,7 @@ AllCops:
 # %q() is easier to grep than %()
 Style/BarePercentLiterals:
   EnforcedStyle: percent_q
+
+# Be consistent. The trailing comma also allows easy reordering.
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
