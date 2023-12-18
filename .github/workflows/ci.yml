@@ -6,6 +6,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  rubocop:
+    name: Rubocop
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+      - name: Install dependencies
+        run: bundle install
+      - run: bundle exec rubocop
+
   test:
     strategy:
       matrix:
