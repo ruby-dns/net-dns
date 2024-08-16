@@ -113,10 +113,10 @@ module Net
         # Constant for +rcode+ Response Code Refused Error
         REFUSED = 5
 
-        RCodeType = %w[NoError FormErr ServFail NXDomain NotImp
-                       Refused YXDomain YXRRSet NXRRSet NotAuth NotZone].freeze
+        RCodeType = Ractor.make_shareable(%w[NoError FormErr ServFail NXDomain NotImp
+                       Refused YXDomain YXRRSet NXRRSet NotAuth NotZone].freeze)
 
-        RCodeErrorString = ["No errors",
+        RCodeErrorString = Ractor.make_shareable(["No errors",
                             "The name server was unable to interpret the query",
                             "The name server was unable to process this query due to problem with the name server",
                             "Domain name referenced in the query does not exists",
@@ -126,7 +126,7 @@ module Net
                             "",
                             "",
                             "",
-                            "",].freeze
+                            "",].freeze)
 
         attr_reader :code
         attr_reader :type
@@ -152,7 +152,7 @@ module Net
       # Constant for +opCode+ status
       STATUS  = 2
       # Array with given strings
-      OPARR = %w[QUERY IQUERY STATUS].freeze
+      OPARR = Ractor.make_shareable(%w[QUERY IQUERY STATUS].freeze)
 
       # Reader for +id+ attribute
       attr_reader :id
